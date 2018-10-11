@@ -38,3 +38,4 @@ Dribbble: https://dribbble.com/mdbootstrap
 
 Contact:
 office@mdbootstrap.com
+added license
