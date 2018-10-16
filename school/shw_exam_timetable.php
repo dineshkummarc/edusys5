@@ -102,15 +102,16 @@ require("header.php");
 			<?php
 			$sql_sub="select distinct subject_name,exam_date,exam_name,start_time,end_time,present_class,section,academic_year from exam_timetable where academic_year='".$cur_academic_year."' and present_class='".$class."' and section='".$section."' and exam_name='".$exam_name."'";
 			$result_sub=mysqli_query($conn,$sql_sub);
+			//var_dump($sql_sub);
 			$row_count =1;
-		   foreach($result_sub as $value_sub)
-		   //$exam_date= date('d-m-Y', strtotime( $value_sub['exam_date'] ));
-			{
+		   foreach($result_sub as $value_sub){
+		   $exam_date= date('d-m-Y', strtotime( $value_sub['exam_date'] ));
+		
 			?>
            <tr>
 			<td><?php echo $row_count;?></td>
 			<td><?php echo $value_sub["subject_name"]; ?></td>
-			<td><?php echo $value_sub["exam_date"]; ?></td>
+			<td><?php echo $exam_date; ?></td>
 			<td><?php echo $value_sub["start_time"]." - ".$value_sub["end_time"]; ?></td>
 			<!--<td></td>-->
 			</tr>

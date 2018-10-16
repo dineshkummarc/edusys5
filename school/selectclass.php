@@ -12,6 +12,7 @@
 			  <option value="eighth standard">8th Standard</option>
 			   <option value="ninth standard">9th Standard</option>
 			  <option value="tenth standard">10th Standard</option>
+			  <!--
 			  <option value="first puc arts">1st PUC Arts</option>
 			  <option value="first puc commerce">1st PUC Commerce</option>
 			  <option value="first puc science">1st PUC Science</option>
@@ -21,5 +22,6 @@
 			  <option value="B.com 1st year">B.com 1st year</option>
 			  <option value="B.com 2nd year">B.com 2nd year</option>
 			  <option value="B.com 3rd year">B.com 3rd year</option>
+			  -->
 			</select>
 	  </div>	

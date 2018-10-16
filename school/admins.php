@@ -18,7 +18,7 @@ $result=mysqli_query($conn,$sql);
 	<th>User Name</th>
 	<th>Passwords</th>
 	<th>Access</th>
-	
+	<th>Email</th>
 	<th></th>
 	 </tr> 
 	 <?php 
@@ -33,6 +33,7 @@ $result=mysqli_query($conn,$sql);
 	 <td><?php echo $username;?></td> 
 	 <td>*****************</td> 
 	 <td><?php echo $user_access;?></td> 
+	 <td><?php echo $email;?></td> 
 	<td>
 		 <div class="btn-group">
         <a href="<?php echo 'edit_admin.php?id='.$row['id']; ?>" title="Edit">  <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>

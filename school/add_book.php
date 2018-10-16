@@ -41,7 +41,6 @@ require("connection.php");
 		  <label for="usr">Book Name:</label>
 		<input type="text" name="book_name" class="form-control" required>
 		</div>
-		<!--
 		<div class="form-group">
 		  <label for="usr">Select Category:</label>
 		  <select name="cat" class="form-control" required>
@@ -86,20 +85,16 @@ require("connection.php");
 				  
 	</select>
 	</div>
-	-->
 	
-		<div class="form-group">
-		  <label for="usr">Publisher</label>
-		<input type="text" name="cat" class="form-control">
-		</div>
-		
-		
 	     <div class="form-group">
 		  <label for="usr">Book ID:</label>
 		<input type="text" name="book_id" class="form-control" required>
 		</div>
 		
-		
+		<div class="form-group">
+		  <label for="usr">Shelf Number:</label>
+		<input type="text" name="shelf_no" class="form-control">
+		</div>
 		
 		<div class="form-group">
 		  <label for="usr">Author Name:</label>
@@ -114,6 +109,11 @@ require("connection.php");
 		<div class="form-group">
 		  <label for="usr">No.of Books:</label>
 		<input type="number" name="no_books" class="form-control" required>
+		</div>
+		
+		<div class="form-group">
+		  <label for="usr">Sponsored by:</label>
+		<input type="text" name="spons" class="form-control">
 		</div>
 		
 		&nbsp;<input type="submit" class="btn btn-success" value="Add Book" name="add_book">&nbsp;<br>

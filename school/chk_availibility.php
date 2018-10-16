@@ -93,14 +93,14 @@ require("connection.php");
 		 <div class="form-group">
 		<input type="text" name="name" class="form-control typeahead_book "  autocomplete="off" spellcheck="false" placeholder="Search Books" required>
 		</div>
-		
+	
 		<p><input type="submit" class="btn btn-success" name="availibility" value="Continue"></p>	
     </form>
 		<?php
 	if(isset($_GET["availibility"])){
 	
 	
-		$sql_book="select * from books where book_name='".$book_name."' and author='".$author."'";
+		$sql_book="select * from books where book_name='".$book_name."' and author='".$author."' and academic_year='".$cur_academic_year."'";
 		
 		$result_book=mysqli_query($conn,$sql_book);
 		if($row_book=mysqli_fetch_array($result_book,MYSQLI_ASSOC))
@@ -134,6 +134,7 @@ require("connection.php");
 			
 			?></span></span></p>
 		<hr>
+		<p><br></p>
 		
 		<h2>Book Details</h2>
 		<table class="table table-bordered" style="width: 100%; ">
@@ -144,7 +145,7 @@ require("connection.php");
 		</tr>
 		
 		<tr>
-		<td style="width: 50%; ">Publisher</td>
+		<td style="width: 50%; ">Category</td>
 		<td style="width: 50%; "><span style="color: #003399; "><?php echo $row_book["cat"];?></span></td>
 		</tr>
 		
@@ -161,6 +162,11 @@ require("connection.php");
 		<tr>
 		<td style="width: 50%; ">Book ID</td>
 		<td style="width: 50%; "><span style="color: #003399; "><?php echo $row_book["book_id"];?></span></td>
+		</tr>
+		
+		<tr>
+		<td style="width: 50%; ">Shelf No</td>
+		<td style="width: 50%; "><span style="color: #003399; "><?php echo $row_book["shelf_no"];?></span></td>
 		</tr>
 		
 		<tr>

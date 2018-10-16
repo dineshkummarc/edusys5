@@ -39,6 +39,7 @@ $password ="ajmal524";
 //$approved_senderid="SCHOOL";
 
 $message="Dear parents, ".$message_detail."-".$sch_name;
+echo $message;
 $enc_msg= rawurlencode($message); // Encoded message
 
 $fullapiurl="http://smsc.biz/httpapi/send?username=$username&password=$password&sender_id=$approved_senderid&route=T&phonenumber=$mob_number&message=$enc_msg";

@@ -6,8 +6,12 @@ $cur_academic_year = $_SESSION['academic_year'];
 	error_reporting("0");
 	require("header.php");
 	require("connection.php");
-	$filt_class=$_GET["filt_class"];
-	$exam_name=$_GET["exam_name"];
+	
+		$filt_class=$_SESSION["class"];
+		$section=$_SESSION["section"];
+
+$exam_name=$_GET["exam_name"];
+
 	?>
 	<head>
 <script>
@@ -23,72 +27,84 @@ function printDiv(income) {
 }
 </script>
 </head>
-<div class="container-fluid">
-	<div class="row">
-	<div class="col-sm-12"><br>
-	
-	<form class="form-inline" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="get">
-	
-	<div class="form-group">
-	<select class="form-control" name="filt_class" id="sel1">
-	<?php require("selectclass.php");?>
+			<div class="container-fluid">
+                <div class="row">
+                <div class="col-sm-12"><br>
+				
+				<form class="form-inline" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="get">
+					
+					
+					<div class="form-group">
+					  <?php echo '<select class="form-control" name="exam_name">';
+						echo '<option value="">Select Exam</option>';
+							$sql="select distinct exam_name from exams where academic_year='".$cur_academic_year."'";
+							$result=mysqli_query($conn,$sql);
+							foreach($result as $value)
+							{
+							?>
+							<option value='<?php echo $value["exam_name"];?>'><?php echo $value["exam_name"];?></option>
+							<?php
+							}
+							echo '</select><br>';
+						?>
+					</div>
+					 
+					  <input type="submit" class="btn btn-primary w3-card-4" name="filter" value="Get List">
+					 <button type="button"  class="btn btn-success btn-md w3-card-4" onclick="printDiv('study')">Print</button> 
+					  
+						
+					</form>
+					</div>
+					</div>
+					</div>
+					<div class="row">
+					
+					 <div class="col-sm-12"  id="income">
+					 <center><h3><?php echo strtoupper($filt_class)." , ".$section;?> Marks List</h3></center>
+					 
+					 <?php
+		
+			if(isset($_GET["success"]))
 
-	<div class="form-group">
-  <?php echo '<select class="form-control" name="exam_name">';
-	echo '<option value="">Select Exam</option>';
-		$sql="select distinct exam_name from exams where academic_year='".$cur_academic_year."'";
-		$result=mysqli_query($conn,$sql);
-		foreach($result as $value)
-		{
-		?>
-		<option value='<?php echo $value["exam_name"];?>'><?php echo $value["exam_name"];?></option>
-		<?php
-		}
-		echo '</select><br>';
-	?>
-</div>
-<input type="submit" class="btn btn-primary" name="filter" value="Get List">
-</form>
-</div>
-</div>
-</div>
-		
-		
-	<div class="row">
-			<div class="col-sm-12"  id="income">
-			 <center><h3><?php echo strtoupper($filt_class)." , ".$section;?> Marks List</h3></center>
-			 
-<?php
-if(isset($_GET["success"]))
-	{
-	  echo '<div class="alert alert-success">
-	   <strong>Success!</strong> Changes updated successfully
-	  </div>';
-	}
-		
-if(isset($_GET["failed"]))
-	{
-	echo '<div class="alert alert-danger">
-   <strong>Sorry!</strong> Something went wrong. try again.or contact your webmaster.
-  </div>';
-	}
-?>
+				{
+                  echo '<div class="alert alert-success">
+                   <strong>Success!</strong> Changes updated successfully
+                  </div>';
+					
+
+				}
+		if(isset($_GET["failed"]))
+
+				{
+
+					echo '<div class="alert alert-danger">
+                   <strong>Sorry!</strong> Something went wrong. try again.or contact your webmaster.
+                  </div>';
+			
+				}
+				?>
 							
-<div class="table-responsive">
+					 
+					 
+					 <div class="table-responsive">
     <table class="table table-bordered">
     <thead>
-    <?php 
+      
+   
+		<?php 
 		if((isset($_GET["filt_class"]))&&(isset($_GET["exam_name"]))){
 			$filt_class=$_GET["filt_class"];
 			$exam_name=$_GET["exam_name"];
 			$section=$_GET["section"];
-		}
+			
+			}
 		$sql_marks="select * from student_marks where academic_year='".$cur_academic_year."' and present_class='".$filt_class."' and exam_name='".$exam_name."' and section='".$section."'";
 		$result_marks=mysqli_query($conn,$sql_marks);
-		?>
+		//var_dump($sql_marks);
 		
+		?>
 		<tr>
-        <th>Sl No</th>
+         <th>Sl No</th>
         <th>Firstname</th>
         <th>Roll No</th>
 		<th>Exam Name</th>
@@ -102,7 +118,8 @@ if(isset($_GET["failed"]))
     <tbody>
 	
 	<?php 
-if($filt_class=="first standard"){ 
+		if($filt_class=="first standard"){ 
+	
 	$fa1=15;
 	$fa2=15;
 	$fa3=15;
@@ -268,22 +285,38 @@ if($filt_class=="first standard"){
 			?>
 			
 			</td>
+			
+			
 			<td>
 			<div class="btn-group">
-        <a href="<?php echo 'edit_marks.php?id='.$id.'&filt_class='.$filt_class; ?>" title="Edit">  <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>
+        <a href="<?php echo 'edit_marks.php?id='.$id; ?>" title="Edit">  <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>
         <a href="<?php echo 'delete_marks.php?id='.$id; ?>" title="Delete">  <i class="fa fa-trash-o fa-lg" style="color:red;" aria-hidden="true"></i></a>
-    </div>
-	</td>
-	</tr>
+       </div>
+			</td>
+		
+       
+      
+		
+       
+ 
+      </tr>
+	
 	<?php
    $row_count++;	
 	}
 	?>
-	</tbody>
+	
+     
+      
+    </tbody>
   </table>
-</div>
-</div>
-</div>
+                    </div>
+					</div>
+					</div>
+					
+					
+					
+					
 </div>
 <?php
 

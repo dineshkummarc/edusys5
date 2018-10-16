@@ -35,7 +35,7 @@ $characters = json_decode($data); // decode the JSON feed
 	foreach ($characters as $character) {
 		$mob_no=$character->phonenumber;
 		$mobile_no=substr($mob_no,2);
-		$sql="select first_name from students where academic_year='".$cur_academic_year."' and parent_contact='".$mobile_no."'";
+		$sql="select first_name from students where academic_year='".$cur_academic_year."' and parent_contact='".$mob_no."'";
 		$result=mysqli_query($conn,$sql);
 		if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 	{

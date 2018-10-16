@@ -11,7 +11,7 @@ $f3=$_GET['rec_no'];
 $f4=$_GET['rec_date'];
 $roll_no=$_GET['roll_no'];
 
-//////////////////// START SCHOOL DETAILS /////////////////////////////
+/////////////////////////////////START SCHOOL DETAILS ////////////////////////////////////////
 	
 	$sql_sch = "SELECT * FROM school_det ORDER BY ID DESC LIMIT 1";
 	$result_sch=mysqli_query($conn,$sql_sch);
@@ -24,7 +24,7 @@ $roll_no=$_GET['roll_no'];
 		
 		$sch_detail=$row_sch['sch_name']." ".$row_sch['location'];
 	}
-	////////////////// END SCHOOL DETAILS ////////////////////////
+	///////////////////////////////// END SCHOOL DETAILS ///////////////////////////////////////////
 
 $sql="select parent_contact from students where academic_year='".$cur_academic_year."' and first_name='".$f1."' and roll_no='".$roll_no."'";
 $result=mysqli_query($conn,$sql);
@@ -34,10 +34,13 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 		$present_class=$row["present_class"];
 	}
 
-		
+//require("sms.php");
+/*///////////////////////////////////////// sms start/////////////////////////////////////////////////*/
+			
 //API Details
 $username ="ma.musthafa6@gmail.com";
 $password ="ajmal524";
+//$approved_senderid="SCHOOL";
 
 $message="SCHOOL, Thank you ".$f1.". Your fee amount Rs.".$f2." has been received.Receipt no is ".$f3." and receipt date is ".$f4.".";
 $enc_msg= rawurlencode($message); // Encoded message
@@ -52,9 +55,11 @@ $result = curl_exec($ch);
 //echo $result ; // For Report or Code Check
 curl_close($ch);
 echo "<p>SMS Request Sent - Message id - $result </p>";
+			
+/*///////////////////////////////////////////////// sms end/////////////////////////////////////////////////////////////*/
+header("Location:description.php?first_name=".$f1."&roll_no=".$roll_no."&class=".$present_class."&suceess=success");
 
-//header("Location:description.php?first_name=".$f1."&roll_no=".$roll_no."&class=".$present_class."&suceess=success");
-
-header("Location:receipt.php?first_name=".$f1."&roll_no=".$roll_no."&class=".$present_class."&suceess=success");
 }
+
+
 ?>

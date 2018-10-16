@@ -10,7 +10,7 @@ session_start();
 	
 //$password=md5($password);
 	require("connection.php");
-	$sql='select first_name,admission_no,present_class from students where first_name="'.$user.'" and admission_no="'.$log_pas.'" and academic_year="'.$academic_year.'"';
+	$sql='select first_name,rollno,roll_no,present_class from students where first_name="'.$user.'" and roll_no="'.$log_pas.'" and academic_year="'.$academic_year.'"';
 	$result=mysqli_query($conn,$sql);
 	
 	
@@ -22,6 +22,7 @@ session_start();
 		$_SESSION['parents_pass']=$log_pas;
 		$_SESSION['academic_year']=$academic_year;
 		$_SESSION['parents_class']=$row["present_class"];
+		
 		$f=true;
 		}
 		else

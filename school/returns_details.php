@@ -38,10 +38,16 @@ require("connection.php");
 	<div class="panel panel-green">
      <div class="panel-heading"><h4>Library Details</h4></div>
       <div class="panel-body">
-	   <center>
+	   
+		
+	
+        <center>
 		<table class="table table-bordered" style="width: 95%; ">
-        <tbody>
+        
+		<tbody>
 		<tr>
+	
+		
 		<td style="width: 10%; "><span style="font-weight: bold;">SL No</span></td>
 		<td style="width: 15%; "><span style="font-weight: bold;">Borrower Name</span></td>
 		

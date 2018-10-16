@@ -7,8 +7,8 @@ $cur_academic_year = $_SESSION['academic_year'];
 	require("header.php");
 	require("connection.php");
 
-		$filt_class=$_GET["filt_class"];
-		//$section=$_SESSION["section"];
+		$filt_class=$_SESSION["class"];
+		$section=$_SESSION["section"];
 
 $exam_name=$_GET["exam_name"];
 $id=$_GET["id"];

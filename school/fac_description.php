@@ -12,7 +12,7 @@ require("header.php");
 		
 		$fac_id=$_GET["fac_id"];
 	
-	$sql="select * from faculty where fac_id='".$fac_id."'";
+	$sql="select * from faculty where academic_year='".$cur_academic_year."' and fac_id='".$fac_id."'";
 	$result=mysqli_query($conn,$sql);
 
 	while($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
@@ -104,6 +104,12 @@ require("header.php");
 </tbody>
 </table>
 </div>
+
+<h2 style="text-align: center; ">Submitted Certificates</h2>
+
+<p style="text-align: center; ">Adhaar Card&nbsp;<a href="<?php echo $row['fac_adhar_path'];?>">Click here</a></p>
+
+<p style="text-align: center; ">ID Card&nbsp;<a href="<?php echo $row['fac_id_path'];?>">Click here</a></p>
 
 <p style="text-align: center; ">
 <button class="btn btn-success" onclick="printDiv('income')">Print this page</button>

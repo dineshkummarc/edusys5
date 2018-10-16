@@ -11,10 +11,11 @@ if(isset($_POST["admin"]))
 	
 	$user_name=$_POST["user_name"];
 	$password=$_POST["password"];
-	$user_access="admin";
+	$user_access=$_POST["user_access"];
+	$email=$_POST["email"];
+	$academic_year=$_POST["academic_year"];
 	
-	
-	$sql="insert into ad_members (username,log_pas,user_access,academic_year) values('$user_name','$password','$user_access','$cur_academic_year')";
+	$sql="insert into ad_members (username,log_pas,user_access,email,academic_year) values('$user_name','$password','$user_access','$email','$academic_year')";
 	
 	
 	if ($conn->query($sql) === TRUE) 

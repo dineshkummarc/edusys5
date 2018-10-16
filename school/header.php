@@ -291,6 +291,7 @@ a:hover {
 		
 		<li><a href="ad_members.php"><i class="fa fa-fw fa-cog"></i> Add Admin</a></li>
 		<li><a href="add_fee_name.php"><i class="fa fa-fw fa-cog"></i> Add Fee Name</a></li>
+		<li><a href="add_marks_admin.php"><i class="fa fa-fw fa-cog"></i> Add Marks Admin</a></li>
 		<li>
 			<a href="add_exams.php"><i class="fa fa-fw fa-cog"></i> Add Exams</a>
 		</li>
@@ -329,7 +330,9 @@ a:hover {
 			<a href="admins.php"><i class="fa fa-fw fa-cog"></i> Admins</a>
 		</li>
 		<li><a href="all_fee_name.php"><i class="fa fa-fw fa-cog"></i> All Fee Names</a></li>
-	
+		<li>
+			<a href="all_marks_admin.php"><i class="fa fa-fw fa-cog"></i> Marks Admins</a>
+		</li>
 		
 		<li>
 			<a href="all_stages.php"><i class="fa fa-fw fa-cog"></i> All Stages</a>
@@ -359,7 +362,11 @@ a:hover {
                                 <a href="attendance.php">Take Attendance</a>
                                 
                             </li>
-							
+							<!--
+                            <li>
+                               <a href="exit_attendance.php">Exit Class</a>
+                            </li>
+							-->
                         </ul>
                     </li>  
 					
@@ -704,8 +711,9 @@ a:hover {
 							<li>
                                 <a href="chk_availibility.php">Check Availibility</a>
                             </li>
-							<li><a href="add_book.php">Add Book</a></li>
-							<li><a href="import_books.php">Import Books</a></li>
+							<li>
+                                <a href="add_book.php">Add Book</a>
+                            </li>
                             <li>
                                 <a href="issue_book.php">Issue Book</a>
                             </li>

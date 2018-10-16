@@ -57,7 +57,7 @@ var_dump($sql);
 	if ($conn->query($sql) === TRUE) 
 	{
 	var_dump($sql);
-   // header("Location:all_students.php?success=.'success'");	
+    header("Location:all_students.php?success=.'success'");	
 	}
 	}
 	}else

@@ -14,11 +14,13 @@ if(isset($_POST["add_book"]))
 	$author=$_POST["author"];
 	$edition=$_POST["edition"];
 	$no_books=$_POST["no_books"];
+	$shelf_no=$_POST["shelf_no"];
 
+	$spons=$_POST["spons"];
 	$id=$_POST["id"];
 	
 	
-	$sql='update books set book_name="'.$book_name.'",cat="'.$cat.'",book_id="'.$book_id.'",author="'.$author.'",edition="'.$edition.'",no_books="'.$no_books.'",tot_books=tot_books+"'.$no_books.'" where  id="'.$id.'"';
+	$sql="update books set book_name='".$book_name."',cat='".$cat."',book_id='".$book_id."',shelf_no='".$shelf_no."',author='".$author."',edition='".$edition."',no_books='".$no_books."',spons='".$spons."',no_books='".$no_books."',tot_books='".$no_books."' where  id='".$id."'";
 	
 	
 	if ($conn->query($sql) === TRUE) 
@@ -31,7 +33,7 @@ if(isset($_POST["add_book"]))
 	} 
 	else 
 	{
-	//var_dump($sql);			
+				
 	header("Location:add_book.php?failed=.'failed'");	
 		
 	}

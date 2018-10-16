@@ -77,7 +77,7 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 				
 					<div class="form-group">
 						<label>Enrollment No</label>
-					  <input type="text" placeholder="Enrollment No" name="rollno" value="<?php echo $row["roll_no"]; ?>"  class="form-control">
+					  <input type="text" placeholder="Enrollment No" name="roll_no" value="<?php echo $row["roll_no"]; ?>"  class="form-control">
 					</div>
 					
 					<div class="form-group">
@@ -98,6 +98,11 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 					<div class="form-group">
 						<label>Blood Group</label>
 					  <input type="text" placeholder="Blood group" name="blood" value="<?php echo $row["blood"]; ?>"  class="form-control">
+					</div>
+					
+					<div class="form-group">
+						<label>Mother Tongue</label>
+					  <input type="text" placeholder="Mother Tongue" name="mother_tongue" value="<?php echo $row["mother_tongue"]; ?>"  class="form-control">
 					</div>
 					
 					<div class="form-group">

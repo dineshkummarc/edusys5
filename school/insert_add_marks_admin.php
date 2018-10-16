@@ -15,8 +15,8 @@ if(isset($_POST["marks_admin"]))
 	$email=$_POST["email"];
 	
 	
-	$sql="insert into class_ad_members (username,log_pas,class_teach,section,academic_year,email) values('$username','$log_pas','$class','$section','$cur_academic_year','$email')";
-	var_dump($sql);
+	$sql="insert into class_ad_members (username,log_pas,class,section,academic_year,email) values('$username','$log_pas','$class','$section','$cur_academic_year','$email')";
+	
 	
 	if ($conn->query($sql) === TRUE) 
 	{

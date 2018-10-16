@@ -71,7 +71,8 @@ if($row_route=mysqli_fetch_array($result_route,MYSQLI_ASSOC))
 		$class=$row["present_class"];
 		$section=$row["section"];
 		$student_type=$row["student_type"];
-		
+		$mother_tongue=$row["mother_tongue"];
+		$admission_no=$row["admission_no"];
 		//$fee_blance=$row["tot_fee"]-$row["tot_paid"];
 		
 	?>
@@ -147,7 +148,7 @@ function printDiv(income) {
 						<td style="width:15%;">Student Name<br>Student Type</td>
 						<td style="color:blue;width:25%;"><?php echo $row['first_name']."<br>".strtoupper($student_type);?></td>
 						<td style="width:15%;">Admission No</td>
-						<td style="color:blue;width:25%;"><?php echo $row['roll_no'];?>
+						<td style="color:blue;width:25%;"><?php echo $row['admission_no'];?>
 						
 						
 						</td>
@@ -155,7 +156,7 @@ function printDiv(income) {
 					  </tr>
 					  <tr>
 						<td style="width:15%;">Joined Date</td>
-						<td style="color:blue;width:25%;"><?php echo $row['join_date'];?></td>
+						<td style="color:blue;width:25%;"><?php echo $join_date;?></td>
 						<td style="width:15%;">Blood Group</td>
 						<td style="color:blue;width:25%;"><?php echo $row['blood'];?></td>
 						
@@ -164,14 +165,14 @@ function printDiv(income) {
 						<td style="width:15%;">Gender</td>
 						<td style="color:blue;width:25%;"><?php echo $row['sex'];?></td>
 						<td style="width:15%;">Date of Birth</td>
-						<td style="color:blue;width:25%;"><?php echo $row['dob'];?></td>
+						<td style="color:blue;width:25%;"><?php echo $dob;?></td>
 						
 					  </tr>
 					   <tr>
 						<td style="width:15%;">STS No</td>
-						<td style="color:blue;width:25%;"><?php echo $row['rollno'];?></td>
-						<td style="width:15%;">Caste</td>
-						<td style="color:blue;width:25%;"><?php echo $row['caste'];?></td>
+						<td style="color:blue;width:25%;"><?php echo $row['roll_no'];?></td>
+						<td style="width:15%;">Caste<br>Mother Tongue</td>
+						<td style="color:blue;width:25%;"><?php echo $row['caste'];?><br><?php echo $row['mother_tongue'];?></td>
 						
 					  </tr>
 					  <tr>

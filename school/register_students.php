@@ -69,6 +69,8 @@ require("connection.php");
 					  <select class="form-control" name="student_type"  id="sel1">
 						<option value="">Normal</option>
 						<option value="rte">RTE</option>
+						<option value="jamaath student">Jamaath Student</option>
+						<option value="free education">Free Education</option>
 						<option value="staff children">Staff Children</option>
 					 </select>
 					</div>
@@ -86,6 +88,10 @@ require("connection.php");
 					<div class="form-group">
 						<label>Blood Group</label>
 					  <input type="text" placeholder="Blood group" name="blood"  class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Mother Tongue</label>
+					  <input type="text" placeholder="Mother Tongue" name="mother_tongue"  class="form-control">
 					</div>
 					
 					<div class="form-group">

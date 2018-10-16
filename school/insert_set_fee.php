@@ -21,13 +21,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	
 
   $sql="insert into set_fee (first_name,roll_no,class,section,adm_fee,fee_towards,academic_year,updated_date) values('$first_name','$roll_no','$present_class','$section','$adm_fee','$fee_towards','$cur_academic_year','$today_date')";
+		  //var_dump($sql);
 		  if ($conn->query($sql) === TRUE) {
+		      //var_dump($sql);
 		  $sql_upd="update students set total_student_fee=total_student_fee+'".$adm_fee."' where first_name='".$first_name."' and roll_no='".$roll_no."' and academic_year='".$cur_academic_year."'";
 			  $conn->query($sql_upd);
-			  var_dump($sql_upd);
+			  //var_dump($sql_upd);
 			header("Location:description.php?first_name=".$first_name."&roll_no=".$roll_no."&class=".$present_class."&suceess=success");
 			} else {
-			header("Location:set_fee.php?failed='failed'");
+			   // var_dump($sql_upd);
+		header("Location:set_fee.php?failed='failed'");
 			}
 			
 			}

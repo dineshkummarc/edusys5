@@ -1,12 +1,15 @@
 <?php
 session_start();
-if(isset($_SESSION['lkg_uname'])&&!empty($_SESSION['lkg_pass'])&&!empty($_SESSION['academic_year']))
+
+if(isset($_SESSION['marks_uname'])&&!empty($_SESSION['marks_pass'])&&!empty($_SESSION['class'])&&!empty($_SESSION['academic_year']))
 
 {
 	error_reporting("0");
 	require("header.php");
 	require("connection.php");
 
+		$filt_class=$_SESSION["class"];
+		$section=$_SESSION["section"];
 		$cur_academic_year=$_SESSION["academic_year"];
 
 $exam_name=$_GET["exam_name"];
@@ -25,55 +28,40 @@ function printDiv(income) {
 }
 </script>
 </head>
-<div class="container-fluid">
-	<div class="row">
-	<div class="col-sm-12"><br>
-	
-	<form class="form-inline" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="get">
-		<div class="form-group">
-		<select class="form-control" name="filt_class" id="sel1">
-			<?php require("selectclass.php");?>
-			
-			
-		<div class="form-group">
-		  <?php echo '<select class="form-control" name="section">';
-			echo '<option value="">Select Section</option>';
-				$sql_sec="select distinct section from students where academic_year='".$cur_academic_year."'";
-				$result_sec=mysqli_query($conn,$sql_sec);
-				foreach($result_sec as $value_sec)
-				{
-				?>
-				<option value='<?php echo $value_sec["section"];?>'><?php echo $value_sec["section"];?></option>
-				<?php
-				}
-				echo '</select><br>';
-			?>
-		</div>
-		
-		<div class="form-group">
-		  <?php echo '<select class="form-control" name="exam_name">';
-			echo '<option value="">Select Exam</option>';
-				$sql="select distinct exam_name from exams where academic_year='".$cur_academic_year."'";
-				$result=mysqli_query($conn,$sql);
-				foreach($result as $value)
-				{
-				?>
-				<option value='<?php echo $value["exam_name"];?>'><?php echo $value["exam_name"];?></option>
-				<?php
-				}
-				echo '</select><br>';
-			?>
-		</div>
-		 
-		  <input type="submit" class="btn btn-primary w3-card-4" name="filter" value="Get List">
-	
-		</form>
-		</div>
-		</div>
-		
-<div class="row">
- <div class="col-sm-12">
- <div class="table-responsive">
+			<div class="container-fluid">
+                <div class="row">
+                <div class="col-sm-12"><br>
+				
+				<form class="form-inline" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="get">
+					
+					<div class="form-group">
+					  <?php echo '<select class="form-control" name="exam_name">';
+						echo '<option value="">Select Exam</option>';
+							$sql="select distinct exam_name from exams where academic_year='".$cur_academic_year."'";
+							$result=mysqli_query($conn,$sql);
+							foreach($result as $value)
+							{
+							?>
+							<option value='<?php echo $value["exam_name"];?>'><?php echo $value["exam_name"];?></option>
+							<?php
+							}
+							echo '</select><br>';
+						?>
+					</div>
+					 
+					  <input type="submit" class="btn btn-primary w3-card-4" name="filter" value="Get List">
+					 <a href="logout_marks.php"><button type="button"  class="btn btn-success btn-md w3-card-4">Logout</button></a> 
+					 
+						
+					</form>
+					</div>
+					</div>
+					</div>
+					<div class="row">
+					 <div class="col-sm-12">
+					 <div class="table-responsive">
+
+
 <br>
 <table id="example" class="table table-bordered" />
 <thead>
@@ -81,8 +69,6 @@ function printDiv(income) {
         <th>SL No</th>
         <th width="15%">Student Name</th>
 		<?php 
-		$filt_class=$_GET["filt_class"];
-		$section=$_GET["section"];
 		$sql_sub="select * from subjects where class='".$filt_class."' and academic_year='".$cur_academic_year."' ORDER BY id limit 12";
 	     $result_sub=mysqli_query($conn,$sql_sub);
 		//var_dump($sql_sub);
@@ -102,21 +88,21 @@ function printDiv(income) {
 <?php
 	require("connection.php");
 		
-	if((isset($_GET["filt_class"]))&&(!empty($_GET["section"])))
+	if((isset($_GET["present_class"]))&&(!empty($_GET["section"])))
 	{
-		$filt_class=$_GET["filt_class"];
+		$filt_class=$_GET["present_class"];
 		$section=$_GET["section"];
 	}
-	else if(isset($_GET["filt_class"]))
+	else if(isset($_GET["present_class"]))
 	{
-		$filt_class=$_GET["filt_class"];
+		$filt_class=$_GET["present_class"];
 		$section="";
 	}
 
-	$sql="select id,first_name,section,roll_no,academic_year,present_class from students where academic_year='".$cur_academic_year."' and  present_class='".$filt_class."' and  section='".$section."' ORDER BY first_name";
+	$sql="select id,first_name,section,roll_no,academic_year,present_class from students where academic_year='".$cur_academic_year."' and  present_class='".$filt_class."' ORDER BY first_name";
 	$result=mysqli_query($conn,$sql);
 	$count=mysqli_num_rows($result);
-	//var_dump($sql);
+	var_dump($sql);
 	$total_students=mysqli_num_rows($result);
     $row_count =1;
 	$exam_name=$_GET["exam_name"];
@@ -126,6 +112,9 @@ function printDiv(income) {
 	<?php
 	foreach($result as $row)
 	{
+		//$dob= date('d-m-Y', strtotime( $row['dob'] ));
+		//$join_date= date('d-m-Y', strtotime( $row['join_date'] ));
+	
 	
 	?>
 	

@@ -9,7 +9,7 @@ require("connection.php");
 //get search term
 $searchTerm = $_GET['term'];
 //get matched data from skills table
-$sql="SELECT book_name FROM books where book_name LIKE '%".$searchTerm."%' ORDER BY book_name ASC";
+$sql="SELECT book_name FROM books where academic_year='".$cur_academic_year."' and book_name LIKE '%".$searchTerm."%' ORDER BY book_name ASC";
 
 $result=mysqli_query($conn,$sql);
 

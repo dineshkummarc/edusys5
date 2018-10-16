@@ -41,6 +41,9 @@ $result_student=mysqli_query($conn,$sql_student);
 		$address= $row_student['address'];
 		$caste= $row_student['caste'];
 		$record_no= $row_student['roll_no'];
+		$sts= $row_student['roll_no'];
+		$admission_no= $row_student['admission_no'];
+		$mother_tongue= $row_student['mother_tongue'];
 		
 	}	
 	
@@ -85,8 +88,8 @@ function printDiv(letterhead) {
 	</div>
     <div class="col-sm-10" id="letterhead">
 	  <center>
-	  <h1 style="color:red;"><?php echo $row["sch_name"];?></h1>
-	  <p style="color:blue;font-size:18px;border-bottom:1px solid black;"><?php echo $row["location"];?> , <?php echo $row["city"];?> , <?php echo $row["district"];?> - <?php echo $row["pin"];?> , <?php echo $row["state"];?> , <br>
+	  <h2 style="color:red;"><?php echo $row["sch_name"];?></h2>
+	  <p style="color:blue;font-size:16px;border-bottom:1px solid black;"><?php echo $row["location"];?> , <?php echo $row["city"];?> , <?php echo $row["district"];?> - <?php echo $row["pin"];?> , <?php echo $row["state"];?> , <br>
 	  Phone : <?php echo $row["phone"];?> , Mob : <?php echo $row["mob"];?><br> 
 	  Email : <?php echo $row["email"];?> , web : <?php echo $row["web"];?>
 	  <br></p>
@@ -152,18 +155,26 @@ function printDiv(letterhead) {
 	?>
 	 
 	 <span style="text-align:left;">DISE Code : <?php echo $sch_dise;?></span></p>
-	  <br><br>
-	  
+	  <br>
+	   <center><h3 class="print-color" style="text-decoration:underline;">Study Certificate</h3></center><br>  
+	  <center><div>
+	 <?php if(($row_student["photo_path"])!="photo/"){?>
+				<img class="img-responsive img-thumbnail" src="<?php echo $row_student['photo_path'];?>"  width="130" height="130"><?php }else{};?><br>
+	</div>
+	 </center>
 	  <?php 
 		if(isset($_POST["studying"]))
 		{
 		?>
-		 <center><h3 class="print-color" style="text-decoration:underline;">Study Certificate</h3></center><br>  
-		<p style="font-size:14px;line-height:40px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This is to certify that kumar / kumari.<span style="font-weight:bold"><?php echo $first_name;?></span> S/o or D/o <span style="font-weight:bold"><?php echo $father_name;?></span> belongs to  <?php echo $address;?> is a student of this Institution during the academic_year <?php echo $cur_academic_year;?> and studying in <?php echo $present_class;?>.
+		
+		<p style="font-size:14px;line-height:25px;text-align:justify;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This is to certify that Master / kumari.<span style="font-weight:bold"><?php echo $first_name;?></span> S/o or D/o <span style="font-weight:bold"><?php echo $father_name;?></span> belongs to  <?php echo $address;?> is a student of this Institution during the academic year <?php echo $cur_academic_year;?> and studying in <?php echo $present_class;?>.
 	
-	 and date of admission is on <span style="font-weight:bold"><?php echo $join_date;?></span> and he / she belongs to <span style="font-weight:bold"><?php echo $caste;?></span> caste,Mother tongue <?php echo $mother_tongue;?>, STS No <?php echo $roll_no;?> and D.O.B <?php echo $dob;?> of the candidate as per the admission register of the institution.</p>
+	 and admission no is <span style="font-weight:bold"><?php echo $admission_no;?></span> and he / she belongs to <span style="font-weight:bold"><?php echo $caste;?></span> caste,Mother tongue <?php echo $mother_tongue;?>, STS No <?php echo $sts;?> and D.O.B <?php echo $dob;?> of the candidate as per the admission register of the institution.</p>
 		<br>
+	
+		
 		<center><p>The above details are correct to the best of our knowledge.</p></center>
+		<br><br><br><br><br><br>
 		<p style="text-align:right;">Signature of head of the institution</p>
 		
 		  <?php 

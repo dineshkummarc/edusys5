@@ -135,6 +135,7 @@ require("header.php");
 		<td><span style="font-weight: bold;">Name</span></td>
 		
 		<td><span style="font-weight: bold;">Enrollment No</span></td>
+			<td><span style="font-weight: bold;">Admission No</span></td>
 		
 		<td><span style="font-weight: bold;">Present Class</span></td>
 	
@@ -196,12 +197,13 @@ require("header.php");
 		<td><span style="color: #207FA2; "><a href="<?php echo 'description.php?first_name='.$row['first_name'].'&roll_no='.$row['roll_no'];?>" ><?php echo $row["first_name"];?></a></span></td>
 		
 		<td><span style="color: #207FA2; "><?php echo $row["roll_no"];?></span></td>
+			<td><span style="color: #207FA2; "><?php echo $row["admission_no"];?></span></td>
 		
 		<td><span style="color: #207FA2; "><?php echo $row["present_class"];?></span></td>
 		
 		
-		<td><span style="color: #207FA2; "><?php echo $row["join_date"];?></span></td>
-		<td><span style="color: #207FA2; "><?php echo $row["dob"];?></span></td>
+		<td><span style="color: #207FA2; "><?php echo $join_date;?></span></td>
+		<td><span style="color: #207FA2; "><?php echo $dob;?></span></td>
 		<td><span style="color: #207FA2; "><?php if($row['address']!=""){echo $row["address"];}else{ echo $row["village"]." ".$row["district"];}?></span></td>
 		
 		<td><div class="btn-group"><a href="<?php echo 'description.php?first_name='.$row['first_name'].'&roll_no='.$row['roll_no'];?>" title="View" >  <i class="fa fa-eye fa-lg" style="color:#8ba83e;" aria-hidden="true"></i></a>
