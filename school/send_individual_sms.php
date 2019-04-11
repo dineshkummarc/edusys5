@@ -17,9 +17,7 @@ if(isset($_POST["checked"])){
 	if($row_sch=mysqli_fetch_array($result_sch,MYSQLI_ASSOC))
 	{
 		$sch_name=$row_sch["sch_name"];
-		
 		$approved_senderid=$row_sch["sender_id"];
-		
 		$sch_detail=$row_sch['sch_name']." ".$row_sch['location'];
 	}  
 	//print_r($checkbox);
@@ -31,26 +29,11 @@ if(isset($_POST["checked"])){
 	{
 		$mob_number=$row_contact["parent_contact"];
 		$first_name=$row_contact["first_name"];
-		//echo $first_name." ".$mob_number;
-		//echo "<br>";
-		
-		
-		$username ="ma.musthafa6@gmail.com";
-        $password ="ajmal524";
-        //$approved_senderid="SCHOOL";
+	
 
-	    $message="Dear parents, ".$meeting_name."-".$sch_name;
-
-$enc_msg= rawurlencode($message); // Encoded message
-//Create API URL
-$fullapiurl="http://smsc.biz/httpapi/send?username=$username&password=$password&sender_id=$approved_senderid&route=T&phonenumber=$mob_number&message=$enc_msg";
-//Call API
-$ch = curl_init($fullapiurl);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$result = curl_exec($ch); 
-curl_close($ch);
-echo "<p>SMS Request Sent - Message id - $result </p>";
-
+	$sms = urlencode(htmlspecialchars("Dear parents, ".$meeting_name."-".$sch_name));
+	 require("sms_gateway.php");
+	 //SMS gateway code ends here
 
 	}
 	}

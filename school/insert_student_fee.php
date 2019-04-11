@@ -17,14 +17,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	
 	$rec_date = test_input($_POST["rec_date"]);
 	$rec_no = test_input($_POST["rec_no"]);
+	$note = test_input($_POST["note"]);
 
 	
 
-  $sql="insert into student_fee (name,parent_name,roll_no,academic_year,class,section,tot_paid,rec_date,rec_no) values('$name','$parent_name','$roll_no','$cur_academic_year','$class','$section','$adm_fee','$rec_date','$rec_no')";
+  $sql="insert into student_fee (name,parent_name,roll_no,academic_year,class,section,tot_paid,rec_date,rec_no,note) values('$name','$parent_name','$roll_no','$cur_academic_year','$class','$section','$adm_fee','$rec_date','$rec_no','$note')";
 		  if ($conn->query($sql) === TRUE) {
 			  $sql_upd="update students set  tot_paid=tot_paid+'".$adm_fee."' where academic_year='".$cur_academic_year."' and  first_name='".$name."' and roll_no='".$roll_no."'";
 			  $conn->query($sql_upd);
-			header("Location:student_fee_sms.php?name=".$name."&tot_paid=".$adm_fee."&rec_no=".$rec_no."&rec_date=".$rec_date."&roll_no=".$roll_no);
+			header("Location:student_fee_sms.php?name=".$name."&tot_paid=".$adm_fee."&rec_no=".$rec_no."&rec_date=".$rec_date."&roll_no=".$roll_no."&note=".$note);
 			//header("Location:student_fee_sms.php?status=.'submitted'");
 			} else {
 			echo "Error: " . $sql . "<br>" . $conn->error;

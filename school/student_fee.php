@@ -72,7 +72,13 @@ $cur_academic_year = $_SESSION['academic_year'];
 	 <div class="form-group">
 	    <label for="usr">Receipt No:</label>
 		<input type="text" name="rec_no" class="form-control">
+	  </div> 
+	  
+	  <div class="form-group">
+	    <label for="usr">Note (if any):</label>
+		<input type="text" name="note" class="form-control">
 	  </div>
+	  
 	<input type="hidden" name="assign_date" value="<?php echo date('d-m-Y'); ?>" class="form-control">
 	<input type="submit" name="student_fee" class="btn btn-success" value="Collect Fee">
 	</form><br>

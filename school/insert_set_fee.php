@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			  //var_dump($sql_upd);
 			header("Location:description.php?first_name=".$first_name."&roll_no=".$roll_no."&class=".$present_class."&suceess=success");
 			} else {
-			   // var_dump($sql_upd);
+			   var_dump($sql_upd);
 		header("Location:set_fee.php?failed='failed'");
 			}
 			

@@ -3,13 +3,15 @@ session_start();
 if(isset($_SESSION['lkg_uname'])&&!empty($_SESSION['lkg_pass'])&&!empty($_SESSION['academic_year']))
 {
 $cur_academic_year = $_SESSION['academic_year'];
-//$dest_mobileno=$_GET['mob'];
 require("connection.php");
+require("header.php");
 $f1=$_GET['name'];
 $f2=$_GET['tot_paid'];
 $f3=$_GET['rec_no'];
-$f4=$_GET['rec_date'];
+//$f4=$_GET['rec_date'];
 $roll_no=$_GET['roll_no'];
+$note=$_GET['note'];
+$f4= date('d-m-Y', strtotime( $_GET['rec_date'] ));
 
 /////////////////////////////////START SCHOOL DETAILS ////////////////////////////////////////
 	
@@ -24,9 +26,9 @@ $roll_no=$_GET['roll_no'];
 		
 		$sch_detail=$row_sch['sch_name']." ".$row_sch['location'];
 	}
-	///////////////////////////////// END SCHOOL DETAILS ///////////////////////////////////////////
+	////////// END SCHOOL DETAILS //////////////////
 
-$sql="select parent_contact from students where academic_year='".$cur_academic_year."' and first_name='".$f1."' and roll_no='".$roll_no."'";
+$sql="select parent_contact,present_class from students where academic_year='".$cur_academic_year."' and first_name='".$f1."' and roll_no='".$roll_no."'";
 $result=mysqli_query($conn,$sql);
 if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 	{
@@ -34,30 +36,105 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 		$present_class=$row["present_class"];
 	}
 
-//require("sms.php");
-/*///////////////////////////////////////// sms start/////////////////////////////////////////////////*/
+
+//SMS Gateway code starts here
+	 
+	 $sms = urlencode(htmlspecialchars("SCHOOL, Thank you ".$f1.". Your fee amount Rs.".$f2." has been received.Receipt no is ".$f3." and receipt date is ".$f4."."));
+	 require("sms_gateway.php");
+	 //SMS gateway code ends here
+
 			
-//API Details
-$username ="ma.musthafa6@gmail.com";
-$password ="ajmal524";
-//$approved_senderid="SCHOOL";
+/*///////////// sms end///////////////////*/
+?>
+<script>
+function printDiv(letterhead) {
+     var printContents = document.getElementById('letterhead').innerHTML;
+     var originalContents = document.body.innerHTML;
 
-$message="SCHOOL, Thank you ".$f1.". Your fee amount Rs.".$f2." has been received.Receipt no is ".$f3." and receipt date is ".$f4.".";
-$enc_msg= rawurlencode($message); // Encoded message
+     document.body.innerHTML = printContents;
 
-//Create API URL
-$fullapiurl="http://smsc.biz/httpapi/send?username=$username&password=$password&sender_id=$approved_senderid&route=T&phonenumber=$mob_number&message=$enc_msg";
+     window.print();
 
-//Call API
-$ch = curl_init($fullapiurl);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$result = curl_exec($ch); 
-//echo $result ; // For Report or Code Check
-curl_close($ch);
-echo "<p>SMS Request Sent - Message id - $result </p>";
-			
-/*///////////////////////////////////////////////// sms end/////////////////////////////////////////////////////////////*/
-header("Location:description.php?first_name=".$f1."&roll_no=".$roll_no."&class=".$present_class."&suceess=success");
+     document.body.innerHTML = originalContents;
+}
+</script>
+<div class="container-fluid"><br>
+<div class="inline">
+<button class="btn btn-success" onclick="printDiv('letterhead')">Print Page</button>
+<button class="btn btn-success" onclick="goBack()">Go Back</button>
+</div>
+<div class="row">
+ 
+    <div class="col-sm-1">
+	</div>
+    <div class="col-sm-10" id="letterhead">
+	  <center>
+	  <h1 style="color:red;"><?php echo $row_sch["sch_name"];?></h1>
+	  <p style="color:blue;font-size:16px;border-bottom:1px solid black;"><?php echo $row_sch["location"];?> , <?php echo $row_sch["city"];?> , <?php echo $row_sch["district"];?> - <?php echo $row_sch["pin"];?> , <?php echo $row_sch["state"];?> , <br>
+	  Phone : <?php echo $row_sch["phone"];?> , Mob : <?php echo $row_sch["mob"];?><br> 
+	  Email : <?php echo $row_sch["email"];?> , web : <?php echo $row_sch["web"];?>
+	  <br></p>
+	</center>
+	  <p>
+	 <span style="text-align:right;">No : <?php echo $f3;?></span><br>
+	<center><h2 style="color:green;text-decoration:underline;">Fee Receipt</h2></center><br><br>
+	<table class="table table-bordered">
+	<tr>
+	<td>
+	<span style="font-size:18px;">Student Name : <?php echo $f1;?></span>
+	</td>
+	<td>
+	<span style="font-size:18px;">Roll No : <?php echo $roll_no;?></span>
+	</td>
+	</tr>
+	
+	<tr>
+	<td>
+	<span style="font-size:18px;">Receipt Date : <?php echo $f4;?></span>
+	</td>
+	<td>
+	<span style="font-size:18px;">Fee Amount Rs.  <?php echo $f2;?></span>
+	</td>
+	</tr>
+	
+	<tr>
+	<td>
+	<span style="font-size:18px;">Fee Towards (Note) : <?php echo $note;?></span>
+	</td>
+	<td>
+	
+	</td>
+	</tr>
+	</table>
+	<br><br><br>
+	<span style="font-size:18px;text-align:right;font-weight:bold;">Fee Received By (Name & Signature) <br> <br> Name : .............................................<br><br>
+	Seal & Signature : .........................................                    </span>
+	<br><br><br> <br><br><br> 
+	 
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php
+//header("Location:description.php?first_name=".$f1."&roll_no=".$roll_no."&class=".$present_class."&suceess=success");
 
 }
 

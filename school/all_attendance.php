@@ -291,13 +291,15 @@ function printDiv(income) {
 		$total_records = mysqli_num_rows($result);  //count number of records
 		$total_pages = ceil($total_records / $num_rec_per_page); 
 		
-
+	/*
 	echo "<a href='all_attendance.php?page=1'>".' First '."</a> "; // Goto 1st page  
 
 	for ($i=1; $i<=$total_pages; $i++) { 
 				echo "<a href='all_attendance.php?page=".$i."'>   ".$i. "   </a> "; 
 	}; 
 	echo "<a href='all_attendance.php?page=$total_pages'>".' Last '."</a> "; // Goto last page
+	
+	*/
 	echo '</article></div>
                    </div>';
 	}

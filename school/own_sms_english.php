@@ -43,29 +43,12 @@ var_dump($sql);
 
 
 foreach($result as $value)
-  {
-	$mob_number=$value["parent_contact"];
+	{
+	 $mob_number=$value["parent_contact"];
+	 $message="Dear parents, ".$message_detail."-".$sch_name;
+	require("sms_gateway.php");
+	}
 	
-//API Details
-$username ="ma.musthafa6@gmail.com";
-$password ="ajmal524";
-//$approved_senderid="SCHOOL";
-
-$message="Dear parents, ".$message_detail."-".$sch_name;
-$enc_msg= rawurlencode($message); // Encoded message
-
-$fullapiurl="http://smsc.biz/httpapi/send?username=$username&password=$password&sender_id=$approved_senderid&route=T&phonenumber=$mob_number&message=$enc_msg";
-$ch = curl_init($fullapiurl);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$result = curl_exec($ch); 
-curl_close($ch);
-
-echo "<p>SMS Request Sent - Message id - $result </p>";
-
-//echo "success<br>";
-	
-
-}
 header("Location:send_noti.php?success=.'success'");
 }
 

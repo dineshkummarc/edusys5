@@ -37,34 +37,15 @@ foreach($result as $value)
 	$f1=$value["first_name"];
 	$f2=$value["att_date"];
 	$f3=$value["attendance"];
-	//$f4="8277021524";
+	$mob_number=$value["parent_contact"];
 
-	//API Details
-$username ="ma.musthafa6@gmail.com";
-$password ="ajmal524";
-
-	$message="Dear Parents, ".$f1." is absent from school today (".$f2."). If you are unaware of this, please contact the office on ".$f4;
-
-
-$mob_number=$value["parent_contact"];
 if($mob_number!="null"){
-
-$enc_msg= rawurlencode($message); // Encoded message
-
-$fullapiurl="http://smsc.biz/httpapi/send?username=$username&password=$password&sender_id=$approved_senderid&route=T&phonenumber=$mob_number&message=$enc_msg";
-
-$ch = curl_init($fullapiurl);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$result = curl_exec($ch); 
-//echo $result ; // For Report or Code Check
-curl_close($ch);
-
-echo "<p>SMS Request Sent - Message id </p>";
-
- }
-
-  }
-  
-   header("Location:attendance.php?success=.'success'");
+	
+	
+	 $message="Dear Parents, ".$f1." is absent from school today (".$f2."). If you are unaware of this, please contact the office on ".$f4;
+	require("sms_gateway.php");
+}
+}
+  header("Location:attendance.php?success=.'success'");
 }
 
