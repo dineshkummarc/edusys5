@@ -12,9 +12,9 @@ $start_from = ($page-1) * $num_rec_per_page;
 
 if(isset($_GET["class"])){
 	$class=$_GET["class"];
-	$sql="select * from subjects where academic_year='".$cur_academic_year."' and class='".$class."' order by id desc LIMIT $start_from, $num_rec_per_page";
+	$sql="select * from subjects where class='".$class."' order by id desc LIMIT $start_from, $num_rec_per_page";
 }else{
-$sql="select * from subjects where academic_year='".$cur_academic_year."' order by id desc LIMIT $start_from, $num_rec_per_page";
+$sql="select * from subjects order by id desc LIMIT $start_from, $num_rec_per_page";
 }
 $result=mysqli_query($conn,$sql);
 $row_count="1";
@@ -55,11 +55,19 @@ $row_count="1";
 	 <td>
 		 <div class="btn-group">
         <a href="<?php echo 'edit_subjects.php?id='.$row['id'].'&class='.$row["class"]; ?>" title="Edit">  <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>
-        <a href="<?php echo 'delete_subjects.php?id='.$row['id']; ?>" title="Delete">  <i class="fa fa-trash-o fa-lg" style="color:red;" aria-hidden="true"></i></a>
-       </div>
-		 
-		 </td> 
-	 </tr> 
+        <a href="#" onclick="deletesubjects(<?php echo $row['id'];?>)" title="Delete">   <i class="fa fa-trash-o fa-lg" style="color:red;" aria-hidden="true"></i></a>
+			   </div></td>
+				</tr>
+				
+				<script>
+				  function deletesubjects(id){
+					  if(confirm("Do you want to delete?")){
+						  window.location.href='delete_subjects.php?id='+id+'';
+					  }
+				  }
+				  
+				  </script>
+	 
 	  <?php
 	  $row_count++;
 	 }
@@ -86,7 +94,7 @@ $row_count="1";
 
 
 <?php
-			
+require("footer.php");			
 }
 
 else

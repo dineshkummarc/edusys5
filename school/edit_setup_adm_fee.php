@@ -92,27 +92,11 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 	  </div>
     </div>
     </div>
-	
-	
-	
-
-	
-    </div>
+	</div>
 </div>
-
-
-
-
-
 <?php 
-
-
-
-	}else{
+require("footer.php");
+}else{
 		header("Location:login.php");
 	}
-	
-
-
-
 ?>

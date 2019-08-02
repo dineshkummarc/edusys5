@@ -8,44 +8,36 @@ error_reporting("0");
 
 
 require("connection.php");
-if(isset($_GET["recieve_book"]))
+if(isset($_GET["search_student"]))
 {
-	
-	$bor_name=$_GET["bor_name"];
-	$bor_id=$_GET["bor_id"];
+	$searched=$_GET["typeahead"];
+	$searched_array=explode(",",$searched);
+	$bor_name=$searched_array[0];
+	$present_class=$searched_array[1];
+	$bor_id=$searched_array[2];
 	$book_name=$_GET["book_name"];
 	$book_id=$_GET["book_id"];
-	
-	$recie_date=$_GET["recie_date"];
 	$no_books=$_GET["no_books"];
-
-
+	//$recie_date=$_GET["recie_date"];
 	
+ob_start();
+date_default_timezone_set("Asia/Kolkata");
+$recie_date=date("Y-m-d");
+
 	$book_now=$no_books+1;
 		
-	$sql_update="update books set no_books=$book_now where academic_year='".$cur_academic_year."' and book_name='$book_name' and book_id='$book_id'";
-	if ($conn->query($sql_update) === TRUE) 
-	{
-		
-	}
-		
+	$sql_update="update books set no_books='".$book_now."' where  book_name='".$book_name."' and book_id='".$book_id."'";
+	$conn->query($sql_update);
 	
-	$sql="update library set recie_date='".$recie_date."' where academic_year='".$cur_academic_year."' and bor_name='".$bor_name."' and bor_id='".$bor_id."' and book_name='".$book_name."' and book_id='".$book_id."'";
-	
+	$sql="update library set recie_date='".$recie_date."' where bor_name='".$bor_name."' and bor_id='".$bor_id."' and book_name='".$book_name."' and book_id='".$book_id."'";
 	
 	if ($conn->query($sql) === TRUE) 
 	{
-	
-	
 	header("Location:recieve_books.php?book_name=".$book_name);
-
-
 	} 
 	else 
 	{
-				
 	header("Location:recieve_books.php?failed=.'failed'");	
-		
 	}
 
 
@@ -53,7 +45,7 @@ if(isset($_GET["recieve_book"]))
 
 
 
-
+require("footer.php");
 	}
 	else
 	{

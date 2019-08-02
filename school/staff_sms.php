@@ -5,9 +5,18 @@ if(isset($_SESSION['lkg_uname'])&&!empty($_SESSION['lkg_pass'])&&!empty($_SESSIO
 $cur_academic_year = $_SESSION['academic_year'];
 require("connection.php");
 $message_detail=$_POST["message_detail"];
-$sql="select distinct parent_contact from faculty where academic_year='".$cur_academic_year."'";	
+$staff_type=$_POST["staff_type"];
+
+	if($staff_type=="all")
+	{
+	$sql="select distinct parent_contact from faculty";	
+	}
+	else
+	{
+	$sql="select distinct parent_contact from faculty where staff_type='".$staff_type."'";	
+	}
+	
 $result=mysqli_query($conn,$sql);
-var_dump($sql);
 /////////////////////////////////START SCHOOL DETAILS ////////////////////////////////////////
 	
 	$sql_sch = "SELECT * FROM school_det ORDER BY ID DESC LIMIT 1";
@@ -17,13 +26,12 @@ var_dump($sql);
 	$sch_name=$row_sch["sch_name"];
 	$approved_senderid=$row_sch["sender_id"];
 	}
-
-	foreach($result as $value)
-	  {
+ foreach($result as $value)
+	{
 		$mob_number=$value["parent_contact"];
-		$sms = urlencode(htmlspecialchars("Dear staff, ".$message_detail."-".$sch_name));
+		$message = "Dear staff, ".$message_detail."-".$sch_name;
 		require("sms_gateway.php");
-	}
+	} 
 header("Location:send_noti.php?success=.'success'");
 }
 

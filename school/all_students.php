@@ -9,7 +9,6 @@ require("header.php");
    
 <!---------------------------------Start Search Form code -------------------------------------->   
 <link rel="stylesheet" href="bootstrap-theme.min.css">
-<script src="typeahead.min.js"></script>
 <style type="text/css">
 	
 .bs-example{
@@ -72,28 +71,24 @@ require("header.php");
 	<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" class="form-inline" method="get" role="form">
 	  <div class="form-group">
 		<select class="form-control" name="filt_class" id="sel1">
-			<?php require("selectclass.php");?>
-		
-			  <div class="form-group">
-					 
-					  <?php echo '<select class="form-control" name="section">';
-						echo '<option value="">Select Section</option>';
-							
+		<?php require("selectclass.php");?>
+		<div class="form-group">
+		 <?php echo '<select class="form-control" name="section">';
+			echo '<option value="">Select Section</option>';
+				$sql="select distinct section from students where academic_year='".$cur_academic_year."'";
 
-							$sql="select distinct section from students where academic_year='".$cur_academic_year."'";
+				 $result=mysqli_query($conn,$sql);
 
-							 $result=mysqli_query($conn,$sql);
+				foreach($result as $value)
+				{
+				?>
+				<option value='<?php echo $value["section"];?>'><?php echo $value["section"];?></option>
+				<?php
+				}
+				echo '</select><br>';
 
-							foreach($result as $value)
-							{
-							?>
-							<option value='<?php echo $value["section"];?>'><?php echo $value["section"];?></option>
-							<?php
-							}
-							echo '</select><br>';
-
-							?>
-					</div>
+				?>
+		</div>
 	<button type="submit" name="filt_submit" class="btn btn-primary">Filter</button>
 	</form>
 	<form action="export.php" method="post" name="export_excel">
@@ -127,26 +122,17 @@ require("header.php");
 	<center><h2>All Students</h2></center>
 	<div class="table-responsive">
 	<center><table class="table table-bordered">
-		<tbody>
-		<tr>
-	
-		
+	<tbody>
+	<tr>
 		<td><span style="font-weight: bold;">SL No</span></td>
 		<td><span style="font-weight: bold;">Name</span></td>
-		
 		<td><span style="font-weight: bold;">Enrollment No</span></td>
-			<td><span style="font-weight: bold;">Admission No</span></td>
-		
+		<td><span style="font-weight: bold;">Admission No</span></td>
 		<td><span style="font-weight: bold;">Present Class</span></td>
-	
-		
-		<td><span style="font-weight: bold;">Joined Date</span></td>
-		
 		<td><span style="font-weight: bold;">DOB</span></td>
-		
 		<td><span style="font-weight: bold;">Location</span></td>
 		<td style="width:10%"><span style="font-weight: bold;">Action</span></td>
-		</tr>
+	</tr>
 								
 	<?php
 	require("connection.php");
@@ -163,13 +149,12 @@ require("header.php");
 		
 		
 		
-	$sql="select * from students where present_class='".$filt_class."' and section='".$section."' and academic_year='".$cur_academic_year."' ORDER BY first_name  LIMIT $start_from, $num_rec_per_page";
+		$sql="select * from students where present_class='".$filt_class."' and section='".$section."' and academic_year='".$cur_academic_year."' ORDER BY first_name  LIMIT $start_from, $num_rec_per_page";
 	}
 	else
 	{
 		$sql="select * from students where present_class='".$filt_class."' and academic_year='".$cur_academic_year."' ORDER BY first_name  LIMIT $start_from, $num_rec_per_page";
 	}
-	
 	
 	}
 	else{
@@ -188,65 +173,52 @@ require("header.php");
 	
 	
 	?>
-    
-		<tr>
-		
-		
-		
+    <tr>
 		<td><span style="color: #207FA2; "><?php echo $row_count;?></span></td>
 		<td><span style="color: #207FA2; "><a href="<?php echo 'description.php?first_name='.$row['first_name'].'&roll_no='.$row['roll_no'];?>" ><?php echo $row["first_name"];?></a></span></td>
-		
 		<td><span style="color: #207FA2; "><?php echo $row["roll_no"];?></span></td>
-			<td><span style="color: #207FA2; "><?php echo $row["admission_no"];?></span></td>
-		
+		<td><span style="color: #207FA2; "><?php echo $row["admission_no"];?></span></td>
 		<td><span style="color: #207FA2; "><?php echo $row["present_class"];?></span></td>
-		
-		
-		<td><span style="color: #207FA2; "><?php echo $join_date;?></span></td>
 		<td><span style="color: #207FA2; "><?php echo $dob;?></span></td>
 		<td><span style="color: #207FA2; "><?php if($row['address']!=""){echo $row["address"];}else{ echo $row["village"]." ".$row["district"];}?></span></td>
-		
 		<td><div class="btn-group"><a href="<?php echo 'description.php?first_name='.$row['first_name'].'&roll_no='.$row['roll_no'];?>" title="View" >  <i class="fa fa-eye fa-lg" style="color:#8ba83e;" aria-hidden="true"></i></a>
         <a href="<?php echo 'upd_register.php?id='.$row['id']; ?>" title="Edit">  <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>
-        <a href="<?php echo 'del_confirm.php?id='.$row['id']; ?>" title="Delete">  <i class="fa fa-trash-o fa-lg" style="color:red;" aria-hidden="true"></i></a>
+        <a href="#" onclick="deleteme(<?php echo $row['id'];?>)">   <i class="fa fa-trash-o fa-lg" style="color:red;" aria-hidden="true"></i></a>
        </div></td>
-		
-		
-		
-		
-		</tr>
+	</tr>
+	<script>
+		  function deleteme(id){
+			  if(confirm("Do you want to delete?")){
+				  window.location.href='del_students.php?id='+id+'';
+			  }
+		  }
+		  
+		  </script>
 		<?php 
 		$row_count++; 
-		
 	}
-	
 	
 	if(isset($_GET["filt_submit"]))
 	{
 		
 		if(($_GET["filt_class"])!="")
 		{
-			$filt_class=$_GET["filt_class"];
-			$sql="select * from students where present_class='".$filt_class."' and academic_year='".$cur_academic_year."' ORDER BY first_name LIMIT $start_from, $num_rec_per_page";
+		$filt_class=$_GET["filt_class"];
+		$sql="select * from students where present_class='".$filt_class."' and academic_year='".$cur_academic_year."' ORDER BY first_name LIMIT $start_from, $num_rec_per_page";
 		$result=mysqli_query($conn,$sql);
 		$total_students=mysqli_num_rows($result);
 		echo "<p style='color:blue;'>Total No of ".$filt_class." Students = ".$total_students.'</p>';
 		}
-		}
-	
+	}
 	else
 	{
-		
-	$sql="select * from students where academic_year='".$cur_academic_year."'";
-	$result=mysqli_query($conn,$sql);
-	
-	$total_students=mysqli_num_rows($result);
-	echo "<p style='color:blue;'>All Students = ".$total_students.'</p>';
+		$sql="select * from students where academic_year='".$cur_academic_year."'";
+		$result=mysqli_query($conn,$sql);
+		$total_students=mysqli_num_rows($result);
+		echo "<p style='color:blue;'>All Students = ".$total_students.'</p>';
 	}
-		
-		?>
-		
-		</table></center>
+	?>
+	</table></center>
 	</div>
 	</div>
     
@@ -258,7 +230,7 @@ require("header.php");
 </div>
 
 <?php
-			
+require("footer.php");			
 }
 else
 {

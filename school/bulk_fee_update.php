@@ -136,26 +136,18 @@ function printDiv(income) {
 		
 	?>
 		</table>
-		
-		
 		<input type="submit" class="btn btn-primary" name="sub_att[]" value="Update Fee">
 	</form>
 </div>
-					</div>
-					</div>
-					
-					
-					
-					
+</div>
+</div>
 </div>
 <?php
-
-	}
-    else
-	{
-
-	header("Location:login.php");
-
-	}
+require("footer.php");
+}
+else
+{
+header("Location:login.php");
+}
 
 ?>			

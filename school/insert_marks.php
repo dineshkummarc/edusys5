@@ -47,12 +47,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	{
 	$mob_number=$row["parent_contact"];
 	}
-
-	//API Details
+	
 	$username ="ma.musthafa6@gmail.com";
 	$password ="ajmal524";
 	
-	//First standard
+	
 	switch ($present_class){
 		case "prekg":
 		$message_detail=$exam_name." marks,ENG:".$sub1.",KAN:".$sub2.",MAT:".$sub3.",STR/RHY:".$sub4.",DRW:".$sub5.",GK:".$sub6;

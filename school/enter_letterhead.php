@@ -56,7 +56,7 @@ require("connection.php");
 
 
 <?php
-			
+require("footer.php");			
 }
 else
 {

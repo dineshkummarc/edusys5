@@ -88,8 +88,7 @@ $today_md=date('m-d');
 			  // var_dump($sql);
 	           $result=mysqli_query($conn,$sql);
 	           $total_students=mysqli_num_rows($result);
-			   
-			   
+			  
 			   $sql_leave="select * from leave_appli where academic_year='".$cur_academic_year."'";
 	           $result_leave=mysqli_query($conn,$sql_leave);
 	           $total_leave=mysqli_num_rows($result_leave);
@@ -119,548 +118,548 @@ $today_md=date('m-d');
 
 	<!------------------------------------------End of Search Form------------------------------------------------------->
 	 <div class="row">
-                    <div class="col-lg-6 col-md-6">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-									
-                                        <i class="glyphicon glyphicon-search"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-									
-                                       
-                                       
-                                    </div>
-                                </div>
-                            </div>
-							
-                                <div class="panel-footer">
-                                <form action="description.php" id="search_student"  method="get">
-	
-								<div class="form-group">
-								<input type="text" name="typeahead" class="form-control typeahead "  autocomplete="off" spellcheck="false" placeholder="Search Students">
-								</div>
-								<button type="submit" name="search_student" class="btn btn-sm btn-success">Get Details</button>
-								</form>
-                                </div>
-                          
-							
-                        </div>
-                    </div>
-					<div class="col-lg-3 col-md-6">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-									
-                                        <i  class="fa fa-file-text fa-5x" aria-hidden="true"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-									 <div>Leave Application</div>
-                                        <div class="huge"><?php echo $total_leave;?></div>
-                                       
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="leave_applications.php">
-                                <div class="panel-footer">
-                                    <span class="pull-left"><a href="leave_applications.php">View Details</a></span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+	<div class="col-lg-6 col-md-6">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
 					
-					<div class="col-lg-3 col-md-6">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-									
-                                        <i class="glyphicon glyphicon-certificate fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-									 <div>Certificate Request</div>
-                                        <div class="huge"><?php echo $total_certi;?></div>
-                                       
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="req_certificates.php">
-                                <div class="panel-footer">
-                                    <span class="pull-left"><a href="req_certificates.php">View Details</a></span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+						<i class="glyphicon glyphicon-search"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+					
+					   
+					   
+					</div>
+				</div>
+			</div>
+			
+				<div class="panel-footer">
+				<form action="description.php" id="search_student"  method="get">
+
+				<div class="form-group">
+				<input type="text" name="typeahead" class="form-control typeahead "  autocomplete="off" spellcheck="false" placeholder="Search Students">
+				</div>
+				<button type="submit" name="search_student" class="btn btn-sm btn-success">Get Details</button>
+				</form>
+				</div>
+		  
+			
 		</div>
-	<!------------------------------------------End of Search Form------------------------------------------------------->
-					 <div class="row">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-pink">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-									
-                                        <i class="glyphicon glyphicon-education fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-									 <div>Total Students</div>
-                                        <div class="huge"><?php echo $total_students;?></div>
-                                       
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="all_students.php">
-                                <div class="panel-footer">
-                                    <span class="pull-left"><a href="all_students.php">View Details</a></span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-pink">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-users fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-									 <div>Total Staffs</div>
-                                        <div class="huge"><?php echo $total_fac;?></div>
-                                       
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="teach_staff.php">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-pink">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-user fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-									 <div>Staff Attendance</div>
-                                        <div class="huge"></div>
-                                       
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="all_fac_attendance.php">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+	</div>
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
 					
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-pink">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-									
-                                        <i class="glyphicon glyphicon-book fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-									 <div>Total Library Books</div>
-                                        <div class="huge"><?php echo $total_book;?></div>
-                                       
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="all_books.php">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    
-                </div>
-               
-                <!-- /.row -->
-                <div class="row">
-				<div class="col-lg-3 col-md-6">
-                        <div class="panel panel-green">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-print fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-									    <div>Print/Store Documents</div>
-                                       </div>
-                                </div>
-                            </div>
-                            <a href="documents.php">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-				
-				
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-green">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-comments fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-									 <div>Send Bulk SMS</div>
-                                        
-                                       
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="send_noti.php">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-green">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                       
-										<i class="fa fa-list-alt fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-									 <div> Students absent today</div>
-                                       <div class="huge"><?php echo $total_abs;?></div>   
-                                       
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="student_todays_absent.php">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-green">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-list fa-5x" ></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-									    <div>Staffs's Absent today</div>
-                                      <div class="huge"><?php echo $total_stf_abs;?></div>      
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="total_stf_abs.php">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.row ////////////////////////////////////////////////////////////////////-->
-				
-				     <!-- /.row -->
-                <div class="row">
-				<div class="col-lg-3 col-md-6">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-calendar fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-									    <div>Timetable</div>
-                                        
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="shw_timetable.php">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-			
-				<?php
-			///////////////////////////////////////////////////////////////////////////////////////////////////////
-			$sql_est="select sum(tot_paid) as tot_est_fee from student_fee where academic_year='".$cur_academic_year."'";
-			$result_est=mysqli_query($conn,$sql_est);
-			if($row_est=mysqli_fetch_array($result_est,MYSQLI_ASSOC))
-			{
-				$tot_est_fee=$row_est["tot_est_fee"];
-			}
-			/////////////////////////////////////////////////////////////////////////////////////////////////////
-		
-			/////////////////////////////////////Start of total income ////////////////////////////////////////////
-			
-			$sql_tot="select sum(amount) as total_amount from income where academic_year='".$cur_academic_year."'";
-		   
-			//var_dump($sql_amount);
-			$result_tot=mysqli_query($conn,$sql_tot);
-			if($row_tot=mysqli_fetch_array($result_tot,MYSQLI_ASSOC))
-			{
-			
-			$total_income= $row_tot["total_amount"];
-			}
-			/////////////////////////////////////End of total income ////////////////////////////////////////////
+						<i  class="fa fa-file-text fa-5x" aria-hidden="true"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+					 <div>Leave Application</div>
+						<div class="huge"><?php echo $total_leave;?></div>
+					   
+					</div>
+				</div>
+			</div>
+			<a href="leave_applications.php">
+				<div class="panel-footer">
+					<span class="pull-left"><a href="leave_applications.php">View Details</a></span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+	
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+					
+						<i class="glyphicon glyphicon-certificate fa-5x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+					 <div>Certificate Request</div>
+						<div class="huge"><?php echo $total_certi;?></div>
+					   
+					</div>
+				</div>
+			</div>
+			<a href="req_certificates.php">
+				<div class="panel-footer">
+					<span class="pull-left"><a href="req_certificates.php">View Details</a></span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+</div>
+<!------------------------------------------End of Search Form------------------------------------------------------->
+	 <div class="row">
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-pink">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+					
+						<i class="glyphicon glyphicon-education fa-5x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+					 <div>Total Students</div>
+						<div class="huge"><?php echo $total_students;?></div>
+					   
+					</div>
+				</div>
+			</div>
+			<a href="all_students.php">
+				<div class="panel-footer">
+					<span class="pull-left"><a href="all_students.php">View Details</a></span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-pink">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+						<i class="fa fa-users fa-5x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+					 <div>Total Staffs</div>
+						<div class="huge"><?php echo $total_fac;?></div>
+					   
+					</div>
+				</div>
+			</div>
+			<a href="teach_staff.php">
+				<div class="panel-footer">
+					<span class="pull-left">View Details</span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-pink">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+						<i class="fa fa-user fa-5x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+					 <div>Staff Attendance</div>
+						<div class="huge"></div>
+					   
+					</div>
+				</div>
+			</div>
+			<a href="all_fac_attendance.php">
+				<div class="panel-footer">
+					<span class="pull-left">View Details</span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+	
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-pink">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+					
+						<i class="glyphicon glyphicon-book fa-5x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+					 <div>Total Library Books</div>
+						<div class="huge"><?php echo $total_book;?></div>
+					   
+					</div>
+				</div>
+			</div>
+			<a href="all_books.php">
+				<div class="panel-footer">
+					<span class="pull-left">View Details</span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+	
+</div>
+
+<!-- /.row -->
+<div class="row">
+<div class="col-lg-3 col-md-6">
+		<div class="panel panel-green">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+						<i class="fa fa-print fa-5x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+						<div>Print/Store Documents</div>
+					   </div>
+				</div>
+			</div>
+			<a href="documents.php">
+				<div class="panel-footer">
+					<span class="pull-left">View Details</span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
 
 
-
-
-
-			/////////////////////////////////////Start of total Expense ////////////////////////////////////////////
-			
-			$sql_exp="select sum(amount) as total_amount from expense where academic_year='".$cur_academic_year."'";
-		   
-			//var_dump($sql_exp);
-			$result_exp=mysqli_query($conn,$sql_exp);
-			if($row_exp=mysqli_fetch_array($result_exp,MYSQLI_ASSOC))
-			{
-			
-			$total_expense= $row_exp["total_amount"];
-			}
-			$balance_account=($tot_est_fee+$total_income)-$total_expense;
-			/////////////////////////////////////End of total Expense ////////////////////////////////////////////
-			?>			
-			
-				
-                     <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                       
-										<i class="fa fa-calculator fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-									 <div>Accounts Balance</div>
-                                     <div style="font-size:26px;"><?php echo $balance_account;?></div>     
-                                       
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="all_accounts_overview.php">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-file-text fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-									 <div>Student Enrollment</div>
-                                       <div class="huge"> </div>   
-                                       
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="register_enrollment.php">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-						<?php
-						error_reporting("0");
-							$sql_tot="select sum(tot_paid) as total_paid_fee from student_fee where academic_year='".$cur_academic_year."'";
-							//var_dump($sql_tot);
-							$result_tot=mysqli_query($conn,$sql_tot);
-							foreach($result_tot as $row_tot)
-							{
-							
-							$total_paid_fee += $row_tot["total_paid_fee"];
-							
-							}
-							?>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        
-										<i class="fa fa-money fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-									    <div>Total Fee Collected</div>
-                                        <div style="font-size:26px;"><?php echo $total_paid_fee;?></div>   
-                                        
-                                    </div>
-                                </div>
-                            </div>
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-green">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+						<i class="fa fa-comments fa-5x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+					 <div>Send Bulk SMS</div>
 						
-                            <a href="accounts.php">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.row -->
+					   
+					</div>
+				</div>
+			</div>
+			<a href="send_noti.php">
+				<div class="panel-footer">
+					<span class="pull-left">View Details</span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-green">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+					   
+						<i class="fa fa-list-alt fa-5x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+					 <div> Students absent today</div>
+					   <div class="huge"><?php echo $total_abs;?></div>   
+					   
+					</div>
+				</div>
+			</div>
+			<a href="student_todays_absent.php">
+				<div class="panel-footer">
+					<span class="pull-left">View Details</span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-green">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+						<i class="fa fa-list fa-5x" ></i>
+					</div>
+					<div class="col-xs-9 text-right">
+						<div>Staffs's Absent today</div>
+					  <div class="huge"><?php echo $total_stf_abs;?></div>      
+						
+					</div>
+				</div>
+			</div>
+			<a href="total_stf_abs.php">
+				<div class="panel-footer">
+					<span class="pull-left">View Details</span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+</div>
+<!-- /.row ////////////////////////////////////////////////////////////////////-->
 
-				<!-- //////////////////////.row /////////////////////////////////////////////-->
-                <div class="row">
-				<div class="col-lg-3 col-md-6">
-                        <div class="panel panel-red" style="background:red;">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-bar-chart fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-									    <div>Student Attendance</div>
-                                       </div>
-                                </div>
-                            </div>
-                            <a href="all_attendance.php">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-				
-				
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-red">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                   
-										<i class="fa fa-building-o fa-5x" ></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-									 <div>Inventory Details</div>
-                                        
-                                       
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="all_inventory.php">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-					<?php 
-					$sql_count="select id,first_name,roll_no,present_class,class_stream,class_join,village,dob,join_date,photo_name,photo_path,photo_type from students where DATE_FORMAT(dob,'%m-%d')='".$today_md."' and academic_year='".$cur_academic_year."'";
-	                $result_count=mysqli_query($conn,$sql_count);
-	                $total_students=mysqli_num_rows($result_count);
-					?>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-red">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-birthday-cake fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-									 <div>Todays Birthday's</div>
-                                       
-                                       <div class="huge"><?php echo $total_students;?></div>  
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="birthday_details.php">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-red">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-calendar fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-									    <div>Exam Timetable</div>
-                                        
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="shw_exam_timetable.php">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.row -->
-				
-				
+	 <!-- /.row -->
+<div class="row">
+<div class="col-lg-3 col-md-6">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+						<i class="fa fa-calendar fa-5x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+						<div>Timetable</div>
+						
+						
+					</div>
+				</div>
+			</div>
+			<a href="shw_timetable.php">
+				<div class="panel-footer">
+					<span class="pull-left">View Details</span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+
+<?php
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+$sql_est="select sum(tot_paid) as tot_est_fee from student_fee where academic_year='".$cur_academic_year."'";
+$result_est=mysqli_query($conn,$sql_est);
+if($row_est=mysqli_fetch_array($result_est,MYSQLI_ASSOC))
+{
+$tot_est_fee=$row_est["tot_est_fee"];
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////Start of total income ////////////////////////////////////////////
+
+$sql_tot="select sum(amount) as total_amount from income where academic_year='".$cur_academic_year."'";
+
+//var_dump($sql_amount);
+$result_tot=mysqli_query($conn,$sql_tot);
+if($row_tot=mysqli_fetch_array($result_tot,MYSQLI_ASSOC))
+{
+
+$total_income= $row_tot["total_amount"];
+}
+/////////////////////////////////////End of total income ////////////////////////////////////////////
+
+
+
+
+
+/////////////////////////////////////Start of total Expense ////////////////////////////////////////////
+
+$sql_exp="select sum(amount) as total_amount from expense where academic_year='".$cur_academic_year."'";
+
+//var_dump($sql_exp);
+$result_exp=mysqli_query($conn,$sql_exp);
+if($row_exp=mysqli_fetch_array($result_exp,MYSQLI_ASSOC))
+{
+
+$total_expense= $row_exp["total_amount"];
+}
+$balance_account=($tot_est_fee+$total_income)-$total_expense;
+/////////////////////////////////////End of total Expense ////////////////////////////////////////////
+?>			
+
+
+	 <div class="col-lg-3 col-md-6">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+					   
+						<i class="fa fa-calculator fa-5x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+					 <div>Accounts Balance</div>
+					 <div style="font-size:26px;"><?php echo $balance_account;?></div>     
+					   
+					</div>
+				</div>
+			</div>
+			<a href="all_accounts_overview.php">
+				<div class="panel-footer">
+					<span class="pull-left">View Details</span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+						<i class="fa fa-file-text fa-5x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+					 <div>Student Enrollment</div>
+					   <div class="huge"> </div>   
+					   
+					</div>
+				</div>
+			</div>
+			<a href="register_enrollment.php">
+				<div class="panel-footer">
+					<span class="pull-left">View Details</span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+		<?php
+		error_reporting("0");
+			$sql_tot="select sum(tot_paid) as total_paid_fee from student_fee where academic_year='".$cur_academic_year."'";
+			//var_dump($sql_tot);
+			$result_tot=mysqli_query($conn,$sql_tot);
+			foreach($result_tot as $row_tot)
+			{
+			
+			$total_paid_fee += $row_tot["total_paid_fee"];
+			
+			}
+			?>
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+						
+						<i class="fa fa-money fa-5x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+						<div>Total Fee Collected</div>
+						<div style="font-size:26px;"><?php echo $total_paid_fee;?></div>   
+						
+					</div>
+				</div>
+			</div>
+		
+			<a href="accounts.php">
+				<div class="panel-footer">
+					<span class="pull-left">View Details</span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+</div>
+<!-- /.row -->
+
+<!-- //////////////////////.row /////////////////////////////////////////////-->
+<div class="row">
+<div class="col-lg-3 col-md-6">
+		<div class="panel panel-red" style="background:red;">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+						<i class="fa fa-bar-chart fa-5x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+						<div>Student Attendance</div>
+					   </div>
+				</div>
+			</div>
+			<a href="all_attendance.php">
+				<div class="panel-footer">
+					<span class="pull-left">View Details</span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+
+
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-red">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+				   
+						<i class="fa fa-building-o fa-5x" ></i>
+					</div>
+					<div class="col-xs-9 text-right">
+					 <div>Inventory Details</div>
+						
+					   
+					</div>
+				</div>
+			</div>
+			<a href="all_inventory.php">
+				<div class="panel-footer">
+					<span class="pull-left">View Details</span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+	<?php 
+	$sql_count="select id,first_name,roll_no,present_class,class_stream,class_join,village,dob,join_date,photo_name,photo_path,photo_type from students where DATE_FORMAT(dob,'%m-%d')='".$today_md."' and academic_year='".$cur_academic_year."'";
+	$result_count=mysqli_query($conn,$sql_count);
+	$total_students=mysqli_num_rows($result_count);
+	?>
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-red">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+						<i class="fa fa-birthday-cake fa-5x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+					 <div>Todays Birthday's</div>
+					   
+					   <div class="huge"><?php echo $total_students;?></div>  
+					</div>
+				</div>
+			</div>
+			<a href="birthday_details.php">
+				<div class="panel-footer">
+					<span class="pull-left">View Details</span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-red">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+						<i class="fa fa-calendar fa-5x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+						<div>Exam Timetable</div>
+						
+						
+					</div>
+				</div>
+			</div>
+			<a href="shw_exam_timetable.php">
+				<div class="panel-footer">
+					<span class="pull-left">View Details</span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+</div>
+<!-- /.row -->
+
+
 <div class="row">
 <div class="col-sm-4">
 	<div class="panel panel-primary">
 		<div class="panel-heading">
-		   <h4>Latest Upcoming Events</h4>
+		<h4>Latest Upcoming Events</h4>
 		</div>
 		<div class="table-responsive">
 		<table class="table table-bordered">
@@ -835,6 +834,7 @@ if($row_status=mysqli_fetch_array($result_status,MYSQLI_ASSOC))
 	{
 	$today_md=date('m-d');
 	$sql_dob="select first_name,parent_contact,dob from students where DATE_FORMAT(dob,'%m-%d')='".$today_md."' and academic_year='".$cur_academic_year."'";
+	
 	$result_dob=mysqli_query($conn,$sql_dob);
 	foreach($result_dob as $row_dob){
 	$dob_name=$row_dob["first_name"];
@@ -844,13 +844,12 @@ if($row_status=mysqli_fetch_array($result_status,MYSQLI_ASSOC))
 	$password ="ajmal524";
 	$approved_senderid="PROMOTIONAL";
 	$message="Dear ".$dob_name.", Wish you a many many happy returns of the day. May God bless you with health, wealth and prosperity in your life-".$sch_name;
-	//echo $message;
+	
 	$enc_msg= rawurlencode($message); // Encoded message
 	$fullapiurl="http://smsc.biz/httpapi/send?username=$username&password=$password&sender_id=$approved_senderid&route=P&phonenumber=$mob_number&message=$enc_msg";
 	$ch = curl_init($fullapiurl);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	$result = curl_exec($ch); 
-	//echo $result ; // For Report or Code Check
 	curl_close($ch);
 }
 		
@@ -858,9 +857,11 @@ if($row_status=mysqli_fetch_array($result_status,MYSQLI_ASSOC))
 	$conn->query($sql_insert); 	 
 	}
 ///--------------------------------End of Birthday SMS ------------------------------------------------------/////
-	
-	}else{
-		header("Location:login.php");
+	require("footer.php");
+	}
+	else
+	{
+	header("Location:login.php");
 	}
 	
 

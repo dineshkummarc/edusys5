@@ -175,7 +175,7 @@ error_reporting("0");
 </div>
  
 <?php
-			
+require("footer.php");			
 }
 else
 {

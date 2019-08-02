@@ -179,7 +179,7 @@ require("connection.php");
 
 
 <?php 
-
+require("footer.php");
 	}else{
 		header("Location:login.php");
 	}

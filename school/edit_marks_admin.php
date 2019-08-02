@@ -94,8 +94,7 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 		</select>
 	</div>
 		
-		
-	 <div class="form-group">
+	<div class="form-group">
 	    <label for="usr">Email:</label>
 		<input type="email" name="email" value="<?php echo $email;?>" class="form-control">
 		<input type="hidden" name="id" value="<?php echo $id;?>" class="form-control">
@@ -111,12 +110,8 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
     </div>
     </div>
 </div>
-
-
-
-
 <?php
-			
+require("footer.php");			
 }
 else
 {

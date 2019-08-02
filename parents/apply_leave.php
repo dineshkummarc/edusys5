@@ -6,6 +6,9 @@ if(isset($_SESSION['parents_uname'])&&!empty($_SESSION['parents_pass'])&&!empty(
 	error_reporting("0");
 	require("header.php");
 	require("connection.php");
+	$first_name = $_SESSION['parents_uname'];
+	$roll_no = $_SESSION['parents_pass'];
+	$cur_academic_year = $_SESSION['academic_year'];
 	?>
 	<head>
 <script>
@@ -23,9 +26,8 @@ function printDiv(income) {
 </head>
 			<div class="container-fluid">
                 <div class="row">
-                <div class="col-sm-3">
-				</div> 
-				<div class="col-sm-6">
+                
+				<div class="col-sm-4">
 				<?php
 				if(isset($_GET["success"])){
 				?>
@@ -65,10 +67,50 @@ function printDiv(income) {
 				
 				
 				</div>
-				<div class="col-sm-3">
-				</div>
-				</div>
-				</div>
+				
+        <div class="col-sm-8"><br>
+		<center><table class="table table-bordered">
+			<tbody>
+			<tr class="w3-blue">
+				<th>Name & Roll No</th>
+				<th>Leave from to</th>
+				<th>action</th>
+				<th>details</th>
+			</tr>
+	<?php
+	
+	$id=$row_tot["id"];
+	$sql_status="select * from leave_reply where academic_year='".$cur_academic_year."' and first_name='".$first_name."' and roll_no='".$roll_no."'";
+	$result_status=mysqli_query($conn,$sql_status);
+	$row_count=1;
+	foreach($result_status as $row_tot)
+	{
+	$req_date= date('d-m-Y', strtotime( $row_tot['req_date'] ));
+	$ready_date= date('d-m-Y', strtotime( $row_tot['ready_date'] ));
+	$from_date= date('d-m-Y', strtotime( $row_tot['from_date'] ));
+	$to_date= date('d-m-Y', strtotime( $row_tot['to_date'] ));
+	?>
+	<tr>
+	<td style="text-align:center;"><?php echo $row_tot["first_name"];?><br><?php echo $row_tot["roll_no"];?></td>
+	<td style="text-align:center;"><?php echo $from_date;?><br><?php echo $to_date;?></td>
+	<td style="text-align:center;"><?php echo $row_tot["action"];?></td>
+	<td style="text-align:center;"><?php echo $row_tot["details"];?></td>
+	</tr>
+				
+	<?php
+				
+	$row_count++; 
+	}
+	
+	?>
+	
+	</tbody>
+	</table></center>
+	
+	</div>
+	</div>
+	<br><br><br><br><br><br>
+	</div>
 
 
 	<?php

@@ -187,17 +187,12 @@ else if($certificate_type=="conduct certificate")
 	  <label>Character is</label>
 	<input type="text" name="character"  class="form-control">
 	  </div>
-	  
-	  
-	  
-	  <input type="submit" class="btn btn-primary" name="conduct" value="Print">
+	<input type="submit" class="btn btn-primary" name="conduct" value="Print">
 </form>
  
  <?php
  }
-
-
- }
+}
 ?>	
 </div>
 <div class="col-sm-3">
@@ -206,11 +201,8 @@ else if($certificate_type=="conduct certificate")
 </div>
 </div>
 </div><br>
-
-
-
 <?php 
-
+require("footer.php");
 	}else{
 		header("Location:login.php");
 	}

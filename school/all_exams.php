@@ -86,7 +86,7 @@ $row_count="1";
 
 
 <?php
-			
+require("footer.php");			
 }
 
 else

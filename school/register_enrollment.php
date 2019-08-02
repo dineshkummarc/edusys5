@@ -536,7 +536,7 @@ function CheckSpecialCat(val){
 
 
 <?php
-			
+require("footer.php");			
 }
 else
 {

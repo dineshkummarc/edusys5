@@ -7,10 +7,7 @@ $cur_academic_year = $_SESSION['academic_year'];
 require("header.php");	
 
 ?>
-
-                               
-                                                
-		<div class="container-fluid">
+<div class="container">
 		<div class="row">
 		<div class="col-sm-3">
 		</div>
@@ -38,15 +35,11 @@ require("header.php");
 					echo '<p style="text-align: center;"><span style="color: red; font-size: 16px; font-weight: bold; text-align: center;">Sorry. Something went wrong. try again.or contact your webmaster.</span><br></p>';
 
 				}
+				?>
 								
-								
-								?>
-								
-							
-<form action="insert_holiday.php" method="post">
+	<form action="insert_holiday.php" method="post">
   
-	 
-	  <div class="form-group">
+	 <div class="form-group">
 	    <label for="usr">Hoiday Date:</label>
 		<input type="date" name="ho_date" class="form-control" required>
 	  </div>
@@ -73,11 +66,8 @@ require("header.php");
     </div>
     </div>
 </div>
-
-
-
 <?php 
-
+	require("footer.php");
 	}else{
 		header("Location:login.php");
 	}

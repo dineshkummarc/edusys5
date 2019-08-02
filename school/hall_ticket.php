@@ -135,7 +135,7 @@ function goBack() {
 </div>
 
 <?php
-			
+require("footer.php");			
 }
 else
 {

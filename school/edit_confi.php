@@ -10,7 +10,7 @@ if(isset($_GET['id'])){
 	$id=$_GET['id'];
 	
 }
-$sql="select * from school_det where id='".$id."'  and academic_year='".$cur_academic_year."'";
+$sql="select * from school_det where id='".$id."'";
 $result=mysqli_query($conn,$sql);
 if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 	{
@@ -127,7 +127,7 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 
 
 <?php
-			
+require("footer.php");			
 }
 else
 {

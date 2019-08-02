@@ -5,10 +5,7 @@ if(isset($_SESSION['lkg_uname'])&&!empty($_SESSION['lkg_pass'])&&!empty($_SESSIO
 $cur_academic_year = $_SESSION['academic_year'];
 require("header.php");
 ?>
-
-                               
-                                                
-  <div class="container-fluid"><br>
+<div class="container-fluid"><br>
    <div class="row">
     <div class="col-sm-4">
         
@@ -62,14 +59,11 @@ require("header.php");
 	</table>
 	
    <div class="inline"><a href="all_students.php"><button type="button" class="btn btn-sm btn-success">Cancel</button></a>
-                <a href="<?php echo 'del_students.php?id='.$id;?>"><button type="button" class="btn btn-sm btn-danger">Delete</button></a></div>
+ <a href="<?php echo 'del_students.php?id='.$id;?>"><button type="button" class="btn btn-sm btn-danger">Delete</button></a></div>
 	<?php
 	}
 	?>
-	
-	
-	
-    </div>
+	</div>
     </div>
     </div>
 	
@@ -78,20 +72,11 @@ require("header.php");
     </div>
     </div>
 </div>
-
-
-
-
-			<?php
-
+<?php
+require("footer.php");
 }
-
-	else
-
-	{
-
-		header("Location:login.php");
-
-	}
-
+else
+{
+header("Location:login.php");
+}
 ?>			

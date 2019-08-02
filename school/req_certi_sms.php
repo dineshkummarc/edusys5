@@ -12,9 +12,14 @@ $admission_no=$_POST["admission_no"];
 $id=$_POST["id"];
 $collect_date=$_POST["collect_date"];
 $status=$_POST["status"];
+$id=$_POST["id"];
 
-$sql_insert="insert into certificate_status (first_name,roll_no,certi_id,status_send_date,status,academic_year) values('$first_name','$admission_no','$id','$today_date','sent','$cur_academic_year')";
-$conn->query($sql_insert);
+/* $sql_insert="insert into certificate_status (first_name,roll_no,certi_id,status_send_date,status,academic_year) values('$first_name','$admission_no','$id','$today_date','sent','$cur_academic_year')";
+$conn->query($sql_insert); */
+
+$sql_update = "update request_study set status='".$status."',ready_date='".$collect_date."' where id = '".$id."'";
+$conn->query($sql_update);
+var_dump($sql_update);
 
 $sql="select distinct parent_contact from students where academic_year='".$cur_academic_year."' and first_name='".$first_name."' and  admission_no='".$admission_no."'";	
 $result=mysqli_query($conn,$sql);
@@ -33,14 +38,15 @@ $result=mysqli_query($conn,$sql);
 		}else if($status=="rejected"){
 	$message_detail="Certificate request is rejected, contact office on ".$phone;	
 		}
+	echo "message_detail";
 		
-	foreach($result as $value)
+	/* foreach($result as $value)
 	{
 	$mob_number=$value["parent_contact"];
-	$sms = urlencode(htmlspecialchars("Dear parents, ".$message_detail."-".$sch_name));
+	$message = "Dear parents, ".$message_detail."-".$sch_name;
 	require("sms_gateway.php");
-	}
-header("Location:req_certificates.php?success=.'success'");
+	} */
+//header("Location:req_certificates.php?success=.'success'");
 
 }
 ?>

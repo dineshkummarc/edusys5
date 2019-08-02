@@ -92,7 +92,6 @@ function printDiv(income) {
 			
 		$first_name=$_GET['name'];
 		$roll_no=$_GET['roll_no'];
-		//$present_class=$_GET['present_class'];
 		$sql="select * from student_fee where academic_year='".$cur_academic_year."' and name='".$first_name."' and roll_no='".$roll_no."'";
         
 	    }
@@ -102,13 +101,13 @@ function printDiv(income) {
 	if((isset($_GET['from']))&&(!empty($_GET['to'])))
 		{
 		
-		$sql_tot="select sum(adm_fee) as paid_fee_tot from student_fee where academic_year='".$cur_academic_year."' and (rec_date BETWEEN '$from' and '$to') and name='".$first_name."' and roll_no='".$roll_no."'";
+		$sql_tot="select sum(tot_paid) as paid_fee_tot from student_fee where academic_year='".$cur_academic_year."' and (rec_date BETWEEN '$from' and '$to') and name='".$first_name."' and roll_no='".$roll_no."'";
        		
 		}
 		else
 		{
 		
-		$sql_tot="select sum(adm_fee) as paid_fee_tot from student_fee where academic_year='".$cur_academic_year."' and name='".$first_name."' and roll_no='".$roll_no."'";
+		$sql_tot="select sum(tot_paid) as paid_fee_tot from student_fee where academic_year='".$cur_academic_year."' and name='".$first_name."' and roll_no='".$roll_no."'";
         
 	    }		 
 	
@@ -162,9 +161,9 @@ function printDiv(income) {
 				<td style="text-align:center;"><?php echo $row_tot["roll_no"];?></td>
 				<td style="text-align:center;"><?php echo $rec_date;?></td>
 				<td style="text-align:center;"><?php echo $row_tot["rec_no"];?></td>
-				<td style="text-align:center;"><?php echo $row_tot["adm_fee"];?></td>
+				<td style="text-align:center;"><?php echo $row_tot["tot_paid"];?></td>
 				<td><div class="btn-group">
-				<a href="<?php echo 'student_fee.php?id='.$row_tot["id"].'&edit=yes&name_edit='.$row_tot["name"].'&roll_no_edit='.$row_tot["roll_no"].'&class_edit='.$row_tot["class"];?>">  <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>
+				<a href="<?php echo 'edit_student_fee.php?id='.$row_tot["id"].'&edit=yes&name_edit='.$row_tot["name"].'&roll_no_edit='.$row_tot["roll_no"].'&class_edit='.$row_tot["class"];?>">  <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>
 				<a href="<?php echo 'delete_fee_paid.php?id='.$row_tot["id"];?>">  <i class="fa fa-trash-o fa-lg" style="color:red;" aria-hidden="true"></i></a>
 			   </div></td>
 				</tr>
@@ -183,7 +182,7 @@ function printDiv(income) {
 				</div>
 
 	<?php
-	//require("footer.php");
+	require("footer.php");
 	}
 
 	else

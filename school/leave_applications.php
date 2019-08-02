@@ -116,7 +116,7 @@ function printDiv(income) {
 				<td style="text-align:center;"><?php echo $to_date;?></td>
 				<td style="text-align:center;"><?php echo $row_tot["reason"];?></td>
 				<td style="text-align:center;"><?php echo $applied_date;?></td>
-				<td style="text-align:center;"><a href="<?php echo 'send_leave.php?id='.$id.'&first_name='.$row_tot["first_name"].'&admission_no='.$row_tot["admission_no"];?>" ><i class="fa fa-reply" aria-hidden="true"></i> Approve</a></td>
+				<td style="text-align:center;"><a href="<?php echo 'send_leave.php?id='.$id.'&first_name='.$row_tot["first_name"].'&admission_no='.$row_tot["admission_no"].'&from_date='.$from_date.'&to_date='.$to_date;?>" ><i class="fa fa-reply" aria-hidden="true"></i> Approve</a></td>
 				
                 <td style="text-align:center;"><a href="<?php echo 'delete_leave.php?id='.$id;?>" title="Delete"><i class="fa fa-trash-o fa-lg" style="color:red;" aria-hidden="true"></i></a></td>
 			
@@ -149,6 +149,7 @@ function printDiv(income) {
 	echo "<a href='leave_applications.php?page=$total_pages'>".' Last '."</a> "; // Goto last page
 	echo '</article></div>
                    </div>';
+	require("footer.php");
 	}
 	else
 	{

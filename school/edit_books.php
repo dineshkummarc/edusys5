@@ -142,7 +142,7 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 	</div>
 
 <?php
-			
+require("footer.php");			
 }
 else
 {

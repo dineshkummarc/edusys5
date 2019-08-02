@@ -6,10 +6,7 @@ if(isset($_SESSION['lkg_uname'])&&isset($_SESSION['lkg_pass']))
 {
 require("header.php");
 ?>
-
-                               
-                                                
-  <div class="container-fluid"><br>
+<div class="container-fluid"><br>
    <div class="row">
     <div class="col-sm-4">
         
@@ -21,7 +18,7 @@ require("header.php");
       <div class="panel-body">
 
 	
-	<!--///////////////////////////////// Start Single Member ///////////////////////////////////////////-->
+	<!--///// Start Single Member //////-->
 	<?php
 	require("connection.php");
 	if(isset($_GET['id'])){
@@ -70,10 +67,7 @@ require("header.php");
 	<?php
 	}
 	?>
-	
-	
-	
-    </div>
+	</div>
     </div>
     </div>
 	
@@ -82,11 +76,8 @@ require("header.php");
     </div>
     </div>
 </div>
-
-
-
 <?php
-			
+require("footer.php");			
 }
 else
 {

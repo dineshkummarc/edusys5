@@ -15,34 +15,28 @@ $cur_academic_year = $_SESSION['academic_year'];
 		<div class="panel panel-green">
      <div class="panel-heading"><h4>Collect Student Fee</h4></div>
       <div class="panel-body">
-			<?php
-		
-			if(isset($_GET["success"]))
+<?php
 
-				{
+if(isset($_GET["success"]))
 
-					$success=$_GET["success"];
+	{
+	$success=$_GET["success"];
+	echo '<p style="text-align: center;"><span style="color: green; font-size: 16px; font-weight: bold; text-align: center;">Congrajulation.Fee setup has been updated successfully</span><br></p>';
+	}
+	if(isset($_GET["failed"]))
 
-					echo '<p style="text-align: center;"><span style="color: green; font-size: 16px; font-weight: bold; text-align: center;">Congrajulation.Fee setup has been updated successfully</span><br></p>';
-
-				}
-		if(isset($_GET["failed"]))
-
-				{
-
-					$failed=$_GET["failed"];
-
-					echo '<p style="text-align: center;"><span style="color: red; font-size: 16px; font-weight: bold; text-align: center;">Sorry. Something went wrong. try again.or contact your webmaster.</span><br></p>';
-
-				}
+	{
+	$failed=$_GET["failed"];
+	echo '<p style="text-align: center;"><span style="color: red; font-size: 16px; font-weight: bold; text-align: center;">Sorry. Something went wrong. try again.or contact your webmaster.</span><br></p>';
+	}
 	
-				$present_class=$_GET["present_class"];
-				$first_name=$_GET["first_name"];
-				$roll_no=$_GET["roll_no"];
-				$academic_year=$_GET["academic_year"];	
-					
-				?>
-				Name : <?php echo $first_name;?> , Roll No : <?php echo $roll_no;?> , Class : <?php echo $present_class;?>			
+	$present_class=$_GET["present_class"];
+	$first_name=$_GET["first_name"];
+	$roll_no=$_GET["roll_no"];
+	$academic_year=$_GET["academic_year"];	
+		
+	?>
+	Name : <?php echo $first_name;?> , Roll No : <?php echo $roll_no;?> , Class : <?php echo $present_class;?>			
 							
 <form action="insert_student_fee.php" method="post">
       <div class="form-group">
@@ -87,36 +81,14 @@ $cur_academic_year = $_SESSION['academic_year'];
 		</div>
 		</div>
 		</div>
-		
-		
-		<div class="col-sm-3"><br>
-		
-	  
+	<div class="col-sm-3"><br></div>
     </div>
     </div>
-    </div>
-	
-	
-	
-
-	
-    </div>
+	</div>
 </div>
-
-
-
-
-
-
 <?php 
-
-
-
+require("footer.php");
 	}else{
 		header("Location:login.php");
 	}
-	
-
-
-
 ?>

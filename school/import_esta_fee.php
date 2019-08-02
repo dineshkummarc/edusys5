@@ -87,7 +87,7 @@ if(isset($_POST["submit"])){
 </div>
 
 <?php
-			
+require("footer.php");			
 }
 else
 {

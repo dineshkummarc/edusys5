@@ -93,10 +93,9 @@ require("header.php");
 
 
 <?php
-			
-	
-
-}else
+require("footer.php");
+}
+else
 {
 header("Location:login.php");
 }

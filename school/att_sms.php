@@ -38,11 +38,14 @@ foreach($result as $value)
 	$f2=$value["att_date"];
 	$f3=$value["attendance"];
 	$mob_number=$value["parent_contact"];
+	$message_details = $f1." is absent from school today (".$f2.")";
 
 if($mob_number!="null"){
 	
 	
-	 $message="Dear Parents, ".$f1." is absent from school today (".$f2."). If you are unaware of this, please contact the office on ".$f4;
+//$message="Dear Parents, ".$f1." is absent from school today (".$f2."). If you are unaware of this, please contact the office on ".$f4;
+
+	$message = "Dear parents, ".$message_details."-".$sch_detail;
 	require("sms_gateway.php");
 }
 }

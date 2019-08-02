@@ -11,9 +11,9 @@ if(isset($_GET['id'])){
 $sql = "DELETE FROM student_fee WHERE id='".$id."'";
 var_dump($sql);
 if ($conn->query($sql) === TRUE)  {
-		header("Location:paid_fee_details.php?deleted=.'success'");
-			} else {
-			echo "Error: " . $sql . "<br>" . $conn->error;
-			}
+header("Location:paid_fee_details.php?deleted=.'success'");
+	} else {
+	echo "Error: " . $sql . "<br>" . $conn->error;
+	}
 }
 ?>

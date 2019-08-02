@@ -9,11 +9,12 @@ if(isset($_GET['id'])){
 	
 }
 $sql = "DELETE FROM students WHERE id='".$id."'";
+var_dump($sql);
 
 if ($conn->query($sql) === TRUE)  {
-			header("Location:all_students.php?deleted=.'success'");
-			} else {
-			echo "Error: " . $sql . "<br>" . $conn->error;
-			}
+	header("Location:all_students.php?deleted=.'success'");
+	} else {
+	echo "Error: " . $sql . "<br>" . $conn->error;
+	}
 }
 ?>

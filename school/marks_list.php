@@ -306,20 +306,14 @@ function printDiv(income) {
 	}
 	?>
 	
-     
-      
-    </tbody>
+</tbody>
   </table>
-                    </div>
-					</div>
-					</div>
-					
-					
-					
-					
+	</div>
+	</div>
+	</div>
 </div>
 <?php
-
+require("footer.php");
 	}
     else
 	{

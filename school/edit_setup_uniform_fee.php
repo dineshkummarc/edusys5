@@ -45,8 +45,7 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 		}
 ?>
 								
-							
-<form action="update_setup_uniform_fee.php" method="post">
+	<form action="update_setup_uniform_fee.php" method="post">
  
 	  <div class="form-group">
 	  <label for="sel1">Academic Year</label>
@@ -65,10 +64,7 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 	  <option value="<?php echo $class;?>"><?php echo $class;?></option>
 		<?php require("selectclass.php");?>
 		
-		
-		
-		
-	  <div class="form-group">
+		<div class="form-group">
 	    <label for="usr">Uniform Fee:</label>
 		<input type="number" name="adm_fee" value="<?php echo $adm_fee;?>" class="form-control">
 	  </div>
@@ -92,23 +88,11 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 	  </div>
     </div>
     </div>
-	
-	
-	
-
-	
-    </div>
+	</div>
 </div>
-
-
-
-
-
 <?php 
-
-
-
-	}else{
+require("footer.php");
+}else{
 		header("Location:login.php");
 	}
 	

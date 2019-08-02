@@ -11,9 +11,9 @@ if(isset($_GET['id'])){
 $sql = "DELETE FROM gate_pass WHERE id='".$id."'";
 
 if ($conn->query($sql) === TRUE)  {
-			header("Location:all_gate_pass.php?deleted=.'success'");
-			} else {
-			echo "Error: " . $sql . "<br>" . $conn->error;
-			}
+	header("Location:all_gate_pass.php?deleted=.'success'");
+	} else {
+	echo "Error: " . $sql . "<br>" . $conn->error;
+	}
 }
 ?>

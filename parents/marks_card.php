@@ -53,8 +53,9 @@ $sql = "SELECT * FROM school_det ORDER BY ID DESC LIMIT 1";
 	<center><h3 style="color:red;font-weight:bold;"><?php echo strtoupper("progress Card");?></h3></center>
 	<br>
 	<br>
-	<center><img src="<?php echo $row_student["photo_path"];?>" width="150px"></center><br><br>
+	<center><img src="../school/<?php echo $row_student["photo_path"];?>" width="150px"></center><br><br>
 	<table class="table table-bordered table-responsive">
+	
 	
 	<tr>
 	<td>Student Name</td>

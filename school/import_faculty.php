@@ -11,38 +11,29 @@ if(isset($_POST["submit"])){
 		if($filename[1] == 'csv'){
 			$handle = fopen($_FILES['file']['tmp_name'],"r");
 			$count = 0;
-			while($data = fgetcsv($handle))
-			{
-				$fac_fname = mysqli_real_escape_string($conn,$data[0]);
-				$fac_lname = mysqli_real_escape_string($conn,$data[1]);
-				$fac_email = mysqli_real_escape_string($conn,$data[2]);
-				$fac_dob = mysqli_real_escape_string($conn,$data[3]);
-				$parent_contact = mysqli_real_escape_string($conn,$data[4]);
-				$fac_desig = mysqli_real_escape_string($conn,$data[5]);
-				$class_teach = mysqli_real_escape_string($conn,$data[6]);
-				$fac_dep = mysqli_real_escape_string($conn,$data[7]);
-				$fac_prev_org = mysqli_real_escape_string($conn,$data[8]);
-				$fac_quali = mysqli_real_escape_string($conn,$data[9]);
-				$fac_join = mysqli_real_escape_string($conn,$data[10]);
-				$fac_add = mysqli_real_escape_string($conn,$data[11]);
-				$fac_sex = mysqli_real_escape_string($conn,$data[12]);
-				$staff_pass = mysqli_real_escape_string($conn,$data[13]);
-				$academic_year = mysqli_real_escape_string($conn,$data[14]);
-				
-				
-				
-				
-				$count++;                                      
+		while($data = fgetcsv($handle))
+		{
+			$fac_fname = mysqli_real_escape_string($conn,$data[0]);
+			$fac_dob = mysqli_real_escape_string($conn,$data[1]);
+			$parent_contact = mysqli_real_escape_string($conn,$data[2]);
+			$fac_desig = mysqli_real_escape_string($conn,$data[3]);
+			$class_teach = mysqli_real_escape_string($conn,$data[4]);
+			$fac_dep = mysqli_real_escape_string($conn,$data[5]);
+			$fac_quali = mysqli_real_escape_string($conn,$data[6]);
+			$adhaar_no = mysqli_real_escape_string($conn,$data[7]);
+			$fac_add = mysqli_real_escape_string($conn,$data[8]);
+			$fac_sex = mysqli_real_escape_string($conn,$data[9]);
+			$staff_type = mysqli_real_escape_string($conn,$data[10]);
+			
+			$count++;                                      
 
-               if($count>1){ 
-				$sql="insert into faculty (fac_fname,fac_lname,fac_email,fac_dob,parent_contact,fac_desig,class_teach,fac_dep,fac_prev_org,fac_quali,fac_join,fac_add,fac_sex,staff_pass,academic_year)values('$fac_fname','$fac_lname','$fac_email','$fac_dob','$parent_contact','$fac_desig','$class_teach','$fac_dep','$fac_prev_org','$fac_quali','$fac_join','$fac_add','$fac_sex','$staff_pass','$cur_academic_year')";
-				$conn->query($sql);
-				var_dump($sql);
+		   if($count>1){ 
+			$sql="insert into faculty (fac_fname,fac_dob,parent_contact,fac_desig,class_teach,fac_dep,fac_quali,adhaar_no,fac_add,fac_sex,staff_type)values('$fac_fname','$fac_dob','$parent_contact','$fac_desig','$class_teach','$fac_dep','$fac_quali','$adhaar_no','$fac_add','$fac_sex','$staff_type')";
+			$conn->query($sql);
 			}
 			}
 			fclose($handle);
 			print "Import done";
-			//header('Location: teach_staff.php');
 		}
 	}
 }
@@ -75,7 +66,7 @@ if(isset($_POST["submit"])){
 </div>
 
 <?php
-			
+require("footer.php");			
 }
 else
 {

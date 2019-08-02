@@ -100,23 +100,13 @@ $cur_academic_year = $_SESSION['academic_year'];
 
 	<div class="col-sm-3">
 		</div>
-		
-	
-
-	
-    </div>
+	</div>
 </div>
-
-
 <?php 
-
-
-
-	}else{
-		header("Location:login.php");
-	}
-	
-
-
-
+require("footer.php");
+}
+else
+{
+header("Location:login.php");
+}
 ?>

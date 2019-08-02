@@ -129,11 +129,11 @@ require("header.php");
 }
 }
 					
-			
+require("footer.php");			
 }
 else
 {
 header("Location:login.php");
 }
 	
-			?>
+?>

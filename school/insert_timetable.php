@@ -26,26 +26,17 @@ $semester=$_POST["semester"];
 	
 $sql="insert into timetable (class,day,section,stream_combi,subject1,subject2,subject3,subject4,subject5,subject6,subject7,subject8,semester,academic_year) values('$class','$day','$section','$stream_combi','$subject1','$subject2','$subject3','$subject4','$subject5','$subject6','$subject7','$subject8','$semester','$cur_academic_year')";
        
-	
-	
 	if ($conn->query($sql) === TRUE) 
 	{
-	
 	header("Location:timetable.php?success_tt=.'success_tt'");
-
-
 	} else{
-	
-	
 	header("Location:timetable.php?failed_tt=.'failed_tt'");
-
-
 	} 
-	
-
-	}else{
-		header("Location:login.php");
-	}
+}
+else
+{
+header("Location:login.php");
+}
 	
 
 

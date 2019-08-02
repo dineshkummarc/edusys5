@@ -6,9 +6,6 @@ if(isset($_SESSION['lkg_uname'])&&isset($_SESSION['lkg_pass']))
 {
 require("header.php");
 error_reporting("0");
-
-
-
 ?>
 
 <a href=""  onclick="printDiv('income')"><i class="fa fa-print" aria-hidden="true"></i> Print</a>  <a href=""  onclick="goBack()"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back</a> 
@@ -203,7 +200,7 @@ error_reporting("0");
 </div>
 
 <?php
-			
+require("footer.php");			
 }
 else
 {

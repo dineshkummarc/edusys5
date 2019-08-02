@@ -154,6 +154,7 @@ if($meeting_type=="Send SMS"){
 
 <?php	
  }else if($meeting_type=="Individual SMS"){
+
 ?>
 <a href="individual_sms.php"><button type="button" class="btn btn-primary" value="Get Details">Continue</button></a>
 
@@ -209,12 +210,23 @@ if($meeting_type=="Send SMS"){
 	</div> 
 	</div> 
 	<?php
- }
+	}
 	else if($meeting_type=="staff sms")
 	{
      ?>
-	 <h4>Staff SMS</h4>
+	 <h2 style="color:blue">Teaching and Non Teaching Staff SMS</h2>
 	 <form action="staff_sms.php" method="post">
+	 
+	 <div class="form-group">
+	    <label for="usr">Staff Type:</label>
+		<select name="staff_type" class="form-control">
+		<option value="teaching">Teaching Staff</option>
+		<option value="non_teaching">Admin (Non Teaching) Staff</option>
+		<option value="all">All Staff</option>
+		</select>
+	  </div>
+	 
+	 
 	 <div class="form-group">
 	  <label>Message</label>
 		<textarea rows="5" class="form-control"  name="message_detail" required></textarea>
@@ -300,7 +312,7 @@ if($meeting_type=="Send SMS"){
 
 
 <?php 
-
+require("footer.php");
 	}else{
 		header("Location:login.php");
 	}

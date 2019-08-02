@@ -11,9 +11,9 @@ if(isset($_GET['id'])){
 $sql = "DELETE FROM fac_attendance WHERE id='".$id."'";
 
 if ($conn->query($sql) === TRUE)  {
-			header("Location:fac_attendance_desc.php?deleted=.'success'");
-			} else {
-			echo "Error: " . $sql . "<br>" . $conn->error;
-			}
+	header("Location:fac_attendance_desc.php?deleted=.'success'");
+	} else {
+	echo "Error: " . $sql . "<br>" . $conn->error;
+	}
 }
 ?>

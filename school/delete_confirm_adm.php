@@ -11,9 +11,9 @@ if(isset($_GET['id'])){
 $sql = "DELETE FROM administration WHERE id='".$id."'";
 
 if ($conn->query($sql) === TRUE)  {
-			header("Location:adm_members.php?deleted=.'success'");
-			} else {
-			echo "Error: " . $sql . "<br>" . $conn->error;
-			}
+	header("Location:adm_members.php?deleted=.'success'");
+	} else {
+	echo "Error: " . $sql . "<br>" . $conn->error;
+	}
 }
 ?>

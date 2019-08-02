@@ -31,7 +31,7 @@ $result=mysqli_query($conn,$sql);
 		$f3=$value["attendance"];
 		
 		if($mob_number!="null"){
-		$sms = urlencode(htmlspecialchars("Dear member, ".$message_detail."-".$sch_name));
+		$message = "Dear member, ".$message_detail."-".$sch_name;
 		require("sms_gateway.php");
 		}
 

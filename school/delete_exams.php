@@ -11,9 +11,9 @@ if(isset($_GET['id'])){
 $sql = "DELETE FROM exams WHERE id='".$id."'";
 
 if ($conn->query($sql) === TRUE)  {
-			header("Location:all_exams.php?status=.'success'");
-			} else {
-			echo "Error: " . $sql . "<br>" . $conn->error;
-			}
+	header("Location:all_exams.php?status=.'success'");
+	} else {
+	echo "Error: " . $sql . "<br>" . $conn->error;
+	}
 }
 ?>

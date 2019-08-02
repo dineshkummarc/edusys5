@@ -69,15 +69,10 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 		
     </div>
     </div>
-
-
-
 <?php 
-
-
-
-	}else{
-		header("Location:login.php");
+require("footer.php");
+}else{
+header("Location:login.php");
 	}
 	
 

@@ -195,12 +195,9 @@ $cur_academic_year = $_SESSION['academic_year'];
 </div>
 </div>
 
-<?php 
+<?php
+require("footer.php"); 
 }else{
 		header("Location:login.php");
 	}
-	
-
-
-
 ?>

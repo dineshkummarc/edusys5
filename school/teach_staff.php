@@ -64,8 +64,6 @@ error_reporting("0");
 		<td><span style="font-weight: bold;">Departments</span></td>
 	
 		
-		<td><span style="font-weight: bold;">Qualification</span></td>
-		
 		<td><span style="font-weight: bold;">Address</span></td>
 		
 		<td><span style="font-weight: bold;">Mobile</span></td>
@@ -106,7 +104,6 @@ error_reporting("0");
 		<td><a href="<?php echo 'fac_description.php?fac_id='.$row['fac_id'];?>" ><?php echo $row["fac_fname"];?> <?php echo $row["fac_lname"];?></a></td>
 		<td><?php echo $row["fac_desig"];?></td>
 		<td><?php echo $row["fac_dep"];?></td>
-		<td><?php echo $row["fac_quali"];?></td>
 		<td><?php echo $row["fac_add"];?></td>
 		<td><?php echo $row["parent_contact"];?></td>
 		<td><div class="btn-group"><a href="<?php echo 'fac_description.php?fac_id='.$row['fac_id'];?>" > <i class="fa fa-eye fa-lg" style="color:#8ba83e;" aria-hidden="true"></i></a>
@@ -156,7 +153,7 @@ error_reporting("0");
 </div>
  
 <?php
-			
+require("footer.php");			
 }
 else
 {

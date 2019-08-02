@@ -548,12 +548,8 @@ function CheckSpecialCat(val){
   </div>
 
 </div>
-
-
-
-
 <?php
-			
+require("footer.php");
 }
 else
 {

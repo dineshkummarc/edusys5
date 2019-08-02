@@ -101,9 +101,6 @@ function printDiv(income) {
 	<?php
 	foreach($result as $row)
 	{
-		//$dob= date('d-m-Y', strtotime( $row['dob'] ));
-		//$join_date= date('d-m-Y', strtotime( $row['join_date'] ));
-	
 	
 	?>
 	
@@ -134,20 +131,14 @@ function printDiv(income) {
 		
 	?>
 		</table>
-		
-		
 		<input type="submit" class="btn btn-primary" name="sub_att[]" value="Update Fee">
 	</form>
 </div>
-					</div>
-					</div>
-					
-					
-					
-					
+</div>
+</div>
 </div>
 <?php
-
+require("footer.php");
 	}
     else
 	{

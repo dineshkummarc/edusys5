@@ -11,9 +11,9 @@ if(isset($_GET['id'])){
 $sql = "DELETE FROM leave_appli WHERE id='".$id."'";
 
 if ($conn->query($sql) === TRUE)  {
-			header("Location:leave_applications.php?deleted=.'success'");
-			} else {
-			echo "Error: " . $sql . "<br>" . $conn->error;
-			}
+	header("Location:leave_applications.php?deleted=.'success'");
+	} else {
+	echo "Error: " . $sql . "<br>" . $conn->error;
+	}
 }
 ?>

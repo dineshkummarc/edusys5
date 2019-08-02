@@ -9,10 +9,7 @@ if(isset($_SESSION['lkg_uname'])&&isset($_SESSION['lkg_pass']))
 require("header.php");	
 
 ?>
-
-                               
-                                                
-		<div class="container-fluid">
+	<div class="container-fluid">
 		<div class="row">
 		<div class="col-sm-3">
 		</div>
@@ -101,7 +98,7 @@ require("header.php");
 
 
 <?php
-			
+require("footer.php");			
 }
 else
 {

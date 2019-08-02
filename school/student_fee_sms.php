@@ -8,12 +8,12 @@ require("header.php");
 $f1=$_GET['name'];
 $f2=$_GET['tot_paid'];
 $f3=$_GET['rec_no'];
-//$f4=$_GET['rec_date'];
 $roll_no=$_GET['roll_no'];
 $note=$_GET['note'];
 $f4= date('d-m-Y', strtotime( $_GET['rec_date'] ));
 
 /////////////////////////////////START SCHOOL DETAILS ////////////////////////////////////////
+
 	
 	$sql_sch = "SELECT * FROM school_det ORDER BY ID DESC LIMIT 1";
 	$result_sch=mysqli_query($conn,$sql_sch);
@@ -27,21 +27,34 @@ $f4= date('d-m-Y', strtotime( $_GET['rec_date'] ));
 		$sch_detail=$row_sch['sch_name']." ".$row_sch['location'];
 	}
 	////////// END SCHOOL DETAILS //////////////////
+	
 
 $sql="select parent_contact,present_class from students where academic_year='".$cur_academic_year."' and first_name='".$f1."' and roll_no='".$roll_no."'";
+
 $result=mysqli_query($conn,$sql);
 if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 	{
 		$mob_number=$row["parent_contact"];
 		$present_class=$row["present_class"];
 	}
+	
 
+		$sql_fee_tot="select adm_fee  from set_fee where class='".$present_class."'  and academic_year='".$cur_academic_year."' order by id desc limit 1";
+		$result_fee_tot=mysqli_query($conn,$sql_fee_tot);
+		if($row_fee_tot=mysqli_fetch_array($result_fee_tot,MYSQLI_ASSOC))
+		{
+			$paid_fee_total=$row_fee_tot["adm_fee"];
+		}
+		else
+		{
+			$paid_fee_total=0;
+		}
+		$balance=$paid_fee_total-$f2;
 
-//SMS Gateway code starts here
-	 
-	 $sms = urlencode(htmlspecialchars("SCHOOL, Thank you ".$f1.". Your fee amount Rs.".$f2." has been received.Receipt no is ".$f3." and receipt date is ".$f4."."));
-	 require("sms_gateway.php");
-	 //SMS gateway code ends here
+		$message_details = "Thank you ".$f1.". Your fee amount Rs.".$f2." has been received.Receipt no is ".$f3." and receipt date is ".$f4.". Remaining fee is Rs.".$balance;
+
+		$message = "Dear parents, ".$message_details."-".$sch_detail;
+		require("sms_gateway.php");
 
 			
 /*///////////// sms end///////////////////*/
@@ -114,26 +127,8 @@ function printDiv(letterhead) {
 </div>
 </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <?php
+require("footer.php");
 //header("Location:description.php?first_name=".$f1."&roll_no=".$roll_no."&class=".$present_class."&suceess=success");
 
 }

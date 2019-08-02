@@ -153,7 +153,7 @@ function printDiv(income) {
 				</div>
 
 	<?php
-	//require("footer.php");
+	require("footer.php");
 	}
 
 	else

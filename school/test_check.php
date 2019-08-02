@@ -414,7 +414,7 @@ function printDiv(income) {
 
 				   <?php
 	}
-	
+	require("footer.php");
 	}
 
 	else

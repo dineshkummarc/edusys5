@@ -84,7 +84,8 @@ require("header.php");
   </div>
   </div>
   </div>
-<?php 
+<?php
+require("footer.php"); 
 }else{
 	header("Location:login.php");
 }

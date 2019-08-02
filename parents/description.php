@@ -93,7 +93,7 @@ function printDiv(income) {
 		  <div class="panel-body" id="income">
 				<center>
 					<?php if(($row["photo_path"])!="photo/"){?>
-				<img class="img-responsive img-thumbnail" src="<?php echo $row['photo_path'];?>"  width="130" height="130"><?php }else{};?><br>
+				<img class="img-responsive img-thumbnail" src="../school/<?php echo $row['photo_path'];?>"  width="130" height="130"><?php }else{};?><br>
 				
 				 
 				 <div class="table-responsive"> 

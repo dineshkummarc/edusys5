@@ -14,11 +14,8 @@ if($value=mysqli_fetch_array($result,MYSQLI_ASSOC))
 	{
 	$fee_name=$value["fee_name"];
 	$fee_details=$value["fee_details"];
-	
-	
 	}
-	
-?>
+	?>
 <div class="container-fluid">
 		<div class="row">
 		<div class="col-sm-3">
@@ -55,17 +52,11 @@ if($value=mysqli_fetch_array($result,MYSQLI_ASSOC))
     </div>
     </div>
 
-	<div class="col-sm-3" >
-        
-    </div>
+	<div class="col-sm-3"></div>
     </div>
 </div>
-
-
-
-
 <?php
-			
+require("footer.php");			
 }
 else
 {

@@ -105,7 +105,7 @@ foreach($result as $row)
 
 
 <?php 
-
+require("footer.php");
 	}else{
 		header("Location:login.php");
 	}

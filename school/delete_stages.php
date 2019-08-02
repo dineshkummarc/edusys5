@@ -11,9 +11,9 @@ if(isset($_GET['id'])){
 $sql = "DELETE FROM stages WHERE id='".$id."'";
 
 if ($conn->query($sql) === TRUE)  {
-			header("Location:stages.php?deleted=.'success'");
-			} else {
-			echo "Error: " . $sql . "<br>" . $conn->error;
-			}
+	header("Location:stages.php?deleted=.'success'");
+	} else {
+	echo "Error: " . $sql . "<br>" . $conn->error;
+	}
 }
 ?>

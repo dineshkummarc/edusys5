@@ -193,7 +193,7 @@ function printDiv(expense) {
 
 
 <?php
-			
+require("footer.php");			
 }
 else
 {

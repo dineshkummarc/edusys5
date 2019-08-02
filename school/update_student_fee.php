@@ -17,22 +17,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	
 	$rec_date = test_input($_POST["rec_date"]);
 	$rec_no = test_input($_POST["rec_no"]);
+	$note = test_input($_POST["note"]);
 	
  
-  $sql="update student_fee set name='".$name."',parent_name='".$parent_name."',roll_no='".$roll_no."',academic_year='".$cur_academic_year."',class='".$class."',section='".$section."',tot_paid='".$adm_fee."',rec_date='".$rec_date."',rec_no='".$rec_no."' where id='".$id."'";
+  $sql="update student_fee set name='".$name."',parent_name='".$parent_name."',roll_no='".$roll_no."',academic_year='".$cur_academic_year."',class='".$class."',section='".$section."',tot_paid='".$adm_fee."',rec_date='".$rec_date."',rec_no='".$rec_no."',note='".$note."' where id='".$id."'";
 
 if ($conn->query($sql) === TRUE) {
-	 $sql_upd="update students set tot_paid=tot_paid+'".$adm_fee."' where academic_year='".$cur_academic_year."' and first_name='".$name."' and roll_no='".$roll_no."'";
-			  $conn->query($sql_upd);
-			header("Location:student_fee_sms.php?name=".$name."&tot_paid=".$tot_paid."&rec_no=".$rec_no."&rec_date=".$rec_date."&roll_no=".$roll_no);
-			
-			} else {
-			echo "Error: " . $sql . "<br>" . $conn->error;
-			}
-			
-			}
-			}
-			//}
+	 //$sql_upd="update students set tot_paid=tot_paid+'".$adm_fee."' where academic_year='".$cur_academic_year."' and first_name='".$name."' and roll_no='".$roll_no."'";
+		$conn->query($sql_upd);
+		header("Location:student_fee_sms.php?name=".$name."&tot_paid=".$adm_fee."&rec_no=".$rec_no."&rec_date=".$rec_date."&roll_no=".$roll_no."&note=".$note);
+		
+		}
+		else
+		{
+		echo "Error: " . $sql . "<br>" . $conn->error;
+		}
+		
+	}
+}
+
 
 function test_input($data) {
   $data = trim($data);

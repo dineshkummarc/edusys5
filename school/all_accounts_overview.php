@@ -134,10 +134,8 @@ function printDiv(income) {
 	
 	
 <?php
-			
+require("footer.php");			
 }
-
-
 else
 {
 header("Location:login.php");

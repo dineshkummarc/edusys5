@@ -382,15 +382,10 @@ function printDiv(income) {
 
 				   <?php
 	}
-	
-	}
-
-	else
-
-	{
-
-		header("Location:login.php");
-
-	}
-
+require("footer.php");	
+}
+else
+{
+header("Location:login.php");
+}
 ?>			

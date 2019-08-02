@@ -100,22 +100,19 @@ function printDiv(income) {
 		<input type="submit" class="btn btn-primary" name="sub_att" value="Update Marks">
 	</form>
 </div>
-					</div>
-					</div>
-					
-					
-					
-					
+</div>
+</div>
 </div>
 <?php
 
-	}
-	}
-    else
-	{
+}
+require("footer.php");
+}
+else
+{
 
-	header("Location:login_marks.php");
+header("Location:login_marks.php");
 
-	}
+}
 
 ?>			

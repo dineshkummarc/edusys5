@@ -93,9 +93,7 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 		echo '</select>';
         ?>
 	</div>
-		
-		
-	  <div class="form-group">
+		<div class="form-group">
 	    <label for="usr">Van Fee:</label>
 		<input type="number" name="adm_fee" value="<?php echo $van_fee;?>" class="form-control">
 	  </div>
@@ -112,29 +110,15 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 		</div>
 		</div>
 		</div>
-		
-		
 		<div class="col-sm-3"><br>
 		
 	  </div>
     </div>
     </div>
-	
-	
-	
-
-	
-    </div>
+	</div>
 </div>
-
-
-
-
-
 <?php 
-
-
-
+require("footer.php");
 	}else{
 		header("Location:login.php");
 	}

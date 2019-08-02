@@ -6,31 +6,27 @@ $cur_academic_year = $_SESSION['academic_year'];
 require("connection.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	$academic_year = test_input($_POST["academic_year"]);
+	$class = test_input($_POST["class"]);
+	if($_POST["section"]){
+	$section = test_input($_POST["section"]);	
+		}else{
+		$section="";
+		}
 	
-	$first_name = test_input($_POST["first_name"]);
-	$roll_no = test_input($_POST["roll_no"]);
-	$present_class = test_input($_POST["present_class"]);
-	$section = test_input($_POST["section"]);
-	$fee_towards = test_input($_POST["fee_towards"]);
 	$adm_fee = test_input($_POST["adm_fee"]);
 	
-	ob_start();
-	date_default_timezone_set("Asia/Kolkata");
-	$today_date=date("Y-m-d");
-
+	$tot_fee = $adm_fee;
 	
 
-  $sql="insert into set_fee (first_name,roll_no,class,section,adm_fee,fee_towards,academic_year,updated_date) values('$first_name','$roll_no','$present_class','$section','$adm_fee','$fee_towards','$cur_academic_year','$today_date')";
-		  //var_dump($sql);
+  $sql="insert into set_fee (academic_year,class,section,adm_fee,tot_fee) values('$cur_academic_year','$class','$section','$adm_fee','$tot_fee')";
 		  if ($conn->query($sql) === TRUE) {
-		      //var_dump($sql);
-		  $sql_upd="update students set total_student_fee=total_student_fee+'".$adm_fee."' where first_name='".$first_name."' and roll_no='".$roll_no."' and academic_year='".$cur_academic_year."'";
+		  $sql_upd="update students set tot_fee='".$tot_fee."' where academic_year='".$cur_academic_year."' and present_class='".$class."'";
 			  $conn->query($sql_upd);
-			  //var_dump($sql_upd);
-			header("Location:description.php?first_name=".$first_name."&roll_no=".$roll_no."&class=".$present_class."&suceess=success");
+			  var_dump($sql_upd);
+			header("Location:set_fee.php?success='success'");
 			} else {
-			   var_dump($sql_upd);
-		header("Location:set_fee.php?failed='failed'");
+			header("Location:set_fee.php?failed='failed'");
 			}
 			
 			}

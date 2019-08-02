@@ -12,7 +12,7 @@ session_start();
 	require("connection.php");
 	$sql='select first_name,rollno,roll_no,present_class from students where first_name="'.$user.'" and roll_no="'.$log_pas.'" and academic_year="'.$academic_year.'"';
 	$result=mysqli_query($conn,$sql);
-	
+	var_dump($sql);
 	
 	$f=false;
 	if($row=mysqli_fetch_array($result))
@@ -28,7 +28,7 @@ session_start();
 		else
 		{
 		$status="User/Password incorrect1!";
-		header("Location:login.php?failed=failed");
+		//header("Location:login.php?failed=failed");
 		}
 	if($f)
 		{	
@@ -37,7 +37,7 @@ session_start();
 		else
 		{
 		$status="User/Password incorrect2!";
-		header("Location:login.php?failed=failed");
+		//header("Location:login.php?failed=failed");
 		}
 		
 		

@@ -178,9 +178,9 @@ function printDiv(income) {
 				echo "<a href='accounts.php?page=".$i."'>   ".$i. "   </a> "; 
 	}; 
 	echo "<a href='accounts.php?page=$total_pages'>".' Last '."</a> "; // Goto last page
-	echo '</div>';		
+	echo '</div>';
+require("footer.php");	
 }
-
 else
 {
 header("Location:login.php");

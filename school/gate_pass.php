@@ -120,21 +120,10 @@ $result_student=mysqli_query($conn,$sql_student);
 	  </div>
     </div>
     </div>
-	
-	
-	
-
-	
-    </div>
 </div>
-
-
-
-
+</div>
 <?php 
-
-
-
+require("footer.php");
 	}else{
 		header("Location:login.php");
 	}

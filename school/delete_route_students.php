@@ -11,9 +11,9 @@ if(isset($_GET['id'])){
 $sql = "DELETE FROM route_students WHERE id='".$id."'";
 
 if ($conn->query($sql) === TRUE)  {
-			header("Location:route_students.php?deleted=.'success'");
-			} else {
-			echo "Error: " . $sql . "<br>" . $conn->error;
-			}
+	header("Location:route_students.php?deleted=.'success'");
+	} else {
+	echo "Error: " . $sql . "<br>" . $conn->error;
+	}
 }
 ?>

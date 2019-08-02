@@ -80,9 +80,9 @@ function printDiv(income) {
 	?>	
         <div class="row">
         <div class="col-sm-12" id="income"><br>
-				<center><table class="table table-bordered">
-				<tbody>
-				<tr class="w3-blue">
+		<center><table class="table table-bordered">
+			<tbody>
+			<tr class="w3-blue">
 				<th>SL No</th>
 				<th>Name</th>
 				<th>Roll No</th>
@@ -92,9 +92,7 @@ function printDiv(income) {
 				<th>Requested Date</th>
 				<th>Send action & Collect Date</th>
 				<th>Actions</th>
-			
-				
-				</tr>
+			</tr>
 	<?php
 	
 	foreach($result as $row_tot)
@@ -120,21 +118,22 @@ function printDiv(income) {
 				<td style="text-align:center;"><?php echo $req_date;?></td>
 				<td style="text-align:center;">
 				
-					<form class="form-inline" action="req_certi_sms.php" method="post">
+				<form class="form-inline" action="req_certi_sms.php" method="post">
 					<div class="form-group">
-					 
-					  <select class="form-control" name="status">
+					<select class="form-control" name="status">
 						<option value="">Action</option>
 						<option value="approved">Approve</option>
 						<option value="rejected">Reject</option>
 					 </select>
 					</div>
+					
 					<div class="form-group">
 						<input type="date" name="collect_date" class="form-control">
 						<input type="hidden" name="first_name" value="<?php echo $row_tot["first_name"];?>" class="form-control">
 						<input type="hidden" name="admission_no" value="<?php echo $row_tot["admission_no"];?>" class="form-control">
 						<input type="hidden" name="id" value="<?php echo $row_tot["id"];?>" class="form-control">
-					  </div>
+					</div>
+					  
 					  <input type="submit" name="submit" value="Send" class="btn btn-success btn-sm">
 					  </form>
 					
@@ -172,6 +171,7 @@ function printDiv(income) {
 	echo "<a href='leave_applications.php?page=$total_pages'>".' Last '."</a> "; // Goto last page
 	echo '</article></div>
                    </div>';
+	require("footer.php");
 	}
 	else
 	{

@@ -51,8 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		
 		
         } 
-		
-    //header("Location:att_sms.php?academic_year=".$academic_year."&present_class=".$present_class);
+	
 }
 header("Location:att_sms.php?academic_year=".$cur_academic_year."&present_class=".$present_class);
 }

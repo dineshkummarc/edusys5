@@ -73,7 +73,7 @@ error_reporting("0");
 
 
 <?php 
-
+require("footer.php");
 	}else{
 		header("Location:login.php");
 	}

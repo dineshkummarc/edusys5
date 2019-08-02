@@ -1,3 +1,11 @@
+<?php
+session_start();
+if(isset($_SESSION['lkg_uname'])&&!empty($_SESSION['lkg_pass'])&&!empty($_SESSION['academic_year']))
+{
+$cur_academic_year = $_SESSION['academic_year'];
+require("header.php");
+require("connection.php");
+?>
 <form enctype="multipart/form-data" method="post" role="form">
     <div class="form-group">
         <label for="exampleInputFile">File Upload</label>
@@ -33,4 +41,11 @@ if(isset($_POST["Import"]))
     else
         echo 'Invalid File:Please Upload CSV File';
 }
-?>
+
+require("footer.php");			
+}
+else
+{
+header("Location:login.php");
+}
+?>  

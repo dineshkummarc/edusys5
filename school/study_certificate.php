@@ -62,18 +62,7 @@ $today_date=date("d-m-Y");
 
 
 ?>
-<script>
-function printDiv(letterhead) {
-     var printContents = document.getElementById('letterhead').innerHTML;
-     var originalContents = document.body.innerHTML;
 
-     document.body.innerHTML = printContents;
-
-     window.print();
-
-     document.body.innerHTML = originalContents;
-}
-</script>
 <style>
 
 </style>
@@ -225,7 +214,21 @@ function printDiv(letterhead) {
 </div>
 
 <?php
-			
+require("footer.php");
+?>
+<script>
+function printDiv(letterhead) {
+     var printContents = document.getElementById('letterhead').innerHTML;
+     var originalContents = document.body.innerHTML;
+
+     document.body.innerHTML = printContents;
+
+     window.print();
+
+     document.body.innerHTML = originalContents;
+}
+</script>
+<?php			
 }
 else
 {

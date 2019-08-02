@@ -48,7 +48,7 @@ echo $message."<br>";
 
   }
   
-   header("Location:index.php?success=.'success'");
+  header("Location:index.php?success=.'success'");
 		
 }
 else

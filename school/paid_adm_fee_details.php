@@ -551,7 +551,7 @@ $today_date=date("Y-m-d");
 
 
 <?php
-			
+require("footer.php");			
 }
 else
 {

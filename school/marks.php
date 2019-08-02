@@ -53,7 +53,7 @@ function printDiv(income) {
 		<div class="form-group">
 		  <?php echo '<select class="form-control" name="exam_name">';
 			echo '<option value="">Select Exam</option>';
-				$sql="select distinct exam_name from exams where academic_year='".$cur_academic_year."'";
+				$sql="select distinct exam_name from exams";
 				$result=mysqli_query($conn,$sql);
 				foreach($result as $value)
 				{
@@ -83,7 +83,7 @@ function printDiv(income) {
 		<?php 
 		$filt_class=$_GET["filt_class"];
 		$section=$_GET["section"];
-		$sql_sub="select * from subjects where class='".$filt_class."' and academic_year='".$cur_academic_year."' ORDER BY id limit 12";
+		$sql_sub="select * from subjects where class='".$filt_class."' ORDER BY id limit 12";
 	     $result_sub=mysqli_query($conn,$sql_sub);
 		//var_dump($sql_sub);
 		 foreach($result_sub as $row_sub){
@@ -160,7 +160,7 @@ function printDiv(income) {
 	</div>
 </div>
 <?php
-
+require("footer.php");
 	}
     else
 	{

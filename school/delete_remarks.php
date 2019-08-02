@@ -14,9 +14,9 @@ $sql = "DELETE FROM remarks WHERE id='".$id."'";
 
 if ($conn->query($sql) === TRUE)  {
 			//header("Location:des.php?deleted=.'success'");
-			header("Location:description.php?deleted=success&first_name=".$first_name."&roll_no=".$roll_no);
-			} else {
-			echo "Error: " . $sql . "<br>" . $conn->error;
-			}
+	header("Location:description.php?deleted=success&first_name=".$first_name."&roll_no=".$roll_no);
+	} else {
+	echo "Error: " . $sql . "<br>" . $conn->error;
+	}
 }
 ?>

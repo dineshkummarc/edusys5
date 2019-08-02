@@ -5,10 +5,7 @@ if(isset($_SESSION['lkg_uname'])&&!empty($_SESSION['lkg_pass'])&&!empty($_SESSIO
 $cur_academic_year = $_SESSION['academic_year'];
 	
 	require("header.php");	
-	if(isset($_GET["first_name"])){
-		$first_name=$_GET["first_name"];
-		$roll_no=$_GET["roll_no"];
-	}
+	
 
 ?>
        <div class="container-fluid">
@@ -18,15 +15,9 @@ $cur_academic_year = $_SESSION['academic_year'];
 	  </div>
 		<div class="col-sm-6"><br>
 		<div class="panel panel-yellow">
-        <div class="panel-heading"><h4>Setup Fee Details</h4></div>
+        <div class="panel-heading"><h4>Setup School Fee Details</h4></div>
         <div class="panel-body">
-<?php
-
-        require("connection.php");
-		 $sql="select first_name,roll_no,present_class,section from students where first_name='".$first_name."' and roll_no='".$roll_no."' and academic_year='".$cur_academic_year."'";
-		$result=mysqli_query($conn,$sql);
-		
-
+<?php 
 	if(isset($_GET["success"])){
 	?>
 	<div class="alert alert-success">
@@ -34,43 +25,64 @@ $cur_academic_year = $_SESSION['academic_year'];
      </div>
 	<?php
 	}
-	
-	if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
-	{
 	?>
 								
-	<p style="font-size:16px;color:green;font-weight:bold;">Student Name : <?php echo $first_name;?> and Roll No is <?php echo $roll_no;?></p>						
-	<form action="insert_set_fee.php" method="post">
+							
+<form action="insert_set_fee.php" method="post">
  
+	  <div class="form-group">
+	  <label for="sel1">Academic Year</label>
+	  <select class="form-control" name="academic_year" required>
+		<option value="">-----------</option>
+		<option value="2016-2017">2016-17</option>
+		<option value="2017-2018">2017-18</option>
+		<option value="2018-2019">2018-19</option>
+		<option value="2019-2020">2019-20</option>
+		</select><br>
+		</div>
+		
+		 <div class="form-group">
+	  <label for="sel1">Select Class</label>
+	  <select class="form-control" name="class" required>
+		<?php
+		require("selectclass.php");
+	?>
+	
+	<!--
 	<div class="form-group">
-	    <label for="usr">Fee Amount:</label>
+	  <label for="sel1">Select Section</label>
+	  <select class="form-control" name="section">
+	<?php
+        require("connection.php");
+		 $sql_section="select distinct section from students where academic_year='".$cur_academic_year."'";
+
+		 $result_section=mysqli_query($conn,$sql_section);
+		 
+
+		 foreach($result_section as $value_section)
+        {
+        ?>
+		<option value='<?php echo $value_section["section"];?>'><?php echo $value_section["section"];?></option>
+		<?php
+		}
+		echo '</select>';
+		?>
+		</div>
+     -->
+		
+		
+	  <div class="form-group">
+	    <label for="usr">School Fee:</label>
 		<input type="number" name="adm_fee" class="form-control">
 	  </div>
 	  
-	  <div class="form-group">
-	<label for="usr"><span style="color:red;font-size:18px;">*</span>Fee Towards:</label>
-	<select class="form-control" name="fee_towards">
-	  <?php
-	  $sql_name="select distinct fee_name from fee_name order by fee_name";
-	  $result_name=mysqli_query($conn,$sql_name);
-	  foreach($result_name as $row_name){
-	  ?>
-	  <option value="<?php echo $row_name["fee_name"]; ?>"><?php echo $row_name["fee_name"]; ?></option>
-	   <?php
-	  }
-	   ?>
-		</select>
-	  </div>
-	  
-	   <input type="hidden" name="first_name" value="<?php echo $first_name; ?>" class="form-control">
-	   <input type="hidden" name="roll_no" value="<?php echo $roll_no; ?>" class="form-control">
-	   <input type="hidden" name="present_class" value="<?php echo $row['present_class']; ?>" class="form-control">
-	   <input type="hidden" name="section" value="<?php echo $row['section']; ?>" class="form-control">
-	
+	 <div class="form-group">
+	   <input type="hidden" name="assign_date" value="<?php echo date('d-m-Y'); ?>" class="form-control">
+		</div>
 		
 	  <input type="submit" name="set_fee" class="btn btn-success" value="Setup Fee">
-	</form><br>
-	<button onclick="goBack()" class="btn btn-primary">Go Back</button>	
+	</form>
+		
 		</div>
 		</div>
 		</div>
@@ -81,26 +93,11 @@ $cur_academic_year = $_SESSION['academic_year'];
 	  </div>
     </div>
     </div>
-	
-	
-	
-
-	
-    </div>
+	</div>
 </div>
-
-
-
-
 <?php 
-		}
-
-
+require("footer.php");
 	}else{
 		header("Location:login.php");
 	}
-	
-
-
-
 ?>

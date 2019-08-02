@@ -57,7 +57,7 @@ $result=mysqli_query($conn,$sql);
 
 
 <?php
-			
+require("footer.php");			
 }
 else
 {

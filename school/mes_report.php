@@ -31,17 +31,17 @@ $characters = json_decode($data); // decode the JSON feed
 	<th>Deliver Time & Status</th>
 	</tr>
 	<?php
-	$row_count=1;
-	foreach ($characters as $character) {
-		$mob_no=$character->phonenumber;
-		$mobile_no=substr($mob_no,2);
-		$sql="select first_name from students where academic_year='".$cur_academic_year."' and parent_contact='".$mob_no."'";
-		$result=mysqli_query($conn,$sql);
-		if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
+$row_count=1;
+foreach ($characters as $character) {
+	$mob_no=$character->phonenumber;
+	$mobile_no=substr($mob_no,2);
+	$sql="select first_name from students where academic_year='".$cur_academic_year."' and parent_contact='".$mob_no."'";
+	$result=mysqli_query($conn,$sql);
+if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 	{
-		$first_name=$row["first_name"];
+	$first_name=$row["first_name"];
 	}
-	//echo $character->phonenumber."--".urldecode($character->message)."--".$character->status.'<br>';
+	
 	?>
 	<tr>
 	<td><?php echo $row_count;?></td>
@@ -59,15 +59,9 @@ $characters = json_decode($data); // decode the JSON feed
 	</div>
 	</div>
 	<?php
-
 }
-
-	else
-
-	{
-
-		header("Location:login.php");
-
-	}
-
+else
+{
+header("Location:login.php");
+}
 ?>		

@@ -109,7 +109,7 @@ require("connection.php");
 		</tr>
 		<?php
 		require("connection.php");
-		$num_rec_per_page=20;
+		$num_rec_per_page=100;
 		if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
 		$start_from = ($page-1) * $num_rec_per_page; 
 		if(isset($_GET["filt_cat_submit"]))
@@ -118,11 +118,13 @@ require("connection.php");
 		{
 		$filt_cat=$_GET["filt_cat"];
 		
-		$sql="select * from books where cat='".$filt_cat."' and academic_year='".$cur_academic_year."' ORDER BY id DESC LIMIT $start_from, $num_rec_per_page";
+		$sql="select * from books where cat='".$filt_cat."' ORDER BY id DESC LIMIT $start_from, $num_rec_per_page";
 		}
 		}
-		else{
-		$sql="select * from books where academic_year='".$cur_academic_year."' ORDER BY id DESC LIMIT $start_from, $num_rec_per_page";
+		else
+		{
+		$sql="select * from books  ORDER BY id DESC LIMIT $start_from, $num_rec_per_page";
+		//var_dump($sql);
 		}
 		$result=mysqli_query($conn,$sql);
 		$row_count =1;
@@ -173,14 +175,14 @@ require("connection.php");
 		{
 		$filt_cat=$_GET["filt_cat"];
 		
-		$sql="select * from books where cat='".$filt_cat."' and academic_year='".$cur_academic_year."'";
+		$sql="select * from books where cat='".$filt_cat."'";
 		$result=mysqli_query($conn,$sql);
 		$total_books=mysqli_num_rows($result);
 		echo "<p style='color:blue;'>Total No of Books on ".$filt_cat." Category = ".$total_books.'</p>';
 		}
 		}
 		else{
-		$sql="select * from books where academic_year='".$cur_academic_year."'";
+		$sql="select * from books";
 		$result=mysqli_query($conn,$sql);
 		$total_books=mysqli_num_rows($result);
 		echo "<p style='color:blue;'>Total Books = ".$total_books.'</p>';
@@ -188,7 +190,7 @@ require("connection.php");
 		?>
 		
 		<?php 
-			$sql = "SELECT * FROM books where academic_year='".$cur_academic_year."'"; 
+			$sql = "SELECT * FROM books"; 
 			$result = mysqli_query($conn,$sql); //run the query
 			$total_records = mysqli_num_rows($result);  //count number of records
 			$total_pages = ceil($total_records / $num_rec_per_page); 
@@ -216,7 +218,7 @@ require("connection.php");
 	</div>
 
 <?php
-			
+require("footer.php");			
 }
 else
 {

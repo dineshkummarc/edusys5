@@ -5,15 +5,11 @@ if(isset($_SESSION['lkg_uname'])&&!empty($_SESSION['lkg_pass'])&&!empty($_SESSIO
 $cur_academic_year = $_SESSION['academic_year'];	
 	require("header.php");	
 	require("connection.php");	
-	
-
 ?>
        <div class="container-fluid">
 		<div class="row">
 		<div class="col-sm-3">
 		</div>
-		
-		
 		<div class="col-sm-6"><br>
 		<div class="panel panel-green">
      <div class="panel-heading"><h4>Update Donation</h4></div>
@@ -38,9 +34,7 @@ $cur_academic_year = $_SESSION['academic_year'];
 					echo '<p style="text-align: center;"><span style="color: red; font-size: 16px; font-weight: bold; text-align: center;">Sorry. Something went wrong. try again.or contact your webmaster.</span><br></p>';
 
 				}
-								
-								
-								?>
+				?>
 								
 							
 <form action="update_don.php" method="post">
@@ -54,8 +48,7 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 ?>
  
 	  <div class="form-group">
-	    
-		<input type="hidden" name="id" value="<?php echo $row['id']; ?>" class="form-control" required>
+	    <input type="hidden" name="id" value="<?php echo $row['id']; ?>" class="form-control" required>
 	  </div>
 	  
 	  <div class="form-group">
@@ -101,36 +94,16 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
     </div>
     </div>
     </div>
-	
-	
-	
-
 	<div class="col-sm-3" >
         
     </div>
     </div>
 </div>
 
-
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- Morris Charts JavaScript -->
-    <script src="js/plugins/morris/raphael.min.js"></script>
-    <script src="js/plugins/morris/morris.min.js"></script>
-    <script src="js/plugins/morris/morris-data.js"></script>
-
-</body>
-
-</html>
-
-
-
 <?php 
 
 
-
+require("footer.php");
 	}else{
 		header("Location:login.php");
 	}

@@ -99,7 +99,7 @@ require("header.php");
 
 
 <?php
-			
+require("footer.php");			
 }
 else
 {

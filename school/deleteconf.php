@@ -150,12 +150,8 @@ require("header.php");
   <div class="col-sm-1"></div>
 </div>
 </div>
-
-  
- 
- 
-
 <?php
+require("footer.php");
 }
 else
 {

@@ -11,10 +11,10 @@ if(isset($_GET['id'])){
 $sql = "DELETE FROM ad_members WHERE id='".$id."'";
 
 if ($conn->query($sql) === TRUE)  {
-			header("Location:admins.php?deleted=.'success'");
-			} else {
-			echo "Error: " . $sql . "<br>" . $conn->error;
-			}
-			}
+	header("Location:admins.php?deleted=.'success'");
+	} else {
+	echo "Error: " . $sql . "<br>" . $conn->error;
+	}
+	}
 
 ?>

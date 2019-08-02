@@ -91,7 +91,7 @@ $today_date= date("d/m/Y");
 
 </div>
 <?php
-			
+require("footer.php");			
 }
 else
 {

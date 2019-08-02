@@ -1709,6 +1709,7 @@ require("header.php");
 
 </html>
 <?php
+require("footer.php");
 }else{
 		header("Location:login.php");
 	}

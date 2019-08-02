@@ -138,12 +138,8 @@ function printDiv(income) {
 		<input type="submit" class="btn btn-primary" name="sub_att[]" value="Update Teachers Children Fee">
 	</form>
 </div>
-					</div>
-					</div>
-					
-					
-					
-					
+</div>
+</div>
 </div>
 <?php
 require("footer.php");

@@ -152,25 +152,15 @@ function printDiv(income) {
 	}
 	
 	?>
-	
-				</tbody>
-				</table></center>
-				
-				</div>
-				</div>
-
-
-
-	<?php
-	
-	}
-
-	else
-
-	{
-
-		header("Location:login.php");
-
-	}
-
+	</tbody>
+	</table></center>
+	</div>
+	</div>
+<?php
+require("footer.php");	
+}
+else
+{
+header("Location:login.php");
+}
 ?>			

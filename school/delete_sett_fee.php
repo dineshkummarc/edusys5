@@ -11,16 +11,7 @@ if(isset($_GET['id'])){
 	$class=$_GET['class'];
 	}
 	
-/* 	$sql_det="select first_name,roll_no,class from set_fee where id='".$id."'";
-	$result_det=mysqli_query($conn,$sql_det);
-	if($row_det=mysqli_fetch_array($result_det,MYSQLI_ASSOC))
-	{
-	$first_name=$row_det["first_name"];	
-	$roll_no=$row_det["roll_no"];	
-	$class=$row_det["class"];	
-	}
-	var_dump($sql_det); */
-	
+
 	$sql = "DELETE FROM set_fee WHERE id='".$id."'";
 	if ($conn->query($sql) === TRUE)
 	{

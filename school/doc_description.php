@@ -56,13 +56,8 @@ function printDiv(documents) {
 	
 </div>
 </div>
-	  
-
-
-
-
 <?php
-			
+require("footer.php");			
 }
 else
 {

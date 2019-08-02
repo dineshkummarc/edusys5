@@ -8,8 +8,17 @@ $cur_academic_year = $_SESSION['academic_year'];
 	error_reporting("0");
 
 		if(isset($_GET["id"])){
-			$id=$_GET["id"];
-			}
+		$id=$_GET["id"];
+		}
+		
+		if(isset($_GET["from_date"])){
+		$from_date=$_GET["from_date"];
+		}
+		
+		if(isset($_GET["to_date"])){
+		$to_date=$_GET["to_date"];
+		}
+		
 		$sql="select * from leave_appli where academic_year='".$cur_academic_year."' and id='".$id."'";	
        $result=mysqli_query($conn,$sql);
 	   if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
@@ -18,8 +27,7 @@ $first_name=$row["first_name"];
 $admission_no=$row["admission_no"];
 	
 	}
-		?>
-		
+	?>
 		<div class="container-fluid">
 		<div class="row">
 		<div class="col-sm-2">
@@ -33,23 +41,15 @@ $admission_no=$row["admission_no"];
 			if(isset($_GET["success"]))
 
 				{
-
 					$success=$_GET["success"];
-
 					echo '<p style="text-align: center;"><span style="color: green; font-size: 16px; font-weight: bold; text-align: center;">Congrajulation.Assignments has been sent successfully</span><br></p>';
-
 				}
 		if(isset($_GET["failed"]))
-
 				{
-
 					$failed=$_GET["failed"];
 					echo '<p style="text-align: center;"><span style="color: red; font-size: 16px; font-weight: bold; text-align: center;">Sorry. Something went wrong. try again.or contact your webmaster.</span><br></p>';
-
 				}
-								
-								
-								?>
+				?>
 								
 							
  <form action="leave_app_sms.php"  method="get">
@@ -69,6 +69,8 @@ $admission_no=$row["admission_no"];
 
 	<input type="hidden"  name="first_name" value="<?php echo $first_name; ?>">
 	<input type="hidden"  name="admission_no" value="<?php echo $admission_no; ?>">
+	<input type="hidden"  name="from_date" value="<?php echo $from_date; ?>">
+	<input type="hidden"  name="to_date" value="<?php echo $to_date; ?>">
 	<input type="submit"   value="Send" class="btn btn-primary btn-md">
   
 	  </form><br>
@@ -77,25 +79,14 @@ $admission_no=$row["admission_no"];
     </div>
     </div>
 	
-	
-	
-
-	<div class="col-sm-2" >
-        
-    </div>
+	<div class="col-sm-2" ></div>
     </div>
 </div>
-
-
 <?php 
-
-
-
-	}else{
-		header("Location:login.php");
-	}
-	
-
-
-
+require("footer.php");
+}
+else
+{
+header("Location:login.php");
+}
 ?>

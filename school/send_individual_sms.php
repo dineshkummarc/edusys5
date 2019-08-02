@@ -31,7 +31,7 @@ if(isset($_POST["checked"])){
 		$first_name=$row_contact["first_name"];
 	
 
-	$sms = urlencode(htmlspecialchars("Dear parents, ".$meeting_name."-".$sch_name));
+	$message = "Dear parents, ".$meeting_name."-".$sch_name;
 	 require("sms_gateway.php");
 	 //SMS gateway code ends here
 

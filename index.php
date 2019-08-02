@@ -47,7 +47,7 @@
                         <div class="card-body">
                             <h4 class="card-title">Parents Module</h4>
                             <p class="card-text">View student status and reports</p>
-                            <!-- <a href="parents/login.php" target="blank" class="btn btn-primary z-depth-3">LOGIN</a>-->
+                            <a href="parents/login.php" target="blank" class="btn btn-primary z-depth-3">LOGIN</a>
                         </div>
 
                     </div>

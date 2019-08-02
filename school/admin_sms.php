@@ -6,10 +6,10 @@ $cur_academic_year = $_SESSION['academic_year'];
 require("connection.php");
 $message_detail=$_POST["message_detail"];
 
-$sql="select distinct parent_contact from administration where academic_year='".$cur_academic_year."'";	
+$sql="select distinct parent_contact from administration";	
 $result=mysqli_query($conn,$sql);
 
-	$sql_sch = "SELECT * FROM school_det where academic_year='".$cur_academic_year."' ORDER BY ID DESC LIMIT 1";
+	$sql_sch = "SELECT * FROM school_det ORDER BY ID DESC LIMIT 1";
 	$result_sch=mysqli_query($conn,$sql_sch);
 	if($row_sch=mysqli_fetch_array($result_sch,MYSQLI_ASSOC))
 	{
@@ -19,7 +19,7 @@ $result=mysqli_query($conn,$sql);
 foreach($result as $value)
 	{
 	$mob_number=$value["parent_contact"];
-	$sms = urlencode(htmlspecialchars("Dear member, ".$message_detail."-".$sch_name));
+	$message = "Dear member, ".$message_detail."-".$sch_name;
 	require("sms_gateway.php");
 	}
 header("Location:send_noti.php?success=.'success'");

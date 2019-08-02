@@ -25,7 +25,7 @@ require("connection.php");
 		$book_name=$_GET["book_name"];
 		$book_id=$_GET["book_id"];
 		
-		$sql="select * from books where book_name='".$book_name."' and book_id='".$book_id."'";
+		$sql="select * from books where book_name='".addslashes($book_name)."' and book_id='".addslashes($book_id)."'";
 		$result=mysqli_query($conn,$sql);
 		if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 		{
@@ -42,7 +42,10 @@ require("connection.php");
 		<p><span style="color: #1B698D; ">Total No.Books : <?php  echo $row["tot_books"];?></span></p>
 		<p><span style="color: #1B698D; ">No of books Availble : <?php  echo $row["no_books"];?></span></p>
 		<p><span style="color: #1B698D; ">Sponsored by : <?php  echo $row["spons"];?></span></p>
-		<p><span style="font-weight: bold;"><span style="color: #1B698D; ">Status</span> : <span style="color: #3A8627; "><?Php if($row["no_books"]>0){echo "Available";}else if($row["no_books"]==0){echo "<span style='color:red;'>Not Available</span>";}?></span></span></p></span></td>
+		<p><span style="font-weight: bold;"><span style="color: #1B698D; ">Status</span> : <span style="color: #3A8627; "><?Php if($row["no_books"]>0){echo "Available";}else if($row["no_books"]==0){echo "<span style='color:red;'>Not Available</span>";}?></span></span></p></span>
+		<button onclick="goBack()" class="btn btn-primary">Go Back</button>
+		
+		</td>
 		
 		<?php
 		}
@@ -62,7 +65,7 @@ require("connection.php");
 
 
     <?php 
-	
+	require("footer.php");
     }
     else
     {

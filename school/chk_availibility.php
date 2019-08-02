@@ -82,35 +82,28 @@ require("connection.php");
 	</div>
 	<div class="col-sm-6">
 	
-     
-		<div class="panel panel-green">
+    <div class="panel panel-green">
       <div class="panel-heading">Books Availibility</div>
       <div class="panel-body">
 		
-		 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="get"  role="form">
+		<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="get"  role="form">
      
-		
-		 <div class="form-group">
-		<input type="text" name="name" class="form-control typeahead_book "  autocomplete="off" spellcheck="false" placeholder="Search Books" required>
+		<div class="form-group">
+		<input type="text" name="name" class="typeahead_book form-control "  autocomplete="off" spellcheck="false" placeholder="Search Books" required>
 		</div>
 	
 		<p><input type="submit" class="btn btn-success" name="availibility" value="Continue"></p>	
-    </form>
+		</form>
 		<?php
-	if(isset($_GET["availibility"])){
-	
-	
-		$sql_book="select * from books where book_name='".$book_name."' and author='".$author."' and academic_year='".$cur_academic_year."'";
-		
+		if(isset($_GET["availibility"])){
+		$sql_book="select * from books where book_name='".addslashes($book_name)."' and author='".addslashes($author)."'";
+	//var_dump($sql_book);	
 		$result_book=mysqli_query($conn,$sql_book);
 		if($row_book=mysqli_fetch_array($result_book,MYSQLI_ASSOC))
 		{
 		 $no_books=$row_book["no_books"];
 		 
 		 ?>
-		
-	
-		
 		<hr>
 		<?php if(($no_books)==0)
 			{
@@ -203,7 +196,7 @@ require("connection.php");
    
 
 <?php
-			
+require("footer.php");			
 }
 else
 {

@@ -6,6 +6,9 @@ if(isset($_SESSION['parents_uname'])&&!empty($_SESSION['parents_pass'])&&!empty(
 	error_reporting("0");
 	require("header.php");
 	require("connection.php");
+	$first_name = $_SESSION['parents_uname'];
+	$roll_no = $_SESSION['parents_pass'];
+	$cur_academic_year = $_SESSION['academic_year'];
 	?>
 	<head>
 <script>
@@ -21,11 +24,11 @@ function printDiv(income) {
 }
 </script>
 </head>
-			<div class="container-fluid">
-                <div class="row">
+	<div class="container-fluid">
+                <div class="row"><br><br>
                 <div class="col-sm-3">
 				</div> 
-				<div class="col-sm-6">
+				<div class="col-sm-6" style="padding:20px;border:1px solid grey;">
 				<h2>Request Certificate</h2>
 				<form action="insert_study_req.php" method="post">
 				
@@ -47,7 +50,60 @@ function printDiv(income) {
 				<div class="col-sm-3">
 				</div>
 				</div>
-				</div>
+				
+		<div class="row">
+        <div class="col-sm-12" id="income"><br>
+		<center><table class="table table-bordered">
+			<tbody>
+			<tr class="w3-blue">
+				<th>SL No</th>
+				<th>Name</th>
+				<th>Roll No</th>
+				<th>Class</th>
+				<th>Certificate</th>
+				<th>Purpose</th>
+				<th>Requested Date</th>
+				<th>Status</th>
+				<th>Collect Date</th>
+			</tr>
+	<?php
+	
+	$id=$row_tot["id"];
+	$sql_status="select * from request_study where academic_year='".$cur_academic_year."' and first_name='".$first_name."' and admission_no='".$roll_no."'";
+	$result_status=mysqli_query($conn,$sql_status);
+	$row_count=1;
+	foreach($result_status as $row_tot)
+	{
+	$req_date= date('d-m-Y', strtotime( $row_tot['req_date'] ));
+	$ready_date= date('d-m-Y', strtotime( $row_tot['ready_date'] ));
+	?>
+				<tr>
+				<td style="text-align:center;"><?php echo $row_count;?></td>
+				<td style="text-align:center;"><?php echo $row_tot["first_name"];?></td>
+				<td style="text-align:center;"><?php echo $row_tot["admission_no"];?></td>
+				<td style="text-align:center;"><?php echo $row_tot["class"];?></td>
+				<td style="text-align:center;"><?php echo $row_tot["certi_name"];?></td>
+				<td style="text-align:center;"><?php echo $row_tot["reason"];?></td>
+				<td style="text-align:center;"><?php echo $req_date;?></td>
+				<td style="text-align:center;"><?php echo $row_tot["status"];?></td>
+				<td style="text-align:center;"><?php echo $ready_date;?></td>
+			
+				
+				</tr>
+				
+	<?php
+				
+	$row_count++; 
+	}
+	
+	?>
+	
+	</tbody>
+	</table></center>
+	
+	</div>
+	</div>
+	</div>
 
 <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>

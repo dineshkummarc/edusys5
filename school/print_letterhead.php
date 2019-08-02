@@ -85,7 +85,7 @@ function printDiv(letterhead) {
 
 
 <?php
-			
+require("footer.php");			
 }
 else
 {

@@ -468,7 +468,7 @@ $tot_adm_fee=$row_set_fee["adm_fee"];
 
 
 <?php
-			
+require("footer.php");			
 }
 else
 {

@@ -23,7 +23,7 @@ foreach($result as $value)
   {
 	 //SMS Gateway code starts here
 	 $mob_number=$value["parent_contact"];
-	 $sms = urlencode(htmlspecialchars("Dear parents, ".$message_detail."-".$sch_name));
+	 $message = "Dear parents, ".$message_detail."-".$sch_name;
 	 require("sms_gateway.php");
 	 //SMS gateway code ends here
 }

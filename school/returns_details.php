@@ -16,7 +16,7 @@ require("connection.php");
 	  <div class="form-group">
 		  <label for="sel1">Filter by Returned or Not:</label>
 		  <select class="form-control" name="filt_lib" id="sel1">
-			<option value="">Select Category</option>
+			<option value="">Filter by Status</option>
 			  <option value="returned">Returned</option>
 			  <option value="not returned">Not Returned</option>
 			  
@@ -73,15 +73,15 @@ require("connection.php");
 		$filt_lib=$_GET["filt_lib"];
 		if(($filt_lib)=="returned")
 		{
-			$sql="select * from library where academic_year='".$cur_academic_year."' and recie_date!='0000-00-00' ORDER BY id DESC LIMIT $start_from, $num_rec_per_page";
+			$sql="select * from library where recie_date!='0000-00-00' ORDER BY id DESC LIMIT $start_from, $num_rec_per_page";
 		}
 		else if(($filt_lib)=="not returned")
 		{
-			$sql="select * from library where academic_year='".$cur_academic_year."' and recie_date='0000-00-00' ORDER BY id DESC LIMIT $start_from, $num_rec_per_page";	
+			$sql="select * from library where recie_date='0000-00-00' ORDER BY id DESC LIMIT $start_from, $num_rec_per_page";	
 		}
 		
 		}else{
-			$sql="select * from library where academic_year='".$cur_academic_year."' ORDER BY id DESC LIMIT $start_from, $num_rec_per_page";
+			$sql="select * from library ORDER BY id DESC LIMIT $start_from, $num_rec_per_page";
 		}
 		
 		$result=mysqli_query($conn,$sql);
@@ -122,19 +122,19 @@ require("connection.php");
 		$filt_lib=$_GET["filt_lib"];
 		if(($filt_lib)=="returned")
 		{
-		$sql="select * from library where academic_year='".$cur_academic_year."' and recie_date!='0000-00-00'";
+		$sql="select * from library where  recie_date!='0000-00-00'";
 		$result=mysqli_query($conn,$sql);
 		$total_books=mysqli_num_rows($result);
 		echo "<p style='color:blue;'>Total No of Returned Books = ".$total_books.'</p>';
 		}else if(($filt_lib)=="not returned")
 		{
-		$sql="select * from library where academic_year='".$cur_academic_year."' and recie_date='0000-00-00'";
+		$sql="select * from library where recie_date='0000-00-00'";
 		$result=mysqli_query($conn,$sql);
 		$total_books=mysqli_num_rows($result);
 		echo "<p style='color:blue;'>Total No of Not returned Books = ".$total_books.'</p>';	
 		}
 		}else{
-			$sql="select * from library where academic_year='".$cur_academic_year."'";
+			$sql="select * from library";
 				$result=mysqli_query($conn,$sql);
 		$total_books=mysqli_num_rows($result);
 		echo "<p style='color:blue;'>Total Books = ".$total_books.'</p>';	
@@ -142,7 +142,7 @@ require("connection.php");
 		?>
 		
 		<?php 
-			$sql = "SELECT * FROM library where academic_year='".$cur_academic_year."'"; 
+			$sql = "SELECT * FROM library"; 
 			$result = mysqli_query($conn,$sql); //run the query
 			$total_records = mysqli_num_rows($result);  //count number of records
 			$total_pages = ceil($total_records / $num_rec_per_page); 
@@ -169,7 +169,7 @@ require("connection.php");
 	<!-- jQuery -->
 
 <?php
-			
+require("footer.php");			
 }
 else
 {

@@ -100,33 +100,16 @@ $result_student=mysqli_query($conn,$sql_student);
 		</div>
 		</div>
 		</div>
-		
-		
-		<div class="col-sm-3"><br>
-		
-	  </div>
+		<div class="col-sm-3"><br></div>
     </div>
     </div>
-	
-	
-	
-
-	
-    </div>
+	</div>
 </div>
-
-
-
-
 <?php 
-
-
-
-	}else{
-		header("Location:login.php");
-	}
-	
-
-
-
+require("footer.php");
+}
+else
+{
+header("Location:login.php");
+}
 ?>

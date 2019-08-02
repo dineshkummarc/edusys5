@@ -4285,38 +4285,35 @@ $sql = "SELECT * FROM school_det ORDER BY ID DESC LIMIT 1";
 		
 		?>
 					
-					<tr>
-					<td><p style="font-size:13px;">NO.of working days</p></td>	
-					<td colspan="4"><?php echo $tot_class; ?></td>	
-					<td><p style="font-size:13px;">Days present</p></td>	
-					<td colspan="4"><?php echo $tot_att_count; ?></td>	
-					</tr>
-					<tr>
-					<td><p style="font-size:13px;">Class Teacher's Sign</p></td>	
-					<td colspan="4"></td>	
-					<td><p style="font-size:13px;">H.M Sign</p></td>	
-					<td colspan="4"></td>	
-					</tr>
+	<tr>
+	<td><p style="font-size:13px;">NO.of working days</p></td>	
+	<td colspan="4"><?php echo $tot_class; ?></td>	
+	<td><p style="font-size:13px;">Days present</p></td>	
+	<td colspan="4"><?php echo $tot_att_count; ?></td>	
+	</tr>
+	<tr>
+	<td><p style="font-size:13px;">Class Teacher's Sign</p></td>	
+	<td colspan="4"></td>	
+	<td><p style="font-size:13px;">H.M Sign</p></td>	
+	<td colspan="4"></td>	
+	</tr>
 
-					<tr>
-					<td colspan="1"><p style="font-size:13px;">Parents Sign</p></td>	
-					<td colspan="4"></td>	
-					<td colspan="4"></td>	
-					<td colspan="1"></td>	
-					</tr>
-					
-					</table>
-					</div>
-					</div>
+	<tr>
+	<td colspan="1"><p style="font-size:13px;">Parents Sign</p></td>	
+	<td colspan="4"></td>	
+	<td colspan="4"></td>	
+	<td colspan="1"></td>	
+	</tr>
 	
-	
-	
+	</table>
+	</div>
+	</div>
 </div>
 
 
  
 <?php
-			
+require("footer.php");			
 }
 else
 {

@@ -38,10 +38,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			  $conn->query($sql_upd);
 	}	
   }
-  
-	
-	
-  
 }
 header("Location:bulk_books_fee_update.php?success=success");
 }

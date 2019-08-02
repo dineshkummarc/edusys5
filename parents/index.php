@@ -1,7 +1,7 @@
 <?php
 session_start();
-if(isset($_SESSION['parents_uname'])&&!empty($_SESSION['parents_pass'])&&!empty($_SESSION['academic_year'])&&!empty($_SESSION['parents_class']))
-//if(isset($_SESSION['parents_uname'])&&isset($_SESSION['parents_pass'])&&isset($_SESSION['parents_class']))
+//if(isset($_SESSION['parents_uname'])&&!empty($_SESSION['parents_pass'])&&!empty($_SESSION['academic_year'])&&!empty($_SESSION['parents_class']))
+if(isset($_SESSION['parents_uname'])&&isset($_SESSION['parents_pass'])&&isset($_SESSION['parents_class']))
 {
 $cur_academic_year=$_SESSION['academic_year'];
 $first_name=$_SESSION['parents_uname'];
@@ -11,7 +11,7 @@ require("connection.php");
 date_default_timezone_set('Asia/Kolkata');
 $today=date('Y-m-d');
 $today_md=date('m-d');
-
+error_reporting("0");
 ?>
 
 <div id="page-wrapper"><br>
@@ -51,8 +51,7 @@ $today_md=date('m-d');
                                         <i class="fa fa-comments fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-									 <div>SMS Notifications</div>
-                                        
+									 <div>SMS Notifications</div>  
                                        
                                     </div>
                                 </div>
@@ -70,6 +69,17 @@ $today_md=date('m-d');
 					$sql_count="select id,first_name,roll_no,present_class,class_stream,class_join,village,dob,join_date,photo_name,photo_path,photo_type from students where DATE_FORMAT(dob,'%m-%d')='".$today_md."'";
 	                $result_count=mysqli_query($conn,$sql_count);
 	                $total_students=mysqli_num_rows($result_count);
+					
+					
+					$sql_status="select * from request_study where academic_year='".$cur_academic_year."' and first_name='".$first_name."' and admission_no='".$roll_no."'";
+					$result_status=mysqli_query($conn,$sql_status);
+					$req_study = mysqli_num_rows($result_status);	
+					
+					
+					$sql_leave="select * from leave_reply where academic_year='".$cur_academic_year."' and first_name='".$first_name."' and roll_no='".$roll_no."'";
+					$result_leave=mysqli_query($conn,$sql_leave);
+					$leave_reply = mysqli_num_rows($result_leave);	
+					
 					?>
                   
                     <div class="col-lg-3 col-md-6">
@@ -80,7 +90,8 @@ $today_md=date('m-d');
                                         <i class="fa fa-print fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-									    <div>Request Study Certificate</div>
+									    <div>Request Certificate</div>
+										<div class="huge"><?php echo $req_study;?></div> 
                                        </div>
                                 </div>
                             </div>
@@ -131,6 +142,7 @@ $today_md=date('m-d');
                                     </div>
                                     <div class="col-xs-9 text-right">
 									    <div>Apply Leave</div>
+										<div class="huge"><?php echo $leave_reply;?></div> 
                                        </div>
                                 </div>
                             </div>
@@ -325,10 +337,14 @@ date_default_timezone_set("Asia/Kolkata");
 $today_date=date("Y-m-d");
 $sql_fee="select sum(adm_fee) as admission_fee from student_fee where name='".$first_name."' and roll_no='".$admission_no."' and academic_year='".$cur_academic_year."'";
 $result_fee=mysqli_query($conn,$sql_fee);
+if(mysqli_num_rows($result_fee)>0){
 if($row_fee=mysqli_fetch_array($result_fee,MYSQLI_ASSOC))
 	{
 		
 		$admission_fee=$row_fee["admission_fee"];
+	}
+	}else{
+		$admission_fee="";
 	}
 $sql_adm_fee="select sum(adm_fee) as admission_fee from student_adm_fee where name='".$first_name."' and roll_no='".$admission_no."' and academic_year='".$cur_academic_year."'";
 $result_adm_fee=mysqli_query($conn,$sql_adm_fee);

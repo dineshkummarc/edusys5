@@ -35,7 +35,7 @@ foreach($result as $value)
 	$mob_number=$value["parent_contact"];
 	$message_detail="username = ".$first_name." and password = ".$roll_no;
 
-$sms = urlencode(htmlspecialchars("Dear parents, ".$message_detail." - ".$sch_name));
+$message = "Dear parents, ".$message_detail." - ".$sch_name;
 require("sms_gateway.php");
 }
 header("Location:send_noti.php?success=.'success'");

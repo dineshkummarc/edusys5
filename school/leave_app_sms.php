@@ -11,7 +11,10 @@ $action=$_GET["status"];
 $first_name=$_GET["first_name"];
 $admission_no=$_GET["admission_no"];
 $rej_reason=$_GET["rej_reason"];
-$sql_leave="insert into leave_reply (first_name,roll_no,action,details,rep_date,academic_year) values('$first_name','$admission_no','$action','$rej_reason','$today_date','$cur_academic_year')";
+$from_date=$_GET["from_date"];
+$to_date=$_GET["to_date"];
+
+$sql_leave="insert into leave_reply (first_name,roll_no,action,details,from_date,to_date,academic_year) values('$first_name','$admission_no','$action','$rej_reason','$from_date','$to_date','$cur_academic_year')";
 $conn->query($sql_leave);
 
 $sql="select distinct parent_contact,admission_no,section from students where academic_year='".$cur_academic_year."' and first_name='".$first_name."' and  admission_no='".$admission_no."'";	
@@ -27,11 +30,12 @@ $result=mysqli_query($conn,$sql);
 	}
 	
 	$message_detail="Your leave application is ".$action.", call for more info ".$phone  ;
-
+	echo $message_detail;
+	
 	foreach($result as $value)
 	{
 	$mob_number=$value["parent_contact"];
-	$sms = urlencode(htmlspecialchars("Dear parents, ".$message_detail."-".$sch_name));
+	$message = "Dear parents, ".$message_detail."-".$sch_name;
 	require("sms_gateway.php");
 	}
 header("Location:send_leave.php?success=success");

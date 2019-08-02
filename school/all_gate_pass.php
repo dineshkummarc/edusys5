@@ -150,6 +150,7 @@ function printDiv(income) {
 	echo "<a href='leave_applications.php?page=$total_pages'>".' Last '."</a> "; // Goto last page
 	echo '</article></div>
                    </div>';
+	require("footer.php");
 	}
 	else
 	{

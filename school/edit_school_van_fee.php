@@ -117,44 +117,22 @@ $cur_academic_year = $_SESSION['academic_year'];
 	<input type="submit" name="student_fee" class="btn btn-success" value="Update Van Fee"> <button class="btn btn-success" onclick="goBack()">Go Back</button>
 	</form>
 	
-				<?php
-					
-				}
-				
-		?>
+<?php
+}
+?>
 	
-		</div>
-		</div>
-		</div>
-		
-		
-		<div class="col-sm-3"><br>
-		
-	  
-    </div>
-    </div>
-    </div>
-	
-	
-	
-
-	
-    </div>
 </div>
-
-
-
-
-
+</div>
+</div>
+	<div class="col-sm-3"><br>
+	</div>
+    </div>
+    </div>
+	</div>
+</div>
 <?php 
-
-
-
-	}else{
-		header("Location:login.php");
-	}
-	
-
-
-
+require("footer.php");
+}else{
+header("Location:login.php");
+}
 ?>

@@ -116,7 +116,7 @@ require("header.php");
 }
 }
 					
-			
+require("footer.php");			
 }
 else
 {

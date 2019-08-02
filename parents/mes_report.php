@@ -48,7 +48,7 @@ $characters = json_decode($data); // decode the JSON feed
 		//echo $mob_no;
 		$sql="select parent_contact,first_name,roll_no from students where academic_year='".$cur_academic_year."' and parent_contact='".$mob_no."' and first_name='".$parents_uname."' and roll_no='".$parents_pass."'";
 		$result=mysqli_query($conn,$sql);
-		//var_dump($sql);
+		var_dump($sql);
 		if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 	{
 		$first_name=$row["first_name"];

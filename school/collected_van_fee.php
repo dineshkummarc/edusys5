@@ -199,47 +199,43 @@ function printDiv(income) {
 		//echo "dkjf;lsajf;s";
 		
 	}
-		
-		
-		
-		$row_count =1;
-	
+	$row_count =1;
 	?>	
-                <div class="row" id="income"><br>
-                <div class="col-sm-12">
-				<h3 style="color:red;"><?php echo strtoupper($route_name);?>: Collected School Van Fee Details</h3>
-				<table class="table table-bordered table-striped" >
-				<tbody>
-				<tr>
-				<th>SL No</th>
-				<th>Name</th>
-				<th>Roll No</th>
-				<th>Class</th>
-				<th>Academic Year</th>
-				<th>Receipt Date</th>
-				<th style="color:green;">Fee Paid</th>
-				<th style="color:blue;">Total Fee</th>
-				<!--<th style="color:red;">Balance</th>-->
-				
-				
-				<?php
-				if(isset($_GET['delete'])||($_GET['route_name']))
-				{
-				?>
-				<th>Delete</th>
-				<?php
-				}if(isset($_GET['edit'])||($_GET['route_name']))
-				{
-				?>
-				<th>Edit</th>
-				<?php
-				}if(isset($_GET['remind']))
-				{
-				
-				echo '<th>Remind Fee</th>';
-				}
-				?>
-				</tr>
+	<div class="row" id="income"><br>
+	<div class="col-sm-12">
+	<h3 style="color:red;"><?php echo strtoupper($route_name);?>: Collected School Van Fee Details</h3>
+	<table class="table table-bordered table-striped" >
+	<tbody>
+	<tr>
+	<th>SL No</th>
+	<th>Name</th>
+	<th>Roll No</th>
+	<th>Class</th>
+	<th>Academic Year</th>
+	<th>Receipt Date</th>
+	<th style="color:green;">Fee Paid</th>
+	<th style="color:blue;">Total Fee</th>
+	<!--<th style="color:red;">Balance</th>-->
+	
+	
+	<?php
+	if(isset($_GET['delete'])||($_GET['route_name']))
+	{
+	?>
+	<th>Delete</th>
+	<?php
+	}if(isset($_GET['edit'])||($_GET['route_name']))
+	{
+	?>
+	<th>Edit</th>
+	<?php
+	}if(isset($_GET['remind']))
+	{
+	
+	echo '<th>Remind Fee</th>';
+	}
+	?>
+	</tr>
 	<?php
 	foreach($result_det as $row)
 	{
@@ -260,51 +256,51 @@ function printDiv(income) {
 	$balance=$row_set_fee["van_fee"]-$row["paid_van_fee"];
 	
 	?>
-				<tr>
-				<td style="text-align:center;"><?php echo $row_count;?></td>
-				
-				<td style="text-align:center;"><a href="<?php echo 'indi_van_paid_det.php?name='.$row["first_name"].'&roll_no='.$row["roll_no"].'&route_name='.$row["route_name"].'&stage_name='.$row["stage_name"];?>"><?php echo $row["first_name"];?></a></td>
-				<td style="text-align:center;"><?php echo $row["roll_no"];?></td>
-				<td style="text-align:center;"><?php echo $row["present_class"];?></td>
-				<td style="text-align:center;"><?php echo $row["academic_year"];?></td>
-				<td style="text-align:center;"><?php echo $reciept_date;?></td>
-				<td style="text-align:center;color:green;"><?php echo $row["total_van_fee"];?></td>
-				<td style="text-align:center;color:blue;"><?php echo $tot_adm_fee;?></td>
-				<!--<td style="text-align:center;color:red;"><?php echo $balance;?></td>-->
-				
-				
-				<?php 
-				
-				if(isset($_GET['delete'])||($_GET['route_name']))
-					{
-				?>
-                <td style="text-align:center;"><a href="<?php echo 'delete_van_fee.php?id='.$id;?>"><button type="button" class="btn btn-sm btn-danger">Delete</button></a></td>
+	<tr>
+	<td style="text-align:center;"><?php echo $row_count;?></td>
+	
+	<td style="text-align:center;"><a href="<?php echo 'indi_van_paid_det.php?name='.$row["first_name"].'&roll_no='.$row["roll_no"].'&route_name='.$row["route_name"].'&stage_name='.$row["stage_name"];?>"><?php echo $row["first_name"];?></a></td>
+	<td style="text-align:center;"><?php echo $row["roll_no"];?></td>
+	<td style="text-align:center;"><?php echo $row["present_class"];?></td>
+	<td style="text-align:center;"><?php echo $row["academic_year"];?></td>
+	<td style="text-align:center;"><?php echo $reciept_date;?></td>
+	<td style="text-align:center;color:green;"><?php echo $row["total_van_fee"];?></td>
+	<td style="text-align:center;color:blue;"><?php echo $tot_adm_fee;?></td>
+	<!--<td style="text-align:center;color:red;"><?php echo $balance;?></td>-->
+	
+	
+	<?php 
+	
+	if(isset($_GET['delete'])||($_GET['route_name']))
+		{
+	?>
+	<td style="text-align:center;"><a href="<?php echo 'delete_van_fee.php?id='.$id;?>"><button type="button" class="btn btn-sm btn-danger">Delete</button></a></td>
+
+	<?php 
+		}
+		//.($_GET['class']).($_GET['academic_year']))
+		if(isset($_GET['edit'])||($_GET['route_name']))
+		{
+	?>
+	<td style="text-align:center;"><a href="<?php echo 'edit_school_van_fee.php?id='.$id.'&edit=yes';?>"><button type="button" class="btn btn-sm btn-primary">Edit</button></a></td>
+
+	<?php 
+		}
+	
+		if(isset($_GET['remind']))
+		{
+			if($balance>0){
 			
-				<?php 
-					}
-					//.($_GET['class']).($_GET['academic_year']))
-					if(isset($_GET['edit'])||($_GET['route_name']))
-					{
-				?>
-                <td style="text-align:center;"><a href="<?php echo 'edit_school_van_fee.php?id='.$id.'&edit=yes';?>"><button type="button" class="btn btn-sm btn-primary">Edit</button></a></td>
-			
-				<?php 
-					}
-				
-					if(isset($_GET['remind']))
-					{
-						if($balance>0){
-						
-				?>
-                <td style="text-align:center;"><a href="<?php echo 'rem_fee.php?class='.$class.'&name='.$name.'&roll_no='.$roll_no.'&mob='.$mob.'&balance='.$balance;?>"><button type="button" class="btn btn-sm btn-danger">Remind Fee</button></a></td>
-			
-				<?php 
-					}
-					}
-				?>
-			
-				
-				</tr>
+	?>
+	<td style="text-align:center;"><a href="<?php echo 'rem_fee.php?class='.$class.'&name='.$name.'&roll_no='.$roll_no.'&mob='.$mob.'&balance='.$balance;?>"><button type="button" class="btn btn-sm btn-danger">Remind Fee</button></a></td>
+
+	<?php 
+		}
+		}
+	?>
+
+	
+	</tr>
 				
 	<?php
 				
@@ -369,19 +365,10 @@ function printDiv(income) {
                    </div>';
 	
 	?>
-				
-				
-			
-
-                </div>
-            </div>
-	
-
-
-
-
+	</div>
+    </div>
 <?php
-			
+require("footer.php");			
 }
 else
 {
