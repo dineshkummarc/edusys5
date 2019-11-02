@@ -90,17 +90,12 @@ require("connection.php");
 	?>
 	
     <tr>
-		
-		
-	
-		
-		<td>
-		
+	<td>
 		<div class="form-group">
 	   
 		<?php echo '<select class="form-control" name="route_name[]">';
 		echo '<option value="">Select Routes</option>';
-		$sql_route="select distinct route_name from routes where academic_year='".$cur_academic_year."'";
+		$sql_route="select distinct route_name from routes";
         $result_route=mysqli_query($conn,$sql_route);
          foreach($result_route as $value_route)
 		{
@@ -117,7 +112,7 @@ require("connection.php");
 	
 	   <?php echo '<select class="form-control" name="stage_name[]">';
 		echo '<option value="">Select Stage</option>';
-		$sql_stage="select distinct stage_name from stages where academic_year='".$cur_academic_year."'";
+		$sql_stage="select distinct stage_name from stages";
         $result_stage=mysqli_query($conn,$sql_stage);
          foreach($result_stage as $value_stage)
 		{
@@ -129,9 +124,6 @@ require("connection.php");
         ?>
 	</div>
 		</td>
-		
-		
-		
 		
 		<td>
 		<div class="form-group-inline">

@@ -13,7 +13,11 @@ $cur_academic_year = $_SESSION['academic_year'];
 		$approved_senderid=$row_sch["sender_id"];
 	}
 	
-$url = "http://smsc.biz/httpapi/getmisreport?username=ma.musthafa6@gmail.com&password=ajmal524&sender_id=".$approved_senderid; // path to your JSON file
+	$password="B82637762@02_15";
+	//echo $approved_senderid;
+$url = "http://smsc.biz/httpapi/getmisreport?username=ma.musthafa6@gmail.com&password=".$password."&sender_id=".$approved_senderid; // path to your JSON file
+	
+//$url = "http://smsc.biz/httpapi/getmisreport?username=ma.musthafa6@gmail.com&password=ajmal524&sender_id=".$approved_senderid; // path to your JSON file
 $data = file_get_contents($url); // put the contents of the file into a variable
 $characters = json_decode($data); // decode the JSON feed
 ?>

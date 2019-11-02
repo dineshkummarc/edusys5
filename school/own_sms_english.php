@@ -42,8 +42,7 @@ var_dump($sql);
 	///////////////////////////////// END SCHOOL DETAILS ///////////////////////////////////////////
 
 
-foreach($result as $value)
-	{
+	 
 	 $mob_number=$value["parent_contact"];
 	 $message="Dear parents, ".$message_detail."-".$sch_name;
 	require("sms_gateway.php");

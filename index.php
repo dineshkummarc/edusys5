@@ -31,9 +31,9 @@
                     <div class="z-depth-4">
                         <img class="img-fluid" src="images/newfolder/attendance2.jpg" alt="Card image cap">
                         <div class="card-body">
-                            <h4 class="card-title">Attendance</h4>
-                            <p class="card-text">Student and staff attendance</p>
-                            <!--<a href="attendance/login.php" target="blank" class="btn btn-primary z-depth-3">LOGIN</a>-->
+                            <h4 class="card-title">Alumni Registration</h4>
+                            <p class="card-text">Alumni Registration Form</p>
+                            <a href="registration.php" target="blank" class="btn btn-primary z-depth-3">LOGIN</a>
                         </div>
 
                     </div>

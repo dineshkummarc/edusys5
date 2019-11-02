@@ -121,7 +121,7 @@ function printDiv(income) {
 		
 	}
 
-	$sql="select id,first_name,section,roll_no,present_class,stage_name from route_students where academic_year='".$cur_academic_year."' and present_class='".$filt_class."' and section='".$section."' and route_name='".$route_name."' and stage_name='".$stage_name."' ORDER BY first_name";
+	$sql="select * from route_students where academic_year='".$cur_academic_year."' and present_class='".$filt_class."' and section='".$section."' and route_name='".$route_name."' and stage_name='".$stage_name."' ORDER BY first_name";
 	
 	$result=mysqli_query($conn,$sql);
 	$count=mysqli_num_rows($result);

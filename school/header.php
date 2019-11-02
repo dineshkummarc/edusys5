@@ -96,6 +96,10 @@
 			<li>
 				<a href="index.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
 			</li>
+			
+			<li>
+				<a href="all_alumni.php"><i class="fa fa-fw fa-dashboard"></i> Alumni's</a>
+			</li>
 			<li>
 				<a href="mes_report.php"><i class="fa fa-fw fa-dashboard"></i> SMS Delivery Report</a>
 			</li>

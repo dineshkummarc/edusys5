@@ -4,14 +4,30 @@ if(isset($_SESSION['lkg_uname'])&&!empty($_SESSION['lkg_pass'])&&!empty($_SESSIO
 {
 $cur_academic_year = $_SESSION['academic_year'];
 require("header.php");
+error_reporting("0");
 ?>
 
 <div class="container">
  
 	 <div class="row">
     <div class="col-md-6"><br><br>
-
+	
+	
+	<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" class="form-inline" method="get" role="form">
+	  <div class="form-group">
+		<select class="form-control" name="filt_class">
+		<?php require("selectclass.php");?>
+		
+	<button type="submit" name="filt_submit" class="btn btn-primary">Filter</button>
 	<a href="" onclick="printDiv('student_details')" class="btn btn-primary"><i class="fa fa-print" aria-hidden="true"></i> Print</a>
+	</form>
+	
+	
+	</div>
+	<div class="col-md-6">
+	
+	
+	
 	<form action="export.php" method="post" name="export_excel">
                <br>
 			<div class="control-group">
@@ -21,13 +37,22 @@ require("header.php");
 			</div>
 	</form>
 	</div>
+	</div>
 
 
 	<div class="row" id="student_details">
 	
     <div class="col-sm-12">
 	
-	<center><h2>All Students</h2></center>
+	<center><h2><?php 
+	if(isset($_GET["filt_class"])){
+	echo strtoupper($_GET["filt_class"]);
+	}
+	else
+	{
+	echo "All Students";
+	}
+		?></h2></center>
 	<div class="table-responsive">
 	<center><table class="table table-bordered">
 	<tbody>
@@ -44,10 +69,25 @@ require("header.php");
 	<?php
 	require("connection.php");
 	
-	$num_rec_per_page=500;
+	$num_rec_per_page=1000;
 	if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
 	$start_from = ($page-1) * $num_rec_per_page; 
-	$sql="select * from students where academic_year='".$cur_academic_year."' ORDER BY first_name  LIMIT $start_from, $num_rec_per_page";	
+	
+if((($_GET["filt_class"])=="all")||(($_GET["filt_class"])==""))
+	{
+		
+		$sql="select * from students where academic_year='".$cur_academic_year."' ORDER BY first_name  LIMIT $start_from, $num_rec_per_page";
+	}
+	else 
+	{
+		if(isset($_GET["filt_class"])){
+		$filt_class=$_GET["filt_class"];
+		$sql="select * from students where academic_year='".$cur_academic_year."' and present_class='".$filt_class."' ORDER BY first_name  LIMIT $start_from, $num_rec_per_page";	
+		}
+		
+	}
+	
+		
 	$result=mysqli_query($conn,$sql);
 	$row_count =1;
 	$total_students=mysqli_num_rows($result);

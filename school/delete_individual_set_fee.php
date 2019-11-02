@@ -13,7 +13,7 @@ if(isset($_GET['id'])){
 	
 	
 	
-	$sql = "DELETE FROM student_fee WHERE id='".$id."'";
+	$sql = "DELETE FROM set_fee WHERE id='".$id."'";
 	if ($conn->query($sql) === TRUE)
 	{
 	header("Location:description.php?first_name=".$first_name."&roll_no=".$roll_no."&class=".$class."&suceess=success");

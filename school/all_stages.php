@@ -34,7 +34,7 @@ error_reporting("0");
 	if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
 	$start_from = ($page-1) * $num_rec_per_page; 
 	
-	$sql="select * from stages where academic_year='".$cur_academic_year."' ORDER BY id DESC LIMIT $start_from, $num_rec_per_page";	
+	$sql="select * from stages ORDER BY id DESC LIMIT $start_from, $num_rec_per_page";	
 	
 	$result=mysqli_query($conn,$sql);
 	$row_count =1;
@@ -60,7 +60,7 @@ error_reporting("0");
 	
 
 		
-	$sql="select * from stages where academic_year='".$cur_academic_year."'";
+	$sql="select * from stages";
 	$result=mysqli_query($conn,$sql);
 	
 	$total_students=mysqli_num_rows($result);

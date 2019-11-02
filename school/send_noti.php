@@ -9,7 +9,7 @@ error_reporting("0");
 
 ?>
 <script>
-//var s = document.createElement('script'); s.setAttribute('src','http://developer.quillpad.in/static/js/quill.js?lang=Kannada&key=c1e39193efe161d3fde8b95267fe4c5b'); s.setAttribute('id','qpd_script'); document.head.appendChild(s);
+var s = document.createElement('script'); s.setAttribute('src','http://developer.quillpad.in/static/js/quill.js?lang=Kannada&key=c1e39193efe161d3fde8b95267fe4c5b'); s.setAttribute('id','qpd_script'); document.head.appendChild(s);
 </script>
 <!--<span id="qpd_banner">Powered By <a href="http://www.quillpad.in/" target="_blank">Quillpad</a>.</span>-->
 <div class="container-fluid">
@@ -33,6 +33,7 @@ error_reporting("0");
 		  <select class="form-control" name="meeting_type">
 			<option value="">---------</option>
 			<option value="Send SMS English">Class wise English SMS</option>
+			<option value="Send SMS">Kannada SMS</option>
 			<option value="Individual SMS">Send Individual Students SMS</option>
 			<option value="all">All Students SMS (Requires speed internet connection)</option>
 			<option value="School Van">School Van Alert SMS</option>

@@ -1,4 +1,5 @@
 	<option value="">Select Class</option>
+			<option value="all">All</option>
 			<option value="prekg">PreKG</option>
 			<option value="lkg">LKG</option>
 			<option value="ukg">UKG</option>

@@ -26,62 +26,12 @@
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Material Design Bootstrap -->
-    <link href="css/mdb.min.css" rel="stylesheet">
-
-    <!-- Template styles -->
-    <style rel="stylesheet">
-        /* TEMPLATE STYLES */
-        
-        main {
-            margin-top: 3rem;
-        }
-        
-        main .card {
-            margin-bottom: 2rem;
-        }
-        
-        @media only screen and (max-width: 768px) {
-            .read-more {
-                text-align: center;
-            }
-        }
-        
-        .navbar {
-            background-color: #0f6256;
-        }
-        
-        footer.page-footer {
-            background-color: #0f6256;
-            margin-top: 2rem;
-        }
-         .navbar .btn-group .dropdown-menu a:hover {
-            color: #000 !important;
-        }
-
-        .navbar .btn-group .dropdown-menu a:active {
-            color: #fff !important;
-        }
-        
-    </style>
-
-
+    
 </head>
 
-<link href="style_loading.css" rel="stylesheet">
-<script>
-	window.addEventListener("load",function(){
-		var load_screen= document.getElementById("load_screen");
-		document.body.removeChild(load_screen);
-		});
-</script>
 </head>
 
 <body>
-
-<div id="load_screen">
-<div id="loading">Loading</div>
-</div>
 
     <header>
         <!--Navbar-->
