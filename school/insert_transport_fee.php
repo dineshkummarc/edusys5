@@ -45,9 +45,11 @@ var_dump($sql);
   
 	
 	
-  
+header("Location:transport_fee_sms.php?name=".$first_name."&tot_paid=".$van_fee."&rec_no=".$rec_no."&rec_date=".$rec_date."&roll_no=".$roll_no."&note=".$note);  
 }
-header("Location:transport_fee_update.php?success=success");
+//header("Location:transport_fee_sms.php?name=".$first_name."&tot_paid=".$van_fee."&rec_no=".$rec_no."&rec_date=".$rec_date."&roll_no=".$roll_no."&note=".$note);
+
+//header("Location:transport_fee_update.php?success=success");
 }
 }
 function test_input($data) {
