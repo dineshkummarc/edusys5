@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 18, 2020 at 03:41 AM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.3
+-- Generation Time: Jan 12, 2020 at 03:18 AM
+-- Server version: 10.1.38-MariaDB
+-- PHP Version: 5.6.40
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -376,6 +376,87 @@ CREATE TABLE `enrolled_fees` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `enrolled_students`
+--
+
+/* CREATE TABLE `enrolled_students` (
+  `id` int(11) NOT NULL,
+  `admit_to_class` varchar(255) NOT NULL,
+  `semister` varchar(255) NOT NULL,
+  `stream` varchar(255) NOT NULL,
+  `medium` varchar(255) NOT NULL,
+  `mother_tongue` varchar(255) NOT NULL,
+  `prev_affi` varchar(255) NOT NULL,
+  `tc_no` varchar(255) NOT NULL,
+  `tc_date` date NOT NULL,
+  `prev_sch_name` varchar(255) NOT NULL,
+  `prev_sch_type` varchar(255) NOT NULL,
+  `pin` varchar(255) NOT NULL,
+  `district` varchar(255) NOT NULL,
+  `taluk` varchar(255) NOT NULL,
+  `city` varchar(255) NOT NULL,
+  `prev_sch_address` text NOT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `middle_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `f_first_name` varchar(255) NOT NULL,
+  `f_middle_name` varchar(255) NOT NULL,
+  `f_last_name` varchar(255) NOT NULL,
+  `m_first_name` varchar(255) NOT NULL,
+  `m_middle_name` varchar(255) NOT NULL,
+  `m_last_name` varchar(255) NOT NULL,
+  `f_adhaar_no` varchar(255) NOT NULL,
+  `m_adhaar_no` varchar(255) NOT NULL,
+  `dob` date NOT NULL,
+  `age_appro` varchar(255) NOT NULL,
+  `stud_adhaar` varchar(255) NOT NULL,
+  `urban_rural` varchar(255) NOT NULL,
+  `sex` varchar(255) NOT NULL,
+  `religion` varchar(255) NOT NULL,
+  `caste` varchar(255) NOT NULL,
+  `f_caste` varchar(255) NOT NULL,
+  `m_caste` varchar(255) NOT NULL,
+  `social_cat` varchar(255) NOT NULL,
+  `bpl` varchar(255) NOT NULL,
+  `bpl_no` varchar(255) NOT NULL,
+  `bhagya_bond_no` varchar(255) NOT NULL,
+  `disabil` varchar(255) NOT NULL,
+  `spec_cat` varchar(255) NOT NULL,
+  `st_pin` varchar(255) NOT NULL,
+  `st_district` varchar(255) NOT NULL,
+  `st_taluk` varchar(255) NOT NULL,
+  `st_city` varchar(255) NOT NULL,
+  `st_locality` varchar(255) NOT NULL,
+  `st_address` text NOT NULL,
+  `st_mobile` varchar(255) NOT NULL,
+  `st_email` varchar(255) NOT NULL,
+  `f_mobile` varchar(255) NOT NULL,
+  `f_email` varchar(255) NOT NULL,
+  `m_mobile` varchar(255) NOT NULL,
+  `m_email` varchar(255) NOT NULL,
+  `st_enroll_no` varchar(255) NOT NULL,
+  `admis_date` date NOT NULL,
+  `bank_acc` varchar(255) NOT NULL,
+  `bank_ifsc` varchar(255) NOT NULL,
+  `data_opera_name` varchar(255) NOT NULL,
+  `applied_date` date NOT NULL,
+  `cast_cert_no` varchar(255) NOT NULL,
+  `f_cast_cert_no` varchar(255) NOT NULL,
+  `m_cast_cert_no` varchar(255) NOT NULL,
+  `other_medium` varchar(255) NOT NULL,
+  `other_mother_tongue` varchar(255) NOT NULL,
+  `other_affiliation` varchar(255) NOT NULL,
+  `other_religion` varchar(255) NOT NULL,
+  `other_spec_cat` varchar(255) NOT NULL,
+  `academic_year` varchar(255) NOT NULL,
+  `fee_paid_amount` int(11) NOT NULL,
+  `fee_receipt_date` date NOT NULL,
+  `fee_receipt_no` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+ */
+--
 -- Table structure for table `events`
 --
 
@@ -692,7 +773,7 @@ CREATE TABLE `leave_reply` (
   `roll_no` varchar(255) NOT NULL,
   `action` varchar(255) NOT NULL,
   `details` text NOT NULL,
-  `rep_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `rep_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `from_date` date NOT NULL,
   `to_date` date NOT NULL,
   `academic_year` varchar(255) NOT NULL
@@ -732,7 +813,7 @@ CREATE TABLE `library` (
   `bor_id` varchar(255) NOT NULL,
   `book_name` varchar(255) NOT NULL,
   `book_id` varchar(255) NOT NULL,
-  `iss_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `iss_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `recie_date` date NOT NULL,
   `academic_year` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -1118,7 +1199,7 @@ CREATE TABLE `set_fee` (
   `tot_fee` int(11) NOT NULL,
   `academic_year` varchar(255) NOT NULL,
   `fee_towards` varchar(255) NOT NULL,
-  `updated_date` timestamp NOT NULL DEFAULT current_timestamp()
+  `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1257,6 +1338,1356 @@ CREATE TABLE `stages` (
 
 INSERT INTO `stages` (`id`, `route_name`, `stage_name`, `academic_year`) VALUES
 (1, 'Route 1', 'Sunticoppa', '2019-2020');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `students`
+--
+
+CREATE TABLE `students` (
+  `id` int(11) NOT NULL,
+  `first_name` text NOT NULL,
+  `roll_no` varchar(255) NOT NULL,
+  `blood` varchar(255) NOT NULL,
+  `join_date` varchar(255) NOT NULL,
+  `last_name` text NOT NULL,
+  `parent_contact` varchar(20) NOT NULL,
+  `section` varchar(255) NOT NULL,
+  `admission_no` varchar(255) NOT NULL,
+  `sex` text NOT NULL,
+  `class_join` varchar(20) NOT NULL,
+  `present_class` varchar(255) NOT NULL,
+  `dob` date NOT NULL,
+  `route_name` varchar(255) NOT NULL,
+  `stage_name` varchar(255) NOT NULL,
+  `tot_fee` int(11) NOT NULL,
+  `tot_paid` int(11) NOT NULL,
+  `tot_van_fee` int(11) NOT NULL,
+  `tot_van_paid` int(11) NOT NULL,
+  `place_birth` varchar(100) NOT NULL,
+  `village` varchar(100) NOT NULL,
+  `town` varchar(100) NOT NULL,
+  `taluk` varchar(100) NOT NULL,
+  `district` text NOT NULL,
+  `academic_year` varchar(30) NOT NULL,
+  `father_name` text NOT NULL,
+  `mother_name` text NOT NULL,
+  `edu_father` varchar(20) NOT NULL,
+  `edu_mother` varchar(20) NOT NULL,
+  `stay_with` text NOT NULL,
+  `guard_add` varchar(100) NOT NULL,
+  `father_add` varchar(100) NOT NULL,
+  `fa_occu` varchar(100) NOT NULL,
+  `ma_occu` varchar(100) NOT NULL,
+  `nation` text NOT NULL,
+  `religion` text NOT NULL,
+  `caste` text NOT NULL,
+  `sc_st` text NOT NULL,
+  `back_caste` varchar(100) NOT NULL,
+  `mother_tongue` text NOT NULL,
+  `other_lang` text NOT NULL,
+  `no_bro` int(2) NOT NULL,
+  `no_sis` int(2) NOT NULL,
+  `eld_bro` int(2) NOT NULL,
+  `young_bro` int(2) NOT NULL,
+  `eld_sis` int(2) NOT NULL,
+  `young_sis` int(2) NOT NULL,
+  `perm_address` varchar(255) NOT NULL,
+  `vaccinated` text NOT NULL,
+  `illness_sick` varchar(255) NOT NULL,
+  `school_prev` varchar(255) NOT NULL,
+  `photo_name` varchar(255) NOT NULL,
+  `photo_path` varchar(255) NOT NULL,
+  `photo_type` varchar(100) NOT NULL,
+  `adhar_name` varchar(255) NOT NULL,
+  `adhar_path` varchar(255) NOT NULL,
+  `adhar_type` varchar(100) NOT NULL,
+  `birth_name` varchar(255) NOT NULL,
+  `birth_path` varchar(255) NOT NULL,
+  `birth_type` varchar(100) NOT NULL,
+  `tc_no` int(11) NOT NULL,
+  `last_class` varchar(255) NOT NULL,
+  `class_stream` varchar(255) NOT NULL,
+  `tc_date` date NOT NULL,
+  `last_date` date NOT NULL,
+  `income` int(11) NOT NULL,
+  `rollno` varchar(255) NOT NULL,
+  `adhaar_no` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `tot_adm_fee` int(11) NOT NULL,
+  `tot_adm_paid` int(11) NOT NULL,
+  `tot_shoe_fee` int(11) NOT NULL,
+  `tot_shoe_paid` int(11) NOT NULL,
+  `tot_uniform_fee` int(11) NOT NULL,
+  `tot_uniform_paid` int(11) NOT NULL,
+  `tot_software_fee` int(11) NOT NULL,
+  `tot_software_paid` int(11) NOT NULL,
+  `tot_cca_fee` int(11) NOT NULL,
+  `tot_cca_paid` int(11) NOT NULL,
+  `tot_books_fee` int(11) NOT NULL,
+  `tot_books_paid` int(11) NOT NULL,
+  `caste_cat` varchar(255) NOT NULL,
+  `phys_chal` varchar(255) NOT NULL,
+  `student_type` varchar(255) NOT NULL,
+  `tot_admis_fee` int(11) NOT NULL,
+  `tot_admis_paid` int(11) NOT NULL,
+  `total_student_fee` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `students`
+--
+
+INSERT INTO `students` (`id`, `first_name`, `roll_no`, `blood`, `join_date`, `last_name`, `parent_contact`, `section`, `admission_no`, `sex`, `class_join`, `present_class`, `dob`, `route_name`, `stage_name`, `tot_fee`, `tot_paid`, `tot_van_fee`, `tot_van_paid`, `place_birth`, `village`, `town`, `taluk`, `district`, `academic_year`, `father_name`, `mother_name`, `edu_father`, `edu_mother`, `stay_with`, `guard_add`, `father_add`, `fa_occu`, `ma_occu`, `nation`, `religion`, `caste`, `sc_st`, `back_caste`, `mother_tongue`, `other_lang`, `no_bro`, `no_sis`, `eld_bro`, `young_bro`, `eld_sis`, `young_sis`, `perm_address`, `vaccinated`, `illness_sick`, `school_prev`, `photo_name`, `photo_path`, `photo_type`, `adhar_name`, `adhar_path`, `adhar_type`, `birth_name`, `birth_path`, `birth_type`, `tc_no`, `last_class`, `class_stream`, `tc_date`, `last_date`, `income`, `rollno`, `adhaar_no`, `address`, `tot_adm_fee`, `tot_adm_paid`, `tot_shoe_fee`, `tot_shoe_paid`, `tot_uniform_fee`, `tot_uniform_paid`, `tot_software_fee`, `tot_software_paid`, `tot_cca_fee`, `tot_cca_paid`, `tot_books_fee`, `tot_books_paid`, `caste_cat`, `phys_chal`, `student_type`, `tot_admis_fee`, `tot_admis_paid`, `total_student_fee`) VALUES
+(2, 'Musthafa MA', '12345', 'A', '2019-07-23', '', '8277021524', '', '12345', 'male', 'second standard', 'second standard', '1986-04-13', '0', '', 0, 0, 0, 0, '', '', '', '', 'Kodagu', '2019-2020', 'Abdulla', 'Ayisha', '', '', '', '', '', '', '', '', '', 'Muslim', '', '', 'Malayalam', '', 0, 0, 0, 0, 0, 0, '', '', '', '', 'download (1).jpg', 'photo/download (1).jpg', 'image/jpeg', '', 'adhar/', '', '', 'birth/', '', 0, '', '', '0000-00-00', '0000-00-00', 0, '12345', '544646465465', 'Ponnathmotte', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', 0, 0, 0),
+(3, 'Muhammad Ajmal M', '123', 'A', '2019-07-23', '', '9482897647', '', '123', 'male', 'second standard', 'second standard', '2016-11-05', '0', '', 10000, 0, 0, 0, '', '', '', '', 'Kodagu', '2019-2020', 'Musthafa', 'Fathima', '', '', '', '', '', '', '', '', '', 'Muslim', '', '', 'Malayalam', '', 0, 0, 0, 0, 0, 0, '', '', '', '', 'download.jpg', 'photo/download.jpg', 'image/jpeg', '', 'adhar/', '', '', 'birth/', '', 0, '', '', '0000-00-00', '0000-00-00', 0, '123', '6565465464', 'Ponnathmotte', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_adm_fee`
+--
+
+CREATE TABLE `student_adm_fee` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `class` varchar(255) NOT NULL,
+  `parent_name` varchar(255) NOT NULL,
+  `mob` varchar(255) NOT NULL,
+  `academic_year` varchar(255) NOT NULL,
+  `roll_no` varchar(255) NOT NULL,
+  `section` varchar(255) NOT NULL,
+  `tot_fee` int(11) NOT NULL,
+  `rec_date` date NOT NULL,
+  `rec_no` varchar(255) NOT NULL,
+  `adm_fee` int(11) NOT NULL,
+  `tut_fee` int(11) NOT NULL,
+  `lab_fee` int(11) NOT NULL,
+  `lib_fee` int(11) NOT NULL,
+  `sp_fee` int(11) NOT NULL,
+  `mag_fee` int(11) NOT NULL,
+  `exa_fee` int(11) NOT NULL,
+  `bett_fee` int(11) NOT NULL,
+  `st_wel_fund` int(11) NOT NULL,
+  `teach_wel_fund` int(11) NOT NULL,
+  `caut_dep` int(11) NOT NULL,
+  `devp_fund` int(11) NOT NULL,
+  `medical` int(11) NOT NULL,
+  `miscel_fee` int(11) NOT NULL,
+  `tot_paid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_books_fee`
+--
+
+CREATE TABLE `student_books_fee` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `class` varchar(255) NOT NULL,
+  `parent_name` varchar(255) NOT NULL,
+  `mob` varchar(255) NOT NULL,
+  `academic_year` varchar(255) NOT NULL,
+  `roll_no` varchar(255) NOT NULL,
+  `section` varchar(255) NOT NULL,
+  `tot_fee` int(11) NOT NULL,
+  `rec_date` date NOT NULL,
+  `rec_no` varchar(255) NOT NULL,
+  `adm_fee` int(11) NOT NULL,
+  `tot_paid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_cca_fee`
+--
+
+CREATE TABLE `student_cca_fee` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `class` varchar(255) NOT NULL,
+  `parent_name` varchar(255) NOT NULL,
+  `mob` varchar(255) NOT NULL,
+  `academic_year` varchar(255) NOT NULL,
+  `roll_no` varchar(255) NOT NULL,
+  `section` varchar(255) NOT NULL,
+  `tot_fee` int(11) NOT NULL,
+  `rec_date` date NOT NULL,
+  `rec_no` varchar(255) NOT NULL,
+  `adm_fee` int(11) NOT NULL,
+  `tut_fee` int(11) NOT NULL,
+  `lab_fee` int(11) NOT NULL,
+  `lib_fee` int(11) NOT NULL,
+  `sp_fee` int(11) NOT NULL,
+  `mag_fee` int(11) NOT NULL,
+  `exa_fee` int(11) NOT NULL,
+  `bett_fee` int(11) NOT NULL,
+  `st_wel_fund` int(11) NOT NULL,
+  `teach_wel_fund` int(11) NOT NULL,
+  `caut_dep` int(11) NOT NULL,
+  `devp_fund` int(11) NOT NULL,
+  `medical` int(11) NOT NULL,
+  `miscel_fee` int(11) NOT NULL,
+  `tot_paid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_fee`
+--
+
+CREATE TABLE `student_fee` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `roll_no` varchar(255) NOT NULL,
+  `class` varchar(255) NOT NULL,
+  `section` varchar(255) NOT NULL,
+  `tot_paid` int(11) NOT NULL,
+  `rec_no` varchar(255) NOT NULL,
+  `rec_date` date NOT NULL,
+  `mob` varchar(255) NOT NULL,
+  `parent_name` varchar(255) NOT NULL,
+  `academic_year` varchar(255) NOT NULL,
+  `note` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `student_fee`
+--
+
+INSERT INTO `student_fee` (`id`, `name`, `roll_no`, `class`, `section`, `tot_paid`, `rec_no`, `rec_date`, `mob`, `parent_name`, `academic_year`, `note`) VALUES
+(4, 'Mohammed Jannan SA', '19/1PA/2019-20', 'first puc arts', '', 1000, '1', '2019-07-03', '', '', '2019-2020', 'dfkalsdj'),
+(5, 'Mohammed Jannan SA', '19/1PA/2019-20', 'first puc arts', '', 3000, '3', '2019-07-03', '', '', '2019-2020', 'dsfafads'),
+(6, 'Mohammed Jannan SA', '19/1PA/2019-20', 'first puc arts', '', 3000, '25', '2019-07-03', '', '', '2019-2020', 'school fee'),
+(7, 'Mohammed Jannan SA', '19/1PA/2019-20', 'first puc arts', '', 200, '545', '2019-07-03', '', '', '2019-2020', 'school fee'),
+(8, 'Mohammed Jannan SA', '19/1PA/2019-20', 'first puc arts', '', 100, '343', '2019-07-02', '', '', '2019-2020', 'school fee'),
+(9, 'Mohammed Jannan SA', '19/1PA/2019-20', 'first puc arts', '', 200, '45332', '2019-07-03', '', '', '2019-2020', 'school fee with balance'),
+(10, 'Muhammad Ajmal M', '123', 'first standard', '', 5000, '15', '2019-09-20', '', '', '2019-2020', 'school fee');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_marks`
+--
+
+CREATE TABLE `student_marks` (
+  `id` int(11) NOT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `roll_no` varchar(255) NOT NULL,
+  `present_class` varchar(255) NOT NULL,
+  `section` varchar(255) NOT NULL,
+  `academic_year` varchar(255) NOT NULL,
+  `exam_name` varchar(255) NOT NULL,
+  `sub1` varchar(255) NOT NULL,
+  `sub2` varchar(255) NOT NULL,
+  `sub3` varchar(255) NOT NULL,
+  `sub4` varchar(255) NOT NULL,
+  `sub5` varchar(255) NOT NULL,
+  `sub6` varchar(255) NOT NULL,
+  `sub7` varchar(255) NOT NULL,
+  `sub8` varchar(255) NOT NULL,
+  `sub9` varchar(255) NOT NULL,
+  `sub10` varchar(255) NOT NULL,
+  `sub11` varchar(255) NOT NULL,
+  `sub12` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `student_marks`
+--
+
+INSERT INTO `student_marks` (`id`, `first_name`, `roll_no`, `present_class`, `section`, `academic_year`, `exam_name`, `sub1`, `sub2`, `sub3`, `sub4`, `sub5`, `sub6`, `sub7`, `sub8`, `sub9`, `sub10`, `sub11`, `sub12`) VALUES
+(5, 'musthafa MA', '12345', 'first standard', '', '2018-2019', 'FA1', '25', '26', '27', '28', '29', '30', '', '', '', '', '', ''),
+(6, 'Shiva prasad', '123456', 'first standard', '', '2018-2019', 'FA1', '31', '32', '33', '34', '35', '36', '', '', '', '', '', ''),
+(7, 'musthafa MA', '12345', 'first standard', '', '2018-2019', 'FA1', '45', '35', '25', '26', '24', '28', '38', '', '', '', '', ''),
+(8, 'Shiva prasad', '123456', 'first standard', '', '2018-2019', 'FA1', '', '', '', '', '', '', '', '', '', '', '', ''),
+(9, 'Unais', '1234567', 'first standard', '', '2018-2019', 'FA1', '', '', '', '', '', '', '', '', '', '', '', ''),
+(10, 'musthafa MA', '12345', 'first standard', '', '2018-2019', 'FA1', '38', '36', '35', '34', '38', '39', '45', '', '', '', '', ''),
+(11, 'Shiva prasad', '123456', 'first standard', '', '2018-2019', 'FA1', '', '', '', '', '', '', '', '', '', '', '', ''),
+(12, 'Unais', '1234567', 'first standard', '', '2018-2019', 'FA1', '', '', '', '', '', '', '', '', '', '', '', ''),
+(13, 'musthafa MA', '12345', 'first standard', '', '2018-2019', 'FA1', '42', '41', '35', '36', '38', '39', '31', '', '', '', '', ''),
+(14, 'Shiva prasad', '123456', 'first standard', '', '2018-2019', 'FA1', '', '', '', '', '', '', '', '', '', '', '', ''),
+(15, 'Unais', '1234567', 'first standard', '', '2018-2019', 'FA1', '', '', '', '', '', '', '', '', '', '', '', ''),
+(16, 'musthafa MA', '12345', 'first standard', '', '2018-2019', 'FA1', '42', '41', '35', '36', '38', '39', '31', '', '', '', '', ''),
+(17, 'Shiva prasad', '123456', 'first standard', '', '2018-2019', 'FA1', '', '', '', '', '', '', '', '', '', '', '', ''),
+(18, 'Unais', '1234567', 'first standard', '', '2018-2019', 'FA1', '', '', '', '', '', '', '', '', '', '', '', ''),
+(19, 'Muhammad Ajmal M', '123', 'first standard', '', '2019-2020', 'Fa1', '50', '45', '35', '48', '48', '47', '50', '', '', '', '', ''),
+(20, 'Musthafa MA', '12345', 'first standard', '', '2019-2020', 'Fa1', '30', '35', '36', '37', '38', '39', '34', '', '', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_shoe_fee`
+--
+
+CREATE TABLE `student_shoe_fee` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `class` varchar(255) NOT NULL,
+  `parent_name` varchar(255) NOT NULL,
+  `mob` varchar(255) NOT NULL,
+  `academic_year` varchar(255) NOT NULL,
+  `roll_no` varchar(255) NOT NULL,
+  `section` varchar(255) NOT NULL,
+  `tot_fee` int(11) NOT NULL,
+  `rec_date` date NOT NULL,
+  `rec_no` varchar(255) NOT NULL,
+  `adm_fee` int(11) NOT NULL,
+  `tot_paid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_software_fee`
+--
+
+CREATE TABLE `student_software_fee` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `class` varchar(255) NOT NULL,
+  `parent_name` varchar(255) NOT NULL,
+  `mob` varchar(255) NOT NULL,
+  `academic_year` varchar(255) NOT NULL,
+  `roll_no` varchar(255) NOT NULL,
+  `section` varchar(255) NOT NULL,
+  `tot_fee` int(11) NOT NULL,
+  `rec_date` date NOT NULL,
+  `rec_no` varchar(255) NOT NULL,
+  `adm_fee` int(11) NOT NULL,
+  `tot_paid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_uniform_fee`
+--
+
+CREATE TABLE `student_uniform_fee` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `class` varchar(255) NOT NULL,
+  `parent_name` varchar(255) NOT NULL,
+  `mob` varchar(255) NOT NULL,
+  `academic_year` varchar(255) NOT NULL,
+  `roll_no` varchar(255) NOT NULL,
+  `section` varchar(255) NOT NULL,
+  `tot_fee` int(11) NOT NULL,
+  `rec_date` date NOT NULL,
+  `rec_no` varchar(255) NOT NULL,
+  `adm_fee` int(11) NOT NULL,
+  `tot_paid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_van_fee`
+--
+
+CREATE TABLE `student_van_fee` (
+  `id` int(11) NOT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `roll_no` varchar(255) NOT NULL,
+  `van_fee` int(11) NOT NULL,
+  `rec_date` date NOT NULL,
+  `rec_no` int(11) NOT NULL,
+  `academic_year` varchar(255) NOT NULL,
+  `present_class` varchar(255) NOT NULL,
+  `section` varchar(255) NOT NULL,
+  `route_name` varchar(255) NOT NULL,
+  `stage_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `student_van_fee`
+--
+
+INSERT INTO `student_van_fee` (`id`, `first_name`, `roll_no`, `van_fee`, `rec_date`, `rec_no`, `academic_year`, `present_class`, `section`, `route_name`, `stage_name`) VALUES
+(1, 'Muhammad Ajmal M', '123', 500, '2019-09-20', 2, '2019-2020', 'first standard', '', 'Route 1', 'Sunticoppa'),
+(2, 'Muhammad Ajmal M', '123', 500, '2019-09-20', 5, '2019-2020', 'first standard', '', 'Route 1', 'Sunticoppa'),
+(3, 'Muhammad Ajmal M', '123', 500, '2019-11-19', 56, '2019-2020', 'first standard', '', 'Route 1', 'Sunticoppa'),
+(4, 'Muhammad Ajmal M', '123', 1000, '2019-11-19', 65, '2019-2020', 'first standard', '', 'Route 1', 'Sunticoppa'),
+(5, 'Muhammad Ajmal M', '123', 2000, '2019-11-19', 111, '2019-2020', 'first standard', '', 'Route 1', 'Sunticoppa');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `subjects`
+--
+
+CREATE TABLE `subjects` (
+  `id` int(11) NOT NULL,
+  `subject_name` varchar(255) NOT NULL,
+  `class` varchar(255) NOT NULL,
+  `date` date NOT NULL,
+  `count` int(11) NOT NULL,
+  `academic_year` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `subjects`
+--
+
+INSERT INTO `subjects` (`id`, `subject_name`, `class`, `date`, `count`, `academic_year`) VALUES
+(53, 'kannada', 'first standard', '2018-08-23', 7, '2018-2019'),
+(54, 'English', 'first standard', '2018-08-23', 7, '2018-2019'),
+(55, 'Hindi', 'first standard', '2018-08-23', 7, '2018-2019'),
+(56, 'Maths', 'first standard', '2018-08-23', 7, '2018-2019'),
+(57, 'Science', 'first standard', '2018-08-23', 7, '2018-2019'),
+(58, 'Social', 'first standard', '2018-08-23', 7, '2018-2019'),
+(59, 'Computer', 'first standard', '2018-08-23', 7, '2018-2019'),
+(60, 'kannada', 'second standard', '2018-08-23', 7, '2018-2019'),
+(61, 'English', 'second standard', '2018-08-23', 7, '2018-2019'),
+(62, 'Hindi', 'second standard', '2018-08-23', 7, '2018-2019'),
+(63, 'Maths', 'second standard', '2018-08-23', 7, '2018-2019'),
+(64, 'Science', 'second standard', '2018-08-23', 7, '2018-2019'),
+(65, 'Social', 'second standard', '2018-08-23', 7, '2018-2019'),
+(66, 'Computer', 'second standard', '2018-08-23', 7, '2018-2019'),
+(72, 'kannada', 'third standard', '2018-08-23', 7, '2018-2019'),
+(73, 'English', 'third standard', '2018-08-23', 7, '2018-2019'),
+(74, 'Hindi', 'third standard', '2018-08-23', 7, '2018-2019'),
+(75, 'Maths', 'third standard', '2018-08-23', 7, '2018-2019'),
+(76, 'Science', 'third standard', '2018-08-23', 7, '2018-2019'),
+(77, 'Social', 'third standard', '2018-08-23', 7, '2018-2019'),
+(78, 'Computer', 'third standard', '2018-08-23', 7, '2018-2019'),
+(79, 'kannada', 'fourth standard', '2018-09-18', 7, '2018-2019'),
+(80, 'English', 'fourth standard', '2018-09-18', 7, '2018-2019'),
+(81, 'Hindi', 'fourth standard', '2018-09-18', 7, '2018-2019'),
+(82, 'Maths', 'fourth standard', '2018-09-18', 7, '2018-2019'),
+(83, 'Science', 'fourth standard', '2018-09-18', 7, '2018-2019'),
+(84, 'Social', 'fourth standard', '2018-09-18', 7, '2018-2019'),
+(85, 'Computer', 'fourth standard', '2018-09-18', 7, '2018-2019'),
+(86, 'kannada', 'fifth standard', '2018-09-18', 7, '2018-2019'),
+(87, 'English', 'fifth standard', '2018-09-18', 7, '2018-2019'),
+(88, 'Hindi', 'fifth standard', '2018-09-18', 7, '2018-2019'),
+(89, 'Maths', 'fifth standard', '2018-09-18', 7, '2018-2019'),
+(90, 'Science', 'fifth standard', '2018-09-18', 7, '2018-2019'),
+(91, 'Social', 'fifth standard', '2018-09-18', 7, '2018-2019'),
+(92, 'Computer', 'fifth standard', '2018-09-18', 7, '2018-2019'),
+(93, 'kannada', 'sixth standard', '2018-09-18', 7, '2018-2019'),
+(94, 'English', 'sixth standard', '2018-09-18', 7, '2018-2019'),
+(95, 'Hindi', 'sixth standard', '2018-09-18', 7, '2018-2019'),
+(96, 'Maths', 'sixth standard', '2018-09-18', 7, '2018-2019'),
+(97, 'Science', 'sixth standard', '2018-09-18', 7, '2018-2019'),
+(98, 'Social', 'sixth standard', '2018-09-18', 7, '2018-2019'),
+(99, 'Computer', 'sixth standard', '2018-09-18', 7, '2018-2019'),
+(100, 'kannada', 'seventh standard', '2018-09-18', 7, '2018-2019'),
+(101, 'English', 'seventh standard', '2018-09-18', 7, '2018-2019'),
+(102, 'Hindi', 'seventh standard', '2018-09-18', 7, '2018-2019'),
+(103, 'Maths', 'seventh standard', '2018-09-18', 7, '2018-2019'),
+(104, 'Science', 'seventh standard', '2018-09-18', 7, '2018-2019'),
+(105, 'Social', 'seventh standard', '2018-09-18', 7, '2018-2019'),
+(106, 'Computer', 'seventh standard', '2018-09-18', 7, '2018-2019'),
+(107, 'kannada', 'eighth standard', '2018-09-18', 7, '2018-2019'),
+(108, 'English', 'eighth standard', '2018-09-18', 7, '2018-2019'),
+(109, 'Hindi', 'eighth standard', '2018-09-18', 7, '2018-2019'),
+(110, 'Maths', 'eighth standard', '2018-09-18', 7, '2018-2019'),
+(111, 'Science', 'eighth standard', '2018-09-18', 7, '2018-2019'),
+(112, 'Social', 'eighth standard', '2018-09-18', 7, '2018-2019'),
+(113, 'Computer', 'eighth standard', '2018-09-18', 7, '2018-2019'),
+(121, 'kannada', 'ninth standard', '2018-09-18', 7, '2018-2019'),
+(122, 'English', 'ninth standard', '2018-09-18', 7, '2018-2019'),
+(123, 'Hindi', 'ninth standard', '2018-09-18', 7, '2018-2019'),
+(124, 'Maths', 'ninth standard', '2018-09-18', 7, '2018-2019'),
+(125, 'Science', 'ninth standard', '2018-09-18', 7, '2018-2019'),
+(126, 'Social', 'ninth standard', '2018-09-18', 7, '2018-2019'),
+(127, 'Computer', 'ninth standard', '2018-09-18', 7, '2018-2019'),
+(128, 'kannada', 'tenth standard', '2018-09-18', 7, '2018-2019'),
+(129, 'English', 'tenth standard', '2018-09-18', 7, '2018-2019'),
+(130, 'Hindi', 'tenth standard', '2018-09-18', 7, '2018-2019'),
+(131, 'Maths', 'tenth standard', '2018-09-18', 7, '2018-2019'),
+(132, 'Science', 'tenth standard', '2018-09-18', 7, '2018-2019'),
+(133, 'Social', 'tenth standard', '2018-09-18', 7, '2018-2019'),
+(134, 'Computer', 'tenth standard', '2018-09-18', 7, '2018-2019'),
+(140, 'English', 'lkg', '2018-09-27', 6, '2018-2019'),
+(141, 'Kannada', 'lkg', '2018-09-27', 6, '2018-2019'),
+(142, 'Maths', 'lkg', '2018-09-27', 6, '2018-2019'),
+(143, 'GK', 'lkg', '2018-09-27', 6, '2018-2019'),
+(144, 'Story/Rhymes', 'lkg', '2018-09-27', 6, '2018-2019'),
+(145, 'Drawing', 'lkg', '2018-09-27', 6, '2018-2019'),
+(146, 'English', 'ukg', '2018-09-27', 6, '2018-2019'),
+(147, 'Kannada', 'ukg', '2018-09-27', 6, '2018-2019'),
+(148, 'Maths', 'ukg', '2018-09-27', 6, '2018-2019'),
+(149, 'GK', 'ukg', '2018-09-27', 6, '2018-2019'),
+(150, 'Story/Rhymes', 'ukg', '2018-09-27', 6, '2018-2019'),
+(151, 'Drawing', 'ukg', '2018-09-27', 6, '2018-2019'),
+(152, 'English', 'prekg', '2018-10-01', 6, '2018-2019'),
+(153, 'Kannada', 'prekg', '2018-10-01', 6, '2018-2019'),
+(154, 'Maths', 'prekg', '2018-10-01', 6, '2018-2019'),
+(155, 'Story/Rhymes', 'prekg', '2018-10-01', 6, '2018-2019'),
+(156, 'Drawing', 'prekg', '2018-10-01', 6, '2018-2019'),
+(157, 'GK', 'prekg', '2018-10-01', 6, '2018-2019'),
+(158, '', 'second standard', '2019-03-30', 7, '2018-2019'),
+(159, '', 'second standard', '2019-03-30', 7, '2018-2019'),
+(160, '', 'second standard', '2019-03-30', 7, '2018-2019'),
+(161, '', 'second standard', '2019-03-30', 7, '2018-2019'),
+(162, '', 'second standard', '2019-03-30', 7, '2018-2019'),
+(163, '', 'second standard', '2019-03-30', 7, '2018-2019'),
+(164, '', 'second standard', '2019-03-30', 7, '2018-2019'),
+(165, '', '', '2019-03-30', 7, '2018-2019'),
+(166, '', '', '2019-03-30', 7, '2018-2019'),
+(167, '', '', '2019-03-30', 7, '2018-2019'),
+(168, '', '', '2019-03-30', 7, '2018-2019'),
+(169, '', '', '2019-03-30', 7, '2018-2019'),
+(170, '', '', '2019-03-30', 7, '2018-2019'),
+(171, '', '', '2019-03-30', 7, '2018-2019');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `timetable`
+--
+
+CREATE TABLE `timetable` (
+  `id` int(11) NOT NULL,
+  `class` varchar(255) NOT NULL,
+  `section` varchar(255) NOT NULL,
+  `stream_combi` varchar(255) NOT NULL,
+  `semester` varchar(255) NOT NULL,
+  `day` varchar(255) NOT NULL,
+  `subject1` varchar(255) NOT NULL,
+  `subject2` varchar(255) NOT NULL,
+  `subject3` varchar(255) NOT NULL,
+  `subject4` varchar(255) NOT NULL,
+  `subject5` varchar(255) NOT NULL,
+  `subject6` varchar(255) NOT NULL,
+  `subject7` varchar(255) NOT NULL,
+  `subject8` varchar(255) NOT NULL,
+  `subject9` varchar(255) NOT NULL,
+  `academic_year` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `uploaded_documents`
+--
+
+CREATE TABLE `uploaded_documents` (
+  `id` int(11) NOT NULL,
+  `upl_doc_name` varchar(255) NOT NULL,
+  `upl_file_name` varchar(255) NOT NULL,
+  `upl_file_path` varchar(255) NOT NULL,
+  `upl_file_type` varchar(255) NOT NULL,
+  `upl_date` date NOT NULL,
+  `academic_year` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `uploads`
+--
+
+CREATE TABLE `uploads` (
+  `id` int(11) NOT NULL,
+  `file_name` varchar(255) NOT NULL,
+  `upload_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `academic_year` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `website_content`
+--
+
+CREATE TABLE `website_content` (
+  `id` int(11) NOT NULL,
+  `page_area` varchar(255) NOT NULL,
+  `page_content` longtext NOT NULL,
+  `updated_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `academic_year` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `administration`
+--
+ALTER TABLE `administration`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `adm_members_fee`
+--
+ALTER TABLE `adm_members_fee`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ad_members`
+--
+ALTER TABLE `ad_members`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `alumni`
+--
+ALTER TABLE `alumni`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `anv_don`
+--
+ALTER TABLE `anv_don`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `assign`
+--
+ALTER TABLE `assign`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `attendance`
+--
+ALTER TABLE `attendance`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `attendance1`
+--
+ALTER TABLE `attendance1`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `birthday_status`
+--
+ALTER TABLE `birthday_status`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `books`
+--
+ALTER TABLE `books`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `certificate_status`
+--
+ALTER TABLE `certificate_status`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `class_ad_members`
+--
+ALTER TABLE `class_ad_members`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `contact_school`
+--
+ALTER TABLE `contact_school`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `enrolled_fees`
+--
+ALTER TABLE `enrolled_fees`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `enrolled_students`
+--
+--ALTER TABLE `enrolled_students`
+  --ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `events`
+--
+ALTER TABLE `events`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `exams`
+--
+ALTER TABLE `exams`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `exam_timetable`
+--
+ALTER TABLE `exam_timetable`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `expense`
+--
+ALTER TABLE `expense`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `faculty`
+--
+ALTER TABLE `faculty`
+  ADD PRIMARY KEY (`fac_id`);
+
+--
+-- Indexes for table `fac_attendance`
+--
+ALTER TABLE `fac_attendance`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `fee_name`
+--
+ALTER TABLE `fee_name`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `gate_pass`
+--
+ALTER TABLE `gate_pass`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `holiday`
+--
+ALTER TABLE `holiday`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `income`
+--
+ALTER TABLE `income`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `inventory`
+--
+ALTER TABLE `inventory`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `leave_appli`
+--
+ALTER TABLE `leave_appli`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `leave_reply`
+--
+ALTER TABLE `leave_reply`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `letterhead`
+--
+ALTER TABLE `letterhead`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `library`
+--
+ALTER TABLE `library`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `marks`
+--
+ALTER TABLE `marks`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `meeting`
+--
+ALTER TABLE `meeting`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `non_teach`
+--
+ALTER TABLE `non_teach`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `notifications`
+--
+ALTER TABLE `notifications`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `other_fee`
+--
+ALTER TABLE `other_fee`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `present_class`
+--
+ALTER TABLE `present_class`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `remarks`
+--
+ALTER TABLE `remarks`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `request_study`
+--
+ALTER TABLE `request_study`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `routes`
+--
+ALTER TABLE `routes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `route_students`
+--
+ALTER TABLE `route_students`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `school_det`
+--
+ALTER TABLE `school_det`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `set_adm_fee`
+--
+ALTER TABLE `set_adm_fee`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `set_books_fee`
+--
+ALTER TABLE `set_books_fee`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `set_cca_fee`
+--
+ALTER TABLE `set_cca_fee`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `set_fee`
+--
+ALTER TABLE `set_fee`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `set_shoe_fee`
+--
+ALTER TABLE `set_shoe_fee`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `set_software_fee`
+--
+ALTER TABLE `set_software_fee`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `set_uniform_fee`
+--
+ALTER TABLE `set_uniform_fee`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `set_van_fee`
+--
+ALTER TABLE `set_van_fee`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `stages`
+--
+ALTER TABLE `stages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `students`
+--
+ALTER TABLE `students`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `student_adm_fee`
+--
+ALTER TABLE `student_adm_fee`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `student_books_fee`
+--
+ALTER TABLE `student_books_fee`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `student_cca_fee`
+--
+ALTER TABLE `student_cca_fee`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `student_fee`
+--
+ALTER TABLE `student_fee`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `student_marks`
+--
+ALTER TABLE `student_marks`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `student_shoe_fee`
+--
+ALTER TABLE `student_shoe_fee`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `student_software_fee`
+--
+ALTER TABLE `student_software_fee`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `student_uniform_fee`
+--
+ALTER TABLE `student_uniform_fee`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `student_van_fee`
+--
+ALTER TABLE `student_van_fee`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `subjects`
+--
+ALTER TABLE `subjects`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `timetable`
+--
+ALTER TABLE `timetable`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `uploaded_documents`
+--
+ALTER TABLE `uploaded_documents`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `uploads`
+--
+ALTER TABLE `uploads`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `website_content`
+--
+ALTER TABLE `website_content`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `administration`
+--
+ALTER TABLE `administration`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `adm_members_fee`
+--
+ALTER TABLE `adm_members_fee`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ad_members`
+--
+ALTER TABLE `ad_members`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `alumni`
+--
+ALTER TABLE `alumni`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `anv_don`
+--
+ALTER TABLE `anv_don`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `assign`
+--
+ALTER TABLE `assign`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `attendance`
+--
+ALTER TABLE `attendance`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+
+--
+-- AUTO_INCREMENT for table `birthday_status`
+--
+ALTER TABLE `birthday_status`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT for table `books`
+--
+ALTER TABLE `books`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `certificate_status`
+--
+ALTER TABLE `certificate_status`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `class_ad_members`
+--
+ALTER TABLE `class_ad_members`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `contact_school`
+--
+ALTER TABLE `contact_school`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `enrolled_fees`
+--
+ALTER TABLE `enrolled_fees`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `enrolled_students`
+--
+--ALTER TABLE `enrolled_students`
+  --MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `events`
+--
+ALTER TABLE `events`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `exams`
+--
+ALTER TABLE `exams`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- AUTO_INCREMENT for table `exam_timetable`
+--
+ALTER TABLE `exam_timetable`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `expense`
+--
+ALTER TABLE `expense`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `faculty`
+--
+ALTER TABLE `faculty`
+  MODIFY `fac_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- AUTO_INCREMENT for table `fac_attendance`
+--
+ALTER TABLE `fac_attendance`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `fee_name`
+--
+ALTER TABLE `fee_name`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `gate_pass`
+--
+ALTER TABLE `gate_pass`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `holiday`
+--
+ALTER TABLE `holiday`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `income`
+--
+ALTER TABLE `income`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `inventory`
+--
+ALTER TABLE `inventory`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `leave_appli`
+--
+ALTER TABLE `leave_appli`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `leave_reply`
+--
+ALTER TABLE `leave_reply`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `letterhead`
+--
+ALTER TABLE `letterhead`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `library`
+--
+ALTER TABLE `library`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT for table `marks`
+--
+ALTER TABLE `marks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `meeting`
+--
+ALTER TABLE `meeting`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `non_teach`
+--
+ALTER TABLE `non_teach`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `notifications`
+--
+ALTER TABLE `notifications`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `other_fee`
+--
+ALTER TABLE `other_fee`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `present_class`
+--
+ALTER TABLE `present_class`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `remarks`
+--
+ALTER TABLE `remarks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `request_study`
+--
+ALTER TABLE `request_study`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `routes`
+--
+ALTER TABLE `routes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `route_students`
+--
+ALTER TABLE `route_students`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `school_det`
+--
+ALTER TABLE `school_det`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `set_adm_fee`
+--
+ALTER TABLE `set_adm_fee`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `set_books_fee`
+--
+ALTER TABLE `set_books_fee`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `set_cca_fee`
+--
+ALTER TABLE `set_cca_fee`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `set_fee`
+--
+ALTER TABLE `set_fee`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `set_shoe_fee`
+--
+ALTER TABLE `set_shoe_fee`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `set_software_fee`
+--
+ALTER TABLE `set_software_fee`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `set_uniform_fee`
+--
+ALTER TABLE `set_uniform_fee`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `set_van_fee`
+--
+ALTER TABLE `set_van_fee`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `stages`
+--
+ALTER TABLE `stages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `students`
+--
+ALTER TABLE `students`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `student_adm_fee`
+--
+ALTER TABLE `student_adm_fee`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `student_books_fee`
+--
+ALTER TABLE `student_books_fee`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `student_cca_fee`
+--
+ALTER TABLE `student_cca_fee`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `student_fee`
+--
+ALTER TABLE `student_fee`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `student_marks`
+--
+ALTER TABLE `student_marks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `student_shoe_fee`
+--
+ALTER TABLE `student_shoe_fee`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `student_software_fee`
+--
+ALTER TABLE `student_software_fee`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `student_uniform_fee`
+--
+ALTER TABLE `student_uniform_fee`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `student_van_fee`
+--
+ALTER TABLE `student_van_fee`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `subjects`
+--
+ALTER TABLE `subjects`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=172;
+
+--
+-- AUTO_INCREMENT for table `timetable`
+--
+ALTER TABLE `timetable`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `uploaded_documents`
+--
+ALTER TABLE `uploaded_documents`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `uploads`
+--
+ALTER TABLE `uploads`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `website_content`
+--
+ALTER TABLE `website_content`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

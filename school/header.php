@@ -3,6 +3,7 @@
 
 <head>
 <?php 
+error_reporting("0");
 	require("connection.php");
 	$sql = "SELECT * FROM school_det ORDER BY ID DESC LIMIT 1";
 	$result=mysqli_query($conn,$sql);
