@@ -562,7 +562,7 @@ $balance_account=($tot_est_fee+$total_income)-$total_expense;
 					</div>
 					<div class="col-xs-9 text-right">
 						<div>Student Attendance</div>
-					   </div>
+					</div>
 				</div>
 			</div>
 			<a href="all_attendance.php">
@@ -586,8 +586,6 @@ $balance_account=($tot_est_fee+$total_income)-$total_expense;
 					</div>
 					<div class="col-xs-9 text-right">
 					 <div>Inventory Details</div>
-						
-					   
 					</div>
 				</div>
 			</div>
