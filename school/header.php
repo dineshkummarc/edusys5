@@ -285,7 +285,7 @@ error_reporting("0");
                     </li>
 					
 				 <li>
-                        <a href="#" data-toggle="collapse" data-target="#enroll"><i class="glyphicon glyphicon-education "></i></i> Enrollment 2018 <i class="fa fa-fw fa-caret-down"></i></a>
+                        <a href="#" data-toggle="collapse" data-target="#enroll"><i class="glyphicon glyphicon-education "></i></i> Enrollment <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="enroll" class="collapse">
                             <li>
                                 <a href="all_enrolled_students.php">Enrolled Students</a>

@@ -108,7 +108,7 @@ function goBack() {
 }
 </script>
 	<script>
-function printDiv(income) {
+function printIncome(income) {
      var printContents = document.getElementById('income').innerHTML;
      var originalContents = document.body.innerHTML;
 
@@ -156,7 +156,7 @@ function printDiv(income) {
 	<tr>
 	<td> <a href="<?php echo 'selectexam.php?first_name='.$row['first_name'].'&roll_no='.$row['roll_no'];?>">  <span style="color:#fff;"><i class="fa fa-print" aria-hidden="true"></i> Print Hall Ticket</span></a> </td>
 	<td> <a href="<?php echo 'marks_card.php?first_name='.$row['first_name'].'&roll_no='.$row['roll_no'].'&present_class='.$row['present_class'].'&academic_year='.$row['academic_year'];?>" ><span style="color:#fff;"><i class="fa fa-print" aria-hidden="true"></i> Print Marks Card</span></a> </td>
-	<td>  <a href="" onclick="printDiv('income')"><span style="color:#fff;"><i class="fa fa-print" aria-hidden="true"></i> Print</span></a> </td>
+	<td>  <a href="" onclick="printIncome('income')"><span style="color:#fff;"><i class="fa fa-print" aria-hidden="true"></i> Print</span></a> </td>
 	<td> <a href="<?php echo 'individual_set_fee.php?first_name='.$row['first_name'].'&roll_no='.$row['roll_no'].'&class='.$row['present_class'].'&section='.$row['section'];?>"><span style="color:#fff;"><i class="fa fa-check" aria-hidden="true"></i> Add Individual Fee</span></a></td>
 	<td></td>
 	</tr>
@@ -196,7 +196,7 @@ function printDiv(income) {
 					  </tr>
 					  <tr>
 						<td style="width:15%;">Joined Date</td>
-						<td style="color:blue;width:25%;"><?php echo $row['join_date'];?></td>
+						<td style="color:blue;width:25%;"><?php echo $join_date;?></td>
 						<td style="width:15%;">Blood Group</td>
 						<td style="color:blue;width:25%;"><?php echo $row['blood'];?></td>
 						
@@ -205,7 +205,7 @@ function printDiv(income) {
 						<td style="width:15%;">Gender</td>
 						<td style="color:blue;width:25%;"><?php echo $row['sex'];?></td>
 						<td style="width:15%;">Date of Birth</td>
-						<td style="color:blue;width:25%;"><?php echo $row['dob'];?></td>
+						<td style="color:blue;width:25%;"><?php echo $dob;?></td>
 						
 					  </tr>
 					   <tr>

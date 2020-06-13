@@ -6,7 +6,6 @@ $cur_academic_year = $_SESSION['academic_year'];
 require("connection.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	$academic_year = test_input($_POST["academic_year"]);
 	$class = test_input($_POST["class"]);
 	if($_POST["section"]){
 	$section = test_input($_POST["section"]);	

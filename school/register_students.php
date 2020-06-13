@@ -22,19 +22,25 @@ require("connection.php");
 			  
 			        
 					<div class="form-group">
-					<label><span style="color:red;font-size:18px;">*</span>Enter Admission No</label>
-					 <input type="text" name="admission" required placeholder="Admission No" class="form-control" id="usr">
+						<label>Enrollment / Admission No</label>
+					  <input type="text" placeholder="Enrollment No" name="rollno"  class="form-control">
 					</div>
-
+					
 					<div class="form-group">
 					   <label for="sel1"><span style="color:red;font-size:18px;">*</span>Student Name:</label>
 					  <input type="text" placeholder="Student Name" name="first_name" required class="form-control" id="usr">
 					</div>
 					
-			<div class="form-group">
-		 <label for="usr"><span style="color:red;font-size:18px;">*</span>Select Class:</label>
-		  <select class="form-control" name="class_join" id="sel1">
-		<?php require("selectclass.php");?>
+					
+					<div class="form-group">
+					<label for="usr">Joined Date:</label>
+					 <input type="date" name="join_date" placeholder="Join Date"  class="form-control" id="usr">
+					</div>
+					
+						<div class="form-group">
+					 <label for="usr"><span style="color:red;font-size:18px;">*</span>Select Class:</label>
+					  <select class="form-control" name="class_join" id="sel1">
+					<?php require("selectclass.php");?>
 		
 
 					<div class="form-group">
@@ -55,23 +61,15 @@ require("connection.php");
 					 </select>
 					</div>
                    
-					<input type="hidden" name="academic_year" value="<?php echo $cur_academic_year;?>">
-					
-
-				
-					<div class="form-group">
-						<label>Enrollment No</label>
-					  <input type="text" placeholder="Enrollment No" name="rollno"  class="form-control">
-					</div>
 					
 					<div class="form-group">
 					  <label for="sel1"><span style="color:red;font-size:18px;">*</span>Student Type:</label>
 					  <select class="form-control" name="student_type"  id="sel1">
 						<option value="">Normal</option>
 						<option value="rte">RTE</option>
-						<option value="jamaath student">Jamaath Student</option>
 						<option value="free education">Free Education</option>
 						<option value="staff children">Staff Children</option>
+						<option value="jamaath student">Jamaath Student</option>
 					 </select>
 					</div>
 					
@@ -124,18 +122,9 @@ require("connection.php");
 						<input type="file" value="Photo" name="photo">
 					</div>
 
-
-					
-					<div class="form-group">
-					<label for="usr">Joined Date:</label>
-					 <input type="date" name="join_date" placeholder="Join Date"  class="form-control" id="usr">
-					</div>
-					
-					
-					 
-					
-	<Input type="submit" class="btn btn-primary" name="register" value="Register" >
-	  </form>
+					<Input type="submit" class="btn btn-primary" name="register" value="Register" >
+				</form>
+				
 			</div>
 		</div>
 	</div>

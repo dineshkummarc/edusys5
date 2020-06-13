@@ -30,16 +30,7 @@ $cur_academic_year = $_SESSION['academic_year'];
 							
 <form action="insert_set_fee.php" method="post">
  
-	  <div class="form-group">
-	  <label for="sel1">Academic Year</label>
-	  <select class="form-control" name="academic_year" required>
-		<option value="">-----------</option>
-		<option value="2016-2017">2016-17</option>
-		<option value="2017-2018">2017-18</option>
-		<option value="2018-2019">2018-19</option>
-		<option value="2019-2020">2019-20</option>
-		</select><br>
-		</div>
+	
 		
 		 <div class="form-group">
 	  <label for="sel1">Select Class</label>

@@ -275,26 +275,23 @@ if($meeting_type=="Send SMS"){
 		<select class="form-control" name="filt_class" id="sel1">
 			<?php require("selectclass.php");?>
 	  
-	  <div class="form-group">
-	    <label>Select Section</label>
-		<?php echo '<select class="form-control" name="section">';
-		echo '<option value="">Select Section</option>';
-		$sql="select distinct section from students where academic_year='".$cur_academic_year."'";
-        $result=mysqli_query($conn,$sql);
-         foreach($result as $value)
-		{
-		?>
-		<option value='<?php echo $value["section"];?>'><?php echo $value["section"];?></option>
-		<?php
-		}
-		echo '</select>';
-        ?>
-		</div>
+	<div class="form-group">
+	<label>Select Section</label>
+	<?php echo '<select class="form-control" name="section">';
+	echo '<option value="">Select Section</option>';
+	$sql="select distinct section from students where academic_year='".$cur_academic_year."'";
+	$result=mysqli_query($conn,$sql);
+	 foreach($result as $value)
+	{
+	?>
+	<option value='<?php echo $value["section"];?>'><?php echo $value["section"];?></option>
+	<?php
+	}
+	echo '</select>';
+	?>
+	</div>
 	  
-	
-	  
-	  
-	  <input type="submit" class="btn btn-primary" name="user_cred" value="Send SMS">
+	<input type="submit" class="btn btn-primary" name="user_cred" value="Send SMS">
 </form>
 
 

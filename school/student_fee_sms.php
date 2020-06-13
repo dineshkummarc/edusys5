@@ -60,8 +60,8 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 /*///////////// sms end///////////////////*/
 ?>
 <script>
-function printDiv(letterhead) {
-     var printContents = document.getElementById('letterhead').innerHTML;
+function printFeeCollected(fee_collected) {
+     var printContents = document.getElementById('fee_collected').innerHTML;
      var originalContents = document.body.innerHTML;
 
      document.body.innerHTML = printContents;
@@ -73,14 +73,14 @@ function printDiv(letterhead) {
 </script>
 <div class="container-fluid"><br>
 <div class="inline">
-<button class="btn btn-success" onclick="printDiv('letterhead')">Print Page</button>
+<button class="btn btn-success" onclick="printFeeCollected('fee_collected')">Print Page</button>
 <button class="btn btn-success" onclick="goBack()">Go Back</button>
 </div>
 <div class="row">
  
     <div class="col-sm-1">
 	</div>
-    <div class="col-sm-10" id="letterhead">
+    <div class="col-sm-10" id="fee_collected">
 	  <center>
 	  <h1 style="color:red;"><?php echo $row_sch["sch_name"];?></h1>
 	  <p style="color:blue;font-size:16px;border-bottom:1px solid black;"><?php echo $row_sch["location"];?> , <?php echo $row_sch["city"];?> , <?php echo $row_sch["district"];?> - <?php echo $row_sch["pin"];?> , <?php echo $row_sch["state"];?> , <br>
