@@ -39,13 +39,7 @@ error_reporting("0");
 	<link rel="stylesheet" href="smoothness/jquery-ui.css">
 	<!------wysiwyg------------------------------>
 	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-	<style>
-	a:hover {
-		cursor: pointer;
-		background-color: yellow;
-	}
 
-</style>
 <link href="style_loading.css" rel="stylesheet">
 
 </head>
