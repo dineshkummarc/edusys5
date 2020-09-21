@@ -80,16 +80,13 @@ function printDiv(income) {
 	?>	
         <div class="row">
         <div class="col-sm-12" id="income"><br>
-		<center><table class="table table-bordered">
+		<table class="table table-bordered">
 			<tbody>
 			<tr class="w3-blue">
 				<th>SL No</th>
 				<th>Name</th>
-				<th>Roll No</th>
-				<th>Class</th>
 				<th>Certificate</th>
 				<th>Purpose</th>
-				<th>Requested Date</th>
 				<th>Send action & Collect Date</th>
 				<th>Actions</th>
 			</tr>
@@ -98,6 +95,7 @@ function printDiv(income) {
 	foreach($result as $row_tot)
 	{
 	$id=$row_tot["id"];
+	$read_status=$row_tot["read_status"];
 	$sql_status="select status from certificate_status where academic_year='".$cur_academic_year."' and certi_id='".$id."'";
 	$result_status=mysqli_query($conn,$sql_status);
 	if($row_status=mysqli_fetch_array($result_status,MYSQLI_ASSOC))
@@ -108,15 +106,15 @@ function printDiv(income) {
 	
 
 	?>
+
+
 				<tr>
-				<td style="text-align:center;"><?php echo $row_count;?></td>
-				<td style="text-align:center;"><?php echo $row_tot["first_name"];?></td>
-				<td style="text-align:center;"><?php echo $row_tot["admission_no"];?></td>
-				<td style="text-align:center;"><?php echo $row_tot["class"];?></td>
-				<td style="text-align:center;"><?php echo $row_tot["certi_name"];?></td>
-				<td style="text-align:center;"><?php echo $row_tot["reason"];?></td>
-				<td style="text-align:center;"><?php echo $req_date;?></td>
-				<td style="text-align:center;">
+				<td ><?php echo $row_count;?></td>
+				<td><?php echo $row_tot["first_name"];?> <?php if($read_status==''){ ?><span class="w3-badge w3-red" style="color:#fff;">New</span><?php } else { ?> <span class="w3-badge w3-grey" style="color:#ffffff;">Completed</span><?php } ?><br>Roll No: <?php echo $row_tot["admission_no"];?><br>Class: <?php echo $row_tot["class"];?><br>
+			<small>Applied Date: <?php echo $req_date;?></small></td>
+				<td><?php echo $row_tot["certi_name"];?></td>
+				<td><?php echo $row_tot["reason"];?></td>
+				<td>
 				
 				<form class="form-inline" action="req_certi_sms.php" method="post">
 					<div class="form-group">
@@ -132,13 +130,14 @@ function printDiv(income) {
 						<input type="hidden" name="first_name" value="<?php echo $row_tot["first_name"];?>" class="form-control">
 						<input type="hidden" name="admission_no" value="<?php echo $row_tot["admission_no"];?>" class="form-control">
 						<input type="hidden" name="id" value="<?php echo $row_tot["id"];?>" class="form-control">
+						<input type="hidden" name="read_status" value="<?php echo $read_status;?>">
 					</div>
 					  
 					  <input type="submit" name="submit" value="Send" class="btn btn-success btn-sm">
 					  </form>
 					
 					</td>
-				<td style="text-align:center;"><a href="<?php echo 'delete_certi.php?id='.$id;?>" title="Delete"><i class="fa fa-trash-o fa-lg" style="color:red;" aria-hidden="true"></i></a> <span style="color:green;"><?php echo $status;?></span></td>
+				<td><a href="<?php echo 'delete_certi.php?id='.$id;?>" title="Delete"><i class="fa fa-trash-o fa-lg" style="color:red;" aria-hidden="true"></i></a> <span style="color:green;"><?php echo $status;?></span></td>
 			
 				
 				</tr>
@@ -151,7 +150,7 @@ function printDiv(income) {
 	?>
 	
 				</tbody>
-				</table></center>
+				</table>
 				
 				</div>
 				</div>

@@ -28,7 +28,8 @@ $today_md=date('m-d');
 	line-height: 30px;
 	outline: medium none;
 	padding: 8px 12px;
-	width: 250px;
+	width: 100%;
+	
 }
 .typeahead {
 	background-color: #FFFFFF;
@@ -49,7 +50,7 @@ $today_md=date('m-d');
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 	margin-top: 12px;
 	padding: 8px 0;
-	width: 422px;
+	width: 150%;
 }
 .tt-suggestion {
 	font-size: 14px;
@@ -71,6 +72,9 @@ $today_md=date('m-d');
 <div class="container-fluid">
 <br>
 
+
+
+
 <div class="row">
     
   <div class="col-md-12">
@@ -89,13 +93,18 @@ $today_md=date('m-d');
 	           $result=mysqli_query($conn,$sql);
 	           $total_students=mysqli_num_rows($result);
 			  
-			   $sql_leave="select * from leave_appli where academic_year='".$cur_academic_year."'";
+			   $sql_leave="select * from leave_appli where academic_year='".$cur_academic_year."' and status=''";
 	           $result_leave=mysqli_query($conn,$sql_leave);
 	           $total_leave=mysqli_num_rows($result_leave);
 			   
-			   $sql_certi="select * from request_study where academic_year='".$cur_academic_year."'";
+			   $sql_certi="select * from request_study where academic_year='".$cur_academic_year."' and read_status=''";
 	           $result_certi=mysqli_query($conn,$sql_certi);
-	           $total_certi=mysqli_num_rows($result_certi);
+			   $total_certi=mysqli_num_rows($result_certi);
+			   
+
+			   $sql_contact="select * from contact_school where academic_year='".$cur_academic_year."' and contact_status=''";
+	           $result_contact=mysqli_query($conn,$sql_contact);
+	           $total_contact=mysqli_num_rows($result_contact);
 			   
 			   $sql_fac="select * from faculty";
 	           $result_fac=mysqli_query($conn,$sql_fac);
@@ -117,9 +126,11 @@ $today_md=date('m-d');
 			   ?>
 
 	<!------------------------------------------End of Search Form------------------------------------------------------->
+	
+	 
 	 <div class="row">
-	<div class="col-lg-6 col-md-6">
-		<div class="panel panel-primary">
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-blue">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
@@ -148,19 +159,27 @@ $today_md=date('m-d');
 		</div>
 	</div>
 	<div class="col-lg-3 col-md-6">
-		<div class="panel panel-primary">
+		<div class="panel panel-blue">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
 					
-						<i  class="fa fa-file-text fa-5x" aria-hidden="true"></i>
+						<i  class="fa fa-file-text fa-3x" aria-hidden="true"></i>
 					</div>
+					
 					<div class="col-xs-9 text-right">
-					 <div>Leave Application</div>
-						<div class="huge"><?php echo $total_leave;?></div>
-					   
+					<div><?php if ($total_leave > 0) { ?><span class="w3-badge w3-yellow">New</span><?php } ?> Leave Application </div>
+					<div class="huge"><span class="w3-badge w3-red">
+					<?php if ($total_leave > 0) 
+					{
+						echo $total_leave;
+					} else
+					?>
+					</span>
+					
 					</div>
 				</div>
+			</div>
 			</div>
 			<a href="leave_applications.php">
 				<div class="panel-footer">
@@ -173,19 +192,27 @@ $today_md=date('m-d');
 	</div>
 	
 	<div class="col-lg-3 col-md-6">
-		<div class="panel panel-primary">
+		<div class="panel panel-blue">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
 					
-						<i class="glyphicon glyphicon-certificate fa-5x"></i>
+						<i class="glyphicon glyphicon-certificate fa-3x"></i>
 					</div>
+					
 					<div class="col-xs-9 text-right">
-					 <div>Certificate Request</div>
-						<div class="huge"><?php echo $total_certi;?></div>
-					   
+					<div><?php if ($total_certi > 0) { ?><span class="w3-badge w3-yellow">New</span><?php } ?> Certificate Request </div>
+					<div class="huge"><span class="w3-badge w3-red">
+					<?php if ($total_certi > 0) 
+					{
+						echo $total_certi;
+					} else
+					?>
+					</span>
+					
 					</div>
 				</div>
+			</div>
 			</div>
 			<a href="req_certificates.php">
 				<div class="panel-footer">
@@ -196,16 +223,49 @@ $today_md=date('m-d');
 			</a>
 		</div>
 	</div>
-</div>
-<!------------------------------------------End of Search Form------------------------------------------------------->
-	 <div class="row">
 	<div class="col-lg-3 col-md-6">
-		<div class="panel panel-pink">
+		<div class="panel panel-blue">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
 					
-						<i class="glyphicon glyphicon-education fa-5x"></i>
+						<i class="fa fa-envelope-o fa-3x"></i>
+					</div>
+					
+					<div class="col-xs-9 text-right">
+					<div><?php if ($total_contact > 0) { ?><span class="w3-badge w3-yellow">New</span><?php } ?> Contact School </div>
+					<div class="huge"><span class="w3-badge w3-red">
+					<?php if ($total_contact > 0) 
+					{
+						echo $total_contact;
+					} else
+					?>
+					</span>
+					
+					</div>
+				</div>
+			</div>
+			</div>
+			<a href="contact_school.php">
+				<div class="panel-footer">
+					<span class="pull-left"><a href="contact_school.php">View Details</a></span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+
+</div>
+<!------------------------------------------End of Search Form------------------------------------------------------->
+	 <div class="row">
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-blue">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+					
+						<i class="glyphicon glyphicon-education fa-3x"></i>
 					</div>
 					<div class="col-xs-9 text-right">
 					 <div>Total Students</div>
@@ -224,11 +284,11 @@ $today_md=date('m-d');
 		</div>
 	</div>
 	<div class="col-lg-3 col-md-6">
-		<div class="panel panel-pink">
+		<div class="panel panel-blue">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
-						<i class="fa fa-users fa-5x"></i>
+						<i class="fa fa-users fa-3x"></i>
 					</div>
 					<div class="col-xs-9 text-right">
 					 <div>Total Staffs</div>
@@ -247,111 +307,12 @@ $today_md=date('m-d');
 		</div>
 	</div>
 	<div class="col-lg-3 col-md-6">
-		<div class="panel panel-pink">
-			<div class="panel-heading">
-				<div class="row">
-					<div class="col-xs-3">
-						<i class="fa fa-user fa-5x"></i>
-					</div>
-					<div class="col-xs-9 text-right">
-					 <div>Staff Attendance</div>
-						<div class="huge"></div>
-					   
-					</div>
-				</div>
-			</div>
-			<a href="all_fac_attendance.php">
-				<div class="panel-footer">
-					<span class="pull-left">View Details</span>
-					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-					<div class="clearfix"></div>
-				</div>
-			</a>
-		</div>
-	</div>
-	
-	<div class="col-lg-3 col-md-6">
-		<div class="panel panel-pink">
-			<div class="panel-heading">
-				<div class="row">
-					<div class="col-xs-3">
-					
-						<i class="glyphicon glyphicon-book fa-5x"></i>
-					</div>
-					<div class="col-xs-9 text-right">
-					 <div>Total Library Books</div>
-						<div class="huge"><?php echo $total_book;?></div>
-					   
-					</div>
-				</div>
-			</div>
-			<a href="all_books.php">
-				<div class="panel-footer">
-					<span class="pull-left">View Details</span>
-					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-					<div class="clearfix"></div>
-				</div>
-			</a>
-		</div>
-	</div>
-	
-</div>
-
-<!-- /.row -->
-<div class="row">
-<div class="col-lg-3 col-md-6">
-		<div class="panel panel-green">
-			<div class="panel-heading">
-				<div class="row">
-					<div class="col-xs-3">
-						<i class="fa fa-print fa-5x"></i>
-					</div>
-					<div class="col-xs-9 text-right">
-						<div>Print/Store Documents</div>
-					   </div>
-				</div>
-			</div>
-			<a href="documents.php">
-				<div class="panel-footer">
-					<span class="pull-left">View Details</span>
-					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-					<div class="clearfix"></div>
-				</div>
-			</a>
-		</div>
-	</div>
-
-
-	<div class="col-lg-3 col-md-6">
-		<div class="panel panel-green">
-			<div class="panel-heading">
-				<div class="row">
-					<div class="col-xs-3">
-						<i class="fa fa-comments fa-5x"></i>
-					</div>
-					<div class="col-xs-9 text-right">
-					 <div>Send Bulk SMS</div>
-						
-					   
-					</div>
-				</div>
-			</div>
-			<a href="send_noti.php">
-				<div class="panel-footer">
-					<span class="pull-left">View Details</span>
-					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-					<div class="clearfix"></div>
-				</div>
-			</a>
-		</div>
-	</div>
-	<div class="col-lg-3 col-md-6">
-		<div class="panel panel-green">
+		<div class="panel panel-blue">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
 					   
-						<i class="fa fa-list-alt fa-5x"></i>
+						<i class="fa fa-list-alt fa-3x"></i>
 					</div>
 					<div class="col-xs-9 text-right">
 					 <div> Students absent today</div>
@@ -370,11 +331,11 @@ $today_md=date('m-d');
 		</div>
 	</div>
 	<div class="col-lg-3 col-md-6">
-		<div class="panel panel-green">
+		<div class="panel panel-blue">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
-						<i class="fa fa-list fa-5x" ></i>
+						<i class="fa fa-list fa-3x" ></i>
 					</div>
 					<div class="col-xs-9 text-right">
 						<div>Staffs's Absent today</div>
@@ -392,26 +353,153 @@ $today_md=date('m-d');
 			</a>
 		</div>
 	</div>
+	
+</div>
+
+<!-- /.row -->
+<div class="row">
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-lightgreen">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+						<i class="fa fa-comments fa-3x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+					 <div>Send Bulk SMS</div>
+						
+					   
+					</div>
+				</div>
+			</div>
+			<a href="send_noti.php">
+				<div class="panel-footer">
+					<span class="pull-left">View Details</span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-lightgreen">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+						<i class="fa fa-user fa-3x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+					 <div>Staff Attendance</div>
+						<div class="huge"></div>
+					   
+					</div>
+				</div>
+			</div>
+			<a href="all_fac_attendance.php">
+				<div class="panel-footer">
+					<span class="pull-left">View Details</span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+
+	
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-lightgreen" style="background:red;">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+						<i class="fa fa-bar-chart fa-3x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+						<div>Student Attendance</div>
+					</div>
+				</div>
+			</div>
+			<a href="all_attendance.php">
+				<div class="panel-footer">
+					<span class="pull-left">View Details</span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-lightgreen">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+						<i class="fa fa-print fa-3x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+						<div>Print/Store Documents</div>
+					   </div>
+				</div>
+			</div>
+			<a href="documents.php">
+				<div class="panel-footer">
+					<span class="pull-left">View Details</span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
 </div>
 <!-- /.row ////////////////////////////////////////////////////////////////////-->
 
 	 <!-- /.row -->
 <div class="row">
-<div class="col-lg-3 col-md-6">
-		<div class="panel panel-primary">
+
+<?php 
+	$sql_count="select id,first_name,roll_no,present_class,class_stream,class_join,village,dob,join_date,photo_name,photo_path,photo_type from students where DATE_FORMAT(dob,'%m-%d')='".$today_md."' and academic_year='".$cur_academic_year."'";
+	$result_count=mysqli_query($conn,$sql_count);
+	$total_students=mysqli_num_rows($result_count);
+	?>
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-blue">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
-						<i class="fa fa-calendar fa-5x"></i>
+						<i class="fa fa-birthday-cake fa-3x"></i>
 					</div>
 					<div class="col-xs-9 text-right">
-						<div>Timetable</div>
-						
-						
+					 <div>Todays Birthday's</div>
+					   
+					   <div class="huge"><?php echo $total_students;?></div>  
 					</div>
 				</div>
 			</div>
-			<a href="shw_timetable.php">
+			<a href="birthday_details.php">
+				<div class="panel-footer">
+					<span class="pull-left">View Details</span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-blue">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+					
+						<i class="fa fa-book fa-3x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+					 <div>Total Library Books</div>
+						<div class="huge"><?php echo $total_book;?></div>
+					   
+					</div>
+				</div>
+			</div>
+			<a href="all_books.php">
 				<div class="panel-footer">
 					<span class="pull-left">View Details</span>
 					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -465,12 +553,12 @@ $balance_account=($tot_est_fee+$total_income)-$total_expense;
 
 
 	 <div class="col-lg-3 col-md-6">
-		<div class="panel panel-primary">
+		<div class="panel panel-blue">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
 					   
-						<i class="fa fa-calculator fa-5x"></i>
+						<i class="fa fa-calculator fa-3x"></i>
 					</div>
 					<div class="col-xs-9 text-right">
 					 <div>Accounts Balance</div>
@@ -488,29 +576,7 @@ $balance_account=($tot_est_fee+$total_income)-$total_expense;
 			</a>
 		</div>
 	</div>
-	<div class="col-lg-3 col-md-6">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<div class="row">
-					<div class="col-xs-3">
-						<i class="fa fa-file-text fa-5x"></i>
-					</div>
-					<div class="col-xs-9 text-right">
-					 <div>Student Enrollment</div>
-					   <div class="huge"> </div>   
-					   
-					</div>
-				</div>
-			</div>
-			<a href="register_enrollment.php">
-				<div class="panel-footer">
-					<span class="pull-left">View Details</span>
-					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-					<div class="clearfix"></div>
-				</div>
-			</a>
-		</div>
-	</div>
+	
 		<?php
 		error_reporting("0");
 			$sql_tot="select sum(tot_paid) as total_paid_fee from student_fee where academic_year='".$cur_academic_year."'";
@@ -524,12 +590,12 @@ $balance_account=($tot_est_fee+$total_income)-$total_expense;
 			}
 			?>
 	<div class="col-lg-3 col-md-6">
-		<div class="panel panel-primary">
+		<div class="panel panel-blue">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
 						
-						<i class="fa fa-money fa-5x"></i>
+						<i class="fa fa-money fa-3x"></i>
 					</div>
 					<div class="col-xs-9 text-right">
 						<div>Total Fee Collected</div>
@@ -553,71 +619,48 @@ $balance_account=($tot_est_fee+$total_income)-$total_expense;
 
 <!-- //////////////////////.row /////////////////////////////////////////////-->
 <div class="row">
+
 <div class="col-lg-3 col-md-6">
-		<div class="panel panel-red" style="background:red;">
+		<div class="panel panel-orange">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
-						<i class="fa fa-bar-chart fa-5x"></i>
+						<i class="fa fa-file-text fa-3x"></i>
 					</div>
 					<div class="col-xs-9 text-right">
-						<div>Student Attendance</div>
-					</div>
-				</div>
-			</div>
-			<a href="all_attendance.php">
-				<div class="panel-footer">
-					<span class="pull-left">View Details</span>
-					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-					<div class="clearfix"></div>
-				</div>
-			</a>
-		</div>
-	</div>
-
-
-	<div class="col-lg-3 col-md-6">
-		<div class="panel panel-red">
-			<div class="panel-heading">
-				<div class="row">
-					<div class="col-xs-3">
-				   
-						<i class="fa fa-building-o fa-5x" ></i>
-					</div>
-					<div class="col-xs-9 text-right">
-					 <div>Inventory Details</div>
-					</div>
-				</div>
-			</div>
-			<a href="all_inventory.php">
-				<div class="panel-footer">
-					<span class="pull-left">View Details</span>
-					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-					<div class="clearfix"></div>
-				</div>
-			</a>
-		</div>
-	</div>
-	<?php 
-	$sql_count="select id,first_name,roll_no,present_class,class_stream,class_join,village,dob,join_date,photo_name,photo_path,photo_type from students where DATE_FORMAT(dob,'%m-%d')='".$today_md."' and academic_year='".$cur_academic_year."'";
-	$result_count=mysqli_query($conn,$sql_count);
-	$total_students=mysqli_num_rows($result_count);
-	?>
-	<div class="col-lg-3 col-md-6">
-		<div class="panel panel-red">
-			<div class="panel-heading">
-				<div class="row">
-					<div class="col-xs-3">
-						<i class="fa fa-birthday-cake fa-5x"></i>
-					</div>
-					<div class="col-xs-9 text-right">
-					 <div>Todays Birthday's</div>
+					 <div>Student Enrollment</div>
+					   <div class="huge"> </div>   
 					   
-					   <div class="huge"><?php echo $total_students;?></div>  
 					</div>
 				</div>
 			</div>
-			<a href="birthday_details.php">
+			<a href="register_enrollment.php">
+				<div class="panel-footer">
+					<span class="pull-left">View Details</span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+	
+
+	
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-orange">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+						<i class="fa fa-calendar fa-3x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+						<div>Timetable</div>
+						
+						
+					</div>
+				</div>
+			</div>
+			<a href="shw_timetable.php">
 				<div class="panel-footer">
 					<span class="pull-left">View Details</span>
 					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -627,11 +670,11 @@ $balance_account=($tot_est_fee+$total_income)-$total_expense;
 		</div>
 	</div>
 	<div class="col-lg-3 col-md-6">
-		<div class="panel panel-red">
+		<div class="panel panel-orange">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
-						<i class="fa fa-calendar fa-5x"></i>
+						<i class="fa fa-calendar fa-3x"></i>
 					</div>
 					<div class="col-xs-9 text-right">
 						<div>Exam Timetable</div>
@@ -649,13 +692,35 @@ $balance_account=($tot_est_fee+$total_income)-$total_expense;
 			</a>
 		</div>
 	</div>
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-orange">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+				   
+						<i class="fa fa-building-o fa-3x" ></i>
+					</div>
+					<div class="col-xs-9 text-right">
+					 <div>Inventory Details</div>
+					</div>
+				</div>
+			</div>
+			<a href="all_inventory.php">
+				<div class="panel-footer">
+					<span class="pull-left">View Details</span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
 </div>
 <!-- /.row -->
 
 
 <div class="row">
 <div class="col-sm-4">
-	<div class="panel panel-primary">
+	<div class="panel panel-blue">
 		<div class="panel-heading">
 		<h4>Latest Upcoming Events</h4>
 		</div>
@@ -704,7 +769,7 @@ $balance_account=($tot_est_fee+$total_income)-$total_expense;
 		</div>
 			</div>
 			<div class="col-sm-4">
-				<div class="panel panel-primary">
+				<div class="panel panel-blue">
 					<div class="panel-heading">
 						<h4>Upcoming Holidays</h4>
 					</div>
@@ -776,12 +841,12 @@ $tot_admission_fee=$student_fee;
 ?>
 
 <div class="col-sm-4">
-	 <div class="panel panel-primary">
+	 <div class="panel panel-blue">
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
 									
-                                        <i class="fa fa-money fa-5x"></i>
+                                        <i class="fa fa-money fa-3x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
 									 <div>Fee Collected Today</div>

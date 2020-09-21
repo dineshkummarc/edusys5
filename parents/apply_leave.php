@@ -64,37 +64,42 @@ function printDiv(income) {
 				   	<input type="submit" name="leave" class="btn btn-success" value="Send Leave letter">
 		
 				</form>
-				
-				
-				</div>
+		</div>
 				
         <div class="col-sm-8"><br>
-		<center><table class="table table-bordered">
+		<table class="table table-bordered">
 			<tbody>
 			<tr class="w3-blue">
 				<th>Name & Roll No</th>
-				<th>Leave from to</th>
-				<th>action</th>
-				<th>details</th>
+				<th>Leave date</th>
+				<th>Leave Status</th>
+				<th>Note</th>
 			</tr>
 	<?php
 	
-	$id=$row_tot["id"];
-	$sql_status="select * from leave_reply where academic_year='".$cur_academic_year."' and first_name='".$first_name."' and roll_no='".$roll_no."'";
+	$sql_status="select * from leave_appli where academic_year='".$cur_academic_year."' and first_name='".$first_name."' and admission_no='".$roll_no."' order by id desc";
 	$result_status=mysqli_query($conn,$sql_status);
 	$row_count=1;
 	foreach($result_status as $row_tot)
 	{
-	$req_date= date('d-m-Y', strtotime( $row_tot['req_date'] ));
-	$ready_date= date('d-m-Y', strtotime( $row_tot['ready_date'] ));
-	$from_date= date('d-m-Y', strtotime( $row_tot['from_date'] ));
-	$to_date= date('d-m-Y', strtotime( $row_tot['to_date'] ));
+	$id=$row_tot["id"];
+	$leave_status=$row_tot["leave_status"];
+	$from_date= date('d-m-Y', strtotime($row_tot['from_date'] ));
+	$to_date= date('d-m-Y', strtotime($row_tot['to_date'] ));
+
+	if($leave_status == "approved"){
+		$badge = '<span class="badge badge-success" style="background-color:#28a745;"> Approved</span>';
+	}else if($leave_status == "rejected"){
+		$badge = '<span class="badge badge-danger" style="background-color:#dc3545;"> Rejected</span>';
+	}else{
+		$badge = '<span class="badge badge-default" style="background-color:grey;"> Pending</span>';
+	}
 	?>
 	<tr>
-	<td style="text-align:center;"><?php echo $row_tot["first_name"];?><br><?php echo $row_tot["roll_no"];?></td>
-	<td style="text-align:center;"><?php echo $from_date;?><br><?php echo $to_date;?></td>
-	<td style="text-align:center;"><?php echo $row_tot["action"];?></td>
-	<td style="text-align:center;"><?php echo $row_tot["details"];?></td>
+	<td><?php echo $row_tot["first_name"];?><br><?php echo $row_tot["admission_no"];?></td>
+	<td>From: <?php echo $from_date;?><br>To: <?php echo $to_date;?></td>
+	<td><?php echo $badge;?></td>
+	<td><?php echo $row_tot["reason"];?></td>
 	</tr>
 				
 	<?php
@@ -105,7 +110,7 @@ function printDiv(income) {
 	?>
 	
 	</tbody>
-	</table></center>
+	</table>
 	
 	</div>
 	</div>

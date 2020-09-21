@@ -17,6 +17,9 @@ $id=$_POST["id"];
 /* $sql_insert="insert into certificate_status (first_name,roll_no,certi_id,status_send_date,status,academic_year) values('$first_name','$admission_no','$id','$today_date','sent','$cur_academic_year')";
 $conn->query($sql_insert); */
 
+$sql_status = "UPDATE request_study SET read_status='viewed' where id='".$id."'";
+$conn->query($sql_status);
+
 $sql_update = "update request_study set status='".$status."',ready_date='".$collect_date."' where id = '".$id."'";
 $conn->query($sql_update);
 var_dump($sql_update);
@@ -38,7 +41,7 @@ $result=mysqli_query($conn,$sql);
 		}else if($status=="rejected"){
 	$message_detail="Certificate request is rejected, contact office on ".$phone;	
 		}
-	echo "message_detail";
+	//echo "message_detail";
 		
 	/* foreach($result as $value)
 	{
@@ -46,7 +49,7 @@ $result=mysqli_query($conn,$sql);
 	$message = "Dear parents, ".$message_detail."-".$sch_name;
 	require("sms_gateway.php");
 	} */
-//header("Location:req_certificates.php?success=.'success'");
+header("Location:req_certificates.php?success=.'success'");
 
 }
 ?>

@@ -10,17 +10,11 @@ $today = date('Y-m-d');
 
 if(isset($_POST["contact"]))
 {
-	
-	
 	$subject=$_POST["subject"];
-	$message=$_POST["message"];
+	$message=mysqli_real_escape_string($conn, $_POST["message"]);
 	$first_name=$_SESSION["parents_uname"];
 	$admission_no=$_SESSION["parents_pass"];
 	$class=$_SESSION["parents_class"];
-	
-	
-	
-	
 	
 	
 	$sql="insert into contact_school (first_name,admission_no,subject,message,sent_date,academic_year) values('$first_name','$admission_no','$subject','$message','$today','$cur_academic_year')";
@@ -28,7 +22,6 @@ if(isset($_POST["contact"]))
 	
 	if ($conn->query($sql) === TRUE) 
 	{
-		echo "success";
 	
 	header("Location:index.php?success=.'success'");
 
@@ -36,7 +29,7 @@ if(isset($_POST["contact"]))
 	} 
 	else 
 	{
-	var_dump($sql);			
+	var_dump($sql);		
 	//header("Location:index.php?failed=.'failed'");	
 		
 	}

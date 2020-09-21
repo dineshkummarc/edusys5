@@ -41,7 +41,22 @@ error_reporting("0");
 	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
 <link href="style_loading.css" rel="stylesheet">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
+<style>
+
+    body {
+			margin-top: 80px;
+        }
+        
+    /* Smartphones (portrait) ----------- */
+		@media only screen and (max-width: 600px) {
+			body {
+				margin-top: 100px;
+				background-color: #eee;
+			}
+		}
+</style>
 </head>
 
 <body class="body">
@@ -407,106 +422,10 @@ error_reporting("0");
                             </li>
                         </ul>
                     </li>
-	<li><a href="bulk_other_fee.php"><i class="fa fa-money" aria-hidden="true"></i> Book,Uniform & Other Fee</a></li>
-	<li><a href="paid_other_fee_details.php"><i class="fa fa-money" aria-hidden="true"></i> Paid Other Fee Details</a></li>
-	<li><a href="send_assign.php"><i class="fa fa-money" aria-hidden="true"></i> Send Assignments</a></li>
-				<!--	
-                   <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#books"><i class="fa fa-fw fa-money"></i> Books Fee <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="books" class="collapse">
-                            <li>
-                                <a href="set_books_fee.php">Setup Books Fee</a>
-                            </li>
-							<li>
-                                <a href="set_books_fee_det.php">Books Fee Setup Details</a>
-                            </li>
-                            <li>
-                                <a href="bulk_books_fee_update.php">Bulk Books Fee Update</a>
-                            </li>
-							<li>
-                                <a href="all_students.php">Collect Individual Books Fee</a>
-                            </li>
-							<li>
-                                <a href="paid_books_fee_details.php">Paid Books Fee Details</a>
-                            </li>
-							<li>
-                                <a href="books_fee_remind.php">Remind Books Fee</a>
-                            </li>
-                        </ul>
-                    </li> 
-					
-                    <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#uniform"><i class="fa fa-fw fa-money"></i> Uniform Fee <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="uniform" class="collapse">
-                            <li>
-                                <a href="set_uniform_fee.php">Setup Uniform Fee</a>
-                            </li>
-							<li>
-                                <a href="set_uniform_fee_det.php">Uniform Fee Setup Details</a>
-                            </li>
-                            <li>
-                                <a href="bulk_uniform_fee_update.php">Bulk Uniform Fee Update</a>
-                            </li>
-							<li>
-                                <a href="all_students.php">Collect Individual Uniform Fee</a>
-                            </li>
-							<li>
-                                <a href="paid_uniform_fee_details.php">Paid Uniform Fee Details</a>
-                            </li>
-							<li>
-                                <a href="uniform_fee_remind.php">Remind Uniform Fee</a>
-                            </li>
-                        </ul>
-                    </li> 
-					 <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#shoe"><i class="fa fa-fw fa-money"></i> Shoe Fee <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="shoe" class="collapse">
-                            <li>
-                                <a href="set_shoe_fee.php">Setup Shoe Fee</a>
-                            </li>
-							<li>
-                                <a href="set_shoe_fee_det.php">Shoe Fee Setup Details</a>
-                            </li>
-                            <li>
-                                <a href="bulk_shoe_fee_update.php">Bulk Shoe Fee Update</a>
-                            </li>
-							<li>
-                                <a href="all_students.php">Collect Individual Shoe Fee</a>
-                            </li>
-							<li>
-                                <a href="paid_shoe_fee_details.php">Paid Shoe fee Details</a>
-                            </li>
-							<li>
-                                <a href="shoe_fee_remind.php">Remind Shoe Fee</a>
-                            </li>
-                        </ul>
-                    </li> 
-					
-                    <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#software"><i class="fa fa-fw fa-money"></i> Software Fee <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="software" class="collapse">
-                            <li>
-                                <a href="set_software_fee.php">Setup Software Fee</a>
-                            </li>
-							<li>
-                                <a href="set_software_fee_det.php">Software Fee Setup Details</a>
-                            </li>
-                            <li>
-                                <a href="bulk_software_fee_update.php">Bulk Software Fee Update</a>
-                            </li>
-							<li>
-                                <a href="all_students.php">Collect Individual Software Fee</a>
-                            </li>
-							<li>
-                                <a href="paid_software_fee_details.php">Paid Software fee Details</a>
-                            </li>
-							<li>
-                                <a href="software_fee_remind.php">Remind Software Fee</a>
-                            </li>
-                        </ul>
-                    </li> 
-				-->	
-
+                    <li><a href="bulk_other_fee.php"><i class="fa fa-money" aria-hidden="true"></i> Book,Uniform & Other Fee</a></li>
+                    <li><a href="paid_other_fee_details.php"><i class="fa fa-money" aria-hidden="true"></i> Paid Other Fee Details</a></li>
+                    <li><a href="send_assign.php"><i class="fa fa-money" aria-hidden="true"></i> Send Assignments</a></li>
+	
 					<li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#van_fee"><i class="fa fa-fw fa-money"></i> School Van Fee <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="van_fee" class="collapse">

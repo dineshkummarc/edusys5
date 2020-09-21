@@ -54,7 +54,7 @@ function printDiv(income) {
 		
 		$from=$_GET['from'];
 		$to=$_GET['to'];
-		$num_rec_per_page=150;
+		$num_rec_per_page=25;
 		if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
 		$start_from = ($page-1) * $num_rec_per_page; 
 		
@@ -63,7 +63,7 @@ function printDiv(income) {
 		}
 		else
 		{
-	$num_rec_per_page=150;
+	$num_rec_per_page=25;
 		if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
 		$start_from = ($page-1) * $num_rec_per_page; 
 		$sql="select * from leave_appli where academic_year='".$cur_academic_year."' ORDER BY id desc LIMIT $start_from, $num_rec_per_page";	
@@ -72,56 +72,61 @@ function printDiv(income) {
 		 $result=mysqli_query($conn,$sql);
 		 $row_count =1;
 		
-			 
-	
-		
-		//$result=mysqli_query($conn,$sql_tot_att);
-		
-	
 	?>	
         <div class="row">
         <div class="col-sm-12" id="income"><br>
-				<center><table class="table table-bordered">
-				<tbody>
-				<tr class="w3-blue">
-				<th>SL No</th>
-				<th>Name</th>
-				<th>Roll No</th>
-				<th>From Date</th>
-				<th>To Date</th>
-				<th>Reason</th>
-				<th>Applied Date</th>
-				<th>Actions</th>
-				<th></th>
-			
-				
-				</tr>
+		<table class="table table-bordered">
+		<tbody>
+		<tr class="w3-blue">
+		<th>SL No</th>
+		<th>Name</th>
+		<th>Date</th>
+		<th>Reason</th>
+		<th>Actions</th>
+		<th></th>
+	
+		
+		</tr>
 	<?php
 	
 	foreach($result as $row_tot)
 	{
 	$id=$row_tot["id"];
+	$read_status=$row_tot["status"];
+	$leave_status=$row_tot["leave_status"];
 	$from_date= date('d-m-Y', strtotime( $row_tot['from_date'] ));
 	$to_date= date('d-m-Y', strtotime( $row_tot['to_date'] ));
 	$applied_date= date('d-m-Y', strtotime( $row_tot['applied_date'] ));
-	//$join_date= date('d-m-Y', strtotime( $row['join_date'] ));
 	
-
  ?>
-				<tr>
-				<td style="text-align:center;"><?php echo $row_count;?></td>
-				<td style="text-align:center;"><?php echo $row_tot["first_name"];?></td>
-				<td style="text-align:center;"><?php echo $row_tot["admission_no"];?></td>
-				<td style="text-align:center;"><?php echo $from_date;?></td>
-				<td style="text-align:center;"><?php echo $to_date;?></td>
-				<td style="text-align:center;"><?php echo $row_tot["reason"];?></td>
-				<td style="text-align:center;"><?php echo $applied_date;?></td>
-				<td style="text-align:center;"><a href="<?php echo 'send_leave.php?id='.$id.'&first_name='.$row_tot["first_name"].'&admission_no='.$row_tot["admission_no"].'&from_date='.$from_date.'&to_date='.$to_date;?>" ><i class="fa fa-reply" aria-hidden="true"></i> Approve</a></td>
-				
-                <td style="text-align:center;"><a href="<?php echo 'delete_leave.php?id='.$id;?>" title="Delete"><i class="fa fa-trash-o fa-lg" style="color:red;" aria-hidden="true"></i></a></td>
-			
-				
-				</tr>
+
+	<tr>
+	<td><?php echo $row_count;?></td>
+	<td><?php echo $row_tot["first_name"];?> <?php if($read_status==''){ ?><span class="w3-badge w3-red" style="color:#fff;">New</span><?php } ?><br>Roll No: <?php echo $row_tot["admission_no"];?><br>
+<small>Applied Date : <?php echo $applied_date;?></small>
+</td>
+	<td>From: <?php echo $from_date;?><br>To: <?php echo $to_date;?></td>
+	<td style="width:40%;"><?php echo $row_tot["reason"];?></td>
+
+	<td style="width:20%;"><a href="<?php echo 'send_leave.php?id='.$id.'&first_name='.$row_tot["first_name"].'&admission_no='.$row_tot["admission_no"].'&from_date='.$from_date.'&to_date='.$to_date.'&read_status=viewed';?>" ><i class="fa fa-reply" aria-hidden="true"></i> Click for Action</a> <?php if($read_status==''){ ?><span class="badge badge-default" style="background-color:red;"> Pending</span><?php } else { ?> <span class="badge badge-default" style="background-color:grey;"> Completed</span><?php } ?><br>
+	<?php 
+		if($leave_status == "approved"){
+			$badge = '<span class="badge badge-success" style="background-color:#28a745;"> Approved</span>';
+		}else if($leave_status == "rejected"){
+			$badge = '<span class="badge badge-danger" style="background-color:#dc3545;"> Rejected</span>';
+		}else{
+			$badge = '<span class="badge badge-default" style="background-color:grey;"> Pending</span>';
+		}
+		echo $badge;
+	?>
+	
+	
+	</td>
+	
+	<td><a href="<?php echo 'delete_leave.php?id='.$id;?>" title="Delete"><i class="fa fa-trash-o fa-lg" style="color:red;" aria-hidden="true"></i></a></td>
+
+	
+	</tr>
 				    
 	<?php
 				
@@ -130,11 +135,11 @@ function printDiv(income) {
 	
 	?>
 	
-				</tbody>
-				</table></center>
-				
-				</div>
-				</div>
+	</tbody>
+	</table>
+	
+	</div>
+	</div>
  
 	<?php
 	$total_records = mysqli_num_rows($result);  //count number of records
@@ -144,11 +149,10 @@ function printDiv(income) {
 	echo "<a href='leave_applications.php?page=1'>".' First '."</a> "; // Goto 1st page  
 
 	for ($i=1; $i<=$total_pages; $i++) { 
-				echo "<a href='leave_applications.php?page=".$i."'>   ".$i. "   </a> "; 
+		echo "<a href='leave_applications.php?page=".$i."'>   ".$i. "   </a> "; 
 	}; 
 	echo "<a href='leave_applications.php?page=$total_pages'>".' Last '."</a> "; // Goto last page
-	echo '</article></div>
-                   </div>';
+	echo '</article></div></div>';
 	require("footer.php");
 	}
 	else

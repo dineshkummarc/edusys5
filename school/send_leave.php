@@ -10,23 +10,19 @@ $cur_academic_year = $_SESSION['academic_year'];
 		if(isset($_GET["id"])){
 		$id=$_GET["id"];
 		}
+
+		if(isset($_GET["first_name"])){
+			$first_name=$_GET["first_name"];
+			}
+
+			if(isset($_GET["admission_no"])){
+				$admission_no=$_GET["admission_no"];
+				}
 		
-		if(isset($_GET["from_date"])){
-		$from_date=$_GET["from_date"];
-		}
-		
-		if(isset($_GET["to_date"])){
-		$to_date=$_GET["to_date"];
-		}
-		
-		$sql="select * from leave_appli where academic_year='".$cur_academic_year."' and id='".$id."'";	
-       $result=mysqli_query($conn,$sql);
-	   if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
-	{
-$first_name=$row["first_name"];
-$admission_no=$row["admission_no"];
+		if(isset($_GET["read_status"])){
+			$read_status=$_GET["read_status"];
+			}
 	
-	}
 	?>
 		<div class="container-fluid">
 		<div class="row">
@@ -42,7 +38,7 @@ $admission_no=$row["admission_no"];
 
 				{
 					$success=$_GET["success"];
-					echo '<p style="text-align: center;"><span style="color: green; font-size: 16px; font-weight: bold; text-align: center;">Congrajulation.Assignments has been sent successfully</span><br></p>';
+					echo '<p style="text-align: center;"><span style="color: green; font-size: 16px; font-weight: bold; text-align: center;">Updated successfully</span><br></p>';
 				}
 		if(isset($_GET["failed"]))
 				{
@@ -56,21 +52,21 @@ $admission_no=$row["admission_no"];
      
      <div class="form-group">
 	  <label for="sel1"><span style="color:red;font-size:18px;">*</span>Select Action:</label>
-	  <select class="form-control" name="status"  id="sel1">
+	  <select class="form-control" name="status">
 		<option value="approved">Approve</option>
 		<option value="rejected">Reject</option>
 	 </select>
 	</div>
 	
 	<div class="form-group">
-  <label for="usr">If Reject reason:</label>
+  <label for="usr">Note (if any):</label>
   <textarea rows="4" class="form-control"  name="rej_reason"></textarea>
 </div>
 
+	<input type="hidden"  name="read_status" value="<?php echo $read_status; ?>">
+	<input type="hidden"  name="id" value="<?php echo $id; ?>">
 	<input type="hidden"  name="first_name" value="<?php echo $first_name; ?>">
 	<input type="hidden"  name="admission_no" value="<?php echo $admission_no; ?>">
-	<input type="hidden"  name="from_date" value="<?php echo $from_date; ?>">
-	<input type="hidden"  name="to_date" value="<?php echo $to_date; ?>">
 	<input type="submit"   value="Send" class="btn btn-primary btn-md">
   
 	  </form><br>
