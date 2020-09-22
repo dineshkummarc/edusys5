@@ -40,7 +40,7 @@ function printDiv(income) {
 		          <textarea rows="6" name="message" class="form-control"></textarea>
 		           </div>
 				   
-				   	<input type="submit" name="contact" class="btn btn-success" value="Send Leave letter">
+				   	<input type="submit" name="contact" class="btn btn-success" value="Send">
 		
 				</form>
 				
@@ -51,20 +51,9 @@ function printDiv(income) {
 				</div>
 				</div>
 
-				    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- Morris Charts JavaScript -->
-    <script src="js/plugins/morris/raphael.min.js"></script>
-    <script src="js/plugins/morris/morris.min.js"></script>
-    <script src="js/plugins/morris/morris-data.js"></script>
-
-</body>
-
-</html>
 
 	<?php
-	
+	require("footer.php");
 	}
 
 	else

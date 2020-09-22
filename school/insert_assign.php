@@ -10,11 +10,14 @@ if(isset($_POST["assignment"]))
 	
 	
 	$class=$_POST["class"];
-	$assign_title=$_POST["assign_title"];
-	$assign_desc=$_POST["assign_desc"];
-	$assign_date=$_POST["assign_date"];
+	$section=$_POST["section"];
+	//$assign_title=$_POST["assign_title"];
+	//$assign_desc=$_POST["assign_desc"];
+	$assign_title = mysqli_real_escape_string($conn, $_POST["assign_title"]);
+	$assign_desc = mysqli_real_escape_string($conn, $_POST["assign_desc"]);
 	
-	$sql="insert into assign (class,assign_title,assign_desc,assign_date,academic_year) values('$class','$assign_title','$assign_desc','$assign_date','$cur_academic_year')";
+	
+	$sql="insert into assign (class,section,assign_title,assign_desc,academic_year) values('$class','$section','$assign_title','$assign_desc','$cur_academic_year')";
 	
 	
 	if ($conn->query($sql) === TRUE) 

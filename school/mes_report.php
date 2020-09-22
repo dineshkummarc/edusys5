@@ -10,14 +10,14 @@ $cur_academic_year = $_SESSION['academic_year'];
 	$result_sch=mysqli_query($conn,$sql_sch);
 	if($row_sch=mysqli_fetch_array($result_sch,MYSQLI_ASSOC))
 	{
-		$approved_senderid=$row_sch["sender_id"];
+		//$approved_senderid=$row_sch["sender_id"];
 	}
 	
-	$password="B82637762@02_15";
+	$password = "B826377gs256h62@02_15";
+	$approved_senderid="DCOORG";
 	//echo $approved_senderid;
 $url = "http://smsc.biz/httpapi/getmisreport?username=ma.musthafa6@gmail.com&password=".$password."&sender_id=".$approved_senderid; // path to your JSON file
-	
-//$url = "http://smsc.biz/httpapi/getmisreport?username=ma.musthafa6@gmail.com&password=ajmal524&sender_id=".$approved_senderid; // path to your JSON file
+
 $data = file_get_contents($url); // put the contents of the file into a variable
 $characters = json_decode($data); // decode the JSON feed
 ?>

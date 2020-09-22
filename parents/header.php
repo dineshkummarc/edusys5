@@ -35,6 +35,22 @@
      <script src="jquery-ui.js"></script>
 	
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <style>
+
+    body {
+			margin-top: 80px;
+        }
+        
+    /* Smartphones (portrait) ----------- */
+		@media only screen and (max-width: 600px) {
+			body {
+				margin-top: 100px;
+				background-color: #eee;
+			}
+		}
+</style>
 
     
 	<script>
@@ -141,18 +157,32 @@ function goBack() {
 <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
 <div class="collapse navbar-collapse navbar-ex1-collapse">
 <ul class="nav navbar-nav side-nav">
-    <li><a href="index.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>
     <li><a href="description.php"><i class="fa fa-fw fa-dashboard"></i> Profile</a></li>
-	<li><a href="logout.php"><i class="fa fa-lock" aria-hidden="true"></i> Logout</a></li>
-	<li><a href="marks_card.php"><i class="fa fa-money" aria-hidden="true"></i> Marks Card</a></li>
-	 <li><a href="select_exam.php"><i class="fa fa-fw fa-dashboard"></i> Hall Ticket</a></li>
+    <li><a href="index.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>
+
+    <li><a href="notifications.php"><i class="fa fa-fw fa-dashboard"></i> Notice Board</a></li>
+    <li><a href="assignments.php"><i class="fa fa-fw fa-dashboard"></i> Home Work</a></li>
+    <li><a href=""><i class="fa fa-fw fa-dashboard"></i> Study Materials</a></li>
+    <li><a href="upcoming_events.php"><i class="fa fa-fw fa-dashboard"></i> Upcoming Events</a></li>
+    <li><a href="upcoming_holidays.php"><i class="fa fa-fw fa-dashboard"></i> Upcoming Holidays</a></li>
+    
+    <li><a href="shw_timetable.php"><i class="fa fa-calendar" aria-hidden="true"></i> Show Timetable</a></li>
+    <li><a href="shw_exam_timetable.php"><i class="fa fa-fw fa-dashboard"></i> Exam Time Table</a></li>
+    <li><a href="attendance_desc.php"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> All Attendance</a></li>
+    <li><a href="select_exam.php"><i class="fa fa-fw fa-dashboard"></i> Hall Ticket</a></li>
+    <li><a href=""><i class="fa fa-fw fa-dashboard"></i> Certificates</a></li>
+    <li><a href=""><i class="fa fa-fw fa-dashboard"></i> Books Issued</a></li>
+    <li><a href=""><i class="fa fa-fw fa-dashboard"></i> Gate Pass Issued</a></li>
+    <li><a href="apply_leave.php"><i class="fa fa-fw fa-dashboard"></i> Leave Applications</a></li>
+    <li><a href="mes_report.php"><i class="fa fa-fw fa-dashboard"></i> SMS Notifications</a></li>
+
+    <li><a href="marks_card.php"><i class="fa fa-money" aria-hidden="true"></i> Marks Card</a></li>
+	 
 	<li><a href="adm_members.php"><i class="fa fa-users" aria-hidden="true"></i> Administrative Members</a></li>
     <li><a href="teach_staff.php"><i class="fa fa-users" aria-hidden="true"></i> All Staff's</a></li>
-    <li><a href="attendance_desc.php"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> All Attendance</a></li>
-	<li><a href="shw_timetable.php"><i class="fa fa-calendar" aria-hidden="true"></i> Show Timetable</a></li>
+    <li><a href="indi_paid_det.php"><i class="fa fa-money" aria-hidden="true"></i> Paid Fee Details</a></li>
+    <li><a href="logout.php"><i class="fa fa-lock" aria-hidden="true"></i> Logout</a></li>
 	
-
-	<li><a href="indi_paid_det.php"><i class="fa fa-money" aria-hidden="true"></i> Paid Fee Details</a></li>
 </ul>
 </div>
 </nav>

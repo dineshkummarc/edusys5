@@ -76,7 +76,7 @@ function printDiv(income) {
 				<th>Note</th>
 			</tr>
 	<?php
-	
+	$today_date = date("Y-m-d");
 	$sql_status="select * from leave_appli where academic_year='".$cur_academic_year."' and first_name='".$first_name."' and admission_no='".$roll_no."' order by id desc";
 	$result_status=mysqli_query($conn,$sql_status);
 	$row_count=1;

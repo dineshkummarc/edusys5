@@ -48,6 +48,22 @@ $cur_academic_year = $_SESSION['academic_year'];
 	  <label for="sel1">Select Class</label>
 	  <select class="form-control" name="class">
 		<?php require("selectclass.php");?>
+
+
+		<div class="form-group">
+    <?php echo '<select class="form-control" name="section">';
+    echo '<option value="">Select Section</option>';
+    $sql="select distinct section from students where academic_year='".$cur_academic_year."'";
+    $result=mysqli_query($conn,$sql);
+        foreach($result as $value)
+    {
+    ?>
+    <option value='<?php echo $value["section"];?>'><?php echo $value["section"];?></option>
+    <?php
+    }
+    echo '</select>';
+    ?>
+    </div>
 		
 		
 	  <div class="form-group">
@@ -60,10 +76,7 @@ $cur_academic_year = $_SESSION['academic_year'];
 		 <textarea class="form-control" name="assign_desc"  rows="5"></textarea>
 	  </div>
 	  
-	  <div class="form-group">
-	   <input type="hidden" name="assign_date" value="<?php echo date('d-m-Y'); ?>" class="form-control">
-		
-	  </div>
+	  
 	<input type="submit" name="assignment" class="btn btn-success" value="Send Assignments">
 	</form>
     </div>

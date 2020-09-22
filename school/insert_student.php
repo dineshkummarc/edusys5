@@ -38,27 +38,9 @@ if(isset($_POST["register"]))
 
 	move_uploaded_file($filetmp,$filepath);
 	
+
 	
-	$filetmp1 = $_FILES["adhar"]["tmp_name"];
-
-	$filename1 = $_FILES["adhar"]["name"];
-
-	$filetype1 = $_FILES["adhar"]["type"];
-
-	$filepath1 = "adhar/".$filename1;
-	move_uploaded_file($filetmp1,$filepath1);
-	
-	
-	$filetmp2 = $_FILES["birth"]["tmp_name"];
-
-	$filename2 = $_FILES["birth"]["name"];
-
-	$filetype2 = $_FILES["birth"]["type"];
-
-	$filepath2 = "birth/".$filename2;
-	move_uploaded_file($filetmp2,$filepath2);
-	
-	$sql="insert into students (present_class,admission_no,blood,join_date,sex,dob,roll_no,academic_year,father_name,mother_name,caste,mother_tongue,class_join,first_name,parent_contact,rollno,section,address,adhaar_no,photo_name,photo_path,photo_type,adhar_name,adhar_path,adhar_type,birth_name,birth_path,birth_type,student_type) values('$class_join','$admission','$blood','$join_date','$sex','$dob','$roll_no','$cur_academic_year','$father_name','$mother_name','$caste','$mother_tongue','$class_join','$first_name','$parent_contact','$rollno','$section','$address','$adhaar_no','$filename','$filepath','$filetype','$filename1','$filepath1','$filetype1','$filename2','$filepath2','$filetype2','$student_type')";
+	$sql="insert into students (present_class,admission_no,blood,join_date,sex,dob,roll_no,academic_year,father_name,mother_name,caste,mother_tongue,class_join,first_name,parent_contact,rollno,section,address,adhaar_no,photo_name,photo_path,photo_type,student_type) values('$class_join','$admission','$blood','$join_date','$sex','$dob','$roll_no','$cur_academic_year','$father_name','$mother_name','$caste','$mother_tongue','$class_join','$first_name','$parent_contact','$rollno','$section','$address','$adhaar_no','$filename','$filepath','$filetype','$student_type')";
 	
 	
 	

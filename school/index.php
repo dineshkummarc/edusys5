@@ -284,7 +284,7 @@ $today_md=date('m-d');
 		</div>
 	</div>
 	<div class="col-lg-3 col-md-6">
-		<div class="panel panel-blue">
+		<div class="panel panel-red">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
@@ -307,7 +307,7 @@ $today_md=date('m-d');
 		</div>
 	</div>
 	<div class="col-lg-3 col-md-6">
-		<div class="panel panel-blue">
+		<div class="panel panel-yellow">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
@@ -331,7 +331,7 @@ $today_md=date('m-d');
 		</div>
 	</div>
 	<div class="col-lg-3 col-md-6">
-		<div class="panel panel-blue">
+		<div class="panel panel-lightgreen">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
@@ -359,7 +359,7 @@ $today_md=date('m-d');
 <!-- /.row -->
 <div class="row">
 	<div class="col-lg-3 col-md-6">
-		<div class="panel panel-lightgreen">
+		<div class="panel panel-blue">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
@@ -382,7 +382,7 @@ $today_md=date('m-d');
 		</div>
 	</div>
 	<div class="col-lg-3 col-md-6">
-		<div class="panel panel-lightgreen">
+		<div class="panel panel-red">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
@@ -407,7 +407,7 @@ $today_md=date('m-d');
 
 	
 	<div class="col-lg-3 col-md-6">
-		<div class="panel panel-lightgreen" style="background:red;">
+		<div class="panel panel-yellow">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
@@ -485,7 +485,7 @@ $today_md=date('m-d');
 	</div>
 
 	<div class="col-lg-3 col-md-6">
-		<div class="panel panel-blue">
+		<div class="panel panel-red">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
@@ -553,7 +553,7 @@ $balance_account=($tot_est_fee+$total_income)-$total_expense;
 
 
 	 <div class="col-lg-3 col-md-6">
-		<div class="panel panel-blue">
+		<div class="panel panel-yellow">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
@@ -590,7 +590,7 @@ $balance_account=($tot_est_fee+$total_income)-$total_expense;
 			}
 			?>
 	<div class="col-lg-3 col-md-6">
-		<div class="panel panel-blue">
+		<div class="panel panel-lightgreen">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
@@ -621,7 +621,7 @@ $balance_account=($tot_est_fee+$total_income)-$total_expense;
 <div class="row">
 
 <div class="col-lg-3 col-md-6">
-		<div class="panel panel-orange">
+		<div class="panel panel-blue">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
@@ -647,7 +647,7 @@ $balance_account=($tot_est_fee+$total_income)-$total_expense;
 
 	
 	<div class="col-lg-3 col-md-6">
-		<div class="panel panel-orange">
+		<div class="panel panel-red">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
@@ -670,7 +670,7 @@ $balance_account=($tot_est_fee+$total_income)-$total_expense;
 		</div>
 	</div>
 	<div class="col-lg-3 col-md-6">
-		<div class="panel panel-orange">
+		<div class="panel panel-yellow">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
@@ -693,7 +693,7 @@ $balance_account=($tot_est_fee+$total_income)-$total_expense;
 		</div>
 	</div>
 	<div class="col-lg-3 col-md-6">
-		<div class="panel panel-orange">
+		<div class="panel panel-lightgreen">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
@@ -769,7 +769,7 @@ $balance_account=($tot_est_fee+$total_income)-$total_expense;
 		</div>
 			</div>
 			<div class="col-sm-4">
-				<div class="panel panel-blue">
+				<div class="panel panel-yellow">
 					<div class="panel-heading">
 						<h4>Upcoming Holidays</h4>
 					</div>
@@ -841,7 +841,7 @@ $tot_admission_fee=$student_fee;
 ?>
 
 <div class="col-sm-4">
-	 <div class="panel panel-blue">
+	 <div class="panel panel-lightgreen">
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">

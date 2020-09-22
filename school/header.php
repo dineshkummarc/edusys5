@@ -190,6 +190,26 @@ error_reporting("0");
 		
 	</ul>
 </li>
+
+<li>
+<a href="#" data-toggle="collapse" data-target="#bank"><i class="fa fa-fw fa-commenting"></i> Noticeboard <i class="fa fa-fw fa-caret-down"></i></a>
+<ul id="bank" class="collapse">
+    <li><a href="send_notification.php">Send Notice</a></li>
+    <li><a href="notifications.php">All Notifications</a> </li>
+</ul>
+</li>
+
+
+<li>
+<a href="#" data-toggle="collapse" data-target="#assignments"><i class="fa fa-fw fa-commenting"></i> Assignments <i class="fa fa-fw fa-caret-down"></i></a>
+<ul id="assignments" class="collapse">
+    <li><a href="send_assign.php">Send Assignments</a></li>
+    <li><a href="assignments.php">All Assignments</a> </li>
+</ul>
+</li>
+
+
+
 					
 					
 					<li>
@@ -424,6 +444,7 @@ error_reporting("0");
                     </li>
                     <li><a href="bulk_other_fee.php"><i class="fa fa-money" aria-hidden="true"></i> Book,Uniform & Other Fee</a></li>
                     <li><a href="paid_other_fee_details.php"><i class="fa fa-money" aria-hidden="true"></i> Paid Other Fee Details</a></li>
+
                     <li><a href="send_assign.php"><i class="fa fa-money" aria-hidden="true"></i> Send Assignments</a></li>
 	
 					<li>

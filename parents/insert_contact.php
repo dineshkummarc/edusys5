@@ -17,7 +17,7 @@ if(isset($_POST["contact"]))
 	$class=$_SESSION["parents_class"];
 	
 	
-	$sql="insert into contact_school (first_name,admission_no,subject,message,sent_date,academic_year) values('$first_name','$admission_no','$subject','$message','$today','$cur_academic_year')";
+	$sql="insert into contact_school (first_name,admission_no,subject,message,academic_year) values('$first_name','$admission_no','$subject','$message','$cur_academic_year')";
 
 	
 	if ($conn->query($sql) === TRUE) 
@@ -29,8 +29,8 @@ if(isset($_POST["contact"]))
 	} 
 	else 
 	{
-	var_dump($sql);		
-	//header("Location:index.php?failed=.'failed'");	
+		
+	header("Location:index.php?failed=.'failed'");	
 		
 	}
 

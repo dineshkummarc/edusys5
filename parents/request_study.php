@@ -68,14 +68,29 @@ function printDiv(income) {
 			</tr>
 	<?php
 	
-	$id=$row_tot["id"];
+	
 	$sql_status="select * from request_study where academic_year='".$cur_academic_year."' and first_name='".$first_name."' and admission_no='".$roll_no."'";
 	$result_status=mysqli_query($conn,$sql_status);
 	$row_count=1;
 	foreach($result_status as $row_tot)
 	{
+	$id=$row_tot["id"];
+	$status=$row_tot["status"];
 	$req_date= date('d-m-Y', strtotime( $row_tot['req_date'] ));
-	$ready_date= date('d-m-Y', strtotime( $row_tot['ready_date'] ));
+	if($row_tot["ready_date"]=="0000-00-00"){
+		$ready_date= "NIL";	
+	}else{
+		$ready_date= date('d-m-Y', strtotime( $row_tot['ready_date'] ));
+	}
+	
+
+	if($status == "approved"){
+		$badge = '<span class="badge badge-success" style="background-color:#28a745;"> Approved</span>';
+	}else if($status == "rejected"){
+		$badge = '<span class="badge badge-danger" style="background-color:#dc3545;"> Rejected</span>';
+	}else{
+		$badge = '<span class="badge badge-default" style="background-color:grey;"> Pending</span>';
+	}
 	?>
 				<tr>
 				<td style="text-align:center;"><?php echo $row_count;?></td>
@@ -85,7 +100,7 @@ function printDiv(income) {
 				<td style="text-align:center;"><?php echo $row_tot["certi_name"];?></td>
 				<td style="text-align:center;"><?php echo $row_tot["reason"];?></td>
 				<td style="text-align:center;"><?php echo $req_date;?></td>
-				<td style="text-align:center;"><?php echo $row_tot["status"];?></td>
+				<td style="text-align:center;"><?php echo $badge;?></td>
 				<td style="text-align:center;"><?php echo $ready_date;?></td>
 			
 				

@@ -25,7 +25,7 @@ body {
 }
 
 .huge {
-    font-size: 50px;
+    font-size: 30px;
     line-height: normal;
 }
 
@@ -218,21 +218,21 @@ ul.alert-dropdown {
 }
 
 .panel-blue {
-    border-color: #3172c5;
+    border-color: #4285f4;
 }
 
 .panel-blue>.panel-heading {
-    border-color: #3172c5;
+    border-color: #4285f4;
     color: #fff;
-    background-color: #3172c5;
+    background-color: #4285f4;
 }
 
 .panel-blue>a {
-    color: #3172c5;
+    color: #4285f4;
 }
 
 .panel-blue>a:hover {
-    color: #3172c5;
+    color: #4285f4;
 }
 
 .panel-yellow {
@@ -253,43 +253,90 @@ ul.alert-dropdown {
     color: #feb20e;
 }
 
-.panel-pink {
-    border-color: #ff002b;
+.panel-red {
+    border-color: #EA4335;
 }
 
-.panel-pink>.panel-heading {
-    border-color: #ff002b;
+.panel-red>.panel-heading {
+    border-color: #EA4335;
     color: #fff;
-    background-color: #ff002b;
+    background-color: #EA4335;
 }
 
-.panel-pink>a {
-    color: #ff002b;
+.panel-red>a {
+    color: #EA4335;
 }
 
-.panel-pink>a:hover {
-    color: #ff002b;
+.panel-red>a:hover {
+    color: #EA4335;
 }
 
-.panel-greenn {
-    border-color: #65b126;
-}
 
-.panel-greenn>.panel-heading {
-    border-color: #65b126;
-    color: #fff;
-    background-color: #65b126;
-}
-
-.panel-greenn>a {
-    color: #65b126;
-}
-
-.panel-greenn>a:hover {
-    color: #65b126;
-}
 
 .side-nav li a:active {
     outline: none;
     background-color: #555 !important;
 }
+
+
+
+
+.panel-yellow {
+    border-color: #FBBC05;
+}
+
+.panel-yellow>.panel-heading {
+    border-color: #FBBC05;
+    color: #fff;
+    background-color: #FBBC05;
+}
+
+.panel-yellow>a {
+    color: #FBBC05;
+}
+
+.panel-yellow>a:hover {
+    color: #FBBC05;
+}
+
+
+.panel-lightgreen {
+    border-color: #34a853;
+}
+
+.panel-lightgreen>.panel-heading {
+    border-color: #34a853;
+    color: #fff;
+    background-color: #34a853;
+}
+
+.panel-lightgreen>a {
+    color: #34a853;
+}
+
+.panel-lightgreen>a:hover {
+    color: #34a853;
+}
+
+
+.panel-orange {
+    border-color: #ff8f00;
+}
+
+.panel-orange>.panel-heading {
+    border-color: #ff8f00;
+    color: #fff;
+    background-color: #ff8f00;
+}
+
+.panel-orange>a {
+    color: #ff8f00;
+}
+
+.panel-orange>a:hover {
+    color: #ff8f00;
+}
+
+
+
+

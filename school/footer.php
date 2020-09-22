@@ -15,6 +15,9 @@
 	});
 	</script>
 	
+
+
+
 	<script>
     $(document).ready(function(){
     $('input.typeahead_book').typeahead({
@@ -199,6 +202,7 @@ $(document).ready(function(){
      document.body.innerHTML = originalContents;
 }
 </script>
+
 
 </div>
  <!-- /#page-wrapper -->

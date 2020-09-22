@@ -1,9 +1,9 @@
 <?php
 session_start();
-
-if(isset($_SESSION['parents_uname'])&&isset($_SESSION['parents_pass'])&&isset($_SESSION['parents_class']))
-
+if(isset($_SESSION['lkg_uname'])&&!empty($_SESSION['lkg_pass'])&&!empty($_SESSION['academic_year']))
 {
+$cur_academic_year = $_SESSION['academic_year'];
+
 	error_reporting("0");
 	require("header.php");
 	require("connection.php");
@@ -22,41 +22,32 @@ function printDiv(income) {
 }
 </script>
 </head>
-			<div class="container-fluid">
-                <div class="row">
-                <div class="col-sm-12 inline"><br>
-				<?php
-				$parents_uname=$_SESSION['parents_uname'];
-		        $parents_pass=$_SESSION['parents_pass'];
-		        $parents_class=$_SESSION['parents_class'];
-					?>	
-					 <!--
-						<form class="form-inline" action="assignments.php" method="get">
-					 
-					  <div class="form-group">
-						<label for="pwd">From</label>
-						<input type="date" class="form-control" name="from" >
-					  </div>
-					  <div class="form-group">
-						<label for="pwd">To</label>
-						<input type="date" class="form-control" name="to" >
-					  </div>
-					  <input type="submit" class="btn btn-primary w3-card-4" name="filter" value="Filter">
-					   <button type="button"  class="btn btn-success btn-md w3-card-4" onclick="printDiv('study')">Print</button> 
-					 
-					  
-						
-					</form><br>
-					 -->
-					</div>
-					</div>
+<div class="container-fluid">
+    <div class="row">
+    <div class="col-sm-12 inline"><br>
+   
+        <!--
+        <form class="form-inline" action="assignments.php" method="get">
+        
+        <div class="form-group">
+        <label for="pwd">From</label>
+        <input type="date" class="form-control" name="from" >
+        </div>
+        <div class="form-group">
+        <label for="pwd">To</label>
+        <input type="date" class="form-control" name="to" >
+        </div>
+        <input type="submit" class="btn btn-primary w3-card-4" name="filter" value="Filter">
+        <button type="button"  class="btn btn-success btn-md w3-card-4" onclick="printDiv('study')">Print</button> 
+     </form><br>
+        -->
+    </div>
+    </div>
 					
 		
 		
 		<?php
-        $parents_uname=$_SESSION['parents_uname'];
-		$parents_pass=$_SESSION['parents_pass'];
-		$parents_class=$_SESSION['parents_class'];
+        
 		
 		$num_rec_per_page=75;
 	   if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
@@ -75,28 +66,12 @@ function printDiv(income) {
 		{
 		*/	
 
-		$sql_section="select section from students where first_name='".$parents_uname."' and present_class='".$parents_class."'  and roll_no='".$parents_pass."'";
-		$result_section = mysqli_query($conn, $sql_section);
-		if($row_section=mysqli_fetch_array($result_section,MYSQLI_ASSOC))
-		{
-			$section = $row_section["section"];
-		}
-
-		
-		
-		
-		$first_name=$_GET['name'];
-		$roll_no=$_GET['roll_no'];
 		$present_class=$_GET['present_class'];
-		$sql="select * from assign where class='".$parents_class."' and section='".$section."' ORDER BY id DESC LIMIT $start_from, $num_rec_per_page";
-        
+		$sql="select * from assign  ORDER BY id DESC LIMIT $start_from, $num_rec_per_page";
+        //var_dump($sql);
 	    //}
 		 $result=mysqli_query($conn,$sql);
 		 $row_count =1;
-		
-			 
-	
-		
 		//$result=mysqli_query($conn,$sql_tot_att);
 		
 	
@@ -131,8 +106,15 @@ function printDiv(income) {
 
 	?>
 	<tr>
-	<td style="width:5%;"><?php echo $row_count;?></td>
-	<td style="width:25%;"><?php echo $row_tot["assign_title"];?><br>
+	<td><?php echo $row_count;?></td>
+    <td style="width:25%;"><span style="font-weight:bold;">Class: <?php echo strtoupper($row_tot["class"]);?>
+    
+    <?php 
+    if($row_tot["section"]!=""){ 
+        echo "<br>Section: ". strtoupper($row_tot["section"]);
+    }
+    
+    ?></span><br> <?php echo $row_tot["assign_title"];?><br>
 	<small style="color:red;">Sent on: <?php echo $date_posted;?></small>
 	</td>
 	<td><?php echo $row_tot["assign_desc"];?></td>
