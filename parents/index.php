@@ -210,6 +210,31 @@ $contact_count = mysqli_num_rows($result_contact);
                 <!-- /.row -->
                 <div class="row">
 
+
+                <div class="col-md-3">
+				<div class="panel panel-blue">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-3">
+								<i class="fa fa-video-camera fa-5x"></i>
+							</div>
+							<div class="col-xs-9 text-right">
+								<div>Live Online Class</div>
+
+
+							</div>
+						</div>
+					</div>
+					<a href="live_video.php">
+						<div class="panel-footer">
+							<span class="pull-left">Watch Online Class</span>
+							<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+							<div class="clearfix"></div>
+						</div>
+					</a>
+				</div>
+			</div>
+
                 <div class="col-lg-3 col-md-6">
                         <div class="panel panel-blue">
                             <div class="panel-heading">
@@ -234,7 +259,7 @@ $contact_count = mysqli_num_rows($result_contact);
 				
 				
                     <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-red">
+                        <div class="panel panel-orange">
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
@@ -300,8 +325,17 @@ $contact_count = mysqli_num_rows($result_contact);
                             </a>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-green">
+                    
+                </div>
+                <!-- /.row -->	
+				
+
+		
+                <!-- /.row -->
+	<div class="row">
+
+    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-blue">
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
@@ -323,13 +357,6 @@ $contact_count = mysqli_num_rows($result_contact);
                             </a>
                         </div>
                     </div>
-                </div>
-                <!-- /.row -->	
-				
-
-		
-                <!-- /.row -->
-	<div class="row">
         
     <div class="col-lg-3 col-md-6">
                         <div class="panel panel-blue">
@@ -371,7 +398,7 @@ $contact_count = mysqli_num_rows($result_contact);
 	if($student_type==""){
 	?>
 	<div class="col-sm-3">
-    <div class="panel panel-red">
+    <div class="panel panel-orange">
         <div class="panel-heading">
             <div class="row">
                 <div class="col-xs-3">
@@ -525,12 +552,12 @@ $contact_count = mysqli_num_rows($result_contact);
 		</div>
 			</div>
 			<div class="col-sm-6">
-				<div class="panel panel-blue">
-					<div class="panel-heading">
-						<h4>Upcoming Holidays</h4>
-					</div>
-					<div class="table-responsive">
-					<table class="table table-bordered">
+        <div class="panel panel-blue">
+            <div class="panel-heading">
+                <h4>Upcoming Holidays</h4>
+            </div>
+            <div class="table-responsive">
+            <table class="table table-bordered">
 		<tr>
 		<th>SL No</th>
 		<th>Holiday</th>

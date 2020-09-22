@@ -1,13 +1,16 @@
 <?php
 session_start();
-if(isset($_SESSION['lkg_uname'])&&!empty($_SESSION['lkg_pass'])&&!empty($_SESSION['academic_year']))
+
+if(isset($_SESSION['parents_uname'])&&isset($_SESSION['parents_pass'])&&isset($_SESSION['parents_class'])&&isset($_SESSION['academic_year']))
 {
 $cur_academic_year = $_SESSION['academic_year'];
-	error_reporting("0");
-	require("header.php");
-	require("connection.php");
-	?>
-	<head>
+$first_name = $_SESSION['parents_uname'];
+$roll_no = $_SESSION['parents_pass'];
+error_reporting("0");
+require("header.php");
+require("connection.php");
+?>
+<head>
 <script>
 function printDiv(income) {
      var printContents = document.getElementById('income').innerHTML;
@@ -58,7 +61,7 @@ function printDiv(income) {
 		if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
 		$start_from = ($page-1) * $num_rec_per_page; 
 		
-		$sql="select * from gate_pass where (issued_date BETWEEN '$from' and '$to') and academic_year='".$cur_academic_year."' ORDER BY id desc LIMIT $start_from, $num_rec_per_page";
+		$sql="select * from gate_pass where (issued_date BETWEEN '$from' and '$to') and academic_year='".$cur_academic_year."' and first_name='".$first_name."'  and roll_no='".$roll_no."' ORDER BY id desc LIMIT $start_from, $num_rec_per_page";
        		
 		}
 		else
@@ -66,7 +69,7 @@ function printDiv(income) {
 	$num_rec_per_page=150;
 		if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
 		$start_from = ($page-1) * $num_rec_per_page; 
-		$sql="select * from gate_pass where academic_year='".$cur_academic_year."' ORDER BY id desc LIMIT $start_from, $num_rec_per_page";	
+		$sql="select * from gate_pass where academic_year='".$cur_academic_year."'  and first_name='".$first_name."'  and roll_no='".$roll_no."' ORDER BY id desc LIMIT $start_from, $num_rec_per_page";	
         //var_dump($sql);
 	    }
 		 $result=mysqli_query($conn,$sql);
@@ -81,7 +84,7 @@ function printDiv(income) {
 	?>	
         <div class="row">
         <div class="col-sm-12" id="income"><br>
-				<center><table class="table table-bordered">
+				<table class="table table-bordered">
 				<tbody>
 				<tr class="w3-blue">
 				<th>SL No</th>
@@ -91,9 +94,6 @@ function printDiv(income) {
 				<th>Permitted to go</th>
 				<th>With</th>
 				<th>Issued Date & Time</th>
-				<th>Actions</th>
-				
-			
 				
 				</tr>
 	<?php
@@ -101,28 +101,18 @@ function printDiv(income) {
 	foreach($result as $row_tot)
 	{
 	$id=$row_tot["id"];
-	//$date_time= date('d-m-Y', strtotime( $row_tot['date_time'] ));
+	$date_time= date('d-m-Y @ h:i:s', strtotime( $row_tot['date_time'] ));
 	
-	//$join_date= date('d-m-Y', strtotime( $row['join_date'] ));
-	
-
- ?>
-				<tr>
-				<td style="text-align:center;"><?php echo $row_count;?></td>
-				<td style="text-align:center;"><?php echo $row_tot["first_name"];?></td>
-				<td style="text-align:center;"><?php echo $row_tot["roll_no"];?></td>
-				<td style="text-align:center;"><?php echo $row_tot["gate_reason"];?></td>
-				<td style="text-align:center;"><?php echo $row_tot["gate_permit_go"];?></td>
-				<td style="text-align:center;"><?php echo $row_tot["gate_with"];?></td>
-				<td style="text-align:center;"><?php echo $row_tot["date_time"];?></td>
-				
-                <td><div class="btn-group">
-				<a href="<?php echo 'edit_gate_pass.php?id='.$row_tot['id']; ?>" title="Edit">  <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>
-				<a href="<?php echo 'delete_gate_pass.php?id='.$row_tot['id']; ?>" title="Delete">  <i class="fa fa-trash-o fa-lg" style="color:red;" aria-hidden="true"></i></a>
-			   </div></td>
-			
-				
-				</tr>
+    ?>
+    <tr>
+    <td><?php echo $row_count;?></td>
+    <td><?php echo $row_tot["first_name"];?></td>
+    <td><?php echo $row_tot["roll_no"];?></td>
+    <td><?php echo $row_tot["gate_reason"];?></td>
+    <td><?php echo $row_tot["gate_permit_go"];?></td>
+    <td><?php echo $row_tot["gate_with"];?></td>
+    <td><?php echo $date_time;?></td>
+	</tr>
 				    
 	<?php
 				
@@ -131,11 +121,11 @@ function printDiv(income) {
 	
 	?>
 	
-				</tbody>
-				</table></center>
-				
-				</div>
-				</div>
+    </tbody>
+    </table>
+    
+    </div>
+    </div>
  
 	<?php
 	$total_records = mysqli_num_rows($result);  //count number of records

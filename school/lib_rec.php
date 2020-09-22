@@ -43,8 +43,6 @@ $recie_date=date("Y-m-d");
 
 }
 
-
-
 require("footer.php");
 	}
 	else

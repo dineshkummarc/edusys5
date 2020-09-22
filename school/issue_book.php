@@ -182,12 +182,18 @@ error_reporting("0");
 	<label>Borrower Name & ID:</label>
 	<input type="text" name="typeahead" class="form-control typeahead "  autocomplete="off" spellcheck="false" placeholder="Search Students">
 	</div>
-	
 		
-<input type="hidden" name="no_books" value="<?php echo $no_books;?>">
-<input type="hidden" name="book_name"  value="<?php echo $row_book["book_name"];?>">
-<input type="hidden" name="book_id"  value="<?php echo $row_book["book_id"];?>">
-<input type="submit" class="btn btn-success" name="search_student" value="Issue Book"><br>
+	<?php 
+		if(isset($_GET["availibility"])){
+			?>
+				<input type="text" name="no_books" value="<?php echo $no_books;?>" readonly>
+				<input type="text" name="book_name"  value="<?php echo $row_book["book_name"];?>" readonly>
+				<input type="text" name="book_id"  value="<?php echo $row_book["book_id"];?>" readonly>
+				<?php
+			}
+		?>
+	
+	<input type="submit" class="btn btn-success" name="search_student" value="Issue Book"><br>
 	</form>	
 		
     </div>

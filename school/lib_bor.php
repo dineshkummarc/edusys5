@@ -23,7 +23,7 @@ if(isset($_GET["search_student"]))
 	$sql_update="update books set no_books='".$book_now."' where  book_id='".$book_id."'";
 		//var_dump($sql_update);
 	$conn->query($sql_update);	
-	$sql="insert into library (bor_name,bor_id,book_name,book_id) values('$bor_name','$bor_id','$book_name','$book_id')";
+	$sql="insert into library (bor_name,bor_id,book_name,book_id,academic_year) values('$bor_name','$bor_id','$book_name','$book_id','$cur_academic_year')";
 	$conn->query($sql);
 		//var_dump($sql);
 	}

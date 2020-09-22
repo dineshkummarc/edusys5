@@ -191,6 +191,17 @@ error_reporting("0");
 	</ul>
 </li>
 
+
+
+<li>
+<a href="#" data-toggle="collapse" data-target="#online"><i class="fa fa-fw fa-video-camera"></i> Online Class <i class="fa fa-fw fa-caret-down"></i></a>
+<ul id="online" class="collapse">
+    <li><a href="add_online_class.php">Add Online Class</a></li>
+    <li><a href="all_online_classes.php">All Online Class</a> </li>
+</ul>
+</li>
+
+
 <li>
 <a href="#" data-toggle="collapse" data-target="#bank"><i class="fa fa-fw fa-commenting"></i> Noticeboard <i class="fa fa-fw fa-caret-down"></i></a>
 <ul id="bank" class="collapse">
@@ -198,6 +209,9 @@ error_reporting("0");
     <li><a href="notifications.php">All Notifications</a> </li>
 </ul>
 </li>
+
+
+
 
 
 <li>
