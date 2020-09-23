@@ -9,6 +9,7 @@ require("header.php");
 <div class="container-fluid">
  
 	 <div class="row">
+	 <button onclick="goBack()" class="btn btn-default">Go Back</button>
      <div class="col-sm-1">
     </div>
     <div class="col-md-10">
@@ -34,10 +35,29 @@ require("header.php");
 
 				?>
 		</div>
+
+		<div class="form-group">
+        <?php echo '<select class="form-control" name="subject_name">';
+        echo '<option value="">Select Subject</option>';
+        $sql="select distinct subject_name from subjects";
+        $result=mysqli_query($conn,$sql);
+        foreach($result as $value)
+        {
+        ?>
+        <option value='<?php echo $value["subject_name"];?>'><?php echo $value["subject_name"];?></option>
+        <?php
+        }
+        echo '</select>';
+        ?>
+        </div>
 	<button type="submit" name="filt_submit" class="btn btn-primary">Filter</button>
+	<a href="all_online_classes.php" class="btn btn-success">View All Classes</a>
+	<a href="add_online_class.php" class="btn btn-primary">Add Online Class</a>
+	
 	</form>
 	
 	</div>
+	
 	</div>
     <div class="col-sm-1">
     </div>
@@ -50,7 +70,7 @@ require("header.php");
     </div>
     <div class="col-sm-10">
 	
-	<h2>All Students</h2>
+	<h1 style="font-weight:bold;">All Online Classes</h1>
 	<div class="table-responsive">
 	<table class="table table-bordered">
 	<tbody>
@@ -66,29 +86,56 @@ require("header.php");
 	<?php
 	require("connection.php");
 	
-	$num_rec_per_page=500;
+	$num_rec_per_page=200;
 	if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
 	$start_from = ($page-1) * $num_rec_per_page; 
 	if(isset($_GET["filt_submit"]))
 	{
-	if((isset($_GET["filt_class"]))&&(isset($_GET["section"])))
-	{
-		$filt_class=$_GET["filt_class"];
-		$section=$_GET["section"];
 		
-		$sql="select * from online_class where present_class='".$filt_class."' and section='".$section."' and academic_year='".$cur_academic_year."' ORDER BY id  LIMIT $start_from, $num_rec_per_page";
-	}
-	else
-	{
-		$sql="select * from online_class where present_class='".$filt_class."' and academic_year='".$cur_academic_year."' ORDER BY id  LIMIT $start_from, $num_rec_per_page";
-	}
-	
-	}
-    else
-    {
 		
-        $sql="select * from online_class where  academic_year='".$cur_academic_year."' ORDER BY id  LIMIT $start_from, $num_rec_per_page";
+		if((!empty($_GET['filt_class']))&&(!empty($_GET['section']))&&(!empty($_GET['subject_name'])))
+		{
+			$filt_class=$_GET["filt_class"];
+			$section=$_GET["section"];
+			$subject_name=$_GET["subject_name"];
+			
+			$sql="select * from online_class where present_class='".$filt_class."' and section='".$section."' and subject_name='".$subject_name."' and academic_year='".$cur_academic_year."' ORDER BY id  LIMIT $start_from, $num_rec_per_page";
+			
+		}
+		else if((!empty($_GET['filt_class']))&&(!empty($_GET['subject_name'])))
+		{
+			$filt_class=$_GET["filt_class"];
+			$subject_name=$_GET["subject_name"];
+			
+			$sql="select * from online_class where present_class='".$filt_class."' and subject_name='".$subject_name."' and academic_year='".$cur_academic_year."' ORDER BY id  LIMIT $start_from, $num_rec_per_page";
+			
+		}
+		else if((!empty($_GET['filt_class']))&&(!empty($_GET['section'])))
+		{
+			$filt_class=$_GET["filt_class"];
+			$section=$_GET["section"];
+			
+			$sql="select * from online_class where present_class='".$filt_class."' and section='".$section."' and academic_year='".$cur_academic_year."' ORDER BY id  LIMIT $start_from, $num_rec_per_page";
+			
+		}
+		else if(!empty($_GET['filt_class']))
+		{
+			$filt_class=$_GET["filt_class"];
+			$sql="select * from online_class where present_class='".$filt_class."' and academic_year='".$cur_academic_year."' ORDER BY id  LIMIT $start_from, $num_rec_per_page";
+			
+		}
+
+		else
+		{
+			$sql="select * from online_class where present_class='".$filt_class."' and academic_year='".$cur_academic_year."' ORDER BY id  LIMIT $start_from, $num_rec_per_page";
+		}
+		
 	}
+		else
+		{
+			
+			$sql="select * from online_class where  academic_year='".$cur_academic_year."'  ORDER BY id  LIMIT $start_from, $num_rec_per_page";
+		}
 	$result=mysqli_query($conn,$sql);
 	$row_count =1;
 	$total_class=mysqli_num_rows($result);
@@ -106,17 +153,17 @@ require("header.php");
 		<td><span style="color: #207FA2; "><?php echo $row_count;?></span></td>
 		<td><?php echo strtoupper($row["present_class"]);?><br><?php echo strtoupper($row["section"]);?></td>
 		<td><a href="<?php echo 'video_description.php?id='.$id;?>>" style="color:blue;"><?php echo strtoupper($row["subject_name"]);?><br><?php echo $row["chapter"];?></a></td>
-		<td><a href="<?php echo $row["url"];?>"><img src="images/play.png"></a></td>
+		<td><a href="<?php echo 'video_description.php?id='.$id;?>"><img src="images/play.png"></a></td>
 		
-		<td><div class="btn-group"><a href="<?php echo 'description.php?first_name='.$row['first_name'].'&roll_no='.$row['roll_no'];?>" title="View" >  <i class="fa fa-eye fa-lg" style="color:#8ba83e;" aria-hidden="true"></i></a>
-        <a href="<?php echo 'upd_register.php?id='.$row['id']; ?>" title="Edit">  <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>
-        <a href="#" onclick="deleteme(<?php echo $row['id'];?>)">   <i class="fa fa-trash-o fa-lg" style="color:red;" aria-hidden="true"></i></a>
+		<td><div class="btn-group">
+        <a href="<?php echo 'edit_online_class.php?id='.$row['id']; ?>" title="Edit">  <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>
+        <a href="#" onclick="deleteonline(<?php echo $row['id'];?>)">   <i class="fa fa-trash-o fa-lg" style="color:red;" aria-hidden="true"></i></a>
        </div></td>
 	</tr>
 	<script>
-		  function deleteme(id){
+		  function deleteonline(id){
 			  if(confirm("Do you want to delete?")){
-				  window.location.href='del_students.php?id='+id+'';
+				  window.location.href='delete_online_class.php?id='+id+'';
 			  }
 		  }
 		  

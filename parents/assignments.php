@@ -24,6 +24,7 @@ function printDiv(income) {
 </head>
 			<div class="container-fluid">
                 <div class="row">
+				<button onclick="goBack()" class="btn btn-primary">Go Back</button><br>
                 <div class="col-sm-12 inline"><br>
 				<?php
 				$parents_uname=$_SESSION['parents_uname'];
