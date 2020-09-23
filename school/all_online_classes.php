@@ -76,8 +76,8 @@ require("header.php");
 	<tbody>
 	<tr style="background-color:#1ebeda;color:#fff;">
 		<td><span style="font-weight: bold;">SL No</span></td>
-		<td>Present Class: <br>Section: </td>
-		<td>Subject: <br>Chapter Name: </td>
+		<td>Present Class | Section: </td>
+		<td>Subject | Chapter Name: </td>
 		<td>Video: </td>
 		
 		<td style="width:10%"><span style="font-weight: bold;">Action</span></td>

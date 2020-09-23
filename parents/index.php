@@ -225,7 +225,7 @@ $contact_count = mysqli_num_rows($result_contact);
 							</div>
 						</div>
 					</div>
-					<a href="live_video.php">
+					<a href="all_online_class.php">
 						<div class="panel-footer">
 							<span class="pull-left">Watch Online Class</span>
 							<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

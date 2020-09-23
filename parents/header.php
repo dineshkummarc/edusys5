@@ -159,6 +159,7 @@ function goBack() {
 <ul class="nav navbar-nav side-nav">
     <li><a href="description.php"><i class="fa fa-fw fa-dashboard"></i> Profile</a></li>
     <li><a href="index.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>
+    <li><a href="all_online_class.php"><i class="fa fa-fw fa-video-camera"></i> Online Class</a></li>
 
     <li><a href="notifications.php"><i class="fa fa-fw fa-dashboard"></i> Notice Board</a></li>
     <li><a href="assignments.php"><i class="fa fa-fw fa-dashboard"></i> Home Work</a></li>
