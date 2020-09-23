@@ -79,7 +79,7 @@ $contact_count = mysqli_num_rows($result_contact);
 					<div class="panel-heading">
 						<div class="row">
 							<div class="col-xs-3">
-								<i class="fa fa-comments fa-5x"></i>
+								<i class="fa fa-comments fa-3x"></i>
 							</div>
 							<div class="col-xs-9 text-right">
 								<div> <?php if ($notification_count > 0) { ?><span class="w3-badge w3-yellow">New</span><?php } ?> Notice Board </div>
@@ -105,7 +105,7 @@ $contact_count = mysqli_num_rows($result_contact);
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
-                                        <i class="fa fa-file-text fa-5x"></i>
+                                        <i class="fa fa-file-text fa-3x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
 								<div> <?php if ($assign_count > 0) { ?><span class="badge badge-success" style="background-color:yellow;color:#000;">Latest</span><?php } ?> Home Work </div>
@@ -154,7 +154,7 @@ $contact_count = mysqli_num_rows($result_contact);
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
-                                    <i class="fa fa-file-text fa-5x"></i>
+                                    <i class="fa fa-file-text fa-3x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
 								<div> <?php  echo $badge; ?> Leave Letter Status </div>
@@ -180,7 +180,7 @@ $contact_count = mysqli_num_rows($result_contact);
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
-                                        <i class="fa fa-comments fa-5x"></i>
+                                        <i class="fa fa-comments fa-3x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
 								<div> <?php if ($contact_count > 0) { ?><span class="w3-badge w3-yellow">New</span><?php } ?> Contact Reply </div>
@@ -216,7 +216,7 @@ $contact_count = mysqli_num_rows($result_contact);
 					<div class="panel-heading">
 						<div class="row">
 							<div class="col-xs-3">
-								<i class="fa fa-video-camera fa-5x"></i>
+								<i class="fa fa-video-camera fa-3x"></i>
 							</div>
 							<div class="col-xs-9 text-right">
 								<div>Live Online Class</div>
@@ -240,7 +240,7 @@ $contact_count = mysqli_num_rows($result_contact);
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
-                                        <i class="fa fa-bar-chart fa-5x"></i>
+                                        <i class="fa fa-bar-chart fa-3x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
 									    <div>Student Attendance</div>
@@ -263,7 +263,7 @@ $contact_count = mysqli_num_rows($result_contact);
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
-                                        <i class="fa fa-comments fa-5x"></i>
+                                        <i class="fa fa-comments fa-3x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
 									 <div>SMS Notifications</div>  
@@ -305,7 +305,7 @@ $contact_count = mysqli_num_rows($result_contact);
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
-                                        <i class="fa fa-print fa-5x"></i>
+                                        <i class="fa fa-print fa-3x"></i>
                                     </div>
                                   
                                        <div class="col-xs-9 text-right">
@@ -339,7 +339,7 @@ $contact_count = mysqli_num_rows($result_contact);
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
-                                        <i class="fa fa-calendar fa-5x"></i>
+                                        <i class="fa fa-calendar fa-3x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
 									    <div>Timetable</div>
@@ -363,7 +363,7 @@ $contact_count = mysqli_num_rows($result_contact);
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
-                                        <i class="fa fa-calendar fa-5x"></i>
+                                        <i class="fa fa-calendar fa-3x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
 									    <div>Exam Timetable</div>
@@ -403,7 +403,7 @@ $contact_count = mysqli_num_rows($result_contact);
             <div class="row">
                 <div class="col-xs-3">
                 
-                    <i class="fa fa-fw fa-money fa-5x"></i>
+                    <i class="fa fa-fw fa-money fa-3x"></i>
                 </div>
                 <div class="col-xs-9 text-right">
                     <div>School Fee Details</div>
@@ -430,7 +430,7 @@ $contact_count = mysqli_num_rows($result_contact);
             <div class="row">
                 <div class="col-xs-3">
                 
-                    <i class="fa fa-fw fa-money fa-5x"></i>
+                    <i class="fa fa-fw fa-money fa-3x"></i>
                 </div>
                 <div class="col-xs-9 text-right">
                     <div>Admission Fee</div>
@@ -457,7 +457,7 @@ $contact_count = mysqli_num_rows($result_contact);
             <div class="row">
                 <div class="col-xs-3">
                 
-                    <i class="fa fa-fw fa-money fa-5x"></i>
+                    <i class="fa fa-fw fa-money fa-3x"></i>
                 </div>
                 <div class="col-xs-9 text-right">
                     <div>Staff Chidren Fee</div>
@@ -485,7 +485,7 @@ $contact_count = mysqli_num_rows($result_contact);
         <div class="panel-heading">
             <div class="row">
                 <div class="col-xs-3">
-                <i class="fa fa-user fa-5x"></i>
+                <i class="fa fa-user fa-3x"></i>
                 </div>
                 <div class="col-xs-9 text-right">
                     <div>Hall Ticket</div>

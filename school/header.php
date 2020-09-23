@@ -203,7 +203,7 @@ error_reporting("0");
 
 
 <li>
-<a href="#" data-toggle="collapse" data-target="#bank"><i class="fa fa-fw fa-commenting"></i> Noticeboard <i class="fa fa-fw fa-caret-down"></i></a>
+<a href="#" data-toggle="collapse" data-target="#bank"><i class="fa fa-fw fa-commenting"></i> Notice Board <i class="fa fa-fw fa-caret-down"></i></a>
 <ul id="bank" class="collapse">
     <li><a href="send_notification.php">Send Notice</a></li>
     <li><a href="notifications.php">All Notifications</a> </li>

@@ -428,27 +428,30 @@ $today_md=date('m-d');
 		</div>
 	</div>
 
-	<div class="col-lg-3 col-md-6">
-		<div class="panel panel-lightgreen">
-			<div class="panel-heading">
-				<div class="row">
-					<div class="col-xs-3">
-						<i class="fa fa-print fa-3x"></i>
+	<div class="col-md-3">
+				<div class="panel panel-blue">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-3">
+								<i class="fa fa-video-camera fa-3x"></i>
+							</div>
+							<div class="col-xs-9 text-right">
+								<div>Online Class</div>
+
+
+							</div>
+						</div>
 					</div>
-					<div class="col-xs-9 text-right">
-						<div>Print/Store Documents</div>
-					   </div>
+					<a href="all_online_classes.php">
+						<div class="panel-footer">
+							<span class="pull-left">Watch Online Class</span>
+							<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+							<div class="clearfix"></div>
+						</div>
+					</a>
 				</div>
 			</div>
-			<a href="documents.php">
-				<div class="panel-footer">
-					<span class="pull-left">View Details</span>
-					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-					<div class="clearfix"></div>
-				</div>
-			</a>
-		</div>
-	</div>
+
 </div>
 <!-- /.row ////////////////////////////////////////////////////////////////////-->
 
