@@ -20,10 +20,11 @@ if($row_section=mysqli_fetch_array($result_section,MYSQLI_ASSOC))
 <div class="container-fluid">
  
 	 <div class="row">
-	 <button onclick="goBack()" class="btn btn-default">Go Back</button>
+	
      <div class="col-sm-1">
     </div>
-    <div class="col-md-10">
+    <div class="col-md-10"><br>
+	<button onclick="goBack()" class="btn btn-default">Go Back</button><br><br>
 	<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" class="form-inline" method="get" role="form">
 	  
 		<div class="form-group">
@@ -47,7 +48,7 @@ if($row_section=mysqli_fetch_array($result_section,MYSQLI_ASSOC))
 	
 	</div>
 	
-	</div>
+	
     <div class="col-sm-1">
     </div>
 	</div>
@@ -59,13 +60,12 @@ if($row_section=mysqli_fetch_array($result_section,MYSQLI_ASSOC))
     </div>
     <div class="col-sm-10">
 	
-	<h1 style="font-weight:bold;">All Online Classes</h1>
+	<h1 style="font-weight:bold;">All Online Classes <?php echo strtoupper($present_class)." ".strtoupper($section);?></h1>
 	<div class="table-responsive">
 	<table class="table table-bordered">
 	<tbody>
 	<tr style="background-color:#1ebeda;color:#fff;">
 		<td><span style="font-weight: bold;">SL No</span></td>
-		<td>Present Class | Section </td>
 		<td>Subject | Chapter Name </td>
 		
 		<td style="width:10%"></td>
@@ -105,8 +105,7 @@ if($row_section=mysqli_fetch_array($result_section,MYSQLI_ASSOC))
 	?>
     <tr>
 		<td><span style="color: #207FA2; "><?php echo $row_count;?></span></td>
-		<td><?php echo strtoupper($row["present_class"]);?><br><?php echo strtoupper($row["section"]);?></td>
-		<td><a href="<?php echo 'video_description.php?id='.$id;?>>" style="color:blue;"><?php echo strtoupper($row["subject_name"]);?><br><?php echo $row["chapter"];?></a></td>
+		<td><a href="<?php echo 'video_description.php?id='.$id;?>" style="color:blue;"><?php echo strtoupper($row["subject_name"]);?><br><?php echo $row["chapter"];?></a></td>
 		<td><a href="<?php echo 'video_description.php?id='.$id;?>"><img src="../school/images/play.png"></a></td>
     </tr>
 		<?php 
@@ -120,6 +119,26 @@ if($row_section=mysqli_fetch_array($result_section,MYSQLI_ASSOC))
     <div class="col-sm-1">
     </div>
     
+  </div>
+  <div class="row" style="padding-top:30px;padding-bottom:100px;">
+  <?php
+  foreach($result as $value)
+  {
+	  $ids = $value["id"];
+	
+  ?>
+  <center>
+  <a href="<?php echo 'video_description.php?id='.$ids;?>" style="color:blue;">
+ <div class="col-md-3" style="background-color:#0e94ff;padding:50px;margin:20px;">
+ <h2 style="font-weight:bold;color:#fff;text-align:center;"><?php echo strtoupper($value["subject_name"]);?></h2>
+  <h3 style="color:#fff;text-align:center;"><?php echo $value["chapter"];?></h3>
+  <center><small style="color:#e8f2ff;">Added on: <?php echo $value["date_posted"];?></small></center>
+  </div>
+  </a>
+  </center>
+  <?php
+  }
+  ?>
   </div>
 </div>
 
