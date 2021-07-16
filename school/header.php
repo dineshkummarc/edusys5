@@ -31,6 +31,8 @@ error_reporting("0");
 	<!-- Custom CSS -->
     <link href="css/sb-admin.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     
 
     <!-- Morris Charts CSS -->

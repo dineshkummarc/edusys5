@@ -72,7 +72,30 @@ $contact_count = mysqli_num_rows($result_contact);
 
 				<!-- //////////////////////.row /////////////////////////////////////////////-->
                 <div class="row">
+                
+                <div class="col-md-3">
+				<div class="panel panel-blue">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-3">
+								<i class="fa fa-video-camera fa-3x"></i>
+							</div>
+							<div class="col-xs-9 text-right">
+								<div>Live Online Class</div>
 
+
+							</div>
+						</div>
+					</div>
+					<a href="all_online_class.php">
+						<div class="panel-footer">
+							<span class="pull-left">Watch Online Class</span>
+							<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+							<div class="clearfix"></div>
+						</div>
+					</a>
+				</div>
+			</div>
 
                 <div class="col-md-3">
 				<div class="panel panel-blue">
@@ -126,7 +149,46 @@ $contact_count = mysqli_num_rows($result_contact);
                     </div>
             
 
-                    <?php
+                   
+				
+				
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-blue">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-comments fa-3x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+								<div> <?php if ($contact_count > 0) { ?><span class="w3-badge w3-yellow">New</span><?php } ?> Contact Reply </div>
+								<div class="huge"><span class="w3-badge w3-red"><?php if ($contact_count > 0) {
+                                    echo $contact_count;
+                                } ?></span></div>
+							</div>
+                                </div>
+                            </div>
+                            <a href="contact_reply.php">
+                                <div class="panel-footer">
+                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+				
+                  
+                   
+                </div>
+                <!-- /.row -->
+
+
+                            
+                <!-- /.row -->
+                <div class="row">
+
+
+                <?php
                     $today_date = date("Y-m-d");
                     $sql_status="select * from leave_appli where academic_year='".$cur_academic_year."' and first_name='".$first_name."' and admission_no='".$roll_no."'  and from_date > '".$today_date."' order by id desc limit 1";
                     
@@ -173,68 +235,6 @@ $contact_count = mysqli_num_rows($result_contact);
                             </a>
                         </div>
                     </div>
-				
-				
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-blue">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-comments fa-3x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-								<div> <?php if ($contact_count > 0) { ?><span class="w3-badge w3-yellow">New</span><?php } ?> Contact Reply </div>
-								<div class="huge"><span class="w3-badge w3-red"><?php if ($contact_count > 0) {
-                                    echo $contact_count;
-                                } ?></span></div>
-							</div>
-                                </div>
-                            </div>
-                            <a href="contact_reply.php">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-				
-                  
-                   
-                </div>
-                <!-- /.row -->
-
-
-                            
-                <!-- /.row -->
-                <div class="row">
-
-
-                <div class="col-md-3">
-				<div class="panel panel-blue">
-					<div class="panel-heading">
-						<div class="row">
-							<div class="col-xs-3">
-								<i class="fa fa-video-camera fa-3x"></i>
-							</div>
-							<div class="col-xs-9 text-right">
-								<div>Live Online Class</div>
-
-
-							</div>
-						</div>
-					</div>
-					<a href="all_online_class.php">
-						<div class="panel-footer">
-							<span class="pull-left">Watch Online Class</span>
-							<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-							<div class="clearfix"></div>
-						</div>
-					</a>
-				</div>
-			</div>
-
                 <div class="col-lg-3 col-md-6">
                         <div class="panel panel-blue">
                             <div class="panel-heading">

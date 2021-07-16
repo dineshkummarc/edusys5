@@ -1,11 +1,11 @@
 <?php
 session_start();
-if(isset($_SESSION['parents_uname'])&&isset($_SESSION['parents_pass'])&&isset($_SESSION['parents_class']))
+if(isset($_SESSION['parents_uname'])&&isset($_SESSION['parents_pass'])&&isset($_SESSION['academic_year'])&&isset($_SESSION['student_id']))
 {
 $cur_academic_year=$_SESSION['academic_year'];
-$present_class=$_SESSION['parents_class'];
 $first_name=$_SESSION['parents_uname'];
 $roll_no=$_SESSION['parents_pass'];
+$student_id=$_SESSION['student_id'];
 
     error_reporting("0");
     require("header.php");
@@ -17,11 +17,9 @@ $sql="select * from online_class where  id='".$id."'";
 $result = mysqli_query($conn,$sql);
 if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 {
-    $url = $row["url"];
-    //echo $url;
-
-    $new_url = str_replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/", $url);
-   // echo $new_url;
+$url = $row["url"];
+$new_url = str_replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/", $url);
+// echo $new_url;
 ?>
 <head>
 <style>
@@ -40,15 +38,26 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 }
 </style>
 </head>
+<?php
+ $sql_views = "select id from video_views where student_id='".$student_id."' and video_id='".$id."' and academic_year='".$cur_academic_year."'";
+ $result_views = mysqli_query($conn,$sql_views);
+ if(mysqli_num_rows($result_views)==0){ 
+
+    $sql="insert into video_views (video_id,student_id,academic_year) values('$id','$student_id','$cur_academic_year')";
+    $conn->query($sql);
+    echo "inserted";
+ }
+?>
     <div class="container-fluid" >
         <div class="row" style="padding-bottom:200px;padding-top:50px;">
-        <button onclick="goBack()" class="btn btn-default">Go Back</button>
+        
             <div class="col-md-1">
            
             </div>
             <div class="col-md-10" >
-            <h2 style="font-weight:bold;"><?php echo strtoupper($row["present_class"])." ".strtoupper($row["section"]); ?></h2><hr>
-            <h1 style="font-weight:bold;color:red; "><?php echo strtoupper($row["subject_name"]); ?> - Chapter: <?php echo $row["chapter"]; ?></h1><hr>
+           
+            <h2 style="font-weight:bold;"><?php echo strtoupper($row["present_class"])." - ".strtoupper($row["section"]); ?> - 
+            <?php echo strtoupper($row["subject_name"]); ?> - Chapter: <?php echo $row["chapter"]; ?></h2><hr>
             <div class="iframe-container">
             <iframe width="560" height="315" src="<?php echo $new_url; ?>?controls=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" controls=0 modestbranding; allowfullscreen></iframe>
             </div>
@@ -57,21 +66,73 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
                 <?php 
                 if($row["details"]!=""){
                 ?>
-                <h2 style="font-weight:bold;">Details</h2><hr>
+                <h3 style="font-weight:bold;">Details</h3>
+                <div style="background-color:#eee;padding:10px;border:1px solid #ddd;">
                 <p><?php echo $row["details"];?></p>
-                <br><br><br>
+                </div>
+                
+                <br>
                 <?php
                 }
                 if($row["filepath"]!=""){
                 ?>
-                <h2 style="font-weight:bold;">Materials</h2><hr>
-                <img src="../school/<?php echo $row['filepath'];?>" class="img img-thumbnail" alt="<?php $row['chapter'];?>"><br><br>
-                <a href="../school/<?php echo $row['filepath'];?>" class= "btn btn-primary" target="_blank">Download File</a>
+                <h3 style="font-weight:bold;">Materials</h3>
+                <a href="../school/<?php echo $row['filepath'];?>" style="color:blue;" target="_blank">Download File</a>
                 <?php
-
                 }
                 ?>
+            <br>
 
+    <hr>
+   
+<?php 
+    $sql_comment = "select id,contents,updated_at,edited_on from comments where student_id='".$student_id."' and item_id='".$id."'";
+    $result_comment = mysqli_query($conn,$sql_comment);
+
+    if(mysqli_num_rows($result_comment)==0){      
+    ?>
+        <h3 style="font-weight:bold;">Comment Here</h3>
+        <form action="insert_comment.php" method="post"  role="form">
+        
+        <div class="form-group">
+        <label for="details">Enter your Comment, Feedback or Doubts</label>
+        <textarea rows="6" name="contents" placeholder="Enter your Comment, Feedback or Doubts here." class="form-control"></textarea>
+        </div> 
+
+        <input type="hidden" name="video_id" value="<?php echo $id;?>">        
+        
+        <input type="submit" name="comment" class="btn btn-primary" value="Send">
+        </form><br>
+    <?php
+    }
+    else
+    {
+    ?>
+        <h3 style="font-weight:bold;">Comments</h3>
+        <?php 
+        foreach($result_comment as $row_comment)
+        { 
+        $comment_id = $row_comment["id"];
+        $updated_at= date('d-m-Y --- H:i:sa', strtotime( $row_comment['updated_at'] ));       
+        $edited_on= date('d-m-Y --- H:i:sa', strtotime( $row_comment['edited_on'] ));       
+        ?>
+        <div style="background-color:#e8f2ff;padding:10px;border:1px solid #ddd;">
+            <p><?php echo $row_comment["contents"];?></p>
+            <small style="color:#777;">Posted on: <?php echo $updated_at;?></small>
+            <?php
+            if($edited_on!="NULL"){ ?>
+             | <small style="color:#777;">Edited on: <?php echo $edited_on;?></small>
+            <?php } ?>
+            <br><br>
+            <a href="<?php echo 'edit_comment.php?id='.$comment_id;?>" class="btn btn-success btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Comment</a>
+        </div>
+        <br>
+    <?php
+         }
+    }
+    ?>
+    <br>
+            <button onclick="goBack()" class="btn btn-default">Go Back</button>
             </div>
             <div class="col-md-1">
                 
