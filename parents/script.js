@@ -1,77 +1,56 @@
-//Getting value from "ajax.php".
+const divInstall = document.getElementById('installContainer');
+const butInstall = document.getElementById('butInstall');
 
-function fill(Value) {
+/* Put code here */
 
-   //Assigning value to "search" div in "search.php" file.
 
-   $('#search').val(Value);
 
-   //Hiding "display" div in "search.php" file.
-
-   $('#display').hide();
-
+/* Only register a service worker if it's supported */
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/school_latestc/parents/sw.js');
 }
 
-$(document).ready(function() {
+/**
+ * Warn the page must be served over HTTPS
+ * The `beforeinstallprompt` event won't fire if the page is served over HTTP.
+ * Installability requires a service worker with a fetch event handler, and
+ * if the page isn't served over HTTPS, the service worker won't load.
 
-   //On pressing a key on "Search box" in "search.php" file. This function will be called.
+if (window.location.protocol === 'http:') {
+  const requireHTTPS = document.getElementById('requireHTTPS');
+  const link = requireHTTPS.querySelector('a');
+  link.href = window.location.href.replace('http://', 'https://');
+  requireHTTPS.classList.remove('hidden');
+}
+*/
+window.addEventListener('beforeinstallprompt', (event) => {
+  console.log('👍', 'beforeinstallprompt', event);
+  // Stash the event so it can be triggered later.
+  window.deferredPrompt = event;
+  // Remove the 'hidden' class from the install button container
+  divInstall.classList.toggle('hidden', false);
+});
 
-   $("#search").keyup(function() {
+butInstall.addEventListener('click', () => {
+  console.log('👍', 'butInstall-clicked');
+  const promptEvent = window.deferredPrompt;
+  if (!promptEvent) {
+    // The deferred prompt isn't available.
+    return;
+  }
+  // Show the install prompt.
+  promptEvent.prompt();
+  // Log the result
+  promptEvent.userChoice.then((result) => {
+    console.log('👍', 'userChoice', result);
+    // Reset the deferred prompt variable, since
+    // prompt() can only be called once.
+    window.deferredPrompt = null;
+    // Hide the install button.
+    divInstall.classList.toggle('hidden', true);
+  });
+});
 
-       //Assigning search box value to javascript variable named as "name".
-
-       var name = $('#search').val();
-
-       //Validating, if "name" is empty.
-
-       if (name == "") {
-
-           //Assigning empty value to "display" div in "search.php" file.
-
-           $("#display").html("");
-
-       }
-
-       //If name is not empty.
-
-       else {
-
-           //AJAX is called.
-
-           $.ajax({
-
-               //AJAX type is "Post".
-
-               type: "POST",
-
-               //Data will be sent to "ajax.php".
-
-               url: "ajax.php",
-
-               //Data, that will be sent to "ajax.php".
-
-               data: {
-
-                   //Assigning value of "name" into "search" variable.
-
-                   search: name
-
-               },
-
-               //If result found, this funtion will be called.
-
-               success: function(html) {
-
-                   //Assigning result to "display" div in "search.php" file.
-
-                   $("#display").html(html).show();
-
-               }
-
-           });
-
-       }
-
-   });
-
+window.addEventListener('appinstalled', (event) => {
+  console.log('👍', 'appinstalled', event);
 });

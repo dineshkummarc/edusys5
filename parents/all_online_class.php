@@ -21,7 +21,7 @@ if($row_section=mysqli_fetch_array($result_section,MYSQLI_ASSOC))
  
 	 <div class="row">
 	
-     <div class="col-sm-1">
+     <div class="col-md-1">
     </div>
     <div class="col-md-10"><br>
 	<button onclick="goBack()" class="btn btn-default">Go Back</button><br><br>
@@ -49,23 +49,23 @@ if($row_section=mysqli_fetch_array($result_section,MYSQLI_ASSOC))
 	</div>
 	
 	
-    <div class="col-sm-1">
+    <div class="col-md-1">
     </div>
+	</div>
 	</div>
 	<br><br>
 
+	<div class="container">
 	<div class="row">
 	
-    <div class="col-sm-1">
-    </div>
-    <div class="col-sm-10">
+    <div class="col-sm-12">
 	
-	<h1 style="font-weight:bold;">All Online Classes <?php echo strtoupper($present_class)." ".strtoupper($section);?></h1>
+	<h2 style="font-weight:bold;">All Online Classes <?php echo strtoupper($present_class)." ".strtoupper($section);?></h2>
 	<div class="table-responsive">
 	<table class="table table-bordered">
 	<tbody>
 	<tr style="background-color:#1ebeda;color:#fff;">
-		<td><span style="font-weight: bold;">SL No</span></td>
+		<td style="width:5%;"><span style="font-weight: bold;">SL No</span></td>
 		<td>Subject | Chapter Name </td>
 		
 		<td style="width:10%"></td>
@@ -74,24 +74,41 @@ if($row_section=mysqli_fetch_array($result_section,MYSQLI_ASSOC))
 	<?php
 	require("connection.php");
 	
-	$num_rec_per_page=200;
-	if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
-	$start_from = ($page-1) * $num_rec_per_page; 
+	// Pagination code starts here
+	if (isset($_GET['pageno'])) {
+		$pageno = $_GET['pageno'];
+	  } else {
+		$pageno = 1;
+	  }
+	  $no_of_records_per_page = 50;
+	  $offset = ($pageno-1) * $no_of_records_per_page;
+
+	  
+	  // Pagination code ends here 
 	if(isset($_GET["filt_submit"]))
 	{
 		if(!empty($_GET['subject_name']))
 		{
 			$subject_name=$_GET["subject_name"];
 			
-			$sql="select * from online_class where present_class='".$present_class."' and section='".$section."' and subject_name='".$subject_name."' and academic_year='".$cur_academic_year."' ORDER BY id  LIMIT $start_from, $num_rec_per_page";
+			$sql="select * from online_class where present_class='".$present_class."' and section='".$section."' and subject_name='".$subject_name."' and academic_year='".$cur_academic_year."' ORDER BY id desc  LIMIT $offset, $no_of_records_per_page";
+
+			$total_pages_sql = "SELECT COUNT(*) FROM online_class where present_class='".$present_class."'";
 			
 		}
 	}
 		else
 		{
-			$sql="select * from online_class where present_class='".$present_class."' and section  ='".$section."' and academic_year='".$cur_academic_year."' ORDER BY id  LIMIT $start_from, $num_rec_per_page";
+			$sql="select * from online_class where present_class='".$present_class."' and section  ='".$section."' and academic_year='".$cur_academic_year."' ORDER BY id desc  LIMIT $offset, $no_of_records_per_page";
+			$total_pages_sql = "SELECT COUNT(*) FROM online_class where present_class='".$present_class."'";
 			
 		}
+
+	///////////////// Pagination code
+	  $result_pages = mysqli_query($conn,$total_pages_sql);
+	  $total_rows = mysqli_fetch_array($result_pages)[0];
+	  $total_pages = ceil($total_rows / $no_of_records_per_page);
+	///////////////// Pagination code
 	
 	$result=mysqli_query($conn,$sql);
 	$row_count =1;
@@ -100,12 +117,13 @@ if($row_section=mysqli_fetch_array($result_section,MYSQLI_ASSOC))
 	foreach($result as $row)
 	{
 		 $id = $row["id"];
+		 $updated_at= date('d-m-Y', strtotime( $row['date_posted'] ));
 	
 	
 	?>
     <tr>
 		<td><span style="color: #207FA2; "><?php echo $row_count;?></span></td>
-		<td><a href="<?php echo 'video_description.php?id='.$id;?>" style="color:blue;"><?php echo strtoupper($row["subject_name"]);?><br><?php echo $row["chapter"];?></a></td>
+		<td><a href="<?php echo 'video_description.php?id='.$id;?>" style="color:blue;"><?php echo strtoupper($row["subject_name"]);?>  <small><span style="color:black;">Published on: <?php echo $updated_at;?></span></small><br><?php echo $row["chapter"];?></a></td>
 		<td><a href="<?php echo 'video_description.php?id='.$id;?>"><img src="../school/images/play.png"></a></td>
     </tr>
 		<?php 
@@ -114,10 +132,21 @@ if($row_section=mysqli_fetch_array($result_section,MYSQLI_ASSOC))
 	?>
 	</table>
 	</div>
-	</div>
 
-    <div class="col-sm-1">
-    </div>
+	 <!----  Pagination code starts here---->
+	 <ul class="pagination">
+                <li><a href="?pageno=1">First</a></li>
+                <li class="<?php if($pageno <= 1){ echo 'disabled'; } ?>">
+                    <a href="<?php if($pageno <= 1){ echo '#'; } else { echo "?pageno=".($pageno - 1); } ?>">Prev</a>
+                </li>
+                <li class="<?php if($pageno >= $total_pages){ echo 'disabled'; } ?>">
+                    <a
+                        href="<?php if($pageno >= $total_pages){ echo '#'; } else { echo "?pageno=".($pageno + 1); } ?>">Next</a>
+                </li>
+                <li><a href="?pageno=<?php echo $total_pages; ?>">Last</a></li>
+            </ul>
+              <!----  Pagination code ends here---->
+	</div>
     
   </div>
   <div class="row" style="padding-top:30px;padding-bottom:100px;">
@@ -129,11 +158,11 @@ if($row_section=mysqli_fetch_array($result_section,MYSQLI_ASSOC))
   ?>
   <center>
   <a href="<?php echo 'video_description.php?id='.$ids;?>" style="color:blue;">
- <div class="col-md-3" style="background-color:#0e94ff;padding:50px;margin:20px;">
- <h2 style="font-weight:bold;color:#fff;text-align:center;"><?php echo strtoupper($value["subject_name"]);?></h2>
-  <h3 style="color:#fff;text-align:center;"><?php echo $value["chapter"];?></h3>
-  <center><small style="color:#e8f2ff;">Added on: <?php echo $value["date_posted"];?></small></center>
-  </div>
+		<div class="col-sm-3" style="background-color:#0e94ff;padding:10px;border:1px solid white;">
+		<h4 style="font-weight:bold;color:#fff;text-align:center;"><?php echo strtoupper($value["subject_name"]);?></h4>
+		<p style="color:#fff;text-align:center;"><?php echo $value["chapter"];?></p>
+		<small style="color:#e8f2ff;">Uploaded on: <?php echo $updated_at;?></small>
+		</div>
   </a>
   </center>
   <?php

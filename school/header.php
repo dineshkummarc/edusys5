@@ -315,6 +315,28 @@ error_reporting("0");
 							
                         </ul>
                     </li>
+
+
+                    <li>
+                    <a href="#" data-toggle="collapse" data-target="#income"><i class="fa fa-commenting"></i>
+                        Income & Expenses <i class="fa fa-fw fa-caret-down"></i></a>
+                    <ul id="income" class="collapse">
+					<li><a href="add_entry.php"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Add Entry</a></li>
+						<li><a href="balance_sheet.php"><i class="fa fa-calculator" aria-hidden="true"></i> Balance Sheet</a></li>
+						<li><a href="add_account_name.php"><i class="fa fa-plus"></i> Add Account Name</a></li>
+						<li><a href="account_names.php">All Account Names</a></li>
+                        <li><a href="add_entry_name.php"><i class="fa fa-plus"></i> Add Category Name</a></li>
+                        <li><a href="all_entry_name.php"> Category Names</a></li>
+						<!--
+                        <li><a href="accounts_overview.php">Add Income/Expense</a></li>
+                        <li><a href="all_incomes.php">All Incomes</a> </li>
+                        <li><a href="all_expense.php">All Expenses</a> </li>
+						
+						-->
+                    </ul>
+                </li>
+
+                <!--
 					
 				 <li>
                         <a href="#" data-toggle="collapse" data-target="#account_over"><i class="glyphicon glyphicon-education "></i></i> Accounts Overview <i class="fa fa-fw fa-caret-down"></i></a>
@@ -326,6 +348,7 @@ error_reporting("0");
 							
                         </ul>
                     </li>
+                    -->
 					
 				 <li>
                         <a href="#" data-toggle="collapse" data-target="#enroll"><i class="glyphicon glyphicon-education "></i></i> Enrollment <i class="fa fa-fw fa-caret-down"></i></a>

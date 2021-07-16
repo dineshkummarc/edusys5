@@ -27,24 +27,20 @@ function printDiv(income) {
 }
 </script>
 </head>
-					 <div class="container-fluid">
-					
-						
-                        <div class="row">
-                        <div class="col-sm-12">
-						
-					<form action="export_fee.php" class="form-inline" method="post" name="export_excel">
+	<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-12">
+		
+	<form action="export_fee.php" class="form-inline" method="post" name="export_excel">
               
-			<div class="control-group">
+		<div class="control-group">
 				<div class="controls">
 					<button type="submit" id="export" name="export" class="btn btn-sm btn-success button-loading" data-loading-text="Loading...">Export CSV/Excel File</button>
 				</div>
-				
-			</div>
-			
-		</form>
-					</div>
-					</div>
+		</div>
+	</form>
+	</div>
+	</div>
 					
 				
 	<?php

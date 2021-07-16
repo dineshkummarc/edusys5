@@ -7,24 +7,23 @@ $cur_academic_year = $_SESSION['academic_year'];
 require("connection.php");
 if(isset($_POST["admin"]))
 {
+	$user_name=mysqli_real_escape_string($conn,$_POST["user_name"]);
+	$password=mysqli_real_escape_string($conn,$_POST["password"]);
+	$user_access='admin';
+	$academic_year=mysqli_real_escape_string($conn,$_POST["academic_year"]);
+	$email=mysqli_real_escape_string($conn,$_POST["email"]);
 	
+
+	$options = ['cost' => 12];
+	$secure = password_hash($password, PASSWORD_DEFAULT, $options);
+
 	
-	$user_name=$_POST["user_name"];
-	$password=$_POST["password"];
-	$user_access=$_POST["user_access"];
-	$email=$_POST["email"];
-	$academic_year=$_POST["academic_year"];
-	
-	$sql="insert into ad_members (username,log_pas,user_access,email,academic_year) values('$user_name','$password','$user_access','$email','$academic_year')";
+	$sql="insert into ad_members (username,log_pas,user_access,academic_year) values('$user_name','$secure','$user_access','$academic_year')";
 	
 	
 	if ($conn->query($sql) === TRUE) 
 	{
-		echo "success";
-	
 	header("Location:ad_members.php?success=.'success'");
-
-
 	} 
 	else 
 	{

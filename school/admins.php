@@ -18,7 +18,7 @@ $result=mysqli_query($conn,$sql);
 	<th>User Name</th>
 	<th>Passwords</th>
 	<th>Access</th>
-	<th>Email</th>
+	<th>Academic Year</th>
 	<th></th>
 	 </tr> 
 	 <?php 
@@ -27,13 +27,13 @@ $result=mysqli_query($conn,$sql);
 	 $username=$row["username"];
 	$log_pas=$row["log_pas"];
 	$user_access=$row["user_access"];
-	$email=$row["email"];
+	$academic_year=$row["academic_year"];
 	 ?>
 	 <tr> 
 	 <td><?php echo $username;?></td> 
 	 <td>*****************</td> 
 	 <td><?php echo $user_access;?></td> 
-	 <td><?php echo $email;?></td> 
+	 <td><?php echo $academic_year;?></td> 
 	<td>
 		 <div class="btn-group">
         <a href="<?php echo 'edit_admin.php?id='.$row['id']; ?>" title="Edit">  <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>

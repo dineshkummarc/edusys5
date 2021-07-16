@@ -92,19 +92,29 @@ function printDiv(income) {
 		
 		}
 
+ // Pagination code starts here
+ if (isset($_GET['pageno'])) {
+	$pageno = $_GET['pageno'];
+  } else {
+	$pageno = 1;
+  }
+  $no_of_records_per_page = 75;
+  $offset = ($pageno-1) * $no_of_records_per_page;
+
+  $total_pages_sql = "SELECT COUNT(*) FROM fac_attendance";
+  $result_pages = mysqli_query($conn,$total_pages_sql);
+  $total_rows = mysqli_fetch_array($result_pages)[0];
+  $total_pages = ceil($total_rows / $no_of_records_per_page);
+  // Pagination code ends here
 
 		
-		$num_rec_per_page=50;
-		if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
-		$start_from = ($page-1) * $num_rec_per_page; 
-		
 		if((isset($_GET['from']))&&(isset($_GET['to'])))
-		{
-		
+		{		
 		$from=$_GET['from'];
 		$to=$_GET['to'];
 		
-		$sql_tot="select att_date,first_fname,roll_no,sum(att_count)as tot_att_count from fac_attendance where  (att_date BETWEEN '$from' and '$to') and academic_year='".$cur_academic_year."' group by roll_no";
+		$sql_tot="select att_date,first_fname,roll_no,sum(att_count)as tot_att_count from fac_attendance where  (att_date BETWEEN '$from' and '$to') and academic_year='".$cur_academic_year."' group by roll_no LIMIT $offset, $no_of_records_per_page";
+		
         $result_tot=mysqli_query($conn,$sql_tot);		
 		if($row_tot=mysqli_fetch_array($result_tot,MYSQLI_ASSOC))
 	    {
@@ -284,7 +294,7 @@ function printDiv(income) {
 		$start_from = ($page-1) * $num_rec_per_page; 
 		
 	
-		$sql_tot="select att_date,first_fname,roll_no,sum(att_count)as tot_att_count from fac_attendance where academic_year='".$cur_academic_year."' group by roll_no";
+		$sql_tot="select att_date,first_fname,roll_no,sum(att_count)as tot_att_count from fac_attendance where academic_year='".$cur_academic_year."' group by roll_no LIMIT $offset, $no_of_records_per_page";
         $result_tot=mysqli_query($conn,$sql_tot);		
 		if($row_tot=mysqli_fetch_array($result_tot,MYSQLI_ASSOC))
 	    {
@@ -404,19 +414,7 @@ function printDiv(income) {
 		
 		
 		
-		$result = mysqli_query($conn,$sql); //run the query
-		$total_records = mysqli_num_rows($result);  //count number of records
-		$total_pages = ceil($total_records / $num_rec_per_page); 
-		
-
-	echo "<a href='all_fac_attendance.php?page=1'>".' First '."</a> "; // Goto 1st page  
-
-	for ($i=1; $i<=$total_pages; $i++) { 
-				echo "<a href='all_attendance.php?page=".$i."'>   ".$i. "   </a> "; 
-	}; 
-	echo "<a href='all_fac_attendance.php?page=$total_pages'>".' Last '."</a> "; // Goto last page
-	echo '</article></div>
-                   </div>';
+require("pagination_bottom.php");
 
 	
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////

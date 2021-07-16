@@ -50,8 +50,6 @@ body {
 	<div class="form-group">
 	  <label for="sel1"><span style="color:red;font-size:18px;">*</span>Academic Year:</label>
 	  <select class="form-control" name="academic_year">
-		<option value="2017-2018">2017-2018</option>
-		<option value="2018-2019">2018-2019</option>
 		<option value="2019-2020">2019-2020</option>
 		<option value="2020-2021">2020-2021</option>
 		<option value="2021-2022">2021-2022</option>

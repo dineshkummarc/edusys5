@@ -73,22 +73,36 @@ error_reporting("0");
 	<?php
 	require("connection.php");
 	
-	$num_rec_per_page=100;
-	if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
-	$start_from = ($page-1) * $num_rec_per_page; 
+	  // Pagination code starts here
+	  if (isset($_GET['pageno'])) {
+		$pageno = $_GET['pageno'];
+	  } else {
+		$pageno = 1;
+	  }
+	  $no_of_records_per_page = 75;
+	  $offset = ($pageno-1) * $no_of_records_per_page;
+
+	  $total_pages_sql = "SELECT COUNT(*) FROM faculty";
+	  $result_pages = mysqli_query($conn,$total_pages_sql);
+	  $total_rows = mysqli_fetch_array($result_pages)[0];
+	  $total_pages = ceil($total_rows / $no_of_records_per_page);
+	  // Pagination code ends here
+
+
+
 	if(isset($_GET["filt_submit"]))
 	{
 	if((isset($_GET["fac_dep"])))
 	{
 	$fac_dep=$_GET["fac_dep"];
-	$sql="select * from faculty where fac_dep='".$fac_dep."' ORDER BY fac_id DESC LIMIT $start_from, $num_rec_per_page";
+	$sql="select * from faculty where fac_dep='".$fac_dep."' ORDER BY fac_id DESC LIMIT $offset, $no_of_records_per_page";
 	}
 	
 	}
 	else
 	{
 		
-	$sql="select * from faculty  ORDER BY fac_id DESC LIMIT $start_from, $num_rec_per_page";	
+	$sql="select * from faculty  ORDER BY fac_id DESC LIMIT $offset, $no_of_records_per_page";	
 	}
 	$result=mysqli_query($conn,$sql);
 	$row_count =1;
@@ -122,7 +136,7 @@ error_reporting("0");
 		if(($_GET["fac_dep"])!="")
 		{
 			$fac_dep=$_GET["fac_dep"];
-			$sql="select * from faculty where fac_dep='".$fac_dep."' ORDER BY fac_id DESC LIMIT $start_from, $num_rec_per_page";
+			$sql="select * from faculty where fac_dep='".$fac_dep."' ORDER BY fac_id DESC LIMIT $offset, $no_of_records_per_page";
 		$result=mysqli_query($conn,$sql);
 		$total_students=mysqli_num_rows($result);
 		echo "<p style='color:blue;'>Total No of ".$fac_dep." Employees = ".$total_students.'</p>';
@@ -144,7 +158,7 @@ error_reporting("0");
 		</table>
 	</div>
 	</div>
-    
+    <?php require("pagination_bottom.php"); ?>
   </div>
 </div>
 <div id="clearfix">

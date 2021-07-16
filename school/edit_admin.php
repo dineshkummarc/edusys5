@@ -7,14 +7,16 @@ $cur_academic_year = $_SESSION['academic_year'];
 		$id=$_GET["id"];
 		}
 require("header.php");
-$sql="select * from ad_members where id ='".$id."'  and academic_year='".$cur_academic_year."'";
+$sql="select * from ad_members where id ='".$id."'";
 $result=mysqli_query($conn,$sql);
 if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 	{
 	$username=$row["username"];
 	$log_pas=$row["log_pas"];
 	$email=$row["email"];
+	$user_access=$row["user_access"];
 	$id=$row["id"];
+	$academic_year=$row["academic_year"];
 	
 	}
 ?>
@@ -60,15 +62,17 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 	    <label for="usr">Password:</label>
 		<input type="password" name="password" value="<?php echo $log_pas;?>" class="form-control" required>
 	  </div>
-	  <div class="form-group">
-	    <label for="usr">User Access:</label>
-		<input type="text" name="password" value="<?php echo $user_access;?>" class="form-control" required>
-	  </div>
 	 
-	 <div class="form-group">
-	    <label for="usr">Email:</label>
-		<input type="email" name="email" value="<?php echo $email;?>" class="form-control">
-		</div>
+	  <div class="form-group">
+	  <label for="sel1"><span style="color:red;font-size:18px;">*</span>Academic Year:</label>
+	  <select class="form-control" name="academic_year">
+		<option value="<?php echo $academic_year;?>"><?php echo $academic_year;?></option>
+		<option value="2019-2020">2019-2020</option>
+		<option value="2020-2021">2020-2021</option>
+		<option value="2021-2022">2021-2022</option>		
+	 </select>
+	</div>
+	 
 		<input type="hidden" name="id" value="<?php echo $id;?>">
 	<input type="submit" name="admin" class="btn btn-success" value="Update Admin">
 	</form>

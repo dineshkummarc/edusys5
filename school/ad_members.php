@@ -47,19 +47,7 @@ require("header.php");
 		<input type="password" name="password" class="form-control" required>
 	  </div>
 	  
-	  <div class="form-group">
-	    <label for="usr">User Access:</label>
-		<select name="user_access" class="form-control" required>
-			<option value="admin">Admin</option>
-			<option value="library">Library</option>
-			<option value="marks">Marks</option>
-			<option value="fee_management">Fee Management</option>
-			<option value="attendance">Attendance</option>
-			<option value="bulk_sms">Bulk SMS</option>
-			<option value="orphanage">Orphanage</option>
-		</select>
-	  </div>
-	 
+		 
 	 <div class="form-group">
 	    <label for="usr">Email:</label>
 		<input type="email" name="email" class="form-control">
@@ -68,9 +56,6 @@ require("header.php");
 	 <div class="form-group">
 	    <label for="usr">Select Academic Year:</label>
 		<select name="academic_year" class="form-control" required>
-			<option value="2017-2018">2017-2018</option>
-			<option value="2018-2019">2018-2019</option>
-			<option value="2019-2020">2019-2020</option>
 			<option value="2020-2021">2020-2021</option>
 			<option value="2021-2022">2021-2022</option>
 			

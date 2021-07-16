@@ -66,7 +66,7 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
                 ?>
                 <h2 style="font-weight:bold;">Materials</h2><hr>
                 <img src="../school/<?php echo $row['filepath'];?>" class="img img-thumbnail" alt="<?php $row['chapter'];?>"><br><br>
-                <a href="<?php echo $row['filepath'];?>" class= "btn btn-primary" target="_blank">Download File</a>
+                <a href="../school/<?php echo $row['filepath'];?>" class= "btn btn-primary" target="_blank">Download File</a>
                 <?php
 
                 }

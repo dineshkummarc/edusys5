@@ -8,6 +8,12 @@
   <script src="bootstrap/jquery.min.js"></script>
   <script src="bootstrap/bootstrap.min.js"></script>
   
+  <meta name="theme-color" content="#0f6256">
+<link rel="apple-touch-icon" href="/school_latestc/parents/images/school192.png">
+<link rel="manifest" href="/school_latestc/parents/manifest.json">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
 </head>
 
 <body style="background-color:#333333;">
@@ -18,6 +24,12 @@
 	
 	</div>
 	<div class="col-sm-4">
+	<div id="installContainer" class="hidden" style="text-align:center;">
+<button id="butInstall" type="button" class="btn btn-primary"  style="padding:15px;border:1px solid blue;border-radius:5px">
+		 Install App for Mobile or Computer  <i class="fa fa-android" aria-hidden="true"></i> <i class="fa fa-apple" aria-hidden="true"></i> <i class="fa fa-windows" aria-hidden="true"></i>
+	 </button>
+ </div>
+ <br><br>
 	<div class="panel panel-primary">
       <div class="panel-heading"><h4>School Management</h4></div>
       <div class="panel-body">
@@ -66,6 +78,10 @@
 	</div>
 	
 	</div>
+	
+	<script src="script.js"></script>
+ <script src="jquery.min.js"></script>
+ <script src="bootstrap.min.js"></script>
 
 	</body>
 	</html>

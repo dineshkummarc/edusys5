@@ -14,6 +14,41 @@
 		});
 	});
 	</script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+      $('#sel_account').change(function(){
+
+        var accountid = $(this).val();
+
+        // Empty state and city dropdown
+        $('#sel_entry_name').find('option').not(':first').remove();
+
+        // AJAX request
+        $.ajax({
+          url: 'ajaxfile.php',
+          type: 'post',
+          data: {request: 1, accountid: accountid},
+          dataType: 'json',
+          success: function(response){
+
+            var len = response.length;
+
+                  for( var i = 0; i<len; i++){
+                      var id = response[i]['id'];
+                      var name = response[i]['name'];
+
+                      $("#sel_entry_name").append("<option value='"+id+"'>"+name+"</option>");
+
+                  }
+          }
+        });
+
+      });
+      });
+</script>
+
 	
 
 

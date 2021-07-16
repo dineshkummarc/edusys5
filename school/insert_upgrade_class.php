@@ -207,14 +207,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$filepath2=$row_select["birth_path"];
 	$filetype2=$row_select["birth_type"];
 	
-		if($academic_year=="2017-2018"){
-			$upg_academic_year="2018-2019";	
-		}
-		else if($academic_year=="2018-2019")
-		{
-			$upg_academic_year="2019-2020";	
-		}
-		else if($academic_year=="2019-2020")
+		if($academic_year=="2019-2020")
 		{
 			$upg_academic_year="2020-2021";	
 		}
@@ -232,8 +225,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	
   if ($conn->query($sql) === TRUE) {
-	header("Location:upgrade_class.php?status=.'submitted'");
-	
+	header("Location:upgrade_class.php?status=.'submitted'");	
 	}
 	else 
 	{

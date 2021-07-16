@@ -44,7 +44,7 @@ function printDiv(income) {
 	<br>
 	
 	 <center><div class="panel panel-primary" style="width:80%;">
-      <div class="panel-heading"><center>Student Details , Name: <?php echo $row["first_name"];?></span></center>
+      <div class="panel-heading"><center>Alumni Details , Name: <?php echo $row["first_name"];?></span></center>
 	
 	  </div>
 		  <div class="panel-body" id="income">
@@ -54,7 +54,7 @@ function printDiv(income) {
 					
 					<tbody>
 					  <tr>
-						<td style="width:15%;">Student Name</td>
+						<td style="width:15%;">Alumni Name</td>
 						<td style="color:blue;width:25%;"><?php echo $row['first_name']."<br>".strtoupper($student_type);?></td>
 						<td style="width:15%;">Gender</td>
 						<td style="color:blue;width:25%;"><?php echo $row['gender'];?>

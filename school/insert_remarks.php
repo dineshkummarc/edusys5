@@ -10,8 +10,12 @@ if(isset($_POST["remarks"]))
 	
 	$first_name=$_POST["first_name"];
 	$roll_no=$_POST["roll_no"];
-	$remarks_title=$_POST["remark_title"];
-	$remarks_desc=$_POST["remark_desc"];
+
+	$remarks_title=mysqli_real_escape_string($conn, $_POST["remark_title"]);
+	$remarks_desc=mysqli_real_escape_string($conn, $_POST["remark_desc"]);
+
+
+
 	$remarks_date=$_POST["remark_date"];
 	$present_class=$_POST["present_class"];
 	$section=$_POST["section"];
@@ -28,9 +32,8 @@ if(isset($_POST["remarks"]))
 
 	} 
 	else 
-	{
-	var_dump($sql);			
-	//header("Location:add_remarks.php?failed=.'failed'");	
+	{		
+	header("Location:add_remarks.php?failed=.'failed'");	
 		
 	}
     }

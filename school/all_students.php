@@ -137,9 +137,22 @@ require("header.php");
 	<?php
 	require("connection.php");
 	
-	$num_rec_per_page=500;
-	if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
-	$start_from = ($page-1) * $num_rec_per_page; 
+	  // Pagination code starts here
+	  if (isset($_GET['pageno'])) {
+		$pageno = $_GET['pageno'];
+	  } else {
+		$pageno = 1;
+	  }
+	  $no_of_records_per_page = 75;
+	  $offset = ($pageno-1) * $no_of_records_per_page;
+	  $total_pages_sql = "SELECT COUNT(*) FROM students where academic_year='".$cur_academic_year."'";
+	  $result_pages = mysqli_query($conn,$total_pages_sql);
+	  $total_rows = mysqli_fetch_array($result_pages)[0];
+	  $total_pages = ceil($total_rows / $no_of_records_per_page);
+	  // Pagination code ends here
+
+
+
 	if(isset($_GET["filt_submit"]))
 		{
 	if((isset($_GET["filt_class"]))&&(isset($_GET["section"])))
@@ -149,17 +162,17 @@ require("header.php");
 		
 		
 		
-		$sql="select * from students where present_class='".$filt_class."' and section='".$section."' and academic_year='".$cur_academic_year."' ORDER BY first_name  LIMIT $start_from, $num_rec_per_page";
+		$sql="select * from students where present_class='".$filt_class."' and section='".$section."' and academic_year='".$cur_academic_year."' ORDER BY first_name  LIMIT $offset, $no_of_records_per_page";
 	}
 	else
 	{
-		$sql="select * from students where present_class='".$filt_class."' and academic_year='".$cur_academic_year."' ORDER BY first_name  LIMIT $start_from, $num_rec_per_page";
+		$sql="select * from students where present_class='".$filt_class."' and academic_year='".$cur_academic_year."' ORDER BY first_name  LIMIT $offset, $no_of_records_per_page";
 	}
 	
 	}
 	else{
 		
-	$sql="select * from students where academic_year='".$cur_academic_year."' ORDER BY first_name  LIMIT $start_from, $num_rec_per_page";	
+	$sql="select * from students where academic_year='".$cur_academic_year."' ORDER BY first_name  LIMIT $offset, $no_of_records_per_page";	
 	}
 	$result=mysqli_query($conn,$sql);
 	$row_count =1;
@@ -197,32 +210,15 @@ require("header.php");
 		<?php 
 		$row_count++; 
 	}
+	echo "<p style='color:blue;'>All Students = ".$total_students.'</p>';
 	
-	if(isset($_GET["filt_submit"]))
-	{
-		
-		if(($_GET["filt_class"])!="")
-		{
-		$filt_class=$_GET["filt_class"];
-		$sql="select * from students where present_class='".$filt_class."' and academic_year='".$cur_academic_year."' ORDER BY first_name LIMIT $start_from, $num_rec_per_page";
-		$result=mysqli_query($conn,$sql);
-		$total_students=mysqli_num_rows($result);
-		echo "<p style='color:blue;'>Total No of ".$filt_class." Students = ".$total_students.'</p>';
-		}
-	}
-	else
-	{
-		$sql="select * from students where academic_year='".$cur_academic_year."'";
-		$result=mysqli_query($conn,$sql);
-		$total_students=mysqli_num_rows($result);
-		echo "<p style='color:blue;'>All Students = ".$total_students.'</p>';
-	}
 	?>
 	</table></center>
 	</div>
 	</div>
     
   </div>
+  <?php require("pagination_bottom.php");?>
 </div>
 <div id="clearfix">
 </div>

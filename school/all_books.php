@@ -14,50 +14,22 @@ require("connection.php");
 	
 	<div class="form-group">
 		<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" class="form-inline" method="get" role="form">
-		  <div class="form-group">
-			  <label for="sel1">Show by Category:</label>
-			  <select class="form-control" name="filt_cat" id="sel1">
-				<option value="">Select Category</option>
-				  <option value="accounting">Accounting</option>
-				  <option value="agriculture/forestry">Agriculture/Forestry</option>
-				  <option value="art/art history/design">Art/Art History/Design</option>
-				  <option value="architecture">Architecture</option>
-				  <option value="biology">Biology</option>
-				  <option value="business administration">Business Administration</option>
-				  <option value="chemistry">Chemistry</option>
-				  <option value="child and family services">Child and Family Services</option>
-				  <option value="communications">Communications</option>
-				  <option value="criminal justice">Criminal Justice</option>
-				  <option value="dance">Dance</option>
-				  <option value="early childhood">Early Childhood</option>
-				  <option value="earth science">Earth Science</option>
-				  <option value="economics">Economics</option>
-				  <option value="education">Educaiton</option>
-				  <option value="english">English</option>
-				  <option value="environmental science">Environmental Science</option>
-				  <option value="finance">Finance</option>
-				  <option value="health education">Health Educaiton</option>
-				  <option value="history">History</option>
-				  <option value="international relations">International Relations</option>
-				  <option value="management">Management</option>
-				  <option value="marketing">Marketing</option>
-				  <option value="mathematics">Mathematics</option>
-				  <option value="medicine">Medicine</option>
-				  <option value="music">Music</option>
-				  <option value="nursing">Nursing</option>
-				  <option value="occupational therapy">Occupational Therapy</option>
-				  <option value="Philosophy">Philosophy</option>
-				  <option value="physical education">Physical Education</option>
-				  <option value="physics">Physics</option>
-				  <option value="political science">Political Science</option>
-				  <option value="Psychology">Psychology</option>
-				  <option value="public health">Public Health</option>
-				  <option value="religion">Religion</option>
-				  <option value="social work">Social Work</option>
-				  <option value="sociology">Sociology</option>
-			  </select>
-			</div>
+		<div class="form-group">
+		<select class="form-control" name="filt_cat" required>
+		<option value="">Select Category</option>
+		<?php
+		$sql_type="select distinct cat from books order by cat desc";
+		$result_type=mysqli_query($conn,$sql_type);
+		foreach($result_type as $row_type){
+		?>
+		<option value="<?php echo $row_type["cat"]; ?>"><?php echo $row_type["cat"]; ?></option>
+		<?php
+		}
+		?>
+	</select>
+	</div>
 		  <button type="submit" name="filt_cat_submit" class="btn btn-success">Filter</button>
+		  <a href="all_books.php" class="btn btn-default">View All</a>
 		</form>
 		
 	</div><hr>

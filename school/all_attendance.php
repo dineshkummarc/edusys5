@@ -112,7 +112,7 @@ function printDiv(income) {
 			$sql_tot_att="select distinct att_date,present_class,section,tot_class from attendance where academic_year='".$cur_academic_year."' and present_class='".$present_class."' and section='".$section."' and (att_date BETWEEN '$from' and '$to') group by roll_no order by total_class desc";
 			
 		}
-	 else if(isset($_GET["present_class"])&&!empty($_GET["section"]))
+	 else if(!empty($_GET["present_class"])&&!empty($_GET["section"]))
 		{
 			$present_class=$_GET['present_class'];
 			$section=$_GET['section'];
@@ -123,7 +123,7 @@ function printDiv(income) {
 			$sql_tot_att="select distinct att_date,present_class,section,tot_class from attendance where academic_year='".$cur_academic_year."' and present_class='".$present_class."' and section='".$section."'";
 			//var_dump($sql_tot_att);
 		}
-	  else if(isset($_GET["present_class"])&&!empty($_GET["from"])&&!empty($_GET["to"]))
+	  else if(!empty($_GET["present_class"])&&!empty($_GET["from"])&&!empty($_GET["to"]))
 		{
 			$present_class=$_GET['present_class'];
 			$from=$_GET['from'];
@@ -133,7 +133,7 @@ function printDiv(income) {
 			
 			$sql_tot_att="select distinct att_date,present_class,section,tot_class from attendance where academic_year='".$cur_academic_year."' and present_class='".$present_class."' and (att_date BETWEEN '$from' and '$to')";
 		}
-	  else if(isset($_GET["present_class"]))
+	  else if(!empty($_GET["present_class"]))
 		{
 			$present_class=$_GET['present_class'];
 			
