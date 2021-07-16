@@ -86,7 +86,7 @@ $new_url = str_replace("https://www.youtube.com/watch?v=", "https://www.youtube.
     <hr>
    
 <?php 
-    $sql_comment = "select id,contents,updated_at,edited_on from comments where student_id='".$student_id."' and item_id='".$id."'";
+    $sql_comment = "select id,contents,updated_at,edited_on,item_id,student_id from comments where student_id='".$student_id."' and item_id='".$id."'";
     $result_comment = mysqli_query($conn,$sql_comment);
 
     if(mysqli_num_rows($result_comment)==0){      
@@ -113,10 +113,12 @@ $new_url = str_replace("https://www.youtube.com/watch?v=", "https://www.youtube.
         foreach($result_comment as $row_comment)
         { 
         $comment_id = $row_comment["id"];
+        $comment_video_id = $row_comment["item_id"];
+        $comment_student_id = $row_comment["student_id"];
         $updated_at= date('d-m-Y --- H:i:sa', strtotime( $row_comment['updated_at'] ));       
         $edited_on= date('d-m-Y --- H:i:sa', strtotime( $row_comment['edited_on'] ));       
         ?>
-        <div style="background-color:#e8f2ff;padding:10px;border:1px solid #ddd;">
+        <div style="background-color:#e8f2ff;padding:10px;border:1px solid #ddd;border-radius: 0px 50px 50px 0px;">
             <p><?php echo $row_comment["contents"];?></p>
             <small style="color:#777;">Posted on: <?php echo $updated_at;?></small>
             <?php
@@ -127,6 +129,37 @@ $new_url = str_replace("https://www.youtube.com/watch?v=", "https://www.youtube.
             <a href="<?php echo 'edit_comment.php?id='.$comment_id;?>" class="btn btn-success btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Comment</a>
         </div>
         <br>
+        <?php
+            ///////////////////// Comment Reply ////////////////////////////
+            $sql_reply = "select * from comment_reply where comment_id='".$comment_id."' and video_id='".$comment_video_id."'";
+            $result_reply = mysqli_query($conn,$sql_reply);
+            if(mysqli_num_rows($result_reply)>0){
+            foreach($result_reply as $row_reply){  
+            $reply_updated_at= date('d-m-Y --- H:i:sa', strtotime( $row_reply['updated_at'] ));       
+            $reply_edited_on= date('d-m-Y --- H:i:sa', strtotime( $row_reply['edited_on'] )); 
+            $reply_id = $row_reply["id"];            
+            $student_reply_id = $row_reply["student_id"];            
+            ?>
+
+            <div style="background-color:#ffffe0;padding:20px;border:1px solid #ddd;border-radius: 50px 0px 0px 50px;">
+            <h4 style="font-weight:bold;">Comment Reply</h4>
+                <p><?php echo $row_reply["reply"];?></p>
+            
+                <small style="color:#777;">Posted on: <?php echo $reply_updated_at;?></small>
+                <?php
+                if($reply_edited_on){ ?>
+                | <small style="color:#777;">Edited on: <?php echo $reply_edited_on;?></small>
+                <?php } ?>
+                <br><br>
+            <a href="<?php echo 'edit_reply.php?reply_id='.$reply_id;?>" class="btn btn-success btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Reply</a>
+            </div>
+            <br>
+
+            <?php
+            }
+            }
+             ///////////////////// Comment Reply ////////////////////////////
+            ?>
     <?php
          }
     }

@@ -174,7 +174,7 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
                 | <small style="color:#777;">Edited on: <?php echo $reply_edited_on;?></small>
                 <?php } ?>
                 <br><br>
-            <a href="<?php echo 'edit_comment.php?reply_id='.$reply_id;?>" class="btn btn-success btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Reply</a>
+            <a href="<?php echo 'edit_reply.php?reply_id='.$reply_id;?>" class="btn btn-success btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Reply</a>
             </div>
             <br>
 
