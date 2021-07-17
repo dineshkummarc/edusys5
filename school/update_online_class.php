@@ -24,12 +24,12 @@ if(isset($_POST["online"]))
         $filepath = "online_class_uploads/".$filename;
         move_uploaded_file($filetmp,$filepath);
 
-        $sql = "UPDATE online_class SET present_class='".$present_class."',section='".$section."',subject_name='".$subject_name."',chapter='".$chapter."',url='".$url."',details='".$details."',filename='".$filename."',filepath='".$filepath."',filetype='".$filetype."' where id='".$id."'";
+        $sql = "UPDATE online_class SET present_class='".$present_class."',section='".$section."',subject_name='".$subject_name."',chapter='".$chapter."',url='".$url."',details='".$details."',filename='".$filename."',filepath='".$filepath."',filetype='".$filetype."',academic_year='".$cur_academic_year."' where id='".$id."'";
         }
         else
         {
         //echo "Not set";
-        $sql = "UPDATE online_class SET present_class='".$present_class."',section='".$section."',subject_name='".$subject_name."',chapter='".$chapter."',url='".$url."',details='".$details."' where id='".$id."'";
+        $sql = "UPDATE online_class SET present_class='".$present_class."',section='".$section."',subject_name='".$subject_name."',chapter='".$chapter."',url='".$url."',details='".$details."',academic_year='".$cur_academic_year."' where id='".$id."'";
         }
 
 

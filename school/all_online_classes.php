@@ -98,7 +98,7 @@ require("header.php");
 			$section=$_GET["section"];
 			$subject_name=$_GET["subject_name"];
 			
-			$sql="select * from online_class where present_class='".$filt_class."' and section='".$section."' and subject_name='".$subject_name."' and academic_year='".$cur_academic_year."' ORDER BY id  LIMIT $start_from, $num_rec_per_page";
+			$sql="select * from online_class where present_class='".$filt_class."' and section='".$section."' and subject_name='".$subject_name."' ORDER BY id  LIMIT $start_from, $num_rec_per_page";
 			
 		}
 		else if((!empty($_GET['filt_class']))&&(!empty($_GET['subject_name'])))
@@ -106,7 +106,7 @@ require("header.php");
 			$filt_class=$_GET["filt_class"];
 			$subject_name=$_GET["subject_name"];
 			
-			$sql="select * from online_class where present_class='".$filt_class."' and subject_name='".$subject_name."' and academic_year='".$cur_academic_year."' ORDER BY id  LIMIT $start_from, $num_rec_per_page";
+			$sql="select * from online_class where present_class='".$filt_class."' and subject_name='".$subject_name."' ORDER BY id  LIMIT $start_from, $num_rec_per_page";
 			
 		}
 		else if((!empty($_GET['filt_class']))&&(!empty($_GET['section'])))
@@ -114,26 +114,26 @@ require("header.php");
 			$filt_class=$_GET["filt_class"];
 			$section=$_GET["section"];
 			
-			$sql="select * from online_class where present_class='".$filt_class."' and section='".$section."' and academic_year='".$cur_academic_year."' ORDER BY id  LIMIT $start_from, $num_rec_per_page";
+			$sql="select * from online_class where present_class='".$filt_class."' and section='".$section."' ORDER BY id  LIMIT $start_from, $num_rec_per_page";
 			
 		}
 		else if(!empty($_GET['filt_class']))
 		{
 			$filt_class=$_GET["filt_class"];
-			$sql="select * from online_class where present_class='".$filt_class."' and academic_year='".$cur_academic_year."' ORDER BY id  LIMIT $start_from, $num_rec_per_page";
+			$sql="select * from online_class where present_class='".$filt_class."' ORDER BY id  LIMIT $start_from, $num_rec_per_page";
 			
 		}
 
 		else
 		{
-			$sql="select * from online_class where present_class='".$filt_class."' and academic_year='".$cur_academic_year."' ORDER BY id  LIMIT $start_from, $num_rec_per_page";
+			$sql="select * from online_class where present_class='".$filt_class."' ORDER BY id  LIMIT $start_from, $num_rec_per_page";
 		}
 		
 	}
 		else
 		{
 			
-			$sql="select * from online_class where  academic_year='".$cur_academic_year."'  ORDER BY id  LIMIT $start_from, $num_rec_per_page";
+			$sql="select * from online_class   ORDER BY id  LIMIT $start_from, $num_rec_per_page";
 		}
 	$result=mysqli_query($conn,$sql);
 	$row_count =1;
