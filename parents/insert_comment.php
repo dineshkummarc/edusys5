@@ -16,7 +16,6 @@ if(isset($_POST["comment"]))
 	  
 	
 	$sql="insert into comments (contents,item_id,student_id, category,academic_year) values('$contents','$video_id','$student_id','$category','$cur_academic_year')";
-    //var_dump($sql);
 	
 	if ($conn->query($sql) === TRUE) 
 	{

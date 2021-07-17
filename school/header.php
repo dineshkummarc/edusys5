@@ -108,6 +108,14 @@ error_reporting("0");
 			<li>
 				<a href="index.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
 			</li>
+
+            <li>
+            <a href="#" data-toggle="collapse" data-target="#online"><i class="fa fa-fw fa-video-camera"></i> Online Class <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="online" class="collapse">
+                <li><a href="add_online_class.php">Add Online Class</a></li>
+                <li><a href="all_online_classes.php">All Online Class</a> </li>
+            </ul>
+            </li>
 			
 			<li>
 				<a href="all_alumni.php"><i class="fa fa-fw fa-dashboard"></i> Alumni's</a>
@@ -195,13 +203,7 @@ error_reporting("0");
 
 
 
-<li>
-<a href="#" data-toggle="collapse" data-target="#online"><i class="fa fa-fw fa-video-camera"></i> Online Class <i class="fa fa-fw fa-caret-down"></i></a>
-<ul id="online" class="collapse">
-    <li><a href="add_online_class.php">Add Online Class</a></li>
-    <li><a href="all_online_classes.php">All Online Class</a> </li>
-</ul>
-</li>
+
 
 
 <li>

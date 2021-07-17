@@ -79,7 +79,6 @@ require("header.php");
 		<td>Present Class | Section: </td>
 		<td>Subject | Chapter Name: </td>
 		<td>Video: </td>
-		
 		<td style="width:10%"><span style="font-weight: bold;">Action</span></td>
 	</tr>
 								
@@ -144,15 +143,15 @@ require("header.php");
 	{
 		$dob= date('d-m-Y', strtotime( $row['dob'] ));
 		$join_date= date('d-m-Y', strtotime( $row['join_date'] ));
-        $dob= date('d-m-Y', strtotime( $row['dob'] ));
         $id = $row["id"];
+        $updated_by = $row["updated_by"];
 	
 	
 	?>
     <tr>
 		<td><span style="color: #207FA2; "><?php echo $row_count;?></span></td>
 		<td><?php echo strtoupper($row["present_class"]);?><br><?php echo strtoupper($row["section"]);?></td>
-		<td><a href="<?php echo 'video_description.php?id='.$id;?>>" style="color:blue;"><?php echo strtoupper($row["subject_name"]);?><br><?php echo $row["chapter"];?></a></td>
+		<td><a href="<?php echo 'video_description.php?id='.$id;?>" style="color:blue;"><?php echo strtoupper($row["subject_name"]);?>  <br><?php echo $row["chapter"];?></a>    <small><span style="color:black;">Added on <?php echo $updated_at;?> by <?php echo $updated_by;?></span></small></td>
 		<td><a href="<?php echo 'video_description.php?id='.$id;?>"><img src="images/play.png"></a></td>
 		
 		<td><div class="btn-group">

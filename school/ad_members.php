@@ -46,19 +46,22 @@ require("header.php");
 	    <label for="usr">Password:</label>
 		<input type="password" name="password" class="form-control" required>
 	  </div>
+
+	  <div class="form-group">
+	    <label for="usr">Select User Type</label>
+		<select name="user_access" class="form-control" required>
+			<option value="">Select User Type</option>
+			<option value="staff">Class Teachers</option>
+			<option value="admin">Main Admin</option>			
+		</select>
+	  </div>
 	  
-		 
-	 <div class="form-group">
-	    <label for="usr">Email:</label>
-		<input type="email" name="email" class="form-control">
-		</div>
-		
+			
 	 <div class="form-group">
 	    <label for="usr">Select Academic Year:</label>
 		<select name="academic_year" class="form-control" required>
 			<option value="2020-2021">2020-2021</option>
-			<option value="2021-2022">2021-2022</option>
-			
+			<option value="2021-2022">2021-2022</option>			
 		</select>
 	  </div>
 	  
@@ -69,8 +72,8 @@ require("header.php");
 			<option value="prekg">PreKG</option>
 			<option value="lkg">LKG</option>
 			<option value="ukg">UKG</option>
-			<option value="first_standard">1st Standard</option>
-			<option value="second_standard">2nd Standard</option>
+			<option value="first standard">1st Standard</option>
+			<option value="second standard">2nd Standard</option>
 			  <option value="third standard">3rd Standard</option>
 			  <option value="fourth standard">4th Standard</option>
 			  <option value="fifth standard">5th Standard</option>

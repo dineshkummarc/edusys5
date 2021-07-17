@@ -12,9 +12,8 @@ require("header.php");
 		
 		$fac_id=$_GET["fac_id"];
 	
-	$sql="select * from faculty where academic_year='".$cur_academic_year."' and fac_id='".$fac_id."'";
+	$sql="select * from faculty where fac_id='".$fac_id."'";
 	$result=mysqli_query($conn,$sql);
-
 	while($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 	{
 		$fac_dob= date('d-m-Y', strtotime( $row['fac_dob'] ));

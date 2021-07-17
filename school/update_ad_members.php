@@ -11,32 +11,21 @@ if(isset($_POST["admin"]))
 	$password=mysqli_real_escape_string($conn,$_POST["password"]);
 	$id=$_POST["id"];
 	$academic_year=$_POST["academic_year"];
-	
+	$class_teach=$_POST["class_teach"];
+	$user_access=$_POST["user_access"];	
 
 	$options = ['cost' => 12];
-	$secure = password_hash($password, PASSWORD_DEFAULT, $options);
+	$secure = password_hash($password, PASSWORD_DEFAULT, $options);	
 	
-	
-	$sql="update ad_members set username='".$user_name."',log_pas='".$secure."',academic_year='".$academic_year."',user_access='admin' where  id='".$id."'";
-	
-	
-	
+	$sql="update ad_members set username='".$user_name."',log_pas='".$secure."',user_access='".$user_access."',class_teach='".$class_teach."',academic_year='".$academic_year."' where  id='".$id."'";	
 	if ($conn->query($sql) === TRUE) 
 	{
-		echo "success";
-	
 	header("Location:admins.php?success=.'success'");
-
-
 	} 
 	else 
-	{
-				
-	header("Location:admins.php?failed=.'failed'");	
-		
+	{				
+	header("Location:admins.php?failed=.'failed'");			
 	}
-
-
 }
 
 	}else{

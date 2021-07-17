@@ -13,11 +13,12 @@ $result=mysqli_query($conn,$sql);
 <div class="row">
 
     <div class="col-sm-12">
+	<a href="ad_members.php" class="btn btn-success">Add New Admin</a><hr>
 	<h3>Update Admin</h3>
 	<table class="table table-bordered">
 	<th>User Name</th>
 	<th>Passwords</th>
-	<th>Access</th>
+	<th>User Role</th>
 	<th>Academic Year</th>
 	<th></th>
 	 </tr> 
@@ -37,7 +38,17 @@ $result=mysqli_query($conn,$sql);
 	<td>
 		 <div class="btn-group">
         <a href="<?php echo 'edit_admin.php?id='.$row['id']; ?>" title="Edit">  <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>
-        <a href="<?php echo 'delete_admin.php?id='.$row['id']; ?>" title="Delete">  <i class="fa fa-trash-o fa-lg" style="color:red;" aria-hidden="true"></i></a>
+        <a href="#" onclick="deleteadmin(<?php echo $row['id'];?>)">   <i class="fa fa-trash-o fa-lg" style="color:red;" aria-hidden="true"></i></a>
+                </div></td>
+                    </tr>
+
+                    <script>
+                    function deleteadmin(id){
+                        if(confirm("Do you want to delete?")){
+                            window.location.href='delete_admin.php?id='+id+'';
+                        }
+                    }
+                    </script>
        </div>
 		 
 		 </td> 

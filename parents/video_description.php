@@ -45,7 +45,6 @@ $new_url = str_replace("https://www.youtube.com/watch?v=", "https://www.youtube.
 
     $sql="insert into video_views (video_id,student_id,academic_year) values('$id','$student_id','$cur_academic_year')";
     $conn->query($sql);
-    echo "inserted";
  }
 ?>
     <div class="container-fluid" >
@@ -150,9 +149,7 @@ $new_url = str_replace("https://www.youtube.com/watch?v=", "https://www.youtube.
                 if($reply_edited_on){ ?>
                 | <small style="color:#777;">Edited on: <?php echo $reply_edited_on;?></small>
                 <?php } ?>
-                <br><br>
-            <a href="<?php echo 'edit_reply.php?reply_id='.$reply_id;?>" class="btn btn-success btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Reply</a>
-            </div>
+                <br><br> </div>
             <br>
 
             <?php

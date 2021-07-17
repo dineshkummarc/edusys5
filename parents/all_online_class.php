@@ -18,13 +18,9 @@ if($row_section=mysqli_fetch_array($result_section,MYSQLI_ASSOC))
 ?>
 
 <div class="container-fluid">
- 
+ <br><br>
 	 <div class="row">
-	
-     <div class="col-md-1">
-    </div>
-    <div class="col-md-10"><br>
-	<button onclick="goBack()" class="btn btn-default">Go Back</button><br><br>
+    <div class="col-md-8">
 	<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" class="form-inline" method="get" role="form">
 	  
 		<div class="form-group">
@@ -43,13 +39,16 @@ if($row_section=mysqli_fetch_array($result_section,MYSQLI_ASSOC))
         </div>
 	<button type="submit" name="filt_submit" class="btn btn-primary">Filter</button>
 	<a href="all_online_class.php" class="btn btn-success">View All Classes</a>
+
 	
 	</form>
+	
 	
 	</div>
 	
 	
-    <div class="col-md-1">
+    <div class="col-md-4">
+	
     </div>
 	</div>
 	</div>
@@ -64,8 +63,8 @@ if($row_section=mysqli_fetch_array($result_section,MYSQLI_ASSOC))
 	<div class="table-responsive">
 	<table class="table table-bordered">
 	<tbody>
-	<tr style="background-color:#1ebeda;color:#fff;">
-		<td style="width:5%;"><span style="font-weight: bold;">SL No</span></td>
+	<tr style="background-color:#eee;color:#000;font-weight:bold;">
+		<td style="width:10%;"><span style="font-weight: bold;">SL No</span></td>
 		<td>Subject | Chapter Name </td>
 		
 		<td style="width:10%"></td>
@@ -91,7 +90,7 @@ if($row_section=mysqli_fetch_array($result_section,MYSQLI_ASSOC))
 		{
 			$subject_name=$_GET["subject_name"];
 			
-			$sql="select * from online_class where present_class='".$present_class."' and section='".$section."' and subject_name='".$subject_name."' and academic_year='".$cur_academic_year."' ORDER BY id desc  LIMIT $offset, $no_of_records_per_page";
+			$sql="select * from online_class where present_class='".$present_class."'  and subject_name='".$subject_name."' and academic_year='".$cur_academic_year."' ORDER BY id desc  LIMIT $offset, $no_of_records_per_page";
 
 			$total_pages_sql = "SELECT COUNT(*) FROM online_class where present_class='".$present_class."'";
 			
@@ -99,7 +98,7 @@ if($row_section=mysqli_fetch_array($result_section,MYSQLI_ASSOC))
 	}
 		else
 		{
-			$sql="select * from online_class where present_class='".$present_class."' and section  ='".$section."' and academic_year='".$cur_academic_year."' ORDER BY id desc  LIMIT $offset, $no_of_records_per_page";
+			$sql="select * from online_class where present_class='".$present_class."' and academic_year='".$cur_academic_year."' ORDER BY id desc  LIMIT $offset, $no_of_records_per_page";
 			$total_pages_sql = "SELECT COUNT(*) FROM online_class where present_class='".$present_class."'";
 			
 		}
@@ -117,13 +116,14 @@ if($row_section=mysqli_fetch_array($result_section,MYSQLI_ASSOC))
 	foreach($result as $row)
 	{
 		 $id = $row["id"];
+		 $updated_by = $row["updated_by"];
 		 $updated_at= date('d-m-Y', strtotime( $row['date_posted'] ));
 	
 	
 	?>
     <tr>
 		<td><span style="color: #207FA2; "><?php echo $row_count;?></span></td>
-		<td><a href="<?php echo 'video_description.php?id='.$id;?>" style="color:blue;"><?php echo strtoupper($row["subject_name"]);?>  <small><span style="color:black;">Published on: <?php echo $updated_at;?></span></small><br><?php echo $row["chapter"];?></a></td>
+		<td><a href="<?php echo 'video_description.php?id='.$id;?>" style="color:blue;"><?php echo strtoupper($row["subject_name"]);?>  <br><?php echo $row["chapter"];?></a>    <small><span style="color:black;">Added on <?php echo $updated_at;?> by <?php echo $updated_by;?></span></small></td>
 		<td><a href="<?php echo 'video_description.php?id='.$id;?>"><img src="../school/images/play.png"></a></td>
     </tr>
 		<?php 
@@ -146,6 +146,8 @@ if($row_section=mysqli_fetch_array($result_section,MYSQLI_ASSOC))
                 <li><a href="?pageno=<?php echo $total_pages; ?>">Last</a></li>
             </ul>
               <!----  Pagination code ends here---->
+			  <br>
+			  <button onclick="goBack()" class="btn btn-default">Go Back</button>
 	</div>
     
   </div>
