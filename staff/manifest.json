@@ -1,0 +1,28 @@
+{
+  "short_name": "Online Class Staff App",
+  "name": "Online Class App",
+  "description": "Online Class Staff Mobile Application",
+  "icons": [
+      {
+      "src": "/school_latestc/staff/images/staff192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/school_latestc/staff/images/staff512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+	   {
+      "src": "/school_latestc/staff/images/staff512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/school_latestc/staff/",
+  "scope": "/school_latestc/staff/",
+  "background_color": "#0f6256",
+  "display": "standalone",
+  "theme_color": "#0f6256"
+}
