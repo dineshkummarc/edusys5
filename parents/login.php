@@ -25,7 +25,7 @@
 	</div>
 	<div class="col-sm-4">
 	<div id="installContainer" class="hidden" style="text-align:center;">
-<button id="butInstall" type="button" class="btn btn-primary"  style="padding:15px;border:1px solid blue;border-radius:5px">
+	<button id="butInstall" type="button" class="btn btn-success"  style="padding:15px;border:1px solid #009900;border-radius:5px">
 		 Install App for Mobile or Computer  <i class="fa fa-android" aria-hidden="true"></i> <i class="fa fa-apple" aria-hidden="true"></i> <i class="fa fa-windows" aria-hidden="true"></i>
 	 </button>
  </div>
@@ -55,13 +55,11 @@
 	<div class="form-group">
   <label for="sel1"><span style="color:red;font-size:18px;">*</span>Academic Year:</label>
   <select class="form-control" name="academic_year">
-	<option value="2019-2020">2019-2020</option>
-	<option value="2020-2021">2020-2021</option>
 	<option value="2021-2022">2021-2022</option>
 	
  </select>
 </div>
-	<input type="submit" class="btn btn-success btn-block" value="Login">
+	<input type="submit" class="btn btn-primary btn-block" value="Login">
 	</form>
 	
 	 
