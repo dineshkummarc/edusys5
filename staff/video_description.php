@@ -19,7 +19,7 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
     $url = $row["url"];
     //echo $url;
 
-    $new_url = str_replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/", $url);
+    $new_url = str_replace("https://youtu.be/", "https://www.youtube.com/embed/", $url); 
    // echo $new_url;
 ?>
 <head>
@@ -58,7 +58,7 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
                 <br>
                 <?php
                 }
-                if($row["filepath"]!=""){
+                if($row["filetype"]!=""){
                 ?>
                 <h3 style="font-weight:bold;">Materials</h3>
                 <a href="../school/<?php echo $row['filepath'];?>" style="color:blue;" target="_blank">Download File</a>
@@ -192,6 +192,7 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 
         </div>
     </div>
+    <script src="sharenow.js"></script>
 <?php
 }
 require("footer.php");

@@ -90,7 +90,7 @@ if($row_section=mysqli_fetch_array($result_section,MYSQLI_ASSOC))
 		{
 			$subject_name=$_GET["subject_name"];
 			
-			$sql="select * from online_class where present_class='".$present_class."'  and subject_name='".$subject_name."' and academic_year='".$cur_academic_year."' ORDER BY id desc  LIMIT $offset, $no_of_records_per_page";
+			$sql="select * from online_class where present_class='".$present_class."'  and subject_name='".$subject_name."' ORDER BY id desc  LIMIT $offset, $no_of_records_per_page";
 
 			$total_pages_sql = "SELECT COUNT(*) FROM online_class where present_class='".$present_class."'";
 			
@@ -98,7 +98,7 @@ if($row_section=mysqli_fetch_array($result_section,MYSQLI_ASSOC))
 	}
 		else
 		{
-			$sql="select * from online_class where present_class='".$present_class."' and academic_year='".$cur_academic_year."' ORDER BY id desc  LIMIT $offset, $no_of_records_per_page";
+			$sql="select * from online_class where present_class='".$present_class."' ORDER BY id desc  LIMIT $offset, $no_of_records_per_page";
 			$total_pages_sql = "SELECT COUNT(*) FROM online_class where present_class='".$present_class."'";
 			
 		}

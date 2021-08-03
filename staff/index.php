@@ -108,8 +108,8 @@ require("header.php");
 	{
 		 $id = $row["id"];
 		 $updated_by = $row["updated_by"];
+		 $chapter = $row["chapter"];
 		 $updated_at= date('d-m-Y', strtotime( $row['date_posted'] ));
-	
 	
 	?>
     <tr>
@@ -117,7 +117,6 @@ require("header.php");
 		<td><a href="<?php echo 'video_description.php?id='.$id;?>" style="color:blue;"><?php echo strtoupper($row["subject_name"]);?>  <br><?php echo $row["chapter"];?></a>    <small><span style="color:black;">Added on <?php echo $updated_at;?> by <?php echo $updated_by;?></span></small></td>
 		<td><a href="<?php echo 'video_description.php?id='.$id;?>"><img src="../school/images/play.png"></a></td>
 		<td><a href="<?php echo 'edit_online_class.php?id='.$id;?>" class="btn btn-default btn-sm">Edit Class</a></td>
-    </tr>
 		<?php 
 		$row_count++; 
 	}

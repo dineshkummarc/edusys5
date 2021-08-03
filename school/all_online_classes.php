@@ -98,7 +98,7 @@ require("header.php");
 			$section=$_GET["section"];
 			$subject_name=$_GET["subject_name"];
 			
-			$sql="select * from online_class where present_class='".$filt_class."' and section='".$section."' and subject_name='".$subject_name."' ORDER BY id  LIMIT $start_from, $num_rec_per_page";
+			$sql="select * from online_class where present_class='".$filt_class."' and section='".$section."' and subject_name='".$subject_name."' ORDER BY id desc LIMIT $start_from, $num_rec_per_page";
 			
 		}
 		else if((!empty($_GET['filt_class']))&&(!empty($_GET['subject_name'])))
@@ -106,7 +106,7 @@ require("header.php");
 			$filt_class=$_GET["filt_class"];
 			$subject_name=$_GET["subject_name"];
 			
-			$sql="select * from online_class where present_class='".$filt_class."' and subject_name='".$subject_name."' ORDER BY id  LIMIT $start_from, $num_rec_per_page";
+			$sql="select * from online_class where present_class='".$filt_class."' and subject_name='".$subject_name."' ORDER BY id desc  LIMIT $start_from, $num_rec_per_page";
 			
 		}
 		else if((!empty($_GET['filt_class']))&&(!empty($_GET['section'])))
@@ -114,26 +114,26 @@ require("header.php");
 			$filt_class=$_GET["filt_class"];
 			$section=$_GET["section"];
 			
-			$sql="select * from online_class where present_class='".$filt_class."' and section='".$section."' ORDER BY id  LIMIT $start_from, $num_rec_per_page";
+			$sql="select * from online_class where present_class='".$filt_class."' and section='".$section."' ORDER BY id desc  LIMIT $start_from, $num_rec_per_page";
 			
 		}
 		else if(!empty($_GET['filt_class']))
 		{
 			$filt_class=$_GET["filt_class"];
-			$sql="select * from online_class where present_class='".$filt_class."' ORDER BY id  LIMIT $start_from, $num_rec_per_page";
+			$sql="select * from online_class where present_class='".$filt_class."' ORDER BY id desc  LIMIT $start_from, $num_rec_per_page";
 			
 		}
 
 		else
 		{
-			$sql="select * from online_class where present_class='".$filt_class."' ORDER BY id  LIMIT $start_from, $num_rec_per_page";
+			$sql="select * from online_class where present_class='".$filt_class."' ORDER BY id desc  LIMIT $start_from, $num_rec_per_page";
 		}
 		
 	}
 		else
 		{
 			
-			$sql="select * from online_class   ORDER BY id  LIMIT $start_from, $num_rec_per_page";
+			$sql="select * from online_class   ORDER BY id desc  LIMIT $start_from, $num_rec_per_page";
 		}
 	$result=mysqli_query($conn,$sql);
 	$row_count =1;
@@ -142,7 +142,7 @@ require("header.php");
 	foreach($result as $row)
 	{
 		$dob= date('d-m-Y', strtotime( $row['dob'] ));
-		$join_date= date('d-m-Y', strtotime( $row['join_date'] ));
+		$updated_at= date('d-m-Y', strtotime( $row['date_posted'] ));
         $id = $row["id"];
         $updated_by = $row["updated_by"];
 	
@@ -151,7 +151,7 @@ require("header.php");
     <tr>
 		<td><span style="color: #207FA2; "><?php echo $row_count;?></span></td>
 		<td><?php echo strtoupper($row["present_class"]);?><br><?php echo strtoupper($row["section"]);?></td>
-		<td><a href="<?php echo 'video_description.php?id='.$id;?>" style="color:blue;"><?php echo strtoupper($row["subject_name"]);?>  <br><?php echo $row["chapter"];?></a>    <small><span style="color:black;">Added on <?php echo $updated_at;?> by <?php echo $updated_by;?></span></small></td>
+		<td><a href="<?php echo 'video_description.php?id='.$id;?>" style="color:blue;"><?php echo strtoupper($row["subject_name"]);?>  <br><?php echo $row["chapter"];?></a>    <small><span style="color:black;">Added on <?php echo $updated_at;?> <?php if($updated_by!="") { echo " by ".$updated_by;}else{ echo "by Admin";}?></span></small></td>
 		<td><a href="<?php echo 'video_description.php?id='.$id;?>"><img src="images/play.png"></a></td>
 		
 		<td><div class="btn-group">

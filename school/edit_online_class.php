@@ -90,7 +90,7 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 
         <div class="form-group">
         <label for="usr">Details:</label>
-        <textarea rows="6" name="details" class="form-control"><?php echo $row["details"];?></textarea>
+        <textarea rows="6" name="details" class="form-control summernote"><?php echo $row["details"];?></textarea>
         </div>
 
         <input type="hidden" value="<?php echo $id;?>" name="id"> 

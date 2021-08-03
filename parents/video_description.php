@@ -18,7 +18,7 @@ $result = mysqli_query($conn,$sql);
 if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 {
 $url = $row["url"];
-$new_url = str_replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/", $url);
+$new_url = str_replace("https://youtu.be/", "https://www.youtube.com/embed/", $url); 
 // echo $new_url;
 ?>
 <head>
@@ -73,7 +73,7 @@ $new_url = str_replace("https://www.youtube.com/watch?v=", "https://www.youtube.
                 <br>
                 <?php
                 }
-                if($row["filepath"]!=""){
+                if($row["filetype"]!=""){
                 ?>
                 <h3 style="font-weight:bold;">Materials</h3>
                 <a href="../school/<?php echo $row['filepath'];?>" style="color:blue;" target="_blank">Download File</a>
