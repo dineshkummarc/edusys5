@@ -1,10 +1,9 @@
 <?php
 session_start();
-if(isset($_SESSION['staff_uname'])&&!empty($_SESSION['staff_pass'])&&!empty($_SESSION['admin_id']))
+if(isset($_SESSION['staff_uname'])&&!empty($_SESSION['staff_pass']))
 {
 $staff_uname=$_SESSION['staff_uname'];
 $staff_pass=$_SESSION['staff_pass'];
-$admin_id=$_SESSION['admin_id'];
 
 require("connection.php");
 if(isset($_POST["online"]))
@@ -25,12 +24,12 @@ if(isset($_POST["online"]))
         $filepath = "../school/online_class_uploads/".$filename;
         move_uploaded_file($filetmp,$filepath);
 
-        $sql = "UPDATE online_class SET present_class='".$present_class."',subject_name='".$subject_name."',chapter='".$chapter."',url='".$url."',details='".$details."',filename='".$filename."',filepath='".$filepath."',filetype='".$filetype."',admin_id='".$admin_id."' where id='".$id."'";
+        $sql = "UPDATE online_class SET present_class='".$present_class."',subject_name='".$subject_name."',chapter='".$chapter."',url='".$url."',details='".$details."',filename='".$filename."',filepath='".$filepath."',filetype='".$filetype."' where id='".$id."'";
         }
         else
         {
         //echo "Not set";
-        $sql = "UPDATE online_class SET present_class='".$present_class."',subject_name='".$subject_name."',chapter='".$chapter."',url='".$url."',details='".$details."',admin_id='".$admin_id."' where id='".$id."'";
+        $sql = "UPDATE online_class SET present_class='".$present_class."',subject_name='".$subject_name."',chapter='".$chapter."',url='".$url."',details='".$details."' where id='".$id."'";
         }
 
 

@@ -1,9 +1,8 @@
 <?php
 session_start();
-if(isset($_SESSION['lkg_uname'])&&!empty($_SESSION['lkg_pass'])&&!empty($_SESSION['academic_year'])&&!empty($_SESSION['admin_id']))
+if(isset($_SESSION['lkg_uname'])&&!empty($_SESSION['lkg_pass'])&&!empty($_SESSION['academic_year']))
 {
 $cur_academic_year = $_SESSION['academic_year'];
-$admin_id = $_SESSION['admin_id'];
 require("connection.php");
 if(isset($_POST["online"]))
 {
@@ -25,12 +24,12 @@ if(isset($_POST["online"]))
         $filepath = "online_class_uploads/".$filename;
         move_uploaded_file($filetmp,$filepath);
 
-        $sql = "UPDATE online_class SET present_class='".$present_class."',section='".$section."',subject_name='".$subject_name."',chapter='".$chapter."',url='".$url."',details='".$details."',filename='".$filename."',filepath='".$filepath."',filetype='".$filetype."',academic_year='".$cur_academic_year."',admin_id='".$admin_id."' where id='".$id."'";
+        $sql = "UPDATE online_class SET present_class='".$present_class."',section='".$section."',subject_name='".$subject_name."',chapter='".$chapter."',url='".$url."',details='".$details."',filename='".$filename."',filepath='".$filepath."',filetype='".$filetype."',academic_year='".$cur_academic_year."' where id='".$id."'";
         }
         else
         {
         //echo "Not set";
-        $sql = "UPDATE online_class SET present_class='".$present_class."',section='".$section."',subject_name='".$subject_name."',chapter='".$chapter."',url='".$url."',details='".$details."',academic_year='".$cur_academic_year."',admin_id='".$admin_id."' where id='".$id."'";
+        $sql = "UPDATE online_class SET present_class='".$present_class."',section='".$section."',subject_name='".$subject_name."',chapter='".$chapter."',url='".$url."',details='".$details."',academic_year='".$cur_academic_year."' where id='".$id."'";
         }
 
 
