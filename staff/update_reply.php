@@ -1,8 +1,8 @@
 <?php
 session_start();
-if(isset($_SESSION['staff_uname'])&&isset($_SESSION['staff_pass'])&&isset($_SESSION['class_teach']))
+if(isset($_SESSION['staff_uname'])&&isset($_SESSION['staff_pass'])&&isset($_SESSION['admin_id']))
 {
-$class_teach=$_SESSION['class_teach'];
+$admin_id=$_SESSION['admin_id'];
 $staff_uname=$_SESSION['staff_uname'];
 $staff_pass=$_SESSION['staff_pass'];
 require("connection.php");
@@ -12,7 +12,7 @@ if(isset($_POST["edit_reply"]))
     $video_id = $_POST["video_id"];
     $reply_id = $_POST["reply_id"];
 	
-    $sql = "update comment_reply set reply='".$reply."' where id='".$reply_id."'";    
+    $sql = "update comment_reply set reply='".$reply."' where id='".$reply_id."' and admin_id='".$admin_id."'";    
     //var_dump($sql);
 	if ($conn->query($sql) === TRUE) 
 	{

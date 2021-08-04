@@ -1,8 +1,8 @@
 <?php
 session_start();
-if(isset($_SESSION['staff_uname'])&&isset($_SESSION['staff_pass'])&&isset($_SESSION['class_teach']))
+if(isset($_SESSION['staff_uname'])&&isset($_SESSION['staff_pass'])&&isset($_SESSION['admin_id']))
 {
-$class_teach=$_SESSION['class_teach'];
+$admin_id=$_SESSION['admin_id'];
 $staff_uname=$_SESSION['staff_uname'];
 $staff_pass=$_SESSION['staff_pass'];
 
@@ -12,7 +12,7 @@ $staff_pass=$_SESSION['staff_pass'];
    if(isset($_GET["id"])){
        $id=$_GET["id"];
    }
-$sql="select * from online_class where  id='".$id."' and present_class='".$class_teach."'";
+$sql="select * from online_class where  id='".$id."' and admin_id='".$admin_id."'";
 $result = mysqli_query($conn,$sql);
 if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 {
@@ -46,7 +46,7 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
            
             </div>
             <div class="col-md-10" >
-            <h2 style="font-weight:bold;"><?php echo strtoupper($class_teach); ?> - <?php echo strtoupper($row["subject_name"]); ?> - Chapter: <?php echo $row["chapter"]; ?></h2><hr>
+            <h2 style="font-weight:bold;"><?php echo strtoupper($row["subject_name"]); ?> - Chapter: <?php echo $row["chapter"]; ?></h2><hr>
             <div class="iframe-container">
             <iframe width="560" height="315" src="<?php echo $new_url; ?>?controls=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" controls=0 modestbranding; allowfullscreen></iframe>
             </div><hr>
@@ -120,7 +120,7 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 <div class="col-md-6">
                   
 <?php 
-    $sql_comment = "select * from comments where item_id='".$id."' order by id desc";
+    $sql_comment = "select * from comments where item_id='".$id."'  order by id desc";
     $result_comment = mysqli_query($conn,$sql_comment);
     ?>
     
@@ -157,7 +157,7 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
             <br>
             <?php
             ///////////////////// Comment Reply ////////////////////////////
-            $sql_reply = "select * from comment_reply where comment_id='".$comment_id."' and video_id='".$video_id."'";
+            $sql_reply = "select * from comment_reply where comment_id='".$comment_id."' and video_id='".$video_id."' and admin_id='".$admin_id."'";
             $result_reply = mysqli_query($conn,$sql_reply);
             if(mysqli_num_rows($result_reply)>0){
             foreach($result_reply as $row_reply){  

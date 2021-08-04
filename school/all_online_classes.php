@@ -144,14 +144,21 @@ require("header.php");
 		$dob= date('d-m-Y', strtotime( $row['dob'] ));
 		$updated_at= date('d-m-Y', strtotime( $row['date_posted'] ));
         $id = $row["id"];
-        $updated_by = $row["updated_by"];
+        $admin_id = $row["admin_id"];
+
+		$sql_admin = "select username from ad_members where id='".$admin_id."'";
+		$result_admin = mysqli_query($conn,$sql_admin);
+		if($row_admin=mysqli_fetch_array($result_admin,MYSQLI_ASSOC))
+	   {
+		   $admin = $row_admin["username"];
+	   }
 	
 	
 	?>
     <tr>
 		<td><span style="color: #207FA2; "><?php echo $row_count;?></span></td>
 		<td><?php echo strtoupper($row["present_class"]);?><br><?php echo strtoupper($row["section"]);?></td>
-		<td><a href="<?php echo 'video_description.php?id='.$id;?>" style="color:blue;"><?php echo strtoupper($row["subject_name"]);?>  <br><?php echo $row["chapter"];?></a>    <small><span style="color:black;">Added on <?php echo $updated_at;?> <?php if($updated_by!="") { echo " by ".$updated_by;}else{ echo "by Admin";}?></span></small></td>
+		<td><a href="<?php echo 'video_description.php?id='.$id;?>" style="color:blue;"><?php echo strtoupper($row["subject_name"]);?>  <br><?php echo $row["chapter"];?></a>    <small><span style="color:black;">Added on <?php echo $updated_at;?> <?php echo $admin;?></span></small></td>
 		<td><a href="<?php echo 'video_description.php?id='.$id;?>"><img src="images/play.png"></a></td>
 		
 		<td><div class="btn-group">

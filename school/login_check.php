@@ -17,7 +17,7 @@ if(isset($_SESSION['academic_year'])) unset($_SESSION['academic_year']);
 	
 	$academic_year=mysqli_real_escape_string($conn,$_POST['academic_year']);
 	
-	$sql='select username,log_pas,user_access from ad_members where username="'.$user.'" and  user_access="admin" and academic_year="'.$academic_year.'"';
+	$sql='select id,username,log_pas,user_access from ad_members where username="'.$user.'" and  user_access="admin" and academic_year="'.$academic_year.'"';
 	$result=mysqli_query($conn,$sql);
 	
 	
@@ -32,6 +32,7 @@ if(isset($_SESSION['academic_year'])) unset($_SESSION['academic_year']);
 			$_SESSION['lkg_pass']=$secure;
 			$_SESSION['academic_year']=$academic_year;
 			$_SESSION['user_access']=$row["user_access"];
+			$_SESSION['admin_id']=$row["id"];
 			$f=true;
 		}
 			

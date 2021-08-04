@@ -12,14 +12,13 @@ if(isset($_POST["admin"]))
 	$user_access=mysqli_real_escape_string($conn,$_POST["user_access"]);
 	$academic_year=mysqli_real_escape_string($conn,$_POST["academic_year"]);
 	//$email=mysqli_real_escape_string($conn,$_POST["email"]);
-	$class_teach=mysqli_real_escape_string($conn,$_POST["class_teach"]);
 	
 
 	$options = ['cost' => 12];
 	$secure = password_hash($password, PASSWORD_DEFAULT, $options);
 
 	
-	$sql="insert into ad_members (username,log_pas,user_access,class_teach,academic_year) values('$user_name','$secure','$user_access','$class_teach',,'$academic_year')";
+	$sql="insert into ad_members (username,log_pas,user_access,academic_year) values('$user_name','$secure','$user_access','$academic_year')";
 	
 	if ($conn->query($sql) === TRUE) 
 	{
@@ -31,8 +30,6 @@ if(isset($_POST["admin"]))
 	header("Location:admins.php?failed=.'failed'");	
 		
 	}
-
-
 }
 
 	}else{

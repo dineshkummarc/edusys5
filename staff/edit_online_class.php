@@ -1,17 +1,17 @@
 <?php
 session_start();
-if(isset($_SESSION['staff_uname'])&&isset($_SESSION['staff_pass'])&&isset($_SESSION['class_teach']))
+if(isset($_SESSION['staff_uname'])&&!empty($_SESSION['staff_pass'])&&!empty($_SESSION['admin_id']))
 {
 $staff_uname=$_SESSION['staff_uname'];
 $staff_pass=$_SESSION['staff_pass'];
-$class_teach=$_SESSION['class_teach'];
+$admin_id=$_SESSION['admin_id'];
 
 require("header.php");
 require("connection.php");
 if(isset($_GET["id"])){
     $id=$_GET["id"];
 }
-$sql="SELECT * FROM online_class where id='".$id."' and present_class='".$class_teach."'";
+$sql="SELECT * FROM online_class where id='".$id."'";
 $result = mysqli_query($conn, $sql);
 if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 {
@@ -35,6 +35,11 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
         <h3 style="font-weight:bold;">Update Online Class</h3><hr>
         <form action="update_online_class.php" method="post" enctype="multipart/form-data" role="form">
         
+        <div class="form-group">
+	    <label role="">Select Class:</label>
+        <select class="form-control" name="class_teach">
+        <option value='<?php echo $row["present_class"];?>'><?php echo $row["present_class"];?></option>
+        <?php require("selectclass.php");?>
             
         <div class="form-group">
         <label for="">Select Subject</label>

@@ -1,8 +1,8 @@
 <?php
 session_start();
-if(isset($_SESSION['staff_uname'])&&isset($_SESSION['staff_pass'])&&isset($_SESSION['class_teach']))
+if(isset($_SESSION['staff_uname'])&&!empty($_SESSION['staff_pass'])&&!empty($_SESSION['admin_id']))
 {
-$class_teach=$_SESSION['class_teach'];
+$admin_id=$_SESSION['admin_id'];
 $staff_uname=$_SESSION['staff_uname'];
 $staff_pass=$_SESSION['staff_pass'];
 
@@ -30,6 +30,11 @@ require("connection.php");
        <h3 style="font-weight:bold;">Add Online Class</h3><hr>
         <form action="insert_online_class.php" method="post" enctype="multipart/form-data" role="form">
         
+
+        <div class="form-group">
+	    <label role="">Select Class:</label>
+        <select class="form-control" name="class_teach">
+        <?php require("selectclass.php");?>
         
         <div class="form-group">
         <label for="">Select Subject</label>

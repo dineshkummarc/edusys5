@@ -53,10 +53,7 @@
 	<input type="password" name="staff_pass" class="form-control">
 	</div>
 
-	<div class="form-group">
-	<label role="">Select Class:</label>
-        <select class="form-control" name="class_teach">
-        <?php require("selectclass.php");?>
+	
 
 	<input type="submit" class="btn btn-primary btn-block" name="login_staff" value="Login">
 	</form>

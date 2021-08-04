@@ -1,9 +1,11 @@
 <?php
 session_start();
-if(isset($_SESSION['lkg_uname'])&&!empty($_SESSION['lkg_pass'])&&!empty($_SESSION['academic_year']))
+if(isset($_SESSION['lkg_uname'])&&!empty($_SESSION['lkg_pass'])&&!empty($_SESSION['academic_year'])&&!empty($_SESSION['admin_id']))
 {
 $cur_academic_year = $_SESSION['academic_year'];
+$admin_id = $_SESSION['admin_id'];
 require("connection.php");
+
 if(isset($_POST["online"]))
 {
 	$present_class = $_POST["present_class"];
@@ -20,7 +22,7 @@ if(isset($_POST["online"]))
     move_uploaded_file($filetmp,$filepath);
     
 	
-	$sql="insert into online_class (present_class,section,subject_name,chapter,url,details,filename, filetype, filepath,academic_year) values('$present_class','$section','$subject_name','$chapter','$url','$details','$filename','$filetype','$filepath','$cur_academic_year')";
+	$sql="insert into online_class (present_class,section,subject_name,chapter,url,details,filename, filetype, filepath,academic_year,admin_id) values('$present_class','$section','$subject_name','$chapter','$url','$details','$filename','$filetype','$filepath','$cur_academic_year','$admin_id')";
     var_dump($sql);
 	
 	if ($conn->query($sql) === TRUE) 

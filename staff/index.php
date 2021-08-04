@@ -1,11 +1,11 @@
 <?php
 session_start();
-if(isset($_SESSION['staff_uname'])&&!empty($_SESSION['staff_pass'])&&!empty($_SESSION['class_teach']))
+if(isset($_SESSION['staff_uname'])&&!empty($_SESSION['staff_pass'])&&!empty($_SESSION['admin_id']))
 {
 
-$class_teach=$_SESSION['class_teach'];
 $staff_uname=$_SESSION['staff_uname'];
 $staff_pass=$_SESSION['staff_pass'];
+$admin_id=$_SESSION['admin_id'];
 require("header.php");
 ?>
 
@@ -16,9 +16,24 @@ require("header.php");
 	<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" class="form-inline" method="get" role="form">
 	  
 		<div class="form-group">
+        <?php echo '<select class="form-control" name="present_class">';
+        echo '<option value="">Select Class</option>';
+        $sql="select distinct present_class from online_class where admin_id='".$admin_id."'";
+        $result=mysqli_query($conn,$sql);
+        foreach($result as $value)
+        {
+        ?>
+        <option value='<?php echo $value["present_class"];?>'><?php echo $value["present_class"];?></option>
+        <?php
+        }
+        echo '</select>';
+        ?>
+        </div>
+
+		<div class="form-group">
         <?php echo '<select class="form-control" name="subject_name">';
         echo '<option value="">Select Subject</option>';
-        $sql="select distinct subject_name from subjects";
+        $sql="select distinct subject_name from online_class where admin_id='".$admin_id."'";
         $result=mysqli_query($conn,$sql);
         foreach($result as $value)
         {
@@ -52,14 +67,14 @@ require("header.php");
 	
     <div class="col-sm-12">
 	
-	<h2 style="font-weight:bold;">All Online Classes - <?php echo strtoupper($class_teach);?></h2>
+	<h2 style="font-weight:bold;">All Online Classes</h2>
 	<div class="table-responsive">
 	<table class="table table-bordered">
 	<tbody>
 	<tr style="background-color:#eee;color:#000;font-weight:bold;">
 		<td style="width:10%;"><span style="font-weight: bold;">SL No</span></td>
 		<td>Subject | Chapter Name </td>
-		
+		<td style="width:15%">Class</td>
 		<td style="width:10%"></td>
 		<td style="width:10%"></td>
 	</tr>
@@ -80,18 +95,33 @@ require("header.php");
 	  // Pagination code ends here 
 	if(isset($_GET["filt_submit"]))
 	{
-		if(!empty($_GET['subject_name']))
+		if((!empty($_GET['present_class']))&&(!empty($_GET['subject_name'])))
 		{
 			$subject_name=$_GET["subject_name"];
-			$sql="select * from online_class where present_class='".$class_teach."'  and subject_name='".$subject_name."'  ORDER BY id desc  LIMIT $offset, $no_of_records_per_page";
-			$total_pages_sql = "SELECT COUNT(*) FROM online_class where present_class='".$class_teach."'";
+			$present_class=$_GET["present_class"];
+			$sql="select * from online_class where admin_id='".$admin_id."'  and subject_name='".$subject_name."' and present_class='".$present_class."'  ORDER BY id desc  LIMIT $offset, $no_of_records_per_page";
+			$total_pages_sql = "SELECT COUNT(*) FROM online_class where admin_id='".$admin_id."'";
+			
+		}
+		else if(!empty($_GET['present_class']))
+		{
+			$present_class=$_GET["present_class"];
+			$sql="select * from online_class where admin_id='".$admin_id."' and present_class='".$present_class."'  ORDER BY id desc  LIMIT $offset, $no_of_records_per_page";
+			$total_pages_sql = "SELECT COUNT(*) FROM online_class where admin_id='".$admin_id."' and present_class='".$present_class."'";
+			
+		}
+		else if(!empty($_GET['subject_name']))
+		{
+			$subject_name=$_GET["subject_name"];
+			$sql="select * from online_class where admin_id='".$admin_id."' and subject_name='".$subject_name."'  ORDER BY id desc  LIMIT $offset, $no_of_records_per_page";
+			$total_pages_sql = "SELECT COUNT(*) FROM online_class where admin_id='".$admin_id."' and subject_name='".$subject_name."'";
 			
 		}
 	}
 		else
 		{
-			$sql="select * from online_class where present_class='".$class_teach."'  ORDER BY id desc  LIMIT $offset, $no_of_records_per_page";
-			$total_pages_sql = "SELECT COUNT(*) FROM online_class where present_class='".$class_teach."'";			
+			$sql="select * from online_class where admin_id='".$admin_id."'  ORDER BY id desc  LIMIT $offset, $no_of_records_per_page";
+			$total_pages_sql = "SELECT COUNT(*) FROM online_class where admin_id='".$admin_id."'";			
 		}
 
 	///////////////// Pagination code
@@ -107,14 +137,23 @@ require("header.php");
 	foreach($result as $row)
 	{
 		 $id = $row["id"];
-		 $updated_by = $row["updated_by"];
+		 $admin_id = $row["admin_id"];
 		 $chapter = $row["chapter"];
+		 $present_class = $row["present_class"];
 		 $updated_at= date('d-m-Y', strtotime( $row['date_posted'] ));
+
+		 $sql_admin = "select username from ad_members where id='".$admin_id."'";
+		 $result_admin = mysqli_query($conn,$sql_admin);
+		 if($row_admin=mysqli_fetch_array($result_admin,MYSQLI_ASSOC))
+		{
+			$admin = $row_admin["username"];
+		}
 	
 	?>
     <tr>
 		<td><span style="color: #207FA2; "><?php echo $row_count;?></span></td>
-		<td><a href="<?php echo 'video_description.php?id='.$id;?>" style="color:blue;"><?php echo strtoupper($row["subject_name"]);?>  <br><?php echo $row["chapter"];?></a>    <small><span style="color:black;">Added on <?php echo $updated_at;?> by <?php echo $updated_by;?></span></small></td>
+		<td><a href="<?php echo 'video_description.php?id='.$id;?>" style="color:blue;"><?php echo strtoupper($row["subject_name"]);?>  <br><?php echo $row["chapter"];?></a>    <small><span style="color:black;">Added on <?php echo $updated_at;?> by <?php echo $admin;?></span></small></td>
+		<td><?php echo strtoupper($present_class); ?></td>
 		<td><a href="<?php echo 'video_description.php?id='.$id;?>"><img src="../school/images/play.png"></a></td>
 		<td><a href="<?php echo 'edit_online_class.php?id='.$id;?>" class="btn btn-default btn-sm">Edit Class</a></td>
 		<?php 

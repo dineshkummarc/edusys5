@@ -8,33 +8,29 @@ if(isset($_SESSION['academic_year'])) unset($_SESSION['academic_year']);
  */
 
 
-	if((isset($_POST['staff_uname']))&&(!empty($_POST['staff_pass']))&&(!empty($_POST['class_teach'])))
+	if((isset($_POST['staff_uname']))&&(!empty($_POST['staff_pass'])))
 	{
 	require("connection.php");
 	$user=mysqli_real_escape_string($conn,$_POST['staff_uname']);
 	
 	$password=mysqli_real_escape_string($conn,$_POST['staff_pass']);
-	
-	$class_teach=mysqli_real_escape_string($conn,$_POST['class_teach']);
 
-	echo $user;
-	echo $password;
-	echo $class_teach;
 	
-	$sql='select username,log_pas,user_access,class_teach from ad_members where username="'.$user.'" and  user_access="staff" and class_teach="'.$class_teach.'"';
-	$result=mysqli_query($conn,$sql);
 	
+	$sql='select id,username,log_pas,user_access from ad_members where username="'.$user.'" and  user_access="staff"';
+	$result=mysqli_query($conn,$sql);	
 	
 	$f=false;
 	if($row=mysqli_fetch_array($result))
 		{
 		$secure = password_verify($password, $row["log_pas"]);	
+		$admin_id = $row["id"];
 		
 		if($secure){
 			header("location: index.php");
 			$_SESSION['staff_uname']=$user;
 			$_SESSION['staff_pass']=$secure;
-			$_SESSION['class_teach']=$row["class_teach"];
+			$_SESSION['admin_id']=$admin_id;
 			$f=true;
 		}
 			

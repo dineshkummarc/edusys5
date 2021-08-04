@@ -1,8 +1,8 @@
 <?php
 session_start();
-if(isset($_SESSION['staff_uname'])&&isset($_SESSION['staff_pass'])&&isset($_SESSION['class_teach']))
+if(isset($_SESSION['staff_uname'])&&isset($_SESSION['staff_pass'])&&isset($_SESSION['admin_id']))
 {
-$class_teach=$_SESSION['class_teach'];
+$admin_id=$_SESSION['admin_id'];
 $staff_uname=$_SESSION['staff_uname'];
 $staff_pass=$_SESSION['staff_pass'];
 require("connection.php");
@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$comment_id = test_input($_POST["comment_id"]);
 	$video_id = test_input($_POST["video_id"]);
 	
-$sql="insert into comment_reply (reply,comment_id,video_id,academic_year) values('$reply','$comment_id','$video_id','$academic_year')";
+$sql="insert into comment_reply (reply,comment_id,video_id,academic_year,admin_id) values('$reply','$comment_id','$video_id','$academic_year','$admin_id')";
 $conn->query($sql);
 header("Location:video_description.php?id=".$video_id."&success=.'success'");
 }

@@ -1,14 +1,15 @@
 <?php
 session_start();
-if(isset($_SESSION['staff_uname'])&&isset($_SESSION['staff_pass'])&&isset($_SESSION['class_teach']))
+if(isset($_SESSION['staff_uname'])&&!empty($_SESSION['staff_pass'])&&!empty($_SESSION['admin_id']))
 {
 $staff_uname=$_SESSION['staff_uname'];
 $staff_pass=$_SESSION['staff_pass'];
+$admin_id=$_SESSION['admin_id'];
 
 require("connection.php");
 if(isset($_POST["online"]))
 {
-	$present_class = $_SESSION['class_teach'];
+	$class_teach = $_POST["class_teach"];
 	$subject_name = $_POST["subject_name"];
 	$chapter = $_POST["chapter"];
 	$url = $_POST["url"];
@@ -20,7 +21,7 @@ if(isset($_POST["online"]))
 	$filepath = "../school/online_class_uploads/".$filename;
     move_uploaded_file($filetmp,$filepath);    
 	
-	$sql="insert into online_class (present_class,subject_name,chapter,url,details,filename, filetype, filepath,updated_by) values('$present_class','$subject_name','$chapter','$url','$details','$filename','$filetype','$filepath','$staff_uname')";
+	$sql="insert into online_class (present_class,subject_name,chapter,url,details,filename, filetype, filepath,admin_id) values('$class_teach','$subject_name','$chapter','$url','$details','$filename','$filetype','$filepath','$admin_id')";
 	
 	if ($conn->query($sql) === TRUE) 
 	{	

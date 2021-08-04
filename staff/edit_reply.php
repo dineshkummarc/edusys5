@@ -1,10 +1,10 @@
 <?php
 session_start();
-if(isset($_SESSION['staff_uname'])&&isset($_SESSION['staff_pass'])&&isset($_SESSION['class_teach']))
+if(isset($_SESSION['staff_uname'])&&!empty($_SESSION['staff_pass'])&&!empty($_SESSION['admin_id']))
 {
-$class_teach=$_SESSION['class_teach'];
 $staff_uname=$_SESSION['staff_uname'];
 $staff_pass=$_SESSION['staff_pass'];
+$admin_id=$_SESSION['admin_id'];
 
 	error_reporting("0");
 	require("header.php");
@@ -12,7 +12,7 @@ $staff_pass=$_SESSION['staff_pass'];
 	if(isset($_GET["reply_id"])){
 		$reply_id = $_GET["reply_id"];
 	}
-	$sql="select * from comment_reply where id = '".$reply_id."'";
+	$sql="select * from comment_reply where id = '".$reply_id."' and admin_id='".$admin_id."'";
 	$result=mysqli_query($conn,$sql);
 	if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 	{
