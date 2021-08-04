@@ -40,6 +40,24 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
         <select class="form-control" name="class_teach">
         <option value='<?php echo $row["present_class"];?>'><?php echo $row["present_class"];?></option>
         <?php require("selectclass.php");?>
+
+
+        <div class="form-group">
+        <select class="form-control" name="section">
+        <option value='<?php echo $row["section"];?>'><?php echo $row["section"];?></option>
+       <option value="">Select Section</option>
+        <?php
+        $sql="select distinct section from students";
+        $result=mysqli_query($conn,$sql);
+            foreach($result as $value)
+        {
+        ?>
+        <option value='<?php echo $value["section"];?>'><?php echo $value["section"];?></option>
+        <?php
+        }
+        echo '</select>';
+        ?>
+        </div>
             
         <div class="form-group">
         <label for="">Select Subject</label>

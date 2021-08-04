@@ -51,6 +51,21 @@ require("connection.php");
         echo '</select>';
         ?>
         </div>
+
+        <div class="form-group">
+        <?php echo '<select class="form-control" name="section">';
+        echo '<option value="">Select Section</option>';
+        $sql="select distinct section from students";
+        $result=mysqli_query($conn,$sql);
+            foreach($result as $value)
+        {
+        ?>
+        <option value='<?php echo $value["section"];?>'><?php echo $value["section"];?></option>
+        <?php
+        }
+        echo '</select>';
+        ?>
+        </div>
         
         <div class="form-group">
         <label for="usr">Chapter Name:</label>

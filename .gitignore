@@ -3,6 +3,7 @@ db.php
 *.sql
 search.php
 search_book.php
+search_books.php
 dbs/
 photo/
 images/

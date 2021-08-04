@@ -12,6 +12,7 @@ if(isset($_POST["online"]))
 	$class_teach = $_POST["class_teach"];
 	$subject_name = $_POST["subject_name"];
 	$chapter = $_POST["chapter"];
+	$section = $_POST["section"];
 	$url = $_POST["url"];
 	$details = mysqli_real_escape_string($conn, $_POST["details"]);
 	
@@ -21,7 +22,7 @@ if(isset($_POST["online"]))
 	$filepath = "../school/online_class_uploads/".$filename;
     move_uploaded_file($filetmp,$filepath);    
 	
-	$sql="insert into online_class (present_class,subject_name,chapter,url,details,filename, filetype, filepath,admin_id) values('$class_teach','$subject_name','$chapter','$url','$details','$filename','$filetype','$filepath','$admin_id')";
+	$sql="insert into online_class (present_class,section,subject_name,chapter,url,details,filename, filetype, filepath,admin_id) values('$class_teach','$section','$subject_name','$chapter','$url','$details','$filename','$filetype','$filepath','$admin_id')";
 	
 	if ($conn->query($sql) === TRUE) 
 	{	
