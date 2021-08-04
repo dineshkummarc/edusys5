@@ -43,6 +43,7 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 
 
         <div class="form-group">
+        <label for="">Select Section</label>
         <select class="form-control" name="section">
         <option value='<?php echo $row["section"];?>'><?php echo $row["section"];?></option>
        <option value="">Select Section</option>

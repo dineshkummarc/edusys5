@@ -53,6 +53,7 @@ require("connection.php");
         </div>
 
         <div class="form-group">
+        <label for="">Select Section</label>
         <?php echo '<select class="form-control" name="section">';
         echo '<option value="">Select Section</option>';
         $sql="select distinct section from students";
