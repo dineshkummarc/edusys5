@@ -85,7 +85,7 @@ $new_url = str_replace("https://youtu.be/", "https://www.youtube.com/embed/", $u
     <hr>
    
 <?php 
-    $sql_comment = "select id,contents,updated_at,edited_on,item_id,student_id from comments where student_id='".$student_id."' and item_id='".$id."'";
+    $sql_comment = "select id,contents,updated_at,edited_on,item_id,student_id from comments where  item_id='".$id."'";
     $result_comment = mysqli_query($conn,$sql_comment);
 
     if(mysqli_num_rows($result_comment)==0){      

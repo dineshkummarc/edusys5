@@ -76,9 +76,10 @@ require("header.php");
 	<tbody>
 	<tr style="background-color:#1ebeda;color:#fff;">
 		<td><span style="font-weight: bold;">SL No</span></td>
-		<td>Present Class | Section: </td>
-		<td>Subject | Chapter Name: </td>
-		<td>Video: </td>
+		<td>Present Class | Section </td>
+		<td>Subject | Chapter Name </td>
+		<td>No.of Students Watched</td>
+		<td>Video </td>
 		<td style="width:10%"><span style="font-weight: bold;">Action</span></td>
 	</tr>
 								
@@ -152,6 +153,10 @@ require("header.php");
 	   {
 		   $admin = $row_admin["username"];
 	   }
+
+	   $sql_watch = "select * from video_views where video_id='".$id."' order by id desc";
+		$result_watch = mysqli_query($conn,$sql_watch);
+		$total_video_watched = mysqli_num_rows($result_watch);
 	
 	
 	?>
@@ -159,6 +164,7 @@ require("header.php");
 		<td><span style="color: #207FA2; "><?php echo $row_count;?></span></td>
 		<td><?php echo strtoupper($row["present_class"]);?><br><?php echo strtoupper($row["section"]);?></td>
 		<td><a href="<?php echo 'video_description.php?id='.$id;?>" style="color:blue;"><?php echo strtoupper($row["subject_name"]);?>  <br><?php echo $row["chapter"];?></a>    <small><span style="color:black;">Added on <?php echo $updated_at;?> <?php echo $admin;?></span></small></td>
+		<td><p style="color:blue;font-weight:bold;"><?php echo $total_video_watched;?></p></td>
 		<td><a href="<?php echo 'video_description.php?id='.$id;?>"><img src="images/play.png"></a></td>
 		
 		<td><div class="btn-group">

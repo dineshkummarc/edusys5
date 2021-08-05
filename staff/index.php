@@ -74,6 +74,7 @@ require("header.php");
 	<tr style="background-color:#eee;color:#000;font-weight:bold;">
 		<td style="width:10%;"><span style="font-weight: bold;">SL No</span></td>
 		<td>Subject | Chapter Name </td>
+		<td>Views</td>
 		<td style="width:15%">Class</td>
 		<td style="width:10%"></td>
 		<td style="width:10%"></td>
@@ -149,11 +150,16 @@ require("header.php");
 		{
 			$admin = $row_admin["username"];
 		}
+
+		$sql_watch = "select * from video_views where video_id='".$id."' order by id desc";
+		$result_watch = mysqli_query($conn,$sql_watch);
+		$total_video_watched = mysqli_num_rows($result_watch);
 	
 	?>
     <tr>
 		<td><span style="color: #207FA2; "><?php echo $row_count;?></span></td>
 		<td><a href="<?php echo 'video_description.php?id='.$id;?>" style="color:blue;"><?php echo strtoupper($row["subject_name"]);?>  <br><?php echo $row["chapter"];?></a>    <small><span style="color:black;">Added on <?php echo $updated_at;?> by <?php echo $admin;?></span></small></td>
+		<td><p style="color:blue;font-weight:bold;"><?php echo $total_video_watched;?></p></td>
 		<td><?php echo strtoupper($present_class); ?><br><?php if($section){echo $section;}?></td>
 		<td><a href="<?php echo 'video_description.php?id='.$id;?>"><img src="../school/images/play.png"></a></td>
 		<td><a href="<?php echo 'edit_online_class.php?id='.$id;?>" class="btn btn-default btn-sm">Edit Class</a></td>
