@@ -1,22 +1,21 @@
 <?php
 session_start();
 
-	if((isset($_POST['parents_uname']))&&(!empty($_POST['parents_pass']))&&(!empty($_POST['academic_year'])))
+	if((isset($_POST['parents_uname']))&&(!empty($_POST['parents_pass'])))
 	{
 	require("connection.php");
 	$user=mysqli_real_escape_string($conn,$_POST['parents_uname']);
 	$log_pas=mysqli_real_escape_string($conn,$_POST['parents_pass']);
-	$academic_year=mysqli_real_escape_string($conn,$_POST['academic_year']);
+	$academic_year="2021-2022";
 	
-	$sql="select id,first_name,rollno,roll_no,present_class from students where first_name='".$user."' and roll_no='".$log_pas."' and academic_year='".$academic_year."'";
+	$sql="select id,first_name,rollno,roll_no,present_class from students where roll_no='".$log_pas."' and academic_year='".$academic_year."'";
 	$result=mysqli_query($conn,$sql);
-	var_dump($sql);
 	
 	$f=false;
 	if($row=mysqli_fetch_array($result))
 		{
 		header("location: index.php");
-		$_SESSION['parents_uname']=$user;
+		$_SESSION['parents_uname']=$row["first_name"];
 		$_SESSION['parents_pass']=$log_pas;
 		$_SESSION['academic_year']=$academic_year;
 		$_SESSION['parents_class']=$row["present_class"];
