@@ -35,3 +35,16 @@ require("footer.php");
 	
 
 ?>
+
+ALTER TABLE table_name
+MODIFY COLUMN column_name datatype;
+
+alter table family modify column abroad_mobile varchar(20) null;
+
+ALTER TABLE individual_notifications
+  ADD indi_viewed varchar(20) NULL
+    AFTER mahal_id;
+	
+	ALTER TABLE general_notifications
+  ADD gen_viewed varchar(20) NULL
+    AFTER mahal_id;

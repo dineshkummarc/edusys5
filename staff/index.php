@@ -18,7 +18,7 @@ require("header.php");
 		<div class="form-group">
         <?php echo '<select class="form-control" name="present_class">';
         echo '<option value="">Select Class</option>';
-        $sql="select distinct present_class from online_class where admin_id='".$admin_id."'";
+        $sql="select distinct present_class from online_class";
         $result=mysqli_query($conn,$sql);
         foreach($result as $value)
         {
@@ -33,7 +33,7 @@ require("header.php");
 		<div class="form-group">
         <?php echo '<select class="form-control" name="subject_name">';
         echo '<option value="">Select Subject</option>';
-        $sql="select distinct subject_name from online_class where admin_id='".$admin_id."'";
+        $sql="select distinct subject_name from online_class";
         $result=mysqli_query($conn,$sql);
         foreach($result as $value)
         {
@@ -100,29 +100,29 @@ require("header.php");
 		{
 			$subject_name=$_GET["subject_name"];
 			$present_class=$_GET["present_class"];
-			$sql="select * from online_class where admin_id='".$admin_id."'  and subject_name='".$subject_name."' and present_class='".$present_class."'  ORDER BY id desc  LIMIT $offset, $no_of_records_per_page";
-			$total_pages_sql = "SELECT COUNT(*) FROM online_class where admin_id='".$admin_id."'";
+			$sql="select * from online_class where subject_name='".$subject_name."' and present_class='".$present_class."'  ORDER BY id desc  LIMIT $offset, $no_of_records_per_page";
+			$total_pages_sql = "SELECT COUNT(*) FROM online_class";
 			
 		}
 		else if(!empty($_GET['present_class']))
 		{
 			$present_class=$_GET["present_class"];
-			$sql="select * from online_class where admin_id='".$admin_id."' and present_class='".$present_class."'  ORDER BY id desc  LIMIT $offset, $no_of_records_per_page";
-			$total_pages_sql = "SELECT COUNT(*) FROM online_class where admin_id='".$admin_id."' and present_class='".$present_class."'";
+			$sql="select * from online_class where  present_class='".$present_class."'  ORDER BY id desc  LIMIT $offset, $no_of_records_per_page";
+			$total_pages_sql = "SELECT COUNT(*) FROM online_class where  present_class='".$present_class."'";
 			
 		}
 		else if(!empty($_GET['subject_name']))
 		{
 			$subject_name=$_GET["subject_name"];
-			$sql="select * from online_class where admin_id='".$admin_id."' and subject_name='".$subject_name."'  ORDER BY id desc  LIMIT $offset, $no_of_records_per_page";
-			$total_pages_sql = "SELECT COUNT(*) FROM online_class where admin_id='".$admin_id."' and subject_name='".$subject_name."'";
+			$sql="select * from online_class where  subject_name='".$subject_name."'  ORDER BY id desc  LIMIT $offset, $no_of_records_per_page";
+			$total_pages_sql = "SELECT COUNT(*) FROM online_class where  subject_name='".$subject_name."'";
 			
 		}
 	}
 		else
 		{
-			$sql="select * from online_class where admin_id='".$admin_id."'  ORDER BY id desc  LIMIT $offset, $no_of_records_per_page";
-			$total_pages_sql = "SELECT COUNT(*) FROM online_class where admin_id='".$admin_id."'";			
+			$sql="select * from online_class  ORDER BY id desc  LIMIT $offset, $no_of_records_per_page";
+			$total_pages_sql = "SELECT COUNT(*) FROM online_class";			
 		}
 
 	///////////////// Pagination code
@@ -138,7 +138,7 @@ require("header.php");
 	foreach($result as $row)
 	{
 		 $id = $row["id"];
-		 $admin_id = $row["admin_id"];
+		 $admini_id = $row["admin_id"];
 		 $chapter = $row["chapter"];
 		 $present_class = $row["present_class"];
 		 $section = $row["section"];

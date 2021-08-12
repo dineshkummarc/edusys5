@@ -22,6 +22,8 @@ $new_url = str_replace("https://youtu.be/", "https://www.youtube.com/embed/", $u
 // echo $new_url;
 ?>
 <head>
+
+
 <style>
 .iframe-container{
   position: relative;

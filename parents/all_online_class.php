@@ -7,8 +7,9 @@ $present_class=$_SESSION['parents_class'];
 $first_name=$_SESSION['parents_uname'];
 $roll_no=$_SESSION['parents_pass'];
 require("header.php");
+error_reporting("0");
 
-$sql_section="select section from students where first_name='".$first_name."'  and roll_no='".$roll_no."' and academic_year='".$cur_academic_year."'";
+$sql_section="select distinct section from students where first_name='".$first_name."'  and roll_no='".$roll_no."' and academic_year='".$cur_academic_year."'";
 $result_section = mysqli_query($conn, $sql_section);
 if($row_section=mysqli_fetch_array($result_section,MYSQLI_ASSOC))
 {
@@ -59,7 +60,7 @@ if($row_section=mysqli_fetch_array($result_section,MYSQLI_ASSOC))
 	
     <div class="col-sm-12">
 	
-	<h2 style="font-weight:bold;">All Online Classes <?php echo strtoupper($present_class)." ".strtoupper($section);?></h2>
+	<h2 style="font-weight:bold;">All Online Classes <?php echo strtoupper($present_class);?> <?php if($section){echo strtoupper($section);}?></h2>
 	<div class="table-responsive">
 	<table class="table table-bordered">
 	<tbody>
