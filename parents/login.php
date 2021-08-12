@@ -9,8 +9,8 @@
   <script src="bootstrap/bootstrap.min.js"></script>
   
   <meta name="theme-color" content="#0f6256">
-<link rel="apple-touch-icon" href="/school_latestc/parents/images/school192.png">
-<link rel="manifest" href="/school_latestc/parents/manifest.json">
+<link rel="apple-touch-icon" href="images/school192.png">
+<link rel="manifest" href="manifest.json">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   
