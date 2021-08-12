@@ -12,7 +12,7 @@ $staff_pass=$_SESSION['staff_pass'];
    if(isset($_GET["id"])){
        $id=$_GET["id"];
    }
-$sql="select * from online_class where  id='".$id."' and admin_id='".$admin_id."'";
+$sql="select * from online_class where  id='".$id."'";
 $result = mysqli_query($conn,$sql);
 if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 {
