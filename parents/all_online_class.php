@@ -27,7 +27,7 @@ if($row_section=mysqli_fetch_array($result_section,MYSQLI_ASSOC))
 		<div class="form-group">
         <?php echo '<select class="form-control" name="subject_name">';
         echo '<option value="">Select Subject</option>';
-        $sql="select distinct subject_name from subjects";
+        $sql="select distinct subject_name from online_class";
         $result=mysqli_query($conn,$sql);
         foreach($result as $value)
         {
