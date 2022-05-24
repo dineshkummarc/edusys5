@@ -1,9 +1,9 @@
 <?php
-
 session_start();
-
-if(isset($_SESSION['parents_uname'])&&!empty($_SESSION['parents_pass'])&&!empty($_SESSION['academic_year'])&&!empty($_SESSION['parents_class']))
+if (isset($_SESSION['parents_uname']) && !empty($_SESSION['parents_pass']) && !empty($_SESSION['parents_class']) && !empty($_SESSION['student_id']) && !empty($_SESSION['academic_year'])) 
 {
+$student_id=$_SESSION['student_id'];
+$cur_academic_year = $_SESSION['academic_year'];
 require("connection.php");
 $date = date_default_timezone_set('Asia/Kolkata');
 $today = date('Y-m-d');
@@ -19,14 +19,12 @@ if(isset($_POST["leave"]))
 	$cur_academic_year=$_SESSION["academic_year"];
 	
 	
-	$sql="insert into leave_appli (first_name,admission_no,reason,from_date,to_date,details,applied_date,class,academic_year) values('$first_name','$admission_no','$reason','$from_date','$to_date','$details','$today','$present_class','$cur_academic_year')";
-	var_dump($sql);
+	$sql="insert into leave_appli (student_id,reason,from_date,to_date,details,academic_year) values('$student_id','$reason','$from_date','$to_date','$details','$cur_academic_year')";
+	//var_dump($sql);
 	
 	if ($conn->query($sql) === TRUE) 
 	{
-	header("Location:leave_sms.php?first_name=".$first_name."&admission_no=".$admission_no."&present_class=".$present_class);
-	
-
+	header("Location:leave_sms.php?student_id=".$student_id);
 	} 
 	else 
 	{

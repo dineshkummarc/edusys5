@@ -8,10 +8,20 @@ require("connection.php");
 //error_reporting("0");
 date_default_timezone_set("Asia/Kolkata");
 $today_date=date("Y-m-d");
-$present_class=$_GET['present_class'];
-$academic_year=$_GET['academic_year'];
 
-$sql="select first_name,parent_contact,present_class,attendance,att_date from attendance where present_class='".$present_class."' and att_date='".$today_date."' and academic_year='".$cur_academic_year."' and attendance='Absent'";
+
+$student_id=$_GET["student_id"];
+$sql="select * from students where id='".$student_id."'";
+$result=mysqli_query($conn,$sql);
+if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
+{
+$present_class=$row["present_class"];
+$first_name=$row["first_name"];
+$roll_no=$row["roll_no"];
+$mob_number=$row["parent_contact"];
+}
+
+$sql="select attendance,att_date from attendance where present_class='".$present_class."' and att_date='".$today_date."' and academic_year='".$cur_academic_year."' and attendance='Absent'";
 
 $result=mysqli_query($conn,$sql);
 var_dump($sql);
@@ -33,12 +43,9 @@ var_dump($sql);
 
 foreach($result as $value)
   { 
-  	
-	$f1=$value["first_name"];
-	$f2=$value["att_date"];
+  $f2=$value["att_date"];
 	$f3=$value["attendance"];
-	$mob_number=$value["parent_contact"];
-	$message_details = $f1." is absent from school today (".$f2.")";
+	$message_details = $first_name." is absent from school today (".$f2.")";
 
 if($mob_number!="null"){
 	
@@ -49,6 +56,6 @@ if($mob_number!="null"){
 	require("sms_gateway.php");
 }
 }
-  header("Location:attendance.php?success=.'success'");
+header("Location:attendance_desc.php?student_id=".$student_id);
 }
 

@@ -50,8 +50,12 @@
 	</div>
 	<div class="form-group">
 	<label role="email">Password:</label>
-	<input type="password" name="parents_pass" class="form-control">
+	<input type="password" name="parents_pass"  class="form-control">
 	</div>
+	<div class="field-group">
+		<div><input type="checkbox" name="remember" id="remember" <?php if(isset($_COOKIE["member_login"])) { ?> checked <?php } ?> />
+		<label for="remember-me"><span style="color:red;">Remember me (Save Password)</span></label>
+	</div><br>
 	
 	<input type="submit" class="btn btn-primary btn-block" value="Login">
 	</form>

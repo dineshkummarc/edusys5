@@ -41,17 +41,6 @@ $cur_academic_year = $_SESSION['academic_year'];
 					echo '<p style="text-align: center;"><span style="color: red; font-size: 16px; font-weight: bold; text-align: center;">Sorry. Something went wrong. try again.or contact your webmaster.</span><br></p>';
 
 				}
-				if((isset($_GET["first_name"]))&&(isset($_GET["roll_no"])))
-
-				{
-					$first_name=$_GET["first_name"];
-					$roll_no=$_GET["roll_no"];
-					$present_class=$_GET["class"];
-					$section=$_GET["section"];
-				
-				}
-				
-				
 				
 				if(isset($_GET["id"])){
 					$id=$_GET["id"];
@@ -59,17 +48,14 @@ $cur_academic_year = $_SESSION['academic_year'];
 				
 				$sql="select * from remarks where id='".$id."'";
 				$result=mysqli_query($conn,$sql);
-				var_dump($sql);
+				//var_dump($sql);
 				if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 					{
 						$remark_title=$row["remarks_title"];
 						$remark_desc=$row["remarks_desc"];
-						$first_name=$row["first_name"];
-						$roll_no=$row["roll_no"];
-						$section=$row["section"];
+						$student_id=$row["student_id"];
 					}
-								
-								?>
+					?>
 								
 							
 <form action="update_remarks.php" method="post">
@@ -86,13 +72,8 @@ $cur_academic_year = $_SESSION['academic_year'];
 		 <textarea class="form-control"  name="remark_desc"  rows="5"><?php echo $remark_desc; ?></textarea>
 	  </div>
 	  
-	  
-	   <input type="hidden" name="remark_date" value="<?php echo date('Y-m-d'); ?>" class="form-control">
-	   <input type="hidden" name="first_name" value="<?php echo $first_name; ?>" class="form-control">
-	   <input type="hidden" name="roll_no" value="<?php echo $roll_no; ?>" class="form-control">
-	   <input type="hidden" name="present_class" value="<?php echo $present_class; ?>" class="form-control">
-	   <input type="hidden" name="section" value="<?php echo $section; ?>" class="form-control">
-	   <input type="hidden" name="id" value="<?php echo $id; ?>" class="form-control">
+	   <input type="hidden" name="id" value="<?php echo $id; ?>" >
+		 <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
 		
 	 
 	<input type="submit" name="update_remarks" class="btn btn-primary" value="Update Remarks">

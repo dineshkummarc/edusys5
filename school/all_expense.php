@@ -2,7 +2,7 @@
 session_start();
 if(isset($_SESSION['lkg_uname'])&&!empty($_SESSION['lkg_pass'])&&!empty($_SESSION['academic_year']))
 {
-$cur_academic_year = $_SESSION['academic_year'];
+$academic_year = $_SESSION['academic_year'];
 
 	require("header.php");
 	require("connection.php");
@@ -71,19 +71,19 @@ function printDiv(expense) {
 			$from=$_GET["from"];
 			$to=$_GET["to"];
 			
-			$sql_amount="select * from expense where  academic_year='".$cur_academic_year."' and (exp_date BETWEEN '$from' and '$to') ORDER BY exp_date desc LIMIT $start_from, $num_rec_per_page ";
+			$sql_amount="select * from expense where  academic_year='".$academic_year."' and (exp_date BETWEEN '$from' and '$to') ORDER BY exp_date desc LIMIT $start_from, $num_rec_per_page ";
 		   
 		   
-		   $sql_tot="select sum(amount) as total_amount from expense where  academic_year='".$cur_academic_year."' and (exp_date BETWEEN '$from' and '$to') ORDER BY exp_date desc LIMIT $start_from, $num_rec_per_page";
+		   $sql_tot="select sum(amount) as total_amount from expense where  academic_year='".$academic_year."' and (exp_date BETWEEN '$from' and '$to') ORDER BY exp_date desc LIMIT $start_from, $num_rec_per_page";
 			//var_dump($sql_tot);
 		}
 		
 		else
 		{
 			
-			$sql_amount="select * from expense where  academic_year='".$cur_academic_year."' ORDER BY exp_date desc LIMIT $start_from, $num_rec_per_page ";
+			$sql_amount="select * from expense where  academic_year='".$academic_year."' ORDER BY exp_date desc LIMIT $start_from, $num_rec_per_page ";
 			
-			$sql_tot="select sum(amount) as total_amount from expense where academic_year='".$cur_academic_year."' ORDER BY exp_date desc LIMIT $start_from, $num_rec_per_page";
+			$sql_tot="select sum(amount) as total_amount from expense where academic_year='".$academic_year."' ORDER BY exp_date desc LIMIT $start_from, $num_rec_per_page";
 		   
 			//var_dump($sql_amount);
 		}
@@ -172,7 +172,7 @@ function printDiv(expense) {
 	</div>
 	</div>
 	<?php
-	$sql = "SELECT * FROM expense where academic_year='".$cur_academic_year."'"; 
+	$sql = "SELECT * FROM expense where academic_year='".$academic_year."'"; 
 	$result = mysqli_query($conn,$sql); //run the query
 	$total_records = mysqli_num_rows($result);  //count number of records
 	$total_pages = ceil($total_records / $num_rec_per_page); 
@@ -192,11 +192,4 @@ function printDiv(expense) {
 	
 
 
-<?php
-require("footer.php");			
-}
-else
-{
-header("Location:login.php");
-}
-?>  
+<?php require("footer.php"); } else { header("Location:login.php");} ?>  

@@ -92,23 +92,37 @@ function printDiv(income) {
 	foreach($result as $row_tot)
 	{
 	$id=$row_tot["id"];
+	$student_id=$row_tot["student_id"];
 	$read_status=$row_tot["status"];
 	$leave_status=$row_tot["leave_status"];
 	$from_date= date('d-m-Y', strtotime( $row_tot['from_date'] ));
 	$to_date= date('d-m-Y', strtotime( $row_tot['to_date'] ));
 	$applied_date= date('d-m-Y', strtotime( $row_tot['applied_date'] ));
+
+	$sql_name="select * from students where id='".$student_id."'";
+	$result_name=mysqli_query($conn,$sql_name);
+	
+	if($row_name=mysqli_fetch_array($result_name,MYSQLI_ASSOC))
+	{
+	$class=$row_name["present_class"];
+	$section=$row_name["section"];
+	$first_name=$row_name["first_name"];
+	$roll_no=$row_name["roll_no"];
+	
+	}
+	
 	
  ?>
 
 	<tr>
 	<td><?php echo $row_count;?></td>
-	<td><?php echo $row_tot["first_name"];?> <?php if($read_status==''){ ?><span class="w3-badge w3-red" style="color:#fff;">New</span><?php } ?><br>Roll No: <?php echo $row_tot["admission_no"];?><br>
+	<td><?php echo $first_name;?> <?php if($read_status==''){ ?><span class="w3-badge w3-red" style="color:#fff;">New</span><?php } ?><br>Roll No: <?php echo $roll_no;?><br>
 <small>Applied Date : <?php echo $applied_date;?></small>
 </td>
 	<td>From: <?php echo $from_date;?><br>To: <?php echo $to_date;?></td>
 	<td style="width:40%;"><?php echo $row_tot["reason"];?></td>
 
-	<td style="width:20%;"><a href="<?php echo 'send_leave.php?id='.$id.'&first_name='.$row_tot["first_name"].'&admission_no='.$row_tot["admission_no"].'&from_date='.$from_date.'&to_date='.$to_date.'&read_status=viewed';?>" ><i class="fa fa-reply" aria-hidden="true"></i> Click for Action</a> <?php if($read_status==''){ ?><span class="badge badge-default" style="background-color:red;"> Pending</span><?php } else { ?> <span class="badge badge-default" style="background-color:grey;"> Completed</span><?php } ?><br>
+	<td style="width:20%;"><a href="<?php echo 'send_leave.php?id='.$id;?>" ><i class="fa fa-reply" aria-hidden="true"></i> Click for Action</a> <?php if($read_status==''){ ?><span class="badge badge-default" style="background-color:red;"> Pending</span><?php } else { ?> <span class="badge badge-default" style="background-color:grey;"> Completed</span><?php } ?><br>
 	<?php 
 		if($leave_status == "approved"){
 			$badge = '<span class="badge badge-success" style="background-color:#28a745;"> Approved</span>';
@@ -117,7 +131,7 @@ function printDiv(income) {
 		}else{
 			$badge = '<span class="badge badge-default" style="background-color:grey;"> Pending</span>';
 		}
-		echo $badge;
+		//echo $badge;
 	?>
 	
 	

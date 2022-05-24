@@ -13,8 +13,8 @@ $cur_academic_year = $_SESSION['academic_year'];
 	?>
 	<head>
 <script>
-function printDiv(income) {
-     var printContents = document.getElementById('income').innerHTML;
+function printStudentFee(student_fee) {
+     var printContents = document.getElementById('student_fee').innerHTML;
      var originalContents = document.body.innerHTML;
 
      document.body.innerHTML = printContents;
@@ -65,8 +65,8 @@ function printDiv(income) {
 					
 					
 					  <input type="submit" class="btn btn-primary" name="filter" value="Filter">
-					   <button type="button"  class="btn btn-success btn-md" onclick="printDiv('study')">Print</button> 
-					
+					   <button type="button"  class="btn btn-success btn-md" onclick="printStudentFee('student_fee')">Print</button> 
+					<a href="accounts.php" class="btn btn-primary">View All</a>
 					</form>
 					<form action="export_fee.php" class="form-inline" method="post" name="export_excel">
                <br>
@@ -85,32 +85,44 @@ function printDiv(income) {
 		$num_rec_per_page=100;
 		if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
 		$start_from = ($page-1) * $num_rec_per_page; 
+
 		if((isset($_GET['class']))&&!empty($_GET['from'])&&!empty($_GET['to']))
 		{
-		$class=$_GET["class"];
-		$from=$_GET["from"];
-		$to=$_GET["to"];
-		
-		$sql="select id,roll_no,name,class,academic_year,rec_no,rec_date,sum(tot_paid) as paid_adm_fee from student_fee where class='".$class."' and academic_year='".$cur_academic_year."' and (rec_date BETWEEN '$from' and '$to') group by id ORDER BY name LIMIT $start_from, $num_rec_per_page";
-		
-		}
-		
-		else if(isset($_GET['class']))
-		{
-		$class=$_GET["class"];
-		$sql="select id,roll_no,name,class,academic_year,rec_no,rec_date,sum(tot_paid) as paid_adm_fee from student_fee where class='".$class."' and academic_year='".$cur_academic_year."' group by id ORDER BY name LIMIT $start_from, $num_rec_per_page";
-		
-		}
-		$result_set_fee=mysqli_query($conn,$sql_set_fee);
-		if($row_set_fee=mysqli_fetch_array($result_set_fee,MYSQLI_ASSOC))
-		{
+			$class=$_GET["class"];
+			$from=$_GET["from"];
+			$to=$_GET["to"];
 			
+			$sql="select id,student_id,academic_year,rec_no,rec_date,sum(tot_paid) as paid_adm_fee from student_fee where  academic_year='".$cur_academic_year."' and class='".$class."' and (rec_date BETWEEN '$from' and '$to') group by student_id ORDER BY id LIMIT $start_from, $num_rec_per_page";
+		
 		}
+		
+		else if((!empty($_GET['from']))&&!empty($_GET['to']))
+		{
+			$from=$_GET["from"];
+			$to=$_GET["to"];
+			$sql="select id,student_id,academic_year,rec_no,rec_date,sum(tot_paid) as paid_adm_fee from student_fee where academic_year='".$cur_academic_year."' and (rec_date BETWEEN '$from' and '$to') group by student_id ORDER By id LIMIT $start_from, $num_rec_per_page";
+		
+		}
+		else if(!empty($_GET['class']))
+		{
+		$class=$_GET["class"];
+		
+			$sql="select id,student_id,academic_year,rec_no,rec_date,sum(tot_paid) as paid_adm_fee from student_fee where  academic_year='".$cur_academic_year."' and class='".$class."' group by student_id ORDER BY id LIMIT $start_from, $num_rec_per_page";
+		
+		}
+		else
+		{
+			$sql="select id,student_id,academic_year,rec_no,rec_date,sum(tot_paid) as paid_adm_fee from student_fee where  academic_year='".$cur_academic_year."' group by student_id ORDER BY id LIMIT $start_from, $num_rec_per_page";
+		
+		}
+
+	
 		$result=mysqli_query($conn,$sql);
 		$row_count =1;
+
 	?>	
-                <div class="row" id="income"><br>
-                <div class="col-sm-12">
+  <div class="row" id="student_fee"><br>
+  <div class="col-sm-12">
 				<table class="table table-bordered table-striped" >
 				<tbody>
 				<tr>
@@ -118,7 +130,6 @@ function printDiv(income) {
 				<th>Name</th>
 				<th>Roll No</th>
 				<th>Class</th>
-				<th>Receipt Date</th>
 				<th style="color:green;">Fee Paid</th>
 				
 				</tr>
@@ -128,27 +139,40 @@ function printDiv(income) {
 	$reciept_date= date('d-m-Y', strtotime( $row['rec_date'] ));
 	
 	$id=$row["id"];
-	$roll_no=$row["roll_no"];
-	$academic_year=$row["academic_year"];
-	$mob=$row["mob"];
-	$tot_adm_fee=$row_set_fee["tot_paid"];
+	$student_id=$row["student_id"];
+
+
+$sql_student="select * from students where id='".$student_id."'";
+$result_student=mysqli_query($conn,$sql_student);
+//var_dump($sql);
+
+if($row_student=mysqli_fetch_array($result_student,MYSQLI_ASSOC))
+{
+$class=$row_student["present_class"];
+$section=$row_student["section"];
+$first_name=$row_student["first_name"];
+$roll_no=$row_student["roll_no"];
+$student_type=$row_student["student_type"];
+$mob=$row_student["parent_contact"];
+}
+
+	$tot_adm_fee=$row["tot_paid"];
 	
 	$rec_no=$row["rec_no"];
 	$paid_adm_fee+=$row["paid_adm_fee"];
 	
-	$class=$row["class"];
+
 	$tot_paid=$row["tot_paid"];
-	$balance=$row_set_fee["tot_paid"]-$row["paid_adm_fee"];
+	$balance=$row["tot_paid"]-$row["paid_adm_fee"];
 	
 	?>
 				<tr>
-				<td style="text-align:center;"><?php echo $row_count;?></td>
+				<td><?php echo $row_count;?></td>
 				
-				<td style="text-align:center;"><a href="<?php echo 'indi_paid_det.php?name='.$row["name"].'&roll_no='.$row["roll_no"].'&class='.$row["class"];?>"><?php echo $row["name"];?></a></td>
-				<td style="text-align:center;"><?php echo $row["roll_no"];?></td>
-				<td style="text-align:center;"><?php echo $row["class"];?></td>
-				<td style="text-align:center;"><?php echo $row["rec_date"];?></td>
-				<td style="text-align:center;color:green;"><?php echo $row["paid_adm_fee"];?></td>
+				<td><a href="<?php echo 'indi_paid_det.php?student_id='.$student_id;?>"><?php echo $first_name;?></a></td>
+				<td><?php echo $roll_no;?></td>
+				<td><?php echo $class;?></td>
+				<td style="color:green;">&#8377;<?php echo $row["paid_adm_fee"];?></td>
 				
 				
 			
@@ -161,7 +185,7 @@ function printDiv(income) {
 	}
 	
 	?>
-	<tr><span style="color:#006699;font-size:18px;">Total Fee Paid Rs.<?php echo $paid_adm_fee;?></span></tr>
+	<tr><span style="color:#006699;font-size:18px;">Total Fee Paid Rs.&#8377;<?php echo $paid_adm_fee;?></span></tr>
 	</tbody>
 	</table></div>
 	</div>

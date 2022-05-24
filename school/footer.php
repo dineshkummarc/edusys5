@@ -9,11 +9,56 @@
 		$(document).ready(function(){
 		$('input.typeahead').typeahead({
 			name: 'typeahead',
-			remote:'search.php?key=%QUERY',
+			remote:'search_students.php?key=%QUERY',
 			limit : 20
 		});
 	});
-	</script>
+	</script> 
+	
+
+	<script type="text/javascript">
+    $(document).ready(function(){
+
+      $('#sel_account').change(function(){
+
+        var accountid = $(this).val();
+
+        // Empty state and city dropdown
+        $('#sel_entry_name').find('option').not(':first').remove();
+
+        // AJAX request
+        $.ajax({
+          url: 'ajaxfile.php',
+          type: 'post',
+          data: {request: 1, accountid: accountid},
+          dataType: 'json',
+          success: function(response){
+
+            var len = response.length;
+
+                  for( var i = 0; i<len; i++){
+                      var id = response[i]['id'];
+                      var name = response[i]['name'];
+
+                      $("#sel_entry_name").append("<option value='"+id+"'>"+name+"</option>");
+
+                  }
+          }
+        });
+
+      });
+      });
+</script>
+
+<script type="text/javascript">
+        var blink = 
+            document.getElementById('blink');
+  
+        setInterval(function () {
+            blink.style.opacity = 
+            (blink.style.opacity == 0 ? 1 : 0);
+        }, 800); 
+    </script>
 
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 

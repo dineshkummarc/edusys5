@@ -46,9 +46,9 @@ require("header.php");
 
 <td><?php echo $row['fac_fname'];?></td>
 
-<td>Last Name</td>
+<td>Qualification</td>
 
-<td><?php echo $row['fac_lname'];?></td>
+<td><?php echo $row['fac_quali'];?></td>
 </tr>
 <tr>
 
@@ -80,16 +80,7 @@ require("header.php");
 
 <td><?php echo $row['fac_desig'];?></td>
 </tr>
-<tr>
 
-<td>Qualification</td>
-
-<td><?php echo $row['fac_quali'];?></td>
-
-<td>Joined Date</td>
-
-<td><?php echo $fac_join;?></td>
-</tr>
 <tr>
 
 <td>Email</td>

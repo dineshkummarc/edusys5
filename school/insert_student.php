@@ -47,11 +47,11 @@ if(isset($_POST["register"]))
 	if ($conn->query($sql) === TRUE) 
 	{
 	
-	header("Location:register_students.php?success=.'success'");
+	header("Location:all_students.php?success=.'success'");
     } 
 	else 
 	{
-	
+	var_dump($sql);
 	}
 }
 }else{

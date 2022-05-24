@@ -1,8 +1,8 @@
 <?php
 session_start();
-if(isset($_SESSION['parents_uname'])&&isset($_SESSION['parents_pass'])&&isset($_SESSION['parents_class']))
+if (isset($_SESSION['parents_uname']) && !empty($_SESSION['parents_pass']) && !empty($_SESSION['parents_class']) && !empty($_SESSION['student_id'])) 
 {
-$academic_year=$_SESSION['academic_year'];
+$student_id=$_SESSION['student_id'];
 require("header.php");
 require("connection.php");
 ?>
@@ -28,7 +28,7 @@ require("connection.php");
 			<?php
 			$today_date = strtotime(date("d-m-Y"));
 			
-	$sql="select * from events  where evt_date>='".$today_date."'  and academic_year='".$academic_year."' ORDER BY id DESC";	
+	$sql="select * from events  where evt_date>='".$today_date."' ORDER BY id DESC";	
 	
 	$result=mysqli_query($conn,$sql);
 	$row_count =1;
@@ -39,7 +39,7 @@ require("connection.php");
 		$evt_date = strtotime($row['evt_date']);
 	
 	if($evt_date >= $today_date){
-		$badge = '<span class="badge badge-success" style="background-color:#28a745;"> Upcoming</span>';
+		$badge = '<span class="badge badge-success" style="background-color:#28a745;"> Active</span>';
 	}else{
 		$badge = '<span class="badge badge-danger" style="background-color:#dc3545;"> Completed</span>';
 	}

@@ -1,16 +1,17 @@
 <?php
 session_start();
-
-if(isset($_SESSION['parents_uname'])&&isset($_SESSION['parents_pass'])&&isset($_SESSION['parents_class']))
+if (isset($_SESSION['parents_uname']) && !empty($_SESSION['parents_pass']) && !empty($_SESSION['parents_class']) && !empty($_SESSION['student_id'])) 
 {
+
+$student_id=$_SESSION['student_id'];
 require("header.php");
 require("connection.php");
-$parents_uname=$_SESSION['parents_uname'];
-$parents_pass=$_SESSION['parents_pass'];
+
+
 $parents_class=$_SESSION['parents_class'];
 
 
-$sql_section="select section from students where first_name='".$parents_uname."' and present_class='".$parents_class."'  and roll_no='".$parents_pass."'";
+$sql_section="select section from students where id='".$student_id."'";
 		$result_section = mysqli_query($conn, $sql_section);
 		if($row_section=mysqli_fetch_array($result_section,MYSQLI_ASSOC))
 		{
@@ -39,7 +40,7 @@ $result=mysqli_query($conn,$sql);
 	 foreach($result as $row)
 	 {
 		$id = $row["id"];
-		$sql_opened="select *  from opened_notifications where notification_id = '".$id."' and member_name='".$parents_uname."' and roll_no='".$parents_pass."' and viewed='viewed'";
+		$sql_opened="select *  from opened_notifications where notification_id = '".$id."' and student_id='".$student_id."' and viewed='viewed'";
 		$result_opened=mysqli_query($conn,$sql_opened);	
 		//var_dump($sql_opened);
 			if(mysqli_num_rows($result_opened)==0){

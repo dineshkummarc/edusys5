@@ -1,9 +1,11 @@
 <?php
 session_start();
-if(isset($_SESSION['parents_uname'])&&!empty($_SESSION['parents_pass'])&&!empty($_SESSION['academic_year'])&&!empty($_SESSION['parents_class']))
+if (isset($_SESSION['parents_uname']) && !empty($_SESSION['parents_pass']) && !empty($_SESSION['parents_class']) && !empty($_SESSION['student_id'])) 
 {
+$student_id=$_SESSION['student_id'];
 $cur_academic_year=$_SESSION['academic_year'];
 $first_name=$_SESSION['parents_uname'];
+$present_class=$_SESSION['parents_class'];
 $roll_no=$_SESSION['parents_pass'];
 error_reporting("0");
 require("header.php");
@@ -12,7 +14,7 @@ require("connection.php");
 //////////////////////Start Fee Balance ////////////////////////////////////////////////////////////
 	
 	////////////////////// Start Total Fee ////////////////////////////////////////////////////////////
-	$sql_fee="select * from set_fee where first_name='".$first_name."' and roll_no='".$roll_no."' and academic_year='".$cur_academic_year."'";
+	$sql_fee="select * from set_fee where class='".$present_class."' and academic_year='".$cur_academic_year."'";
 	$result_fee=mysqli_query($conn,$sql_fee);
 	foreach($result_fee as $row_fee){
 		$adm_fee+=$row_fee["adm_fee"];
@@ -21,7 +23,7 @@ require("connection.php");
 	////////////////////// End Total Fee ////////////////////////////////////////////////////////////
 	
 	////////////////////// Start Total Fee Paid ////////////////////////////////////////////////////////////
-	$sql_paid="select * from student_fee where name='".$first_name."' and roll_no='".$roll_no."' and academic_year='".$cur_academic_year."'";
+	$sql_paid="select * from student_fee where student_id='".$student_id."' and academic_year='".$cur_academic_year."'";
 	$result_paid=mysqli_query($conn,$sql_paid);
 	foreach($result_paid as $row_paid){
 		$tot_paid+=$row_paid["tot_paid"];
@@ -35,7 +37,7 @@ require("connection.php");
 
 //////////////////////////////////////Start of Searched variables /////////////////////////////////////////////////
 	
-$sql_route="select route_name,stage_name from route_students where first_name='".$first_name."' and roll_no='".$roll_no."'  and academic_year='".$cur_academic_year."'";
+$sql_route="select route_name,stage_name from route_students where student_id='".$student_id."'  and academic_year='".$cur_academic_year."'";
 //var_dump($sql_route);
 $result_route=mysqli_query($conn,$sql_route);
 if($row_route=mysqli_fetch_array($result_route,MYSQLI_ASSOC))
@@ -47,7 +49,7 @@ if($row_route=mysqli_fetch_array($result_route,MYSQLI_ASSOC))
 	$stage_name="";
 	}
 
-	$sql="select * from students where first_name='".$first_name."' and  roll_no='".$roll_no."'  and academic_year='".$cur_academic_year."'";
+	$sql="select * from students where id='".$student_id."'  and academic_year='".$cur_academic_year."'";
 	//var_dump($sql);
 	$result=mysqli_query($conn,$sql);
 
@@ -220,32 +222,27 @@ function printDiv(income) {
 				  </center>
 				  
 				   
-<!------------------------------------------------------Start Attendance details------------------------------------------------->
+<!------------------------------------------------------Start Attendance details----------------------------------------------->
 <?php 
-	}
-$sql_tot="select att_date,first_name,roll_no,present_class,sum(att_count) as tot_att_count,present_class from attendance where present_class='".$class."' and first_name='".$first_name."' and roll_no='".$roll_no."'  and academic_year='".$cur_academic_year."' group by roll_no";
-        $result_tot=mysqli_query($conn,$sql_tot);		
-		if($row_tot=mysqli_fetch_array($result_tot,MYSQLI_ASSOC))
-	    {
-			$tot_att_count=$row_tot["tot_att_count"];
-			
-			$first_name=$row_tot["first_name"];
-			$roll_no=$row_tot["roll_no"];
-			$present_class=$row_tot["present_class"];
-			
-		}	
-				
+
+	$sql_tot_att="select distinct att_date from attendance where academic_year='".$cur_academic_year."' and present_class='".$present_class."' and section='".$section."'";
+	$result_att_tot=mysqli_query($conn,$sql_tot_att);
+	$tot_class=mysqli_num_rows($result_att_tot);
+	if($tot_class>0){
 		
-		$sql_tot_att="select distinct att_date,present_class,sum(tot_class) as tot_class from attendance where present_class='".$class."' and first_name='".$first_name."' and roll_no='".$roll_no."'  and academic_year='".$cur_academic_year."'  group by roll_no";
-		$result_att_tot=mysqli_query($conn,$sql_tot_att);
-		//$tot_class=mysqli_num_rows($result_att_tot);
-		if($row_att_tot=mysqli_fetch_array($result_att_tot,MYSQLI_ASSOC))
-	    {
-			$tot_class=$row_att_tot["tot_class"];
-			
+		$sql_tot="select sum(att_count) as tot_att_count from attendance where academic_year='".$cur_academic_year."' and student_id='".$student_id."'";
+		//var_dump($sql_tot);
+		$result_tot=mysqli_query($conn,$sql_tot);	
+		if($row_tot=mysqli_fetch_array($result_tot,MYSQLI_ASSOC))
+	  {
+			$tot_att_count=$row_tot["tot_att_count"];
 		}
 
+		$per_tot_class=($tot_att_count/$tot_class)*100;
+	
+
 ?>
+
 <div class="row">
         <hr><div class="col-sm-12">
 		 <h3>Attendance Details</h3>
@@ -253,41 +250,23 @@ $sql_tot="select att_date,first_name,roll_no,present_class,sum(att_count) as tot
 				<center><table class="table table-bordered">
 				<tbody>
 				<tr class="w3-blue">
-				<th>SL No</th>
 				<th>Name</th>
-				<th>Roll No</th>
 				<th>Class Attended</th>
 				<th>Total Class</th>
 				<th>Percentage (%)</th>
 				
 				
 				</tr>
-	<?php
-	$row_count_att=1;
-	foreach($result_tot as $row_tot)
-	{
-	//$att_date= date('d-m-Y', strtotime( $row['att_date'] ));
-	//$join_date= date('d-m-Y', strtotime( $row['join_date'] ));
-	
-	$per_tot_class=($row_tot["tot_att_count"]/$tot_class)*100;
-	?>
+
 				<tr>
-				<td style="text-align:center;"><?php echo $row_count_att;?></td>
-				<td style="text-align:center;"><a href="<?php echo 'attendance_desc.php?name='.$row_tot["first_name"].'&roll_no='.$row_tot["roll_no"].'&present_class='.$row_tot["present_class"];?>"><?php echo $row_tot["first_name"];?></a></td>
-				<td style="text-align:center;"><?php echo $row_tot["roll_no"];?></td>
-				<td style="text-align:center;"><?php echo $row_tot["tot_att_count"];?></td>
-				<td style="text-align:center;"><?php echo $tot_class;?></td>
-				<td style="text-align:center;"><?php echo $per_tot_class;?></td>
+				<td><a href="<?php echo 'attendance_desc.php?student_id='.$student_id;?>"><?php echo $first_name;?></a></td>
+				<td><?php echo $tot_att_count;?></td>
+				<td><?php echo $tot_class;?></td>
+				<td><?php echo $per_tot_class;?></td>
 				
 				
 				</tr>
-				
-	<?php
-				
-	$row_count_att++; 
-	}
-	
-	?>
+		
 	
 				</tbody>
 				</table></center>
@@ -295,12 +274,16 @@ $sql_tot="select att_date,first_name,roll_no,present_class,sum(att_count) as tot
 				</div>
 				</div>
 				</div>
+				<?php
+	}
+				?>
+			
 
 <!---------------------------End of Attendance details-------------------------------------------------->
 	<!------------------------Start of student Remarks------------------------------------------->
 		  <?php
 		
-					$sql_remarks="select * from remarks where first_name='".$first_name."' and roll_no='".$roll_no."'  and academic_year='".$cur_academic_year."' order by id desc";
+					$sql_remarks="select * from remarks where student_id='".$student_id."'  and academic_year='".$cur_academic_year."' order by id desc";
 					$result_remarks=mysqli_query($conn,$sql_remarks);
 					  ?>
 					     <div class="row">
@@ -351,11 +334,11 @@ $sql_tot="select att_date,first_name,roll_no,present_class,sum(att_count) as tot
 					  
 <!------------------------Start Fee Student Fee details--------------------------->
 <!---------------Start of Individual Fee paid details----------------------->
-		  <hr><h3 style="font-weight:bold;color:red;">INDIVIDUAL FEE DETAILS</h3>
+		  <hr><h3 style="font-weight:bold;color:red;">FEE DETAILS</h3>
 			
 		   <?php 
 		   
-		  $sql_ind_all_fee="select * from set_fee where first_name='".$first_name."' and roll_no='".$roll_no."' and academic_year='".$cur_academic_year."' ORDER BY id desc";
+		  $sql_ind_all_fee="select * from set_fee where class='".$present_class."' and academic_year='".$cur_academic_year."' ORDER BY id desc";
 		  
 		   //var_dump($sql_ind_fee);
 		    $result_ind_all_fee=mysqli_query($conn,$sql_ind_all_fee);
@@ -382,8 +365,6 @@ $sql_tot="select att_date,first_name,roll_no,present_class,sum(att_count) as tot
 				?>
 				<tr class="w3-blue">
 				<th>SL No</th>
-				<th>Name</th>
-				<th>Roll No</th>
 				<th>Fee Amount</th>
 				<th>Fee Towards</th>
 				<th>Updated Date</th>
@@ -398,13 +379,11 @@ $sql_tot="select att_date,first_name,roll_no,present_class,sum(att_count) as tot
 	$updated_ind_date= date('d-m-Y', strtotime( $row_all_ind_fee['updated_date'] ));
 	?>
 		<tr>
-		<td style="text-align:center;"><?php echo $row_ind_count_fee;?></td>
-		<td style="text-align:center;"><?php echo $row_all_ind_fee["first_name"];?></td>
-		<td style="text-align:center;"><?php echo $row_all_ind_fee["roll_no"];?></td>
+		<td><?php echo $row_ind_count_fee;?></td>
 		
-		<td style="text-align:center;"><?php echo $row_all_ind_fee["adm_fee"];?></td>
-		<td style="text-align:center;"><?php echo $row_all_ind_fee["fee_towards"];?></td>
-		<td style="text-align:center;"><?php echo $updated_ind_date;?></td>
+		<td><?php echo $row_all_ind_fee["adm_fee"];?></td>
+		<td><?php echo $row_all_ind_fee["fee_towards"];?></td>
+		<td><?php echo $updated_ind_date;?></td>
 		
 		
 		</tr>
@@ -430,7 +409,7 @@ $sql_tot="select att_date,first_name,roll_no,present_class,sum(att_count) as tot
 			
 		   <?php 
 		  
-		   $sql_set_fee="select sum(tot_paid) as total_paid,name,roll_no,rec_date,rec_no from student_fee where name='".$first_name."' and roll_no='".$roll_no."' and academic_year='".$cur_academic_year."' ORDER BY id desc";
+		   $sql_set_fee="select sum(tot_paid) as total_paid,name,roll_no,rec_date,rec_no from student_fee where student_id='".$student_id."' and academic_year='".$cur_academic_year."' ORDER BY id desc";
 		   //var_dump($sql_ind_fee);
 		   $result_set_fee=mysqli_query($conn,$sql_set_fee);
 		    $row_count_fee =1;
@@ -447,7 +426,7 @@ $sql_tot="select att_date,first_name,roll_no,present_class,sum(att_count) as tot
 		   <span style="color:green;font-weight:bold;font-size:16px;">Total Fee Paid : <?php echo $tot_paid;?></span>,
 		   </center>
 		         <?php 
-			$sql_ind_fee="select * from student_fee where name='".$first_name."' and roll_no='".$roll_no."' and academic_year='".$cur_academic_year."' ORDER BY id desc";
+			$sql_ind_fee="select * from student_fee where student_id='".$student_id."' and academic_year='".$cur_academic_year."' ORDER BY id desc";
 			$result_ind_fee=mysqli_query($conn,$sql_ind_fee);
 			$row_count_fee =1;
 			if(mysqli_num_rows($result_ind_fee)==0){
@@ -461,8 +440,6 @@ $sql_tot="select att_date,first_name,roll_no,present_class,sum(att_count) as tot
 				<tbody>
 				<tr class="w3-blue">
 				<th>SL No</th>
-				<th>Name</th>
-				<th>Roll No</th>
 				<th>Receipt Date</th>
 				<th>Receipt NO</th>
 				<th>Amount</th>
@@ -473,12 +450,10 @@ $sql_tot="select att_date,first_name,roll_no,present_class,sum(att_count) as tot
 	$rec_date= date('d-m-Y', strtotime( $row_tot_ind_fee['rec_date'] ));
 	?>
 				<tr>
-				<td style="text-align:center;"><?php echo $row_count_fee;?></td>
-				<td style="text-align:center;"><?php echo $row_tot_ind_fee["name"];?></td>
-				<td style="text-align:center;"><?php echo $row_tot_ind_fee["roll_no"];?></td>
-				<td style="text-align:center;"><?php echo $rec_date;?></td>
-				<td style="text-align:center;"><?php echo $row_tot_ind_fee["rec_no"];?></td>
-				<td style="text-align:center;"><?php echo $row_tot_ind_fee["tot_paid"];?></td>
+				<td><?php echo $row_count_fee;?></td>
+				<td><?php echo $rec_date;?></td>
+				<td><?php echo $row_tot_ind_fee["rec_no"];?></td>
+				<td><?php echo $row_tot_ind_fee["tot_paid"];?></td>
 				
 				</tr>
 				
@@ -502,7 +477,7 @@ $sql_tot="select att_date,first_name,roll_no,present_class,sum(att_count) as tot
 	</center>
 
 <?php
-			
+	}			
 }
 else
 {

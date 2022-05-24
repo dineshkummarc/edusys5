@@ -1,8 +1,9 @@
 <?php
 session_start();
-
-if(isset($_SESSION['parents_uname'])&&isset($_SESSION['parents_pass'])&&isset($_SESSION['parents_class']))
+if (isset($_SESSION['parents_uname']) && !empty($_SESSION['parents_pass']) && !empty($_SESSION['parents_class']) && !empty($_SESSION['student_id'])) 
 {
+
+$student_id=$_SESSION['student_id'];
 require("header.php");
 require("connection.php");
 $member_name=$_SESSION['parents_uname'];
@@ -16,10 +17,10 @@ $sql="select * from notifications where  id = '".$id."'";
 $result=mysqli_query($conn,$sql);
 
 
-$sql_opened="select *  from opened_notifications where  notification_id = '".$id."' and member_name='".$member_name."' and roll_no='".$member_id."'";
+$sql_opened="select *  from opened_notifications where  notification_id = '".$id."' and student_id='".$student_id."'";
 $result_opened=mysqli_query($conn,$sql_opened);	
 	if(mysqli_num_rows($result_opened)==0){
-		$sql_in="insert into opened_notifications (notification_id,member_name,roll_no,viewed) values('$id','$member_name','$member_id','viewed')";
+		$sql_in="insert into opened_notifications (notification_id,student_id,viewed) values('$id','$student_id','viewed')";
 		$conn->query($sql_in);
 		//var_dump($sql_in);
 	}

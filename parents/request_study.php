@@ -1,8 +1,8 @@
 <?php
 session_start();
-
-if(isset($_SESSION['parents_uname'])&&!empty($_SESSION['parents_pass'])&&!empty($_SESSION['academic_year'])&&!empty($_SESSION['parents_class']))
+if (isset($_SESSION['parents_uname']) && !empty($_SESSION['parents_pass']) && !empty($_SESSION['parents_class']) && !empty($_SESSION['student_id'])) 
 {
+$student_id=$_SESSION['student_id'];
 	error_reporting("0");
 	require("header.php");
 	require("connection.php");
@@ -53,31 +53,29 @@ function printDiv(income) {
 				
 		<div class="row">
         <div class="col-sm-12" id="income"><br>
-		<center><table class="table table-bordered">
-			<tbody>
-			<tr class="w3-blue">
-				<th>SL No</th>
-				<th>Name</th>
-				<th>Roll No</th>
-				<th>Class</th>
-				<th>Certificate</th>
-				<th>Purpose</th>
-				<th>Requested Date</th>
-				<th>Status</th>
-				<th>Collect Date</th>
-			</tr>
+		<center>
 	<?php
 	
 	
-	$sql_status="select * from request_study where academic_year='".$cur_academic_year."' and first_name='".$first_name."' and admission_no='".$roll_no."'";
+	$sql_status="select * from request_study where academic_year='".$cur_academic_year."' and student_id='".$student_id."'";
 	$result_status=mysqli_query($conn,$sql_status);
 	$row_count=1;
+	if(mysqli_num_rows($result_status)>0){ ?>
+	<table class="table table-bordered">
+			<tbody>
+			<tr class="w3-blue">
+				<th>SL No</th>
+				<th>Certificate</th>
+				<th>Purpose</th>
+				<th>Collect Date</th>
+			</tr>
+	<?php }
 	foreach($result_status as $row_tot)
 	{
 	$id=$row_tot["id"];
 	$status=$row_tot["status"];
 	$req_date= date('d-m-Y', strtotime( $row_tot['req_date'] ));
-	if($row_tot["ready_date"]=="0000-00-00"){
+	if($row_tot["ready_date"]=="NULL"){
 		$ready_date= "NIL";	
 	}else{
 		$ready_date= date('d-m-Y', strtotime( $row_tot['ready_date'] ));
@@ -93,15 +91,10 @@ function printDiv(income) {
 	}
 	?>
 				<tr>
-				<td style="text-align:center;"><?php echo $row_count;?></td>
-				<td style="text-align:center;"><?php echo $row_tot["first_name"];?></td>
-				<td style="text-align:center;"><?php echo $row_tot["admission_no"];?></td>
-				<td style="text-align:center;"><?php echo $row_tot["class"];?></td>
-				<td style="text-align:center;"><?php echo $row_tot["certi_name"];?></td>
-				<td style="text-align:center;"><?php echo $row_tot["reason"];?></td>
-				<td style="text-align:center;"><?php echo $req_date;?></td>
-				<td style="text-align:center;"><?php echo $badge;?></td>
-				<td style="text-align:center;"><?php echo $ready_date;?></td>
+				<td><?php echo $row_count;?></td>
+				<td><?php echo $row_tot["certi_name"];?><br><?php echo $badge;?></td>
+				<td><?php echo $row_tot["reason"];?><br><small>Requested Date: <?php echo $req_date;?></small></td>
+				<td><?php	if($status == "approved"){ echo $ready_date; } ?></td>
 			
 				
 				</tr>

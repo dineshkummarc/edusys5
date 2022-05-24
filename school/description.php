@@ -7,25 +7,47 @@ require("header.php");
 require("connection.php");
 error_reporting("0");
 
+
 //////////////////////////////////////Start of Searched variables /////////////////////////////////////////////////
 if(isset($_GET["search_student"])){
-	$searched=$_GET["typeahead"];
 	
+	$searched=$_GET["typeahead"];	
 	$searched_array=explode(",",$searched);
-	$first_name=$searched_array[0];
-	$present_class=$searched_array[1];
-	$roll_no=$searched_array[2];
-	
+	$id=$searched_array[0];
 }else{
-////////////////////////////////////// End of Searched variables ///////////////////////////////////////////////////
-$first_name=$_GET["first_name"];
-$roll_no=$_GET["roll_no"];
+	$id=$_GET["id"];
 }
 
 
 
+$sql="select * from students where id='".$id."'";
+	$result=mysqli_query($conn,$sql);
+	//var_dump($sql);
 	
-$sql_route="select route_name,stage_name from route_students where first_name='".$first_name."' and roll_no='".$roll_no."'  and academic_year='".$cur_academic_year."'";
+	if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
+	{
+	$dob= date('d-m-Y', strtotime( $row['dob'] ));
+	$join_date= date('d-m-Y', strtotime( $row['join_date'] ));
+	$class=$row["present_class"];
+	$section=$row["section"];
+	$first_name=$row["first_name"];
+	$roll_no=$row["roll_no"];
+	$student_type=$row["student_type"];
+	$adm_fee_blance=$row["tot_admis_fee"]-$row["tot_admis_paid"];
+	$cca_fee_blance=$row["tot_cca_fee"]-$row["tot_cca_paid"];
+	//$van_fee_blance=$row["tot_van_fee"]-$row["tot_van_paid"];
+	$books_fee_blance=$row["tot_books_fee"]-$row["tot_books_paid"];
+	$uniform_fee_blance=$row["tot_uniform_fee"]-$row["tot_uniform_paid"];
+	$shoe_fee_blance=$row["tot_shoe_fee"]-$row["tot_shoe_paid"];
+	$software_fee_blance=$row["tot_software_fee"]-$row["tot_software_paid"];
+	}
+	
+
+
+$sql_route="select route_name,stage_name from route_students where student_id='".$id."' and academic_year='".$cur_academic_year."'";
+//var_dump($sql_route);
+
+//$sql_route="select route_name,stage_name from route_students where id='".$id."'";
 //var_dump($sql_route);
 $result_route=mysqli_query($conn,$sql_route);
 if($row_route=mysqli_fetch_array($result_route,MYSQLI_ASSOC))
@@ -37,69 +59,81 @@ if($row_route=mysqli_fetch_array($result_route,MYSQLI_ASSOC))
 	$stage_name="";
 	}
 	
+	
 $sql_van_fee="select van_fee from set_van_fee where route_name='".$route_name."' and stage_name='".$stage_name."'  and academic_year='".$cur_academic_year."'";
 //var_dump($sql_route);
 $result_van_fee=mysqli_query($conn,$sql_van_fee);
 if($row_van_fee=mysqli_fetch_array($result_van_fee,MYSQLI_ASSOC))
 	{
 	$total_van_fee=$row_van_fee["van_fee"];
-	}else{
-	$total_van_fee="";
 	}
+
 	
-	
-	$sql_student_van_fee="select * from student_van_fee where first_name='".$first_name."' and roll_no='".$roll_no."' and academic_year='".$cur_academic_year."'";
+$sql_student_van_fee="select * from student_van_fee where student_id='".$id."' and academic_year='".$cur_academic_year."'";
 	$result_student_van_fee=mysqli_query($conn,$sql_student_van_fee);
 	foreach($result_student_van_fee as $row_student_van_fee)
 	{
 	$total_van_fee_paid+=$row_student_van_fee["van_fee"];
 	}
-
 	$van_fee_balance=$total_van_fee-$total_van_fee_paid;
 	
-	
 
-	$sql="select * from students where first_name='".$first_name."' and  roll_no='".$roll_no."'  and academic_year='".$cur_academic_year."'";
-	$result=mysqli_query($conn,$sql);
-
-	if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
-	{
-	$dob= date('d-m-Y', strtotime( $row['dob'] ));
-	$join_date= date('d-m-Y', strtotime( $row['join_date'] ));
-	$class=$row["present_class"];
-	$section=$row["section"];
-	$student_type=$row["student_type"];
 	
-	$adm_fee_blance=$row["tot_admis_fee"]-$row["tot_admis_paid"];
-	$cca_fee_blance=$row["tot_cca_fee"]-$row["tot_cca_paid"];
-	//$van_fee_blance=$row["tot_van_fee"]-$row["tot_van_paid"];
-	$books_fee_blance=$row["tot_books_fee"]-$row["tot_books_paid"];
-	$uniform_fee_blance=$row["tot_uniform_fee"]-$row["tot_uniform_paid"];
-	$shoe_fee_blance=$row["tot_shoe_fee"]-$row["tot_shoe_paid"];
-	$software_fee_blance=$row["tot_software_fee"]-$row["tot_software_paid"];
 	
 	$sql_fee_set = "select * from set_fee where class='".$class."' and academic_year='".$cur_academic_year."'";
 	$result_fee_set=mysqli_query($conn,$sql_fee_set);
-	if($row_fee_set=mysqli_fetch_array($result_fee_set,MYSQLI_ASSOC)){
-		$fee_set = $row_fee_set["adm_fee"];
+	if(mysqli_num_rows($result_fee_set)>0){
+		foreach($result_fee_set as $row_fee_set){
+			$class_fee += $row_fee_set["adm_fee"];
+		}
 	}
+
 	
-	$sql_individ_fee_set = "select * from set_fee where first_name= '".$first_name."' and roll_no= '".$roll_no."' and class='".$class."' and academic_year='".$cur_academic_year."'";
+/*
+	$sql_class_fee = "select adm_fee,fee_towards,class from set_fee where class='".$class."' and academic_year='".$cur_academic_year."'";
+	$result_class_fee=mysqli_query($conn,$sql_class_fee);
+	if(mysqli_num_rows($result_class_fee)>0){
+	if($row_class_fee=mysqli_fetch_array($result_class_fee,MYSQLI_ASSOC)){
+		$class_fee = $row_class_fee["adm_fee"];
+	}
+}
+*/
+
+
+
+	
+	$sql_individ_fee_set = "select * from set_individual_fee where student_id= '".$id."'";
 	$result_indi_fee_set=mysqli_query($conn,$sql_individ_fee_set);
-	
+	if(mysqli_num_rows($result_indi_fee_set)>0){
 	foreach($result_indi_fee_set as $row_indi_fee_set){
-		$individual_fee_set += $row_indi_fee_set["adm_fee"];
+		$individual_fee_set += $row_indi_fee_set["individual_fee"];
 	}
+}
+
+
 	
-	$sql_fee_paid = "select * from student_fee where name='".$first_name."' and roll_no='".$roll_no."' and class='".$class."' and academic_year='".$cur_academic_year."'";
+	$sql_fee_paid = "select * from student_fee where student_id='".$id."'";
 	$result_fee_paid=mysqli_query($conn,$sql_fee_paid);
-	/* if($row_fee_paid=mysqli_fetch_array($result_fee_paid,MYSQLI_ASSOC)){
-		$fee_set_paid = $row_fee_paid["tot_paid"];
-	} */
+	if(mysqli_num_rows($result_fee_paid)>0){
 	foreach($result_fee_paid as $row_fee_paid){
 		$fee_set_paid += $row_fee_paid["tot_paid"];
 	}
-	$fee_blance=($fee_set + $individual_fee_set)-$fee_set_paid;
+}
+
+$sql_ind_fee="select id,rec_no,rec_date,tot_paid,updated_on from student_fee where student_id='".$id."' and academic_year='".$cur_academic_year."'  UNION ALL select id,rec_no,rec_date,tot_paid,updated_on from student_adm_fee where student_id='".$id."' and academic_year='".$cur_academic_year."' UNION ALL select id,rec_no,rec_date,tot_paid,updated_on from student_books_fee where student_id='".$id."' and academic_year='".$cur_academic_year."' UNION ALL select id,rec_no,rec_date,tot_paid,updated_on from student_software_fee where student_id='".$id."' and academic_year='".$cur_academic_year."' UNION ALL select id,rec_no,rec_date,tot_paid,updated_on from student_shoe_fee where student_id='".$id."' and academic_year='".$cur_academic_year."' UNION ALL select id,rec_no,rec_date,tot_paid,updated_on from student_uniform_fee where student_id='".$id."' and academic_year='".$cur_academic_year."' UNION ALL select id,rec_no,rec_date,tot_paid,updated_on from student_van_fee where student_id='".$id."' and academic_year='".$cur_academic_year."' UNION ALL select id,rec_no,rec_date,tot_paid,updated_on from student_cca_fee where student_id='".$id."' and academic_year='".$cur_academic_year."' ORDER BY id desc";
+		   
+
+
+ $result_ind_fee=mysqli_query($conn,$sql_ind_fee);
+ foreach($result_ind_fee as $row_paid_fee){
+	 $total_paid_all_fee += $row_paid_fee["tot_paid"];  
+ }
+
+	//$fee_blance=($fee_set + $individual_fee_set)-$fee_set_paid;
+	$fee_blance=($class_fee+$individual_fee_set)-$total_paid_all_fee;
+
+
+
 	?>
 	<head>
 		<script>
@@ -108,8 +142,8 @@ function goBack() {
 }
 </script>
 	<script>
-function printIncome(income) {
-     var printContents = document.getElementById('income').innerHTML;
+function printProfile(profile) {
+     var printContents = document.getElementById('profile').innerHTML;
      var originalContents = document.body.innerHTML;
 
      document.body.innerHTML = printContents;
@@ -122,6 +156,7 @@ function printIncome(income) {
 	</head>
 	<br>
 	
+	
 	 <center><div class="panel panel-primary" style="width:80%;">
       <div class="panel-heading"><center>Student Details , Name: <?php echo $row["first_name"];?> <a href="<?php echo 'upd_register.php?id='.$row['id']; ?>" title="Edit">  <span style="color:yellow;">  Edit info <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i> </a></span></center>
 	 
@@ -133,38 +168,47 @@ function printIncome(income) {
 	<?php 
 	if($student_type==""){
 	?>
-	<a href="<?php echo 'student_fee.php?first_name='.$row['first_name'].'&roll_no='.$row['roll_no'].'&present_class='.$row['present_class'].'&academic_year='.$row['academic_year'];?>"><span style="color:#fff;"><i class="fa fa-money" aria-hidden="true"></i> School Fee</span></a>
+	<a href="<?php echo 'student_fee.php?id='.$id;?>"><span style="color:#fff;"><i class="fa fa-money" aria-hidden="true"></i> Collect School Fee</span></a>
 	<?php	
 	}else if($student_type=="rte"){
 	?>
-	<a href="<?php echo 'student_adm_fee.php?first_name='.$row['first_name'].'&roll_no='.$row['roll_no'].'&present_class='.$row['present_class'].'&academic_year='.$row['academic_year'];?>"><span style="color:#fff;"><i class="fa fa-money" aria-hidden="true"></i> Collect RTE fee</span></a>
+	<a href="<?php echo 'student_adm_fee.php?id='.$id;?>"><span style="color:#fff;"><i class="fa fa-money" aria-hidden="true"></i> Collect RTE fee</span></a>
 	<?php	
 	}else if($student_type=="staff children"){
 	?>
-	<a href="<?php echo 'student_cca_fee.php?first_name='.$row['first_name'].'&roll_no='.$row['roll_no'].'&present_class='.$row['present_class'].'&academic_year='.$row['academic_year'];?>"><span style="color:#fff;"><i class="fa fa-money" aria-hidden="true"></i> Collect Teacher Children Fee</span></a>
+	<a href="<?php echo 'student_cca_fee.php?id='.$id;?>"><span style="color:#fff;"><i class="fa fa-money" aria-hidden="true"></i> Collect Teacher Children Fee</span></a>
 	<?php	
 	}
 	?>
 	
 	
 	</td>
-	<td> <a href="<?php echo 'add_remarks.php?first_name='.$row['first_name'].'&roll_no='.$row['roll_no'].'&class='.$row['present_class'].'&section='.$row['section'];?>"><span style="color:#fff;"><i class="fa fa-check" aria-hidden="true"></i> Add Remarks</span></a></td>
-		<td><a href="<?php echo 'gate_pass.php?first_name='.$row['first_name'].'&roll_no='.$row['roll_no'].'&present_class='.$row['present_class'].'&academic_year='.$row['academic_year'].'&section='.$row['section'];?>"><span style="color:#fff;"><i class="fa fa-id-card-o" aria-hidden="true"></i> Issue Gate Pass</span></a></td>
-	<td><a href="<?php echo 'certificates.php?first_name='.$row['first_name'].'&roll_no='.$row['roll_no'].'&present_class='.$row['present_class'];?>"><span style="color:#fff;"><i class="fa fa-print" aria-hidden="true"></i> Print Certificate</span></a></td>
+	<td> <a href="<?php echo 'add_remarks.php?id='.$id;?>"><span style="color:#fff;"><i class="fa fa-check" aria-hidden="true"></i> Add Achievements / Remarks</span></a></td>
+		<td><a href="<?php echo 'gate_pass.php?id='.$id;?>"><span style="color:#fff;"><i class="fa fa-id-card-o" aria-hidden="true"></i> Issue Gate Pass</span></a></td>
+	<td><!--<a href="<?php echo 'certificates.php?id='.$id;?>"><span style="color:#fff;"><i class="fa fa-print" aria-hidden="true"></i> Print Certificate</span></a>---></td>
 	
 	</tr>
+	<td> <a href="<?php echo 'study_certificate.php?id='.$id;?>"><span style="color:#fff;"><i class="fa fa-print" aria-hidden="true"></i> Print Study Certificate</span></a></td>
+	<td> <a href="<?php echo 'conduct_certificate.php?id='.$id;?>"><span style="color:#fff;"><i class="fa fa-print" aria-hidden="true"></i> Print Conduct Certificate</span></a></td>
+	<td></td>
+	<td></td>
+	<td></td>
 	<tr>
-	<td> <a href="<?php echo 'selectexam.php?first_name='.$row['first_name'].'&roll_no='.$row['roll_no'];?>">  <span style="color:#fff;"><i class="fa fa-print" aria-hidden="true"></i> Print Hall Ticket</span></a> </td>
-	<td> <a href="<?php echo 'marks_card.php?first_name='.$row['first_name'].'&roll_no='.$row['roll_no'].'&present_class='.$row['present_class'].'&academic_year='.$row['academic_year'];?>" ><span style="color:#fff;"><i class="fa fa-print" aria-hidden="true"></i> Print Marks Card</span></a> </td>
-	<td>  <a href="" onclick="printIncome('income')"><span style="color:#fff;"><i class="fa fa-print" aria-hidden="true"></i> Print</span></a> </td>
-	<td> <a href="<?php echo 'individual_set_fee.php?first_name='.$row['first_name'].'&roll_no='.$row['roll_no'].'&class='.$row['present_class'].'&section='.$row['section'];?>"><span style="color:#fff;"><i class="fa fa-check" aria-hidden="true"></i> Add Individual Fee</span></a></td>
+
+
+	</tr>
+	<tr>
+	<td> <a href="<?php echo 'selectexam.php?id='.$id;?>">  <span style="color:#fff;"><i class="fa fa-print" aria-hidden="true"></i> Print Hall Ticket</span></a> </td>
+	<td> <a href="<?php echo 'marks_card.php?id='.$id;?>" ><span style="color:#fff;"><i class="fa fa-print" aria-hidden="true"></i> Print Marks Card</span></a> </td>
+	<td>  <a href="" onclick="printProfile('profile')"><span style="color:#fff;"><i class="fa fa-print" aria-hidden="true"></i> Print</span></a> </td>
+	<td> <a href="<?php echo 'individual_set_fee.php?id='.$id;?>"><span style="color:#fff;"><i class="fa fa-check" aria-hidden="true"></i> Add Individual Fee</span></a></td>
 	<td></td>
 	</tr>
 	
 
 	</table>
 	  </div>
-		  <div class="panel-body" id="income">
+		  <div class="panel-body" id="profile">
 				<center>
 					<?php if(($row["photo_path"])!="photo/"){?>
 				<img class="img-responsive img-thumbnail" src="<?php echo $row['photo_path'];?>"  width="130" height="130"><?php }else{};?><br>
@@ -186,7 +230,7 @@ function printIncome(income) {
 					<tbody>
 					  <tr>
 						<td style="width:15%;">Student Name<br>Student Type</td>
-						<td style="color:blue;width:25%;"><?php echo $row['first_name']."<br>".strtoupper($student_type);?></td>
+						<td style="color:blue;width:25%;"><span style="color:red;font-weight:bold;"><?php echo strtoupper($row['first_name'])."</span><br>".strtoupper($student_type);?></td>
 						<td style="width:15%;">Enrollment No</td>
 						<td style="color:blue;width:25%;"><?php echo $row['roll_no'];?>
 						
@@ -225,7 +269,7 @@ function printIncome(income) {
 					  
 					  <tr>
 						<td style="width:15%;">Class & Section</td>
-						<td style="color:blue;width:25%;"><?php echo $row['present_class']." , ".$section;?></td>
+						<td style="color:blue;width:25%;"><?php echo strtoupper($row['present_class'])." , ".strtoupper($section);?></td>
 						<td style="width:15%;">Adhaar No</td>
 						<td style="color:blue;width:25%;"><?php echo $row['adhaar_no'];?></td>
 						
@@ -246,13 +290,16 @@ function printIncome(income) {
 	?>
 	<tr>
 	<td style="width:15%;">School Fee<br> Other Individual Fee</td>
-	<td style="color:blue;width:25%;"><?php echo $fee_set;?><br><?php echo $individual_fee_set;?></td>
+	<td style="color:blue;width:25%;">&#8377;<?php echo $class_fee;?><br>&#8377;<?php echo $individual_fee_set;?></td>
 	<td style="width:15%;">School Fee Paid</td>
-	<td style="color:blue;width:25%;"><?php echo $fee_set_paid;?></td>
+	<td style="color:blue;width:25%;color:green;font-weight:bold;">&#8377;<?php echo $total_paid_all_fee;?></td>
 	</tr>
+	<?php
+	$fee_balance = ($class_fee+$individual_fee_set)-$total_paid_all_fee;
+	?>
 	<tr>
 	<td style="width:15%;">School Fee Balance</td>
-	<td style="color:blue;width:25%;"><?php echo $fee_blance;?></td>
+	<td style="color:blue;width:25%;color:red;font-weight:bold;">&#8377;<?php echo $fee_balance;?></td>
 	<td style="width:15%;">Total Van Fee<br><span style="color:green;">Van Fee Paid</span><br><span style="color:red;">Van Fee Balance</span></td>
 	<td style="color:blue;width:25%;"><?php echo $total_van_fee;?><br><span style="color:green;"><?php echo $total_van_fee_paid;?></span><br><span style="color:red;"><?php echo $van_fee_balance;?></span></td>
 	</tr>
@@ -296,23 +343,21 @@ function printIncome(income) {
   </center>
   
    
-<!------------------------------------------------------Start Attendance details------------------------------------------------->
+<!-------------------Start Attendance details------------------->
 <?php 
-	}
-$sql_tot="select att_date,first_name,roll_no,present_class,sum(att_count) as tot_att_count,present_class from attendance where present_class='".$class."' and first_name='".$first_name."' and roll_no='".$roll_no."'  and academic_year='".$cur_academic_year."' group by roll_no";
+
+$sql_tot="select att_date,present_class,sum(att_count) as tot_att_count from attendance where present_class='".$class."' and student_id='".$id."' and academic_year='".$cur_academic_year."' group by student_id";
         $result_tot=mysqli_query($conn,$sql_tot);		
 		if($row_tot=mysqli_fetch_array($result_tot,MYSQLI_ASSOC))
 	    {
 			$tot_att_count=$row_tot["tot_att_count"];
 			
-			$first_name=$row_tot["first_name"];
-			$roll_no=$row_tot["roll_no"];
 			$present_class=$row_tot["present_class"];
 			
 		}	
-				
 		
-		$sql_tot_att="select distinct att_date,present_class,sum(tot_class) as tot_class from attendance where present_class='".$class."' and first_name='".$first_name."' and roll_no='".$roll_no."'  and academic_year='".$cur_academic_year."'  group by roll_no";
+		
+		$sql_tot_att="select distinct att_date,present_class,sum(tot_class) as tot_class from attendance where present_class='".$class."' and student_id='".$id."'  and academic_year='".$cur_academic_year."'  group by student_id";
 		$result_att_tot=mysqli_query($conn,$sql_tot_att);
 		//$tot_class=mysqli_num_rows($result_att_tot);
 		if($row_att_tot=mysqli_fetch_array($result_att_tot,MYSQLI_ASSOC))
@@ -321,9 +366,47 @@ $sql_tot="select att_date,first_name,roll_no,present_class,sum(att_count) as tot
 			
 		}
 		
-		
-
 ?>
+
+<div class="row">
+        <hr><div class="col-sm-12">
+		 <h3>School Fee Details</h3>
+		  <div class="table-responsive"> 
+				<center><table class="table table-bordered">
+				<tbody>
+				<tr class="w3-blue">
+				<th>SL No</th>
+				<th>Fee Amount</th>
+				<th>Fee Towards</th>
+				</tr>
+	<?php
+	$class_fee_row_count=1;
+	foreach($result_fee_set as $row_fee_set)
+	{
+	$class_fee_list = $row_fee_set["adm_fee"];
+	?>
+				<tr>
+				<td><?php echo $class_fee_row_count;?></td>
+				
+				<td>&#8377;<?php echo $class_fee_list;?></td>
+				<td><?php echo $row_fee_set["fee_towards"];?></td>
+				</tr>
+				
+	<?php
+				
+	$class_fee_row_count++; 
+	}
+	
+	?>
+	
+				</tbody>
+				</table></center>
+				
+				</div>
+				</div>
+				</div>
+
+
 <div class="row">
         <hr><div class="col-sm-12">
 		 <h3>Individual Fee Details</h3>
@@ -340,21 +423,28 @@ $sql_tot="select att_date,first_name,roll_no,present_class,sum(att_count) as tot
 	$indi_row_count_att=1;
 	foreach($result_indi_fee_set as $row_indi_fee_set)
 	{
-	$first_name = $row_indi_fee_set["first_name"];
-	$roll_no = $row_indi_fee_set["roll_no"];
-	$class = $row_indi_fee_set["class"];
+	$indi_fee_id = $row_indi_fee_set["id"];
 	?>
 				<tr>
-				<td style="text-align:center;"><?php echo $indi_row_count_att;?></td>
+				<td><?php echo $indi_row_count_att;?></td>
 				
-				<td style="text-align:center;"><?php echo $row_indi_fee_set["adm_fee"];?></td>
-				<td style="text-align:center;"><?php echo $row_indi_fee_set["fee_towards"];?></td>
+				<td>&#8377;<?php echo $row_indi_fee_set["individual_fee"];?></td>
+				<td><?php echo $row_indi_fee_set["fee_towards"];?></td>
 				<td>
 				 <div class="btn-group">
-					
-				<a href="<?php echo 'delete_individual_set_fee.php?id='.$row_indi_fee_set['id'].'&first_name='.$first_name.'&roll_no='.$roll_no.'&class='.$class; ?>" title="Delete">  <i class="fa fa-trash-o fa-lg" aria-hidden="true" style="color:red;"></i></a>
+				 <a href="<?php echo 'edit_individual_set_fee.php?id='.$indi_fee_id; ?>" title="Edit">  <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>	
 				
-			   </div>
+				<a href="#" onclick="deleteIndiFee(<?php echo $indi_fee_id;?>)">   <i class="fa fa-trash-o fa-lg" style="color:red;" aria-hidden="true"></i></a>
+       </div></td>
+	</tr>
+	<script>
+		  function deleteIndiFee(id){
+			  if(confirm("Do you want to delete?")){
+				  window.location.href='delete_indi_set_fee.php?id='+id+'';
+			  }
+		  }
+		  
+		  </script>
 				</td>
 				</tr>
 				
@@ -370,7 +460,10 @@ $sql_tot="select att_date,first_name,roll_no,present_class,sum(att_count) as tot
 				
 				</div>
 				</div>
-				</div><div class="row">
+				</div>
+				
+				
+				<div class="row">
         <hr><div class="col-sm-12">
 		 <h3>Attendance Details</h3>
 		  <div class="table-responsive"> 
@@ -378,8 +471,7 @@ $sql_tot="select att_date,first_name,roll_no,present_class,sum(att_count) as tot
 				<tbody>
 				<tr class="w3-blue">
 				<th>SL No</th>
-				<th>Name</th>
-				<th>Roll No</th>
+				<th>Details</th>
 				<th>Class Attended</th>
 				<th>Total Class</th>
 				<th>Percentage (%)</th>
@@ -405,18 +497,17 @@ $sql_tot="select att_date,first_name,roll_no,present_class,sum(att_count) as tot
 	$per_tot_class=($row_tot["tot_att_count"]/$tot_class)*100;
 	?>
 				<tr>
-				<td style="text-align:center;"><?php echo $row_count_att;?></td>
-				<td style="text-align:center;"><a href="<?php echo 'attendance_desc.php?name='.$row_tot["first_name"].'&roll_no='.$row_tot["roll_no"].'&present_class='.$row_tot["present_class"];?>"><?php echo $row_tot["first_name"];?></a></td>
-				<td style="text-align:center;"><?php echo $row_tot["roll_no"];?></td>
-				<td style="text-align:center;"><?php echo $row_tot["tot_att_count"];?></td>
-				<td style="text-align:center;"><?php echo $tot_class;?></td>
-				<td style="text-align:center;"><?php echo $per_tot_class;?></td>
+				<td><?php echo $row_count_att;?></td>
+				<td style="color:blue;"><a href="<?php echo 'attendance_desc.php?student_id='.$id;?>">View Details</a></td>
+				<td><?php echo $row_tot["tot_att_count"];?></td>
+				<td><?php echo $tot_class;?></td>
+				<td><?php echo $per_tot_class;?></td>
 				<?php
 				
 				if(isset($_GET['delete']))
 					{
 				?>
-                <td style="text-align:center;"><a href="<?php echo 'delete_income.php?id='.$id;?>"><button type="button" class="btn btn-sm btn-danger w3-card-4">Delete</button></a></td>
+                <td><a href="<?php echo 'delete_income.php?id='.$id;?>"><button type="button" class="btn btn-sm btn-danger w3-card-4">Delete</button></a></td>
 			
 				<?php 
 					}
@@ -439,16 +530,83 @@ $sql_tot="select att_date,first_name,roll_no,present_class,sum(att_count) as tot
 				</div>
 
 <!------------End of Attendance details----------->
+
+<div class="row">
+        <div class="col-sm-12" id="gatepass"><br>
+				<h3>Gate Pass Issued</h3>
+				<center><table class="table table-bordered">
+				<tbody>
+				<tr class="w3-blue">
+				<th>SL No</th>
+				<th>Reason</th>
+				<th>Permitted to go</th>
+				<th>With</th>
+				<th>Issued Date & Time</th>
+				<th>Actions</th>
+				
+			
+				
+				</tr>
+	<?php
+	$sql_gate="select * from gate_pass where academic_year='".$cur_academic_year."' and student_id='".$id."' ORDER BY id desc";
+	$result_gate=mysqli_query($conn,$sql_gate);
+	$row_count =1;
+	foreach($result_gate as $row_gate)
+	{
+	$gate_id=$row_gate["id"];
+	$created_at= date('d-m-Y', strtotime( $row_gate['created_at'] ));
+	
+	$student_id=$row_gate["student_id"];
+	
+ ?>
+				<tr>
+				<td><?php echo $row_count;?></td>
+				<td><?php echo $row_gate["gate_reason"];?></td>
+				<td><?php echo $row_gate["gate_permit_go"];?></td>
+				<td><?php echo $row_gate["gate_with"];?></td>
+				<td><?php echo $created_at;?></td>
+				
+                <td><div class="btn-group">
+				<a href="<?php echo 'edit_gate_pass.php?id='.$gate_id; ?>" title="Edit">  <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>
+
+				 
+				 <a href="#" onclick="deleteGatePass(<?php echo $gate_id;?>)">   <i class="fa fa-trash-o fa-lg" style="color:red;" aria-hidden="true"></i></a>
+       </div></td>
+				</tr>
+			<script>
+		  function deleteGatePass(id){
+			  if(confirm("Do you want to delete?")){
+				  window.location.href='delete_gate_pass.php?id='+id+'';
+			  }
+		  }
+		  
+		  </script>
+				    
+	<?php
+				
+	$row_count++; 
+	}
+	
+	?>
+	
+				</tbody>
+				</table></center>
+				
+				</div>
+				</div>
+
+
 	<!----------------Start of student Remarks-------->
 		  <?php
 		
-					$sql_remarks="select * from remarks where first_name='".$first_name."' and roll_no='".$roll_no."'  and academic_year='".$cur_academic_year."' order by id desc";
+					$sql_remarks="select * from remarks where student_id='".$id."' and academic_year='".$cur_academic_year."' order by id desc";
 					$result_remarks=mysqli_query($conn,$sql_remarks);
+					//var_dump($sql_remarks);
 					  ?>
 					     <div class="row">
         <div class="col-sm-12">
 			 <hr><div class="table-responsive"> 
-			 <h3>Student Remarks</h3>
+			 <h3>Student Achievements / Remarks</h3>
 				<table class="table table-bordered table-hover table-striped" style="width:90%;">
                        <?php 
 					  if(mysqli_num_rows($result_remarks)==0){
@@ -457,7 +615,7 @@ $sql_tot="select att_date,first_name,roll_no,present_class,sum(att_count) as tot
 					?>
 					  <tr> 
 					  <th>SL No</th>
-					  <th>Remarks Title</th>
+					  <th>Title</th>
 					  <th>Details</th>
 					  <th>Added Date</th>
 					  <th>Action</th>
@@ -476,9 +634,21 @@ $sql_tot="select att_date,first_name,roll_no,present_class,sum(att_count) as tot
 					  <td><?php echo $remarks_date;?></td>
 					  <td><div class="btn-group">
 						<a href="<?php echo 'edit_remarks.php?id='.$remarks['id']; ?>" title="Edit">  <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>
-						<a href="<?php echo 'delete_remarks.php?id='.$remarks['id'].'&first_name='.$first_name.'&roll_no='.$roll_no; ?>" title="Delete">  <i class="fa fa-trash-o fa-lg" style="color:red;" aria-hidden="true"></i></a>
-					   </div></td>
-					  </tr>
+					
+						
+
+						 <a href="#" onclick="deleteRemarks(<?php echo $remarks['id'];?>)">   <i class="fa fa-trash-o fa-lg" style="color:red;" aria-hidden="true"></i></a>
+       </div></td>
+				</tr>
+			<script>
+		  function deleteRemarks(id){
+			  if(confirm("Do you want to delete?")){
+				  window.location.href='delete_remarks.php?id='+id+'';
+			  }
+		  }
+		  
+		  </script>
+			
 					
 					<?php
 					$row_count++;
@@ -495,32 +665,27 @@ $sql_tot="select att_date,first_name,roll_no,present_class,sum(att_count) as tot
 					  				  
 					  
 		<!----------Start Fee paid details--->
-		    <hr><h3>Fee paid details</h3>
+	<hr><h3>Fee paid details</h3>
 			
-		   <?php 
-		   
-		   $sql_ind_fee="select id,roll_no,name,class,academic_year,rec_no,rec_date,tot_paid from student_fee where name='".$first_name."' and roll_no='".$roll_no."' and academic_year='".$cur_academic_year."'  UNION ALL select id,roll_no,name,class,academic_year,rec_no,rec_date,tot_paid from student_adm_fee where name='".$first_name."' and roll_no='".$roll_no."' and academic_year='".$cur_academic_year."' UNION ALL select id,roll_no,name,class,academic_year,rec_no,rec_date,tot_paid from student_books_fee where name='".$first_name."' and roll_no='".$roll_no."' and academic_year='".$cur_academic_year."' UNION ALL select id,roll_no,name,class,academic_year,rec_no,rec_date,tot_paid from student_software_fee where name='".$first_name."' and roll_no='".$roll_no."' and academic_year='".$cur_academic_year."' UNION ALL select id,roll_no,name,class,academic_year,rec_no,rec_date,tot_paid from student_shoe_fee where name='".$first_name."' and roll_no='".$roll_no."' and academic_year='".$cur_academic_year."' UNION ALL select id,roll_no,name,class,academic_year,rec_no,rec_date,tot_paid from student_uniform_fee where name='".$first_name."' and roll_no='".$roll_no."' and academic_year='".$cur_academic_year."' UNION ALL select id,roll_no,first_name,present_class,academic_year,rec_no,rec_date,van_fee from student_van_fee where first_name='".$first_name."' and roll_no='".$roll_no."' and academic_year='".$cur_academic_year."' UNION ALL select id,roll_no,name,class,academic_year,rec_no,rec_date,tot_paid from student_cca_fee where name='".$first_name."' and roll_no='".$roll_no."' and academic_year='".$cur_academic_year."' ORDER BY id desc";
-		   
-		   //var_dump($sql_ind_fee);
-		   
-		    $result_ind_fee=mysqli_query($conn,$sql_ind_fee);
-		    $row_count_fee =1;
-			$sql_tot="select sum(tot_paid) as paid_fee_tot from student_fee where name='".$first_name."'  and academic_year='".$cur_academic_year."' and roll_no='".$roll_no."'";
-		   $result_tot=mysqli_query($conn,$sql_tot);
+	<?php 
+		$row_count_fee =1;
+		$sql_tot="select sum(tot_paid) as paid_fee_tot from student_fee where student_id='".$id."'";
+		$result_tot=mysqli_query($conn,$sql_tot);
 		if($row=mysqli_fetch_array($result_tot,MYSQLI_ASSOC))
-	{
-		$paid_fee_tot=$row["paid_fee_tot"];
-	}
-	$sql_fee_tot="select adm_fee  from set_fee where class='".$class."'  and academic_year='".$cur_academic_year."' order by id desc limit 1";
-	//var_dump($sql_fee_tot);
-		$result_fee_tot=mysqli_query($conn,$sql_fee_tot);
-		if($row_fee_tot=mysqli_fetch_array($result_fee_tot,MYSQLI_ASSOC))
-	{
-		$paid_fee_total=$row_fee_tot["adm_fee"];
-	}else{
-		$paid_fee_total=0;
-	}
-	$balance=$paid_fee_total-$paid_fee_tot;
+		{
+			$paid_fee_tot=$row["paid_fee_tot"];
+		}
+
+		$sql_fee_tot="select adm_fee  from set_fee where class='".$class."'  and academic_year='".$cur_academic_year."' order by id desc limit 1";
+		//var_dump($sql_fee_tot);
+			$result_fee_tot=mysqli_query($conn,$sql_fee_tot);
+			if($row_fee_tot=mysqli_fetch_array($result_fee_tot,MYSQLI_ASSOC))
+			{
+				$paid_fee_total=$row_fee_tot["adm_fee"];
+			}else{
+				$paid_fee_total=0;
+			}
+			$balance=$paid_fee_total-$paid_fee_tot;
 		
 		   ?>
 		   <div class="row">
@@ -529,7 +694,7 @@ $sql_tot="select att_date,first_name,roll_no,present_class,sum(att_count) as tot
 		<p style="color:blue;font-size:16px;">Total Fee : Rs <?php if($paid_fee_total==""){echo "0";}else{echo $paid_fee_total;}?>  ,<span style="color:green;font-size:16px;">Total Fee Paid : Rs <?php if($paid_fee_tot==""){echo "0";}else{echo $paid_fee_tot;}?></span>, <span style="color:red;font-size:16px;">Balance Fee : Rs <?php echo $balance;?></span></p>
 		
 		-->
-		         <?php 
+		<?php 
 			if(mysqli_num_rows($result_ind_fee)==0){
 			echo "<tr>No Fee paid details to display</tr>"; 
 			}else{
@@ -539,31 +704,23 @@ $sql_tot="select att_date,first_name,roll_no,present_class,sum(att_count) as tot
 				<tbody>
 				<tr class="w3-blue">
 				<th>SL No</th>
-				<th>Name</th>
-				<th>Roll No</th>
 				<th>Receipt Date</th>
 				<th>Receipt NO</th>
 				<th>Amount</th>
 				<th></th>
-				
-				</tr>
+			</tr>
 	<?php
 	
 	foreach($result_ind_fee as $row_tot_ind_fee)
 	{
 	$rec_date= date('d-m-Y', strtotime( $row_tot_ind_fee['rec_date'] ));
-	$first_name= $row_tot_ind_fee["name"];
-	$roll_no= $row_tot_ind_fee["roll_no"];
-	$class= $row_tot_ind_fee["class"];
-	
+	$updated_on= date('d-m-Y', strtotime( $row_tot_ind_fee['updated_on'] ));
 	?>
 	<tr>
-	<td style="text-align:center;"><?php echo $row_count_fee;?></td>
-	<td style="text-align:center;"><?php echo $row_tot_ind_fee["name"];?></td>
-	<td style="text-align:center;"><?php echo $row_tot_ind_fee["roll_no"];?></td>
-	<td style="text-align:center;"><?php echo $rec_date;?></td>
-	<td style="text-align:center;"><?php echo $row_tot_ind_fee["rec_no"];?></td>
-	<td style="text-align:center;"><?php echo $row_tot_ind_fee["tot_paid"];?></td>
+	<td><?php echo $row_count_fee;?></td>
+	<td><?php echo $rec_date;?><br><small>Updated on: <?php echo $updated_on;?></small></td>
+	<td><?php echo $row_tot_ind_fee["rec_no"];?></td>
+	<td>&#8377;<?php echo $row_tot_ind_fee["tot_paid"];?></td>
 	<td>
 	 <div class="btn-group">
 	<a href="<?php echo 'edit_student_fee.php?id='.$row_tot_ind_fee['id']; ?>" title="Edit">  <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>	

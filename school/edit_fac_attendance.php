@@ -7,12 +7,13 @@ require("header.php");
 if(isset($_GET["id"])){
 $id=$_GET["id"];
 }
-$sql="select * from fac_attendance where id ='".$id."'  and academic_year='".$cur_academic_year."'";
+$sql="select * from fac_attendance where id ='".$id."'";
 $result=mysqli_query($conn,$sql);
 if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 	{
 	
 	$id=$row["id"];
+	$staff_id=$row["staff_id"];
 	
 	}
 ?>     <div class="container-fluid">
@@ -42,9 +43,7 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 	  </div>
 	  
 	 <input type="hidden" name="id" value="<?php echo $row["id"];?>"> 
-	 <input type="hidden" name="first_fname" value="<?php echo $row["first_fname"];?>"> 
-	 <input type="hidden" name="roll_no" value="<?php echo $row["roll_no"];?>"> 
-	 <input type="hidden" name="academic_year" value="<?php echo $row["academic_year"];?>"> 
+	 <input type="hidden" name="staff_id" value="<?php echo $staff_id;?>"> 
 	 <input type="submit" class="btn btn-primary" value="Update"> 
 	 <button class="btn btn-success" onclick="goBack()">Go Back</button>
 	</form>

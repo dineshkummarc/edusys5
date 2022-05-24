@@ -11,9 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     for($i=0;$i<$count;$i++){
 	
 	$attendance = test_input($_POST["attendance"][$i]);
-	$first_fname = test_input($_POST["first_name"][$i]);
-	$academic_year = test_input($_POST["academic_year"][$i]);
-	$roll_no = test_input($_POST["roll_no"][$i]);
+	$staff_id = test_input($_POST["fac_id"][$i]);
 
 	
 	$taken_by = test_input($_POST["taken_by"][$i]);
@@ -26,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	
 	
 
-	$sql="insert into fac_attendance (first_fname,roll_no,taken_by,attendance,att_date,att_count,tot_class,academic_year) values('$first_fname','$roll_no','$taken_by','$attendance',now(),'$att_count','$tot_class','$cur_academic_year')";
+	$sql="insert into fac_attendance (staff_id,taken_by,attendance,att_date,att_count,tot_class,academic_year) values('$staff_id','$taken_by','$attendance',now(),'$att_count','$tot_class','$cur_academic_year')";
    
 	 if ($conn->query($sql) === TRUE) {
 	

@@ -17,7 +17,7 @@ if(isset($_POST["expense"]))
 	
 	$added_by=test_input($_POST["added_by"]);
 	
-	$sql="update expense set amount='".$amount."',towards='".$towards."',exp_date='".$exp_date."',added_by='".$added_by."',last_updated='".$last_updated."',academic_year='".$cur_academic_year."' where id='".$id."'";
+	$sql="update expense set amount='".$amount."',towards='".$towards."',exp_date='".$exp_date."',added_by='".$added_by."',academic_year='".$cur_academic_year."'  WHERE id='".$id."'";
 	
 	
 	if ($conn->query($sql) === TRUE) 

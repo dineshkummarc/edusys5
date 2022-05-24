@@ -16,8 +16,12 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 	
 	$id=$row["id"];
 	$academic_year=$row["academic_year"];
-	$class=$row["class"];
 	$adm_fee=$row["adm_fee"];
+
+	$class=$row["class"];
+	$fee_towards=$row["fee_towards"];
+
+
 	
 	}
 ?>
@@ -52,18 +56,27 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 	  <label for="sel1">Academic Year</label>
 	  <select class="form-control" name="academic_year" required>
 		<option value="<?php echo $academic_year;?>"><?php echo $academic_year;?></option>
-		<option value="2016-2017">2016-17</option>
-		<option value="2017-2018">2017-18</option>
-		<option value="2018-2019">2018-19</option>
-		<option value="2019-2020">2019-20</option>
+		<option value="2021-2022">2021-2022</option>
 		</select><br>
 		</div>
 		
-		 <div class="form-group">
-	  <label for="sel1">Select Class</label>
-	  <select class="form-control" name="class" required>
-	  <option value="<?php echo $class;?>"><?php echo $class;?></option>
-		<?php require("selectclass.php");?>
+		<div class="form-group">
+		<label for="sel1">Select Class</label>
+		<select class="form-control" name="class">
+		<option value="<?php echo $class; ?>"><?php echo $class; ?></option>
+		<?php
+			require("connection.php");
+			$sql_class="select class_name from class_name where academic_year='".$cur_academic_year."'";
+			$result_class=mysqli_query($conn,$sql_class);
+			foreach($result_class as $value_class)
+			{
+			?>
+			<option value='<?php echo $value_class["class_name"];?>'><?php echo $value_class["class_name"];?></option>
+			<?php
+			}
+			echo '</select>';
+			?>
+			</div>
 		
 		
 		
@@ -72,10 +85,13 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 	    <label for="usr">Fee:</label>
 		<input type="number" name="adm_fee" value="<?php echo $adm_fee;?>" class="form-control">
 	  </div>
+
+	  <div class="form-group">
+	    <label for="usr">Fee Towards</label>
+		<input type="text" name="fee_towards" value="<?php echo $fee_towards;?>" class="form-control">
+	  </div>
 	  
-	 <div class="form-group">
-	   <input type="hidden" name="assign_date" value="<?php echo date('d-m-Y'); ?>" class="form-control">
-		</div>
+
 		
 	  <input type="hidden" name="id" value="<?php echo $id;?>">
 	  <input type="submit" name="set_fee" class="btn btn-success" value="Setup Fee">

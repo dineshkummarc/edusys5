@@ -14,19 +14,21 @@ if(isset($_POST["income"]))
 	$source=test_input($_POST["source"]);
 	$rec_date=test_input($_POST["rec_date"]);
 	$rec_no=test_input($_POST["rec_no"]);
-	$added_by=test_input($_POST["added_by"]);
+	$mobile=test_input($_POST["mobile"]);
+	$added_by=$_SESSION['lkg_uname'];
 	
 	
 	
-	$sql="insert into income (amount,source,rec_date,rec_no,added_by,last_updated,academic_year) values('$amount','$source','$rec_date','$rec_no','$added_by','$last_updated','$cur_academic_year')";
+	$sql="insert into income (amount,source,rec_date,rec_no,added_by,academic_year) values('$amount','$source','$rec_date','$rec_no','$added_by','$cur_academic_year')";
 	
 	
 	
 	if ($conn->query($sql) === TRUE) 
 	{
-		echo "success";
+	echo "success";
+	header("Location:income_sms.php?amount=".$amount."&source=".$source."&rec_no=".$rec_no."&rec_date=".$rec_date."&mobile=".$mobile);
 	
-	header("Location:accounts_overview.php?success_income=.'success_income'");
+	
     } 
 	else 
 	{

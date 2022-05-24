@@ -40,18 +40,13 @@ $cur_academic_year = $_SESSION['academic_year'];
 					echo '<p style="text-align: center;"><span style="color: red; font-size: 16px; font-weight: bold; text-align: center;">Sorry. Something went wrong. try again.or contact your webmaster.</span><br></p>';
 
 				}
-				if((isset($_GET["first_name"]))&&(isset($_GET["roll_no"])))
+				if(isset($_GET["id"]))
 
 				{
-					$first_name=$_GET["first_name"];
-					$roll_no=$_GET["roll_no"];
-					$present_class=$_GET["class"];
-					$section=$_GET["section"];
+					$student_id=$_GET["id"];
 				
 				}
-								
-								
-								?>
+				?>
 								
 							
 <form action="insert_remarks.php" method="post">
@@ -68,12 +63,7 @@ $cur_academic_year = $_SESSION['academic_year'];
 		 <textarea class="form-control" name="remark_desc"  rows="5"></textarea>
 	  </div>
 	  
-	  
-	   <input type="hidden" name="remark_date" value="<?php echo date('Y-m-d'); ?>" class="form-control">
-	   <input type="hidden" name="first_name" value="<?php echo $first_name; ?>" class="form-control">
-	   <input type="hidden" name="roll_no" value="<?php echo $roll_no; ?>" class="form-control">
-	   <input type="hidden" name="present_class" value="<?php echo $present_class; ?>" class="form-control">
-	   <input type="hidden" name="section" value="<?php echo $section; ?>" class="form-control">
+	   <input type="hidden" name="id" value="<?php echo $student_id; ?>">
 		
 	 
 	<input type="submit" name="remarks" class="btn btn-primary" value="Add Remarks">

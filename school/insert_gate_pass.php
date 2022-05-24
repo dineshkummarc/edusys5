@@ -7,31 +7,21 @@ $cur_academic_year = $_SESSION['academic_year'];
 require("connection.php");
 if(isset($_POST["gate_pass"]))
 {
-	
-	date_default_timezone_set("Asia/Kolkata");
-    $today_date=date("Y-m-d");
-	$class=$_POST["class"];
-	$first_name=$_POST["first_name"];
-	$roll_no=$_POST["roll_no"];
-	$present_class=$_POST["present_class"];
+	$student_id=$_POST["student_id"];
 	$gate_reason=$_POST["gate_reason"];
 	$gate_permit_go=$_POST["gate_permit_go"];
 	$gate_with=$_POST["with"];
 	$relation=$_POST["relation"];
-	$section=$_POST["section"];
 	$academic_year=$_POST["academic_year"];
-	$parent_contact=$_POST["parent_contact"];
-	$address=$_POST["address"];
 	
-	$sql="insert into gate_pass (first_name,roll_no,present_class,section,gate_reason,gate_permit_go,gate_with,relation,academic_year,parent_contact,address,issued_date,date_time) values('$first_name','$roll_no','$present_class','$section','$gate_reason','$gate_permit_go','$gate_with','$relation','$cur_academic_year','$parent_contact','$address','$today_date',now())";
+	$sql="insert into gate_pass (student_id,gate_reason,gate_permit_go,gate_with,relation,academic_year) values('$student_id','$gate_reason','$gate_permit_go','$gate_with','$relation','$cur_academic_year')";
 	
 	
 	if ($conn->query($sql) === TRUE) 
 	{
-	header("Location:gate_pass_sms.php?first_name=".$first_name."&roll_no=".$roll_no."&parent_contact=".$parent_contact."&gate_reason=".$gate_reason."&gate_with=".$gate_with."&gate_permit_go=".$gate_permit_go);
-
-
-	} 
+	$last_id = $conn->insert_id;
+	header("Location:gate_pass_sms.php?id=".$last_id);
+} 
 	else 
 	{
 				

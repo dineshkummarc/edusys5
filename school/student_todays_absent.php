@@ -42,7 +42,7 @@ require("header.php");
     $today=date('Y-m-d');
     $today_md=date('m-d');
 		
-	$sql="select first_name,roll_no,section,parent_contact,present_class,attendance,att_date from attendance where att_date='".$today."' and academic_year='".$cur_academic_year."' and attendance='Absent'";
+	$sql="select id,student_id from attendance where att_date='".$today."' and academic_year='".$cur_academic_year."' and attendance='Absent'";
 
 	$result=mysqli_query($conn,$sql);
 	
@@ -51,29 +51,30 @@ require("header.php");
 
 	foreach($result as $row)
 	{
-		//$dob= date('d-m-Y', strtotime( $row['dob'] ));
+		$student_id = $row["student_id"];
+		$sql_student="select * from students where id='".$student_id."'";
+		$result_student=mysqli_query($conn,$sql_student);
+		//var_dump($sql);
 		
+		if($row_student=mysqli_fetch_array($result_student,MYSQLI_ASSOC))
+		{
+		$first_name=$row_student["first_name"];
+		$roll_no=$row_student["roll_no"];
 	
-	
+		}
+
 	?>
     
 		<tr>
 		
+			<td><span style="color: #207FA2; "><?php echo $row_count;?></span></td>
+		<td><span style="color: #207FA2; "><a href="<?php echo 'description.php?id='.$student_id;?>" ><?php echo $first_name;?></a></span></td>
 		
+		<td><span style="color: #207FA2; "><?php echo $roll_no;?></span></td>
 		
-		<td><span style="color: #207FA2; "><?php echo $row_count;?></span></td>
-		<td><span style="color: #207FA2; "><a href="<?php echo 'description.php?first_name='.$row['first_name'].'&roll_no='.$row['roll_no'];?>" ><?php echo $row["first_name"];?></a></span></td>
+		<td><span style="color: #207FA2; "><?php echo $row_student["present_class"];?></span></td>
 		
-		<td><span style="color: #207FA2; "><?php echo $row["roll_no"];?></span></td>
-		
-		<td><span style="color: #207FA2; "><?php echo $row["present_class"];?></span></td>
-		
-		<td><span style="color: #207FA2; "><?php echo $row["section"];?></span></td>
-		
-		
-		
-		
-		
+		<td><span style="color: #207FA2; "><?php echo $row_student["section"];?></span></td>
 		
 		</tr>
 		<?php $row_count++; 

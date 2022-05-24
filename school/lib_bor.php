@@ -9,9 +9,9 @@ if(isset($_GET["search_student"]))
 {
 	$searched=$_GET["typeahead"];
 	$searched_array=explode(",",$searched);
-	$bor_name=$searched_array[0];
-	$present_class=$searched_array[1];
-	$bor_id=$searched_array[2];
+	$student_id=$searched_array[0];
+	//$present_class=$searched_array[1];
+	//$bor_id=$searched_array[2];
 	$book_name=$_GET["book_name"];
 	echo $book_name;
 	$book_id=$_GET["book_id"];
@@ -23,9 +23,9 @@ if(isset($_GET["search_student"]))
 	$sql_update="update books set no_books='".$book_now."' where  book_id='".$book_id."'";
 		//var_dump($sql_update);
 	$conn->query($sql_update);	
-	$sql="insert into library (bor_name,bor_id,book_name,book_id,academic_year) values('$bor_name','$bor_id','$book_name','$book_id','$cur_academic_year')";
+	$sql="insert into library (student_id,book_name,book_id,academic_year) values('$student_id','$book_name','$book_id','$cur_academic_year')";
 	$conn->query($sql);
-		//var_dump($sql);
+	//var_dump($sql);
 	}
 	header("Location:issue_book.php?success=success");
 }

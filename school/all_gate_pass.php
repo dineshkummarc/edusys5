@@ -9,8 +9,8 @@ $cur_academic_year = $_SESSION['academic_year'];
 	?>
 	<head>
 <script>
-function printDiv(income) {
-     var printContents = document.getElementById('income').innerHTML;
+function printGatePass(gatepass) {
+     var printContents = document.getElementById('gatepass').innerHTML;
      var originalContents = document.body.innerHTML;
 
      document.body.innerHTML = printContents;
@@ -36,7 +36,7 @@ function printDiv(income) {
 					  </div>
 					 
 					  <input type="submit" class="btn btn-primary w3-card-4" name="filter" value="Filter">
-					   <button type="button"  class="btn btn-success btn-md w3-card-4" onclick="printDiv('study')">Print</button> 
+					   <button type="button"  class="btn btn-success btn-md w3-card-4" onclick="printGatePass('gatepass')">Print</button> 
 					 
 					  
 						
@@ -58,7 +58,7 @@ function printDiv(income) {
 		if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
 		$start_from = ($page-1) * $num_rec_per_page; 
 		
-		$sql="select * from gate_pass where (issued_date BETWEEN '$from' and '$to') and academic_year='".$cur_academic_year."' ORDER BY id desc LIMIT $start_from, $num_rec_per_page";
+		$sql="select * from gate_pass where (created_at BETWEEN '$from' and '$to') and academic_year='".$cur_academic_year."' ORDER BY id desc LIMIT $start_from, $num_rec_per_page";
        		
 		}
 		else
@@ -66,21 +66,13 @@ function printDiv(income) {
 	$num_rec_per_page=150;
 		if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
 		$start_from = ($page-1) * $num_rec_per_page; 
-		$sql="select * from gate_pass where academic_year='".$cur_academic_year."' ORDER BY id desc LIMIT $start_from, $num_rec_per_page";	
-        //var_dump($sql);
-	    }
+		$sql="select * from gate_pass where academic_year='".$cur_academic_year."' ORDER BY id desc LIMIT $start_from, $num_rec_per_page";}
 		 $result=mysqli_query($conn,$sql);
 		 $row_count =1;
 		
-			 
-	
-		
-		//$result=mysqli_query($conn,$sql_tot_att);
-		
-	
 	?>	
         <div class="row">
-        <div class="col-sm-12" id="income"><br>
+        <div class="col-sm-12" id="gatepass"><br>
 				<center><table class="table table-bordered">
 				<tbody>
 				<tr class="w3-blue">
@@ -101,28 +93,45 @@ function printDiv(income) {
 	foreach($result as $row_tot)
 	{
 	$id=$row_tot["id"];
-	//$date_time= date('d-m-Y', strtotime( $row_tot['date_time'] ));
+	$created_at= date('d-m-Y', strtotime( $row_tot['created_at'] ));
 	
-	//$join_date= date('d-m-Y', strtotime( $row['join_date'] ));
+	$student_id=$row_tot["student_id"];
+	$sql="select * from students where id='".$student_id."'";
+	$result=mysqli_query($conn,$sql);
+	//var_dump($sql);
+	
+	if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
+	{
+	$present_class=$row["present_class"];
+	$first_name=$row["first_name"];
+	$roll_no=$row["roll_no"];
+
+	}
 	
 
  ?>
 				<tr>
-				<td style="text-align:center;"><?php echo $row_count;?></td>
-				<td style="text-align:center;"><?php echo $row_tot["first_name"];?></td>
-				<td style="text-align:center;"><?php echo $row_tot["roll_no"];?></td>
-				<td style="text-align:center;"><?php echo $row_tot["gate_reason"];?></td>
-				<td style="text-align:center;"><?php echo $row_tot["gate_permit_go"];?></td>
-				<td style="text-align:center;"><?php echo $row_tot["gate_with"];?></td>
-				<td style="text-align:center;"><?php echo $row_tot["date_time"];?></td>
+				<td><?php echo $row_count;?></td>
+				<td><?php echo $first_name;?></td>
+				<td><?php echo $roll_no;?></td>
+				<td><?php echo $row_tot["gate_reason"];?></td>
+				<td><?php echo $row_tot["gate_permit_go"];?></td>
+				<td><?php echo $row_tot["gate_with"];?></td>
+				<td><?php echo $created_at;?></td>
 				
-                <td><div class="btn-group">
+        <td><div class="btn-group">
 				<a href="<?php echo 'edit_gate_pass.php?id='.$row_tot['id']; ?>" title="Edit">  <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>
-				<a href="<?php echo 'delete_gate_pass.php?id='.$row_tot['id']; ?>" title="Delete">  <i class="fa fa-trash-o fa-lg" style="color:red;" aria-hidden="true"></i></a>
-			   </div></td>
-			
-				
+				<a href="#" onclick="deleteGatePass(<?php echo $row_tot['id'];?>)">   <i class="fa fa-trash-o fa-lg" style="color:red;" aria-hidden="true"></i></a>
+       </div></td>
 				</tr>
+			<script>
+		  function deleteGatePass(id){
+			  if(confirm("Do you want to delete?")){
+				  window.location.href='delete_gate_pass.php?id='+id+'';
+			  }
+		  }
+		  
+		  </script>
 				    
 	<?php
 				

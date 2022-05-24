@@ -15,9 +15,9 @@ if(isset($_POST["income"]))
 	$source=test_input($_POST["source"]);
 	$rec_date=test_input($_POST["rec_date"]);
 	$rec_no=test_input($_POST["rec_no"]);
-	$added_by=test_input($_POST["added_by"]);
+	$added_by=$_SESSION['lkg_uname'];
 	
-	$sql="update income set amount='".$amount."',source='".$source."',rec_date='".$rec_date."',rec_no='".$rec_no."',added_by='".$added_by."',last_updated='".$last_updated."',academic_year='".$cur_academic_year."' where id='".$id."'";
+	$sql="update income set amount='".$amount."',source='".$source."',rec_date='".$rec_date."',rec_no='".$rec_no."',added_by='".$added_by."',academic_year='".$cur_academic_year."'  WHERE id='".$id."'";
 	
 	
 	if ($conn->query($sql) === TRUE) 

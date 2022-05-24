@@ -11,8 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     for($i=0;$i<$count;$i++){
 	
 	$attendance = test_input($_POST["attendance"][$i]);
-	$first_name = test_input($_POST["first_name"][$i]);
-	$roll_no = test_input($_POST["roll_no"][$i]);
+	$id = test_input($_POST["id"][$i]);
 	$present_class = test_input($_POST["present_class"][$i]);
 	$section = test_input($_POST["section"][$i]);
 	
@@ -29,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 	
-	$sql_contact="select parent_contact,first_name,roll_no,academic_year from students where first_name='".$first_name."' and roll_no='".$roll_no."' and academic_year='".$cur_academic_year."'";
+	$sql_contact="select parent_contact from students where id='".$id."'";
 	$result_contact=mysqli_query($conn,$sql_contact);
 	if($row_contact=mysqli_fetch_array($result_contact,MYSQLI_ASSOC))
 	{
@@ -44,12 +43,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	}
 	
 
-	$sql="insert into attendance (first_name,roll_no,present_class,section,academic_year,taken_by,attendance,parent_contact,att_date,att_count,tot_class) values('$first_name','$roll_no','$present_class','$section','$cur_academic_year','$taken_by','$attendance','$parent_contact',now(),'$att_count','$tot_class')";
+	$sql="insert into attendance (student_id,present_class,section,academic_year,taken_by,attendance,att_date,att_count,tot_class) values('$id','$present_class','$section','$cur_academic_year','$taken_by','$attendance',now(),'$att_count','$tot_class')";
    
 	 $conn->query($sql);
 	 
 }
-header("Location:att_sms.php?academic_year=".$cur_academic_year."&present_class=".$present_class);
+header("Location:att_sms.php?academic_year=".$cur_academic_year."&present_class=".$present_class."&student_id=".$id);
 }
 }
 

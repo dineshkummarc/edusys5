@@ -6,20 +6,14 @@ $cur_academic_year = $_SESSION['academic_year'];
 require("connection.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	$first_name = test_input($_POST["first_name"]);
-	$roll_no = test_input($_POST["roll_no"]);
+	$id = test_input($_POST["id"]);
 	$fee_towards = test_input($_POST["fee_towards"]);
-	$class = test_input($_POST["class"]);
+	$individual_fee = test_input($_POST["individual_fee"]);
 	
-	$adm_fee = test_input($_POST["adm_fee"]);
-	
-  $sql="insert into set_fee (first_name,roll_no,academic_year,class,adm_fee,fee_towards) values('$first_name','$roll_no','$cur_academic_year','$class','$adm_fee','$fee_towards')";
+  $sql="insert into set_individual_fee (student_id,individual_fee,fee_towards) values('$id','$individual_fee','$fee_towards')";
   
 		  if ($conn->query($sql) === TRUE) {
-				  //$sql_upd="update students set tot_fee='".$tot_fee."' where academic_year='".$cur_academic_year."' and present_class='".$class."'";
-					//$conn->query($sql_upd);
-					//var_dump($sql_upd);
-			header("Location:description.php?first_name=".$first_name."&class=".$class."&roll_no=".$roll_no);
+			header("Location:description.php?id=".$id);
 			} else {
 			header("Location:individual_set_fee.php?failed='failed'");
 			}

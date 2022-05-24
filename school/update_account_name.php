@@ -1,7 +1,8 @@
 <?php
 session_start();
-if(isset($_SESSION['lkg_uname'])&&!empty($_SESSION['lkg_pass'])&&!empty($_SESSION['academic_year'])){
-$academic_year = $_SESSION['academic_year'];
+if(isset($_SESSION['lkg_uname'])&&!empty($_SESSION['lkg_pass'])&&!empty($_SESSION['academic_year']))
+{
+$cur_academic_year = $_SESSION['academic_year'];
 require("connection.php");
 date_default_timezone_set('Asia/Kolkata');
 $today=date('Y-m-d');
@@ -15,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		
 		$conn->query($sql); 
     
-header("Location:accounts.php?success=success");
+header("Location:account_names.php?success=success");
 }
 }
 

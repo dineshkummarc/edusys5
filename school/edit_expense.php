@@ -47,7 +47,7 @@ $cur_academic_year = $_SESSION['academic_year'];
 
 				}
 				
-				$sql = "SELECT * FROM expense where academic_year='".$cur_academic_year."'"; 
+				$sql = "SELECT * FROM expense"; 
 				$result = mysqli_query($conn,$sql);
 				if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 				{
@@ -78,7 +78,7 @@ $cur_academic_year = $_SESSION['academic_year'];
 	  
 	 <div class="form-group">
 	    <label for="usr">Academic Year:</label>
-		<input type="text" name="academic_year" value="<?php echo $row['academic_year'];?>" class="form-control">
+		<input type="text" name="academic_year" value="<?php echo $cur_academic_year;?>" class="form-control">
 	  </div>
 	 
 	 <input type="hidden" name="id" value="<?php echo $id;?>">
@@ -96,15 +96,23 @@ $cur_academic_year = $_SESSION['academic_year'];
 
 	<div class="col-sm-3">
 		</div>
-	</div>
+		
+	
+
+	
+    </div>
 </div>
 
 
 <?php 
+
+
 require("footer.php");
-}
-else
-{
-header("Location:login.php");
-}
+	}else{
+		header("Location:login.php");
+	}
+	
+
+
+
 ?>

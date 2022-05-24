@@ -9,6 +9,7 @@ error_reporting("0");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$academic_year = test_input($_POST["academic_year"]);
 	$class = test_input($_POST["class"]);
+	$fee_towards = test_input($_POST["fee_towards"]);
 	$id = test_input($_POST["id"]);
 	if($_POST["section"]){
 	$section = test_input($_POST["section"]);	
@@ -21,18 +22,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$tot_fee = $adm_fee;
 	
 
-  $sql="update set_fee set class='".$class."',academic_year='".$cur_academic_year."',adm_fee='".$adm_fee."',tot_fee='".$tot_fee."' where id='".$id."'";
-		  if ($conn->query($sql) === TRUE) {
-		  $sql_upd="update students set tot_fee='".$tot_fee."' where academic_year='".$cur_academic_year."' and present_class='".$class."'";
-			  $conn->query($sql_upd);
-			  var_dump($sql_upd);
-			header("Location:set_fee_det.php?status='submitted'");
-			} else {
-			header("Location:set_fee_det.php?status='failed'");
-			}
-			
-			}
-			}
+  $sql="update set_fee set class='".$class."',adm_fee='".$adm_fee."',tot_fee='".$tot_fee."',fee_towards='".$fee_towards."' where id='".$id."'";
+	if ($conn->query($sql) === TRUE) {
+	header("Location:set_fee_det.php?status='submitted'");
+	} else {
+	header("Location:set_fee_det.php?status='failed'");
+	}
+	
+	}
+	}
 			//}
 
 function test_input($data) {

@@ -11,22 +11,31 @@ require("connection.php");
 <div class="row"><br>
     <div class="col-sm-12" style="padding-top:30px;">
 	  <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" class="form-inline" method="get" role="form">
-	  <div class="form-group">
-		
-		  <select class="form-control" name="filt_class" id="sel1">
-			<?php require("selectclass.php");?>
-			
-			
-		  <div class="form-group">
-					<?php 
-					  
-					  echo '<select class="form-control" name="section">';
-						echo '<option value="">Select Section</option>';
+	  
+			<div class="form-group">
+					<select class="form-control" name="filt_class">
+						<option value="">Select Class</option>
 							
+						<?php 
+							$sql="select distinct present_class from students where academic_year='".$cur_academic_year."'";
+							$result=mysqli_query($conn,$sql);
 
+							foreach($result as $value)
+							{
+							?>
+							<option value='<?php echo $value["present_class"];?>'><?php echo $value["present_class"];?></option>
+							<?php
+							}
+							?>
+				</select>
+				</div>
+		  <div class="form-group">
+					<select class="form-control" name="section">
+						<option value="">Select Section</option>
+							
+						<?php 
 							$sql="select distinct section from students where academic_year='".$cur_academic_year."'";
-
-							 $result=mysqli_query($conn,$sql);
+							$result=mysqli_query($conn,$sql);
 
 							foreach($result as $value)
 							{
@@ -34,10 +43,9 @@ require("connection.php");
 							<option value='<?php echo $value["section"];?>'><?php echo $value["section"];?></option>
 							<?php
 							}
-							echo '</select><br>';
-
 							?>
-					</div>
+							</select><br>
+				</div>
 					
 	<button type="submit" name="filt_submit" class="btn btn-primary">Filter</button>
 	<a href="attendance.php"><button type="button" class="btn btn-primary">Edit</button></a>
@@ -143,7 +151,7 @@ require("connection.php");
 	
     <tr>
 		
-		<input type="hidden" class="form-control" value="<?php echo $_SESSION['lkg_uname'];?>" name="taken_by[]">
+		<input type="hidden"  value="<?php echo $_SESSION['lkg_uname'];?>" name="taken_by[]">
 	
 		
 		<td>
@@ -170,16 +178,8 @@ require("connection.php");
 		</div>
 		</td>
 		
-		<input type="hidden" name="present_class[]" value="<?php echo $row["present_class"];?>" class="form-control">
-		<input type="hidden" name="section[]" value="<?php echo $row["section"];?>" class="form-control">
-		
-		
-		
-		<div class="form-group">
-		<input type="hidden" name="academic_year[]" value="<?php echo $cur_academic_year;?>" class="form-control" readonly>
-		</div>
-		
-		
+		<input type="hidden" name="id[]" value="<?php echo $row["id"];?>">
+		<input type="hidden" name="present_class[]" value="<?php echo $row["present_class"];?>">
 		
 		
 		

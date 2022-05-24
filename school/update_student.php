@@ -8,7 +8,6 @@ require("connection.php");
 if(isset($_POST["upd_register"]))
 {
 	$first_name=$_POST["first_name"];
-	$last_name=$_POST["last_name"];
 	$sex=$_POST["sex"];
 	$rollno=$_POST["rollno"];
 	$section=$_POST["section"];
@@ -45,19 +44,19 @@ if(isset($_POST["upd_register"]))
 
 	move_uploaded_file($filetmp,$filepath);	
 	
-     $sql="Update students set first_name='".$first_name."',last_name='".$last_name."',join_date='".$join_date."',class_join='".$class_join."',present_class='".$class_join."',sex='".$sex."',dob='".$dob."',caste='".$caste."',parent_contact='".$parent_contact."',father_name='".$father_name."',town='".$town."',village='".$village."',taluk='".$taluk."',address='".$address."',section='".$section."',admission_no='".$admission_no."',adhaar_no='".$adhaar_no."',blood='".$blood."',admission_no='".$admission."',roll_no='".$roll_no."' ,photo_name='".$filename."',photo_path='".$filepath."',photo_type='".$filetype."',student_type='".$student_type."',mother_tongue='".$mother_tongue."' where id='".$id."'";	
+     $sql="Update students set first_name='".$first_name."',join_date='".$join_date."',class_join='".$class_join."',present_class='".$class_join."',sex='".$sex."',dob='".$dob."',caste='".$caste."',parent_contact='".$parent_contact."',father_name='".$father_name."',town='".$town."',village='".$village."',taluk='".$taluk."',address='".$address."',section='".$section."',admission_no='".$admission_no."',adhaar_no='".$adhaar_no."',blood='".$blood."',admission_no='".$admission."',roll_no='".$roll_no."' ,photo_name='".$filename."',photo_path='".$filepath."',photo_type='".$filetype."',student_type='".$student_type."',mother_tongue='".$mother_tongue."' where id='".$id."'";	
 	}
 	else
 	{
 	//echo "Not set";
-	   $sql="Update students set first_name='".$first_name."',last_name='".$last_name."',join_date='".$join_date."',class_join='".$class_join."',present_class='".$class_join."',sex='".$sex."',dob='".$dob."',caste='".$caste."',parent_contact='".$parent_contact."',father_name='".$father_name."',town='".$town."',village='".$village."',taluk='".$taluk."',address='".$address."',section='".$section."',admission_no='".$admission_no."',adhaar_no='".$adhaar_no."',blood='".$blood."',admission_no='".$admission."',roll_no='".$roll_no."',student_type='".$student_type."',mother_tongue='".$mother_tongue."' where id='".$id."'";	
+	   $sql="Update students set first_name='".$first_name."',join_date='".$join_date."',class_join='".$class_join."',present_class='".$class_join."',sex='".$sex."',dob='".$dob."',caste='".$caste."',parent_contact='".$parent_contact."',father_name='".$father_name."',town='".$town."',village='".$village."',taluk='".$taluk."',address='".$address."',section='".$section."',admission_no='".$admission_no."',adhaar_no='".$adhaar_no."',blood='".$blood."',admission_no='".$admission."',roll_no='".$roll_no."',student_type='".$student_type."',mother_tongue='".$mother_tongue."' where id='".$id."'";	
 	}
 	
 	var_dump($sql);
 	
 	if ($conn->query($sql) === TRUE) 
 	{
-	var_dump($sql);
+	//var_dump($sql);
     header("Location:all_students.php?success=.'success'");	
 	}
 	}

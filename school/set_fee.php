@@ -30,41 +30,32 @@ $cur_academic_year = $_SESSION['academic_year'];
 							
 <form action="insert_set_fee.php" method="post">
  
-	
-		
-		 <div class="form-group">
-	  <label for="sel1">Select Class</label>
-	  <select class="form-control" name="class" required>
-		<?php
-		require("selectclass.php");
-	?>
-	
-	<!--
+
 	<div class="form-group">
-	  <label for="sel1">Select Section</label>
-	  <select class="form-control" name="section">
+	  <label for="sel1">Select Class</label>
+	  <select class="form-control" name="class">
 	<?php
         require("connection.php");
-		 $sql_section="select distinct section from students where academic_year='".$cur_academic_year."'";
-
-		 $result_section=mysqli_query($conn,$sql_section);
-		 
-
-		 foreach($result_section as $value_section)
+		 $sql_class="select distinct present_class from students where academic_year='".$cur_academic_year."'";
+		 $result_class=mysqli_query($conn,$sql_class);
+		 foreach($result_class as $value_class)
         {
         ?>
-		<option value='<?php echo $value_section["section"];?>'><?php echo $value_section["section"];?></option>
+		<option value='<?php echo $value_class["present_class"];?>'><?php echo $value_class["present_class"];?></option>
 		<?php
 		}
 		echo '</select>';
 		?>
 		</div>
-     -->
-		
 		
 	  <div class="form-group">
 	    <label for="usr">School Fee:</label>
 		<input type="number" name="adm_fee" class="form-control">
+	  </div>
+
+	  <div class="form-group">
+	    <label for="usr">Fee Towards</label>
+		<input type="text" name="fee_towards" class="form-control">
 	  </div>
 	  
 	 <div class="form-group">

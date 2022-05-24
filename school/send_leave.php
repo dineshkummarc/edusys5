@@ -11,18 +11,6 @@ $cur_academic_year = $_SESSION['academic_year'];
 		$id=$_GET["id"];
 		}
 
-		if(isset($_GET["first_name"])){
-			$first_name=$_GET["first_name"];
-			}
-
-			if(isset($_GET["admission_no"])){
-				$admission_no=$_GET["admission_no"];
-				}
-		
-		if(isset($_GET["read_status"])){
-			$read_status=$_GET["read_status"];
-			}
-	
 	?>
 		<div class="container-fluid">
 		<div class="row">
@@ -62,11 +50,7 @@ $cur_academic_year = $_SESSION['academic_year'];
   <label for="usr">Note (if any):</label>
   <textarea rows="4" class="form-control"  name="rej_reason"></textarea>
 </div>
-
-	<input type="hidden"  name="read_status" value="<?php echo $read_status; ?>">
 	<input type="hidden"  name="id" value="<?php echo $id; ?>">
-	<input type="hidden"  name="first_name" value="<?php echo $first_name; ?>">
-	<input type="hidden"  name="admission_no" value="<?php echo $admission_no; ?>">
 	<input type="submit"   value="Send" class="btn btn-primary btn-md">
   
 	  </form><br>

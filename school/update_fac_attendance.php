@@ -9,8 +9,7 @@ require("connection.php");
 	$attendance=$_POST["attendance"];
 	$att_date=$_POST["att_date"];
 	$id=$_POST["id"];
-	$first_fname=$_POST["first_fname"];
-	$roll_no=$_POST["roll_no"];
+	$staff_id=$_POST["staff_id"];
 	
 	if($attendance=="Present"){
 		$att_count=1;
@@ -19,20 +18,19 @@ require("connection.php");
 	}
 	
 	$sql="update fac_attendance set attendance='".$attendance."',att_date='".$att_date."',att_count='".$att_count."' where  id='".$id."'";
-	var_dump($sql);
+	//var_dump($sql);
 	
 	if ($conn->query($sql) === TRUE) 
 	{
-		echo "success";
 	
-	header("Location:attendance_desc.php?name=".$first_fname."&roll_no=".$roll_no);
+	header("Location:fac_attendance_desc.php?id=".$staff_id);
 
 
 	} 
 	else 
 	{
 				
-	header("Location:attendance_desc.php?failed=.'failed'");	
+	header("Location:fac_attendance_desc.php?failed=.'failed'");	
 		
 	}
 

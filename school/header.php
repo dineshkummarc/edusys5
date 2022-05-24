@@ -108,6 +108,37 @@ error_reporting("0");
 			<li>
 				<a href="index.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
 			</li>
+            <li>
+                        <a href="#" data-toggle="collapse" data-target="#student"><i class="glyphicon glyphicon-education "></i></i> Students <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="student" class="collapse">
+                            <li>
+                                <a href="all_students.php">All Students</a>
+                            </li>
+							<li>
+                                <a href="register_students.php">Add Student</a>
+                            </li>
+							<li>
+                                <a href="import.php">Import Students (CSV)</a>
+                            </li>
+                            
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#emp"><i class="fa fa-user" aria-hidden="true"></i> Staff's <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="emp" class="collapse">
+                            <li>
+                                <a href="teach_staff.php">All Staff's</a>
+								  </li>
+							<li>
+                                <a href="register_faculty.php">Add Staff</a>
+                            </li>
+							<li>
+                                <a href="import_faculty.php">Import Staff (CSV)</a>
+                            </li>
+                           
+                        </ul>
+                    </li> 
 
             <li>
             <a href="#" data-toggle="collapse" data-target="#online"><i class="fa fa-fw fa-video-camera"></i> Online Class <i class="fa fa-fw fa-caret-down"></i></a>
@@ -141,6 +172,8 @@ error_reporting("0");
 		</li>
 		
 		<li><a href="ad_members.php"><i class="fa fa-fw fa-cog"></i> Add Admin</a></li>
+		<li><a href="add_class_name.php"><i class="fa fa-fw fa-cog"></i> Add Class Name</a></li>
+		<li><a href="all_class_name.php"><i class="fa fa-fw fa-cog"></i> All Class Name</a></li>
 		<li><a href="add_fee_name.php"><i class="fa fa-fw fa-cog"></i> Add Fee Name</a></li>
 		<li><a href="add_marks_admin.php"><i class="fa fa-fw fa-cog"></i> Add Marks Admin</a></li>
 		<li>
@@ -263,21 +296,7 @@ error_reporting("0");
                             
                         </ul>
                     </li>  
-					<li>
-                        <a href="#" data-toggle="collapse" data-target="#student"><i class="glyphicon glyphicon-education "></i></i> Students <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="student" class="collapse">
-                            <li>
-                                <a href="all_students.php">All Students</a>
-                            </li>
-							<li>
-                                <a href="register_students.php">Add Student</a>
-                            </li>
-							<li>
-                                <a href="import.php">Import Students (CSV)</a>
-                            </li>
-                            
-                        </ul>
-                    </li>
+				
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#lib"><i class="fa fa-fw fa-table"></i> Library <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="lib" class="collapse">
@@ -357,12 +376,9 @@ error_reporting("0");
 				 <li>
                         <a href="#" data-toggle="collapse" data-target="#enroll"><i class="glyphicon glyphicon-education "></i></i> Enrollment <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="enroll" class="collapse">
-                            <li>
-                                <a href="all_enrolled_students.php">Enrolled Students</a>
-                            </li>
-							<li>
-                                <a href="register_enrollment.php">Enroll (Add) Students</a>
-                            </li>
+                            <li><a href="all_enrolled_students.php">Enrolled Students</a></li>
+							<li><a href="register_enrollment.php">Enroll (Add) Students</a></li>
+                            <li><a href="prev_enrolled_students.php">Previous Enrolled Students</a></li>
 							
                         </ul>
                     </li>
@@ -394,21 +410,7 @@ error_reporting("0");
                     </li> 
 
 
-					<li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#emp"><i class="fa fa-user" aria-hidden="true"></i> Staff's <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="emp" class="collapse">
-                            <li>
-                                <a href="teach_staff.php">All Staff's</a>
-								  </li>
-							<li>
-                                <a href="register_faculty.php">Add Staff</a>
-                            </li>
-							<li>
-                                <a href="import_faculty.php">Import Staff (CSV)</a>
-                            </li>
-                           
-                        </ul>
-                    </li>  
+					 
 					
 					
                     
@@ -436,55 +438,6 @@ error_reporting("0");
                         </ul>
                     </li> 
 
-					<li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#adm_fee"><i class="fa fa-fw fa-money"></i> RTE Fee <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="adm_fee" class="collapse">
-                            <li>
-                                <a href="set_adm_fee.php">Setup RTE Fee</a>
-                            </li>
-							<li>
-                                <a href="set_adm_fee_det.php">RTE Fee Setup Details</a>
-                            </li>
-                            <li>
-                                <a href="bulk_adm_fee_update.php">Bulk RTE Fee Update</a>
-                            </li>
-							<li>
-                                <a href="all_students.php">Collect Individual RTE Fee</a>
-                            </li>
-							<li>
-                                <a href="paid_adm_fee_details.php">Paid RTE Fee Details</a>
-                            </li>
-							<li>
-                                <a href="adm_fee_remind.php">Remind RTE Fee</a>
-                            </li>
-                        </ul>
-                    </li> 
-					
-                      <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#cca_fee"><i class="fa fa-fw fa-money"></i> Teachers Children Fee <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="cca_fee" class="collapse">
-                            <li>
-                                <a href="set_cca_fee.php">Setup Teachers Children Fee</a>
-                            </li>
-							<li>
-                                <a href="set_cca_fee_det.php">Teachers Children Fee Setup Details</a>
-                            </li>
-                            <li>
-                                <a href="bulk_cca_fee_update.php">Bulk Teachers Children Fee Update</a>
-                            </li>
-							<li>
-                                <a href="all_students.php">Collect Individual Teachers Children Fee</a>
-                            </li>
-							<li>
-                                <a href="paid_cca_fee_details.php">Paid Teachers Children Fee Details</a>
-                            </li>
-							<li>
-                                <a href="cca_fee_remind.php">Remind Teachers Children Fee</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="bulk_other_fee.php"><i class="fa fa-money" aria-hidden="true"></i> Book,Uniform & Other Fee</a></li>
-                    <li><a href="paid_other_fee_details.php"><i class="fa fa-money" aria-hidden="true"></i> Paid Other Fee Details</a></li>
 
                     <li><a href="send_assign.php"><i class="fa fa-money" aria-hidden="true"></i> Send Assignments</a></li>
 	

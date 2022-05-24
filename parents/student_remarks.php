@@ -1,8 +1,8 @@
 <?php
 session_start();
-
-if(isset($_SESSION['parents_uname'])&&isset($_SESSION['parents_pass'])&&isset($_SESSION['parents_class'])&&isset($_SESSION['academic_year']))
+if (isset($_SESSION['parents_uname']) && !empty($_SESSION['parents_pass']) && !empty($_SESSION['parents_class']) && !empty($_SESSION['student_id'])) 
 {
+$student_id=$_SESSION['student_id'];
 $cur_academic_year = $_SESSION['academic_year'];
 $first_name = $_SESSION['parents_uname'];
 $roll_no = $_SESSION['parents_pass'];
@@ -10,13 +10,12 @@ error_reporting("0");
 require("header.php");
 require("connection.php");
 
-$sql_remarks="select * from remarks where first_name='".$first_name."' and roll_no='".$roll_no."'  and academic_year='".$cur_academic_year."' order by id desc";
+$sql_remarks="select * from remarks where student_id='".$student_id."'  and academic_year='".$cur_academic_year."' order by id desc";
 $result_remarks=mysqli_query($conn,$sql_remarks);
-        ?>
+?>
+<div class="container">
 <div class="row">
-<div class="col-sm-2">
-</div>
-<div class="col-sm-8">
+<div class="col-sm-12">
  <hr><div class="table-responsive"> 
  <h1>Student Remarks</h1>
     <table class="table table-bordered table-hover table-striped">
@@ -57,8 +56,6 @@ $result_remarks=mysqli_query($conn,$sql_remarks);
         </table>
     </div>
 </div>
-
-<div class="col-sm-2">
 </div>
 </div>
 <?php

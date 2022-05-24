@@ -69,9 +69,25 @@ require("header.php");
 	 <div class="row">
     <div class="col-md-6">
 	<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" class="form-inline" method="get" role="form">
-	  <div class="form-group">
-		<select class="form-control" name="filt_class" id="sel1">
-		<?php require("selectclass.php");?>
+	<div class="form-group">
+		 <select class="form-control" name="filt_class" required>
+			<option value="">Select Section</option>
+			<?php
+				$sql_class="select distinct present_class from students where academic_year='".$cur_academic_year."'";
+
+				 $result_class=mysqli_query($conn,$sql_class);
+
+				foreach($result_class as $value_class)
+				{
+				?>
+				<option value='<?php echo $value_class["present_class"];?>'><?php echo $value_class["present_class"];?></option>
+				<?php
+				}
+				?>
+				</select><br>
+
+				
+		</div>
 		<div class="form-group">
 		 <?php echo '<select class="form-control" name="section">';
 			echo '<option value="">Select Section</option>';
@@ -93,12 +109,15 @@ require("header.php");
 	</form>
 	<form action="export.php" method="post" name="export_excel">
                <br>
-			<div class="control-group">
+			<div class="control-group inline">
 				<div class="controls">
 					<button type="submit" id="export" name="export" class="btn btn-sm btn-success button-loading" data-loading-text="Loading...">Export CSV/Excel File</button>
 				</div>
+			
 			</div>
+			
 		</form>
+		
 	</div>
 	
 	<div class="col-md-6">
@@ -107,9 +126,11 @@ require("header.php");
 	
 	 <div class="form-horizontal">
 	 <div class="form-group">
-	<input type="text" name="typeahead" class="form-control typeahead "  autocomplete="off" spellcheck="false" placeholder="Search Students">
+	<input type="text" name="typeahead" class="form-control typeahead "  autocomplete="off" spellcheck="false" placeholder="Search Students" required>
 	</div>
 	<button type="submit" name="search_student" class="btn btn-sm btn-success">Get Details</button>
+	<a href="all_students.php" class="btn btn-primary btn-sm">View All Students</a>
+	<a href="register_students.php" class="btn btn-success">Add New Student</a>
 	</form>
 	<!------------------------------------------End of Search Form------------------------------------------------------->
 	</div>
@@ -188,13 +209,13 @@ require("header.php");
 	?>
     <tr>
 		<td><span style="color: #207FA2; "><?php echo $row_count;?></span></td>
-		<td><span style="color: #207FA2; "><a href="<?php echo 'description.php?first_name='.$row['first_name'].'&roll_no='.$row['roll_no'];?>" ><?php echo $row["first_name"];?></a></span></td>
+		<td><span style="color: #207FA2; "><a href="<?php echo 'description.php?id='.$row['id'];?>" ><?php echo $row["first_name"];?></a></span></td>
 		<td><span style="color: #207FA2; "><?php echo $row["roll_no"];?></span></td>
 		<td><span style="color: #207FA2; "><?php echo $row["admission_no"];?></span></td>
 		<td><span style="color: #207FA2; "><?php echo $row["present_class"];?></span></td>
 		<td><span style="color: #207FA2; "><?php echo $dob;?></span></td>
 		<td><span style="color: #207FA2; "><?php if($row['address']!=""){echo $row["address"];}else{ echo $row["village"]." ".$row["district"];}?></span></td>
-		<td><div class="btn-group"><a href="<?php echo 'description.php?first_name='.$row['first_name'].'&roll_no='.$row['roll_no'];?>" title="View" >  <i class="fa fa-eye fa-lg" style="color:#8ba83e;" aria-hidden="true"></i></a>
+		<td><div class="btn-group"><a href="<?php echo 'description.php?id='.$row['id'];?>" title="View" >  <i class="fa fa-eye fa-lg" style="color:#8ba83e;" aria-hidden="true"></i></a>
         <a href="<?php echo 'upd_register.php?id='.$row['id']; ?>" title="Edit">  <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>
         <a href="#" onclick="deleteme(<?php echo $row['id'];?>)">   <i class="fa fa-trash-o fa-lg" style="color:red;" aria-hidden="true"></i></a>
        </div></td>

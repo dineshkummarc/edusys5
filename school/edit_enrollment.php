@@ -86,9 +86,6 @@ function CheckSpecialCat(val){
 		  <label for="sel1"><span style="color:red;font-size:18px;">*</span>Academic Year</label>
 		  <select class="form-control" name="academic_year"  id="sel1">
 			<option value="<?php echo $row['academic_year'];?>"><?php echo $row['academic_year'];?></option>
-			<option value="2018-2019">2018-2019</option>
-			<option value="2019-2020">2019-2020</option>
-			<option value="2020-2021">2020-2021</option>
 			<option value="2021-2022">2021-2022</option>
 		</select>
 		</div>
@@ -100,26 +97,26 @@ function CheckSpecialCat(val){
 			<option value="PREKG">PreKG</option>
 			<option value="LKG">LKG</option>
 			<option value="UKG">UKG</option>
-			 <option value="I STANDARD">I Standard</option>
-			<option value="II STANDARD">II Standard</option>
-			  <option value="III STANDARD">III Standard</option>
-			  <option value="IV STANDARD">IV Standard</option>
-			  <option value="V STANDARD">V Standard</option>
-			  <option value="VI STANDARD">VI Standard</option>
-			  <option value="VII STANDARD">VII Standard</option>
-			  <option value="VIII STANDARD">VIII Standard</option>
-			   <option value="IX STANDARD">IX Standard</option>
-			  <option value="X STANDARD">X Standard</option>
-			  <option value="I PUC ARTS">I PUC Arts</option>
-			  <option value="I PUC COMMERCE">I PUC Commerce</option>
-			  <option value="I PUC SCIENCE">I PUC Science</option>
-			  <option value="II PUC ARTS">II PUC Arts</option>
-			  <option value="II PUC COMMERCE">II PUC Commerce</option>
-			  <option value="II PUC SCIENCE">II PUC Science</option>
+			 <option value="1st STANDARD">I Standard</option>
+			<option value="2nd STANDARD">II Standard</option>
+			  <option value="3rd STANDARD">III Standard</option>
+			  <option value="4th STANDARD">IV Standard</option>
+			  <option value="5th STANDARD">V Standard</option>
+			  <option value="6th STANDARD">VI Standard</option>
+			  <option value="7th STANDARD">VII Standard</option>
+			  <option value="8th STANDARD">VIII Standard</option>
+			   <option value="9th STANDARD">IX Standard</option>
+			  <option value="10th STANDARD">X Standard</option>
+			  <option value="1st PUC ARTS">I PUC Arts</option>
+			  <option value="2nd PUC COMMERCE">I PUC Commerce</option>
+			  <option value="1st PUC SCIENCE">I PUC Science</option>
+			  <option value="2nd PUC ARTS">II PUC Arts</option>
+			  <option value="2nd PUC COMMERCE">II PUC Commerce</option>
+			  <option value="2nd PUC SCIENCE">II PUC Science</option>
 		 </select>
 		</div>
 		
-		<div class="form-group">
+	<!-- 	<div class="form-group">
 		  <label for="sel1"><span style="color:red;font-size:18px;">*</span>2.Select Semester:</label>
 		  <select class="form-control" name="semister"  id="sel1">
 			<option value="<?php echo $row['semister'];?>"><?php echo $row['semister'];?></option>
@@ -138,26 +135,26 @@ function CheckSpecialCat(val){
 			<option value="SCIENCE">Science</option>
 			<option value="ARTS">Arts</option>
 		</select>
-		</div>
+		</div> -->
 		<input type="hidden" value="<?php echo $id;?>" name="id">
-									<div class="form-group">
-									  <label for="sel1"><span style="color:red;font-size:18px;">*</span>4.Medium of Instructions</label>
-									  <select class="form-control" name="medium" onchange='CheckMedium(this.value);'>
-										<option value="<?php echo $row['medium'];?>"><?php echo $row['medium'];?></option>
-										<option value="KANNADA">Kannada</option>
-										<option value="HINDI">Hindi</option>
-										<option value="URDU">Urdu</option>
-										<option value="ENGLISH">English</option>
-										<option value="MARATHI">Marathi</option>
-										<option value="TAMIL">Tamil</option>
-										<option value="TELUGU">Telugu</option>
-										<option value="OTHER MEDIUM">Others</option>
-										</select>
-										</div>
+		<div class="form-group">
+			<label for="sel1"><span style="color:red;font-size:18px;">*</span>4.Medium of Instructions</label>
+			<select class="form-control" name="medium" onchange='CheckMedium(this.value);'>
+			<option value="<?php echo $row['medium'];?>"><?php echo $row['medium'];?></option>
+			<option value="KANNADA">Kannada</option>
+			<option value="HINDI">Hindi</option>
+			<option value="URDU">Urdu</option>
+			<option value="ENGLISH">English</option>
+			<option value="MARATHI">Marathi</option>
+			<option value="TAMIL">Tamil</option>
+			<option value="TELUGU">Telugu</option>
+			<option value="OTHER MEDIUM">Others</option>
+			</select>
+			</div>
 
-										 <div class="form-group">
-										 <input type="text" class="form-control" placeholder="Enter Medium here" name="other_medium" id="other_medium" style='display:none;'/>
-										</div>
+				<div class="form-group">
+				<input type="text" class="form-control" placeholder="Enter Medium here" name="other_medium" id="other_medium" style='display:none;'/>
+			</div>
 
 						<div class="form-group">
 						  <label for="sel1"><span style="color:red;font-size:18px;">*</span>5.Mother Tongue</label>

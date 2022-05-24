@@ -19,17 +19,10 @@ if(isset($_POST["register"]))
 	$phone=test_input($_POST["phone"]);
 	$comments=test_input($_POST["comments"]);
 	
-	
-	
-	
 	$sql="insert into alumni (first_name,gender,dob,studied_upto,year_passing,qualification,occupation,expertise,current_position,address,city,hometown,email,phone,comments) values('$first_name','$gender','$dob','$studied_upto','$year_passing','$qualification','$occupation','$expertise','$current_position','$address','$city','$hometown','$email','$phone','$comments')";
-	
-	
 	
 	if ($conn->query($sql) === TRUE) 
 	{
-		//echo "success";
-		//var_dump($sql);	
 	header("Location:registration.php?success=.'success'");
     } 
 	else 

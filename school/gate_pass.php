@@ -2,52 +2,14 @@
 session_start();
 if(isset($_SESSION['lkg_uname'])&&!empty($_SESSION['lkg_pass'])&&!empty($_SESSION['academic_year']))
 {
-    
 $cur_academic_year = $_SESSION['academic_year'];
-date_default_timezone_set("Asia/Kolkata");
-error_reporting("0");
-$today_date=date("Y-m-d");
 require("header.php");	
-if((isset($_GET["first_name"]))&&(isset($_GET["roll_no"]))&&(isset($_GET["section"]))){
-	$first_name=$_GET["first_name"];
-	$roll_no=$_GET["roll_no"];
-	
-}else{
-$section="";
+if(isset($_GET["id"])){
+	$id=$_GET["id"];
 }
-$sql_student = "SELECT * FROM students where academic_year='".$cur_academic_year."' and first_name='".$first_name."' and roll_no='".$roll_no."'";
-$result_student=mysqli_query($conn,$sql_student);
-	if($row_student=mysqli_fetch_array($result_student,MYSQLI_ASSOC))
-	{
-		$dob= date('d-m-Y', strtotime( $row_student['dob'] ));
-		$join_date= date('d-m-Y', strtotime( $row_student['join_date'] ));
-		$first_name= $row_student['first_name'];
-		$class_join= $row_student['class_join'];
-		$present_class= $row_student['present_class'];
-		$section= $row_student['section'];
-		$academic_year= $row_student['academic_year'];
-		$father_name= $row_student['father_name'];
-		$roll_no= $row_student['roll_no'];
-		$address= $row_student['address'];
-		$caste= $row_student['caste'];
-		$record_no= $row_student['roll_no'];
-		$parent_contact= $row_student['parent_contact'];
-		
-	}	
-	
-	$sql = "SELECT * FROM school_det ORDER BY ID DESC LIMIT 1";	
-	
-	
-	$result=mysqli_query($conn,$sql);
-	if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
-	{
-		$sch_name=$row["sch_name"];
-		$location=$row["location"];
-		$city=$row["location"];
-		
-	}
+
 ?>
-       <div class="container-fluid">
+    <div class="container-fluid">
 		<div class="row">
 		<div class="col-sm-3"><br>
 		
@@ -97,13 +59,7 @@ $result_student=mysqli_query($conn,$sql_student);
 	    <label for="usr">Relation:</label>
 		<input type="text" name="relation" class="form-control">
 	  </div>
-	  <input type="hidden" name="first_name" value="<?php echo $first_name;?>" class="form-control">
-	  <input type="hidden" name="roll_no" value="<?php echo $roll_no;?>" class="form-control">
-	  <input type="hidden" name="present_class" value="<?php echo $present_class;?>" class="form-control">
-	  <input type="hidden" name="section" value="<?php echo $section;?>" class="form-control">
-	  <input type="hidden" name="address" value="<?php echo $address;?>" class="form-control">
-	  <input type="hidden" name="academic_year" value="<?php echo $cur_academic_year;?>" class="form-control">
-	  <input type="hidden" name="parent_contact" value="<?php echo $parent_contact;?>" class="form-control">
+	  <input type="hidden" name="student_id" value="<?php echo $id;?>">
 	  
 		
 	  <input type="submit" name="gate_pass" class="btn btn-success" value="Issue Gate Pass">

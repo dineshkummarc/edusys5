@@ -1,11 +1,12 @@
 <?php
 session_start();
-if(isset($_SESSION['lkg_uname'])&&!empty($_SESSION['lkg_pass'])&&!empty($_SESSION['academic_year'])){
+if(isset($_SESSION['lkg_uname'])&&!empty($_SESSION['lkg_pass'])&&!empty($_SESSION['academic_year']))
+{
 $academic_year = $_SESSION['academic_year'];
 
 	require("header.php");
 	require("connection.php");
-    include_once("currency_convertor.php");
+  include_once("currency_convertor.php");
 	error_reporting("0");
 	$from=$_GET["from"];
 	$to=$_GET["to"];
@@ -27,7 +28,7 @@ function printIncome(print_income) {
 </head>
 			
 				
-<div class="container">
+<div class="container-fluid">
 	<div class="row"><br>
 	<div class="col-md-12 inline">
 	<form class="form-inline" action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>' method="get">
@@ -88,7 +89,7 @@ function printIncome(print_income) {
 		$no_of_records_per_page = 50;
 		$offset = ($pageno-1) * $no_of_records_per_page;
    
-		$total_pages_sql = "SELECT COUNT(*) FROM income_expense";
+		$total_pages_sql = "SELECT COUNT(*) FROM income_expense where academic_year='".$academic_year."'";
 		$result_pages = mysqli_query($conn,$total_pages_sql);
 		$total_rows = mysqli_fetch_array($result_pages)[0];
 		$total_pages = ceil($total_rows / $no_of_records_per_page);
@@ -101,15 +102,17 @@ function printIncome(print_income) {
 			$source_towards=$_GET["source_towards"];
 			$account_name=$_GET["account_name"];
 			
-			$sql_amount="select * from income_expense where (rec_exp_date BETWEEN '$from' and '$to') and source_towards='".$source_towards."' and account_name='".$account_name."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+			$sql_amount="select * from income_expense where academic_year='".$academic_year."' and (rec_exp_date BETWEEN '$from' and '$to') and source_towards='".$source_towards."' and account_name='".$account_name."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+		   //var_dump($sql_amount);
 		   
-		   
-		   $sql_tot="select sum(amount) as total_amount from income_expense where   (rec_exp_date BETWEEN '$from' and '$to') and source_towards='".$source_towards."' and account_name='".$account_name."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+		   $sql_tot="select sum(amount) as total_amount from income_expense where academic_year='".$academic_year."' and  (rec_exp_date BETWEEN '$from' and '$to') and source_towards='".$source_towards."' and account_name='".$account_name."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
 			//var_dump($sql_tot);
 
-            $sql_income="select sum(amount) as total_income from income_expense where income_expense='Income' and (rec_exp_date BETWEEN '$from' and '$to') and source_towards='".$source_towards."' and account_name='".$account_name."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+      $sql_income="select sum(amount) as total_income from income_expense where academic_year='".$academic_year."' and income_expense='Income' and (rec_exp_date BETWEEN '$from' and '$to') and source_towards='".$source_towards."' and account_name='".$account_name."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+			
+			var_dump($sql_income);
 
-            $sql_expense="select sum(amount) as total_expense from income_expense where income_expense='Expense' and (rec_exp_date BETWEEN '$from' and '$to') and source_towards='".$source_towards."' and account_name='".$account_name."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+      $sql_expense="select sum(amount) as total_expense from income_expense where academic_year='".$academic_year."' and income_expense='Expense' and (rec_exp_date BETWEEN '$from' and '$to') and source_towards='".$source_towards."' and account_name='".$account_name."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
 		}
 		else if(!empty($_GET['from'])&&!empty($_GET['to'])&&!empty($_GET['account_name']))
 		{
@@ -117,17 +120,15 @@ function printIncome(print_income) {
 			$to=$_GET["to"];
 			$account_name=$_GET["account_name"];
 			
-			$sql_amount="select * from income_expense where (rec_exp_date BETWEEN '$from' and '$to') and account_name='".$account_name."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+			$sql_amount="select * from income_expense where academic_year='".$academic_year."' and (rec_exp_date BETWEEN '$from' and '$to') and account_name='".$account_name."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
 		   
 		   
-		   $sql_tot="select sum(amount) as total_amount from income_expense where   (rec_exp_date BETWEEN '$from' and '$to') and account_name='".$account_name."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+		   $sql_tot="select sum(amount) as total_amount from income_expense where academic_year='".$academic_year."' and   (rec_exp_date BETWEEN '$from' and '$to') and account_name='".$account_name."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
 			 
 
-            $sql_income="select sum(amount) as total_income from income_expense where income_expense='Income' and (rec_exp_date BETWEEN '$from' and '$to') and account_name='".$account_name."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+      $sql_income="select sum(amount) as total_income from income_expense where academic_year='".$academic_year."' and income_expense='Income' and (rec_exp_date BETWEEN '$from' and '$to') and account_name='".$account_name."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
 			
-			
-			
-            $sql_expense="select sum(amount) as total_expense from income_expense where income_expense='Expense' and (rec_exp_date BETWEEN '$from' and '$to') and account_name='".$account_name."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+			$sql_expense="select sum(amount) as total_expense from income_expense where academic_year='".$academic_year."' and income_expense='Expense' and (rec_exp_date BETWEEN '$from' and '$to') and account_name='".$account_name."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
 			
 			
 		}
@@ -137,15 +138,15 @@ function printIncome(print_income) {
 			$to=$_GET["to"];
 			$source_towards=$_GET["source_towards"];
 			
-			$sql_amount="select * from income_expense where (rec_exp_date BETWEEN '$from' and '$to') and source_towards='".$source_towards."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+			$sql_amount="select * from income_expense where academic_year='".$academic_year."' and (rec_exp_date BETWEEN '$from' and '$to') and source_towards='".$source_towards."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
 		   
 		   
-		   $sql_tot="select sum(amount) as total_amount from income_expense where   (rec_exp_date BETWEEN '$from' and '$to') and source_towards='".$source_towards."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+		   $sql_tot="select sum(amount) as total_amount from income_expense where academic_year='".$academic_year."' and  (rec_exp_date BETWEEN '$from' and '$to') and source_towards='".$source_towards."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
 			//var_dump($sql_tot);
 
-            $sql_income="select sum(amount) as total_income from income_expense where income_expense='Income' and (rec_exp_date BETWEEN '$from' and '$to') and source_towards='".$source_towards."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+      $sql_income="select sum(amount) as total_income from income_expense where academic_year='".$academic_year."' and income_expense='Income' and (rec_exp_date BETWEEN '$from' and '$to') and source_towards='".$source_towards."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
 
-            $sql_expense="select sum(amount) as total_expense from income_expense where income_expense='Expense' and (rec_exp_date BETWEEN '$from' and '$to') and source_towards='".$source_towards."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+      $sql_expense="select sum(amount) as total_expense from income_expense where academic_year='".$academic_year."' and income_expense='Expense' and (rec_exp_date BETWEEN '$from' and '$to') and source_towards='".$source_towards."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
 		}
 		else if((!empty($_GET['source_towards']))&&!empty($_GET['account_name']))
 		{
@@ -153,71 +154,97 @@ function printIncome(print_income) {
 			$source_towards=$_GET["source_towards"];
 			$account_name=$_GET["account_name"];
 			
-			$sql_amount="select * from income_expense where  source_towards='".$source_towards."' and account_name='".$account_name."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+			$sql_amount="select * from income_expense where academic_year='".$academic_year."' and source_towards='".$source_towards."' and account_name='".$account_name."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+		  //var_dump($sql_amount); 
 		   
-		   
-		   $sql_tot="select sum(amount) as total_amount from income_expense where source_towards='".$source_towards."' and account_name='".$account_name."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+		   $sql_tot="select sum(amount) as total_amount from income_expense where academic_year='".$academic_year."' and source_towards='".$source_towards."' and account_name='".$account_name."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
 			//var_dump($sql_tot);
 
-            $sql_income="select sum(amount) as total_income from income_expense where income_expense='Income' and source_towards='".$source_towards."' and account_name='".$account_name."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+      $sql_income="select sum(amount) as total_income from income_expense where academic_year='".$academic_year."' and income_expense='Income' and source_towards='".$source_towards."' and account_name='".$account_name."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+			//var_dump($sql_income);
 
-            $sql_expense="select sum(amount) as total_expense from income_expense where income_expense='Expense' and source_towards='".$source_towards."' and account_name='".$account_name."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+      $sql_expense="select sum(amount) as total_expense from income_expense where academic_year='".$academic_year."' and income_expense='Expense' and source_towards='".$source_towards."' and account_name='".$account_name."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+			var_dump($sql_expense);
 		}
-        else if((!empty($_GET['from']))&&!empty($_GET['to']))
-        {
-            $from=$_GET["from"];
-			$to=$_GET["to"];
+    else if((!empty($_GET['from']))&&!empty($_GET['to']))
+    {
+    $from=$_GET["from"];
+		$to=$_GET["to"];
+			///////////////////////////////// Start Salary ///////////////////////////////////////
+			$sql_staff_salary = "select sum(salary_given) as tot_salary_given from staff_salary where academic_year='".$academic_year."' and (salary_date BETWEEN '$from' and '$to') ORDER BY salary_date desc LIMIT $offset, $no_of_records_per_page";
+			///////////////////////////////// End Salary /////////////////////////////////////////
+
+			$sql_student_fee = "select sum(tot_paid) as tot_student_fee_amount from student_fee where academic_year='".$academic_year."' and (rec_date BETWEEN '$from' and '$to')  ORDER BY rec_date desc LIMIT $offset, $no_of_records_per_page";
 			
-			$sql_amount="select * from income_expense where (rec_exp_date BETWEEN '$from' and '$to') ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+			$sql_amount="select * from income_expense where academic_year='".$academic_year."' and (rec_exp_date BETWEEN '$from' and '$to') ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
 		   
-		   
-		   $sql_tot="select sum(amount) as total_amount from income_expense where   (rec_exp_date BETWEEN '$from' and '$to') ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+		  $sql_tot="select sum(amount) as total_amount from income_expense where  academic_year='".$academic_year."' and (rec_exp_date BETWEEN '$from' and '$to') ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
 			//var_dump($sql_tot);
 
-            $sql_income="select sum(amount) as total_income from income_expense where income_expense='Income' and (rec_exp_date BETWEEN '$from' and '$to') ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+			$sql_income="select sum(amount) as total_income from income_expense where academic_year='".$academic_year."' and income_expense='Income' and (rec_exp_date BETWEEN '$from' and '$to') ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
 
-            $sql_expense="select sum(amount) as total_expense from income_expense where income_expense='Expense' and (rec_exp_date BETWEEN '$from' and '$to') ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
-        }
-        else if(!empty($_GET['account_name']))
-        {
-            $account_name=$_GET["account_name"];
-			$sql_amount="select * from income_expense where account_name='".$account_name."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
-		   
-		   
-		   $sql_tot="select sum(amount) as total_amount from income_expense where account_name='".$account_name."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
-			//var_dump($sql_tot);
+			$sql_expense="select sum(amount) as total_expense from income_expense where academic_year='".$academic_year."' and income_expense='Expense' and (rec_exp_date BETWEEN '$from' and '$to') ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+    }
+    else if(!empty($_GET['account_name']))
+    {
+    $account_name=$_GET["account_name"];
+		$sql_amount="select * from income_expense where academic_year='".$academic_year."' and account_name='".$account_name."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";	
+		//var_dump($sql_amount);
+		$sql_tot="select sum(amount) as total_amount from income_expense where academic_year='".$academic_year."' and account_name='".$account_name."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+		//var_dump($sql_tot);
+		$sql_income="select sum(amount) as total_income from income_expense where academic_year='".$academic_year."' and income_expense='Income' and account_name='".$account_name."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+			//var_dump($sql_income);
+		$sql_expense="select sum(amount) as total_expense from income_expense where academic_year='".$academic_year."' and income_expense='Expense' and account_name='".$account_name."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+			//var_dump($sql_expense);
 
-            $sql_income="select sum(amount) as total_income from income_expense where income_expense='Income' and account_name='".$account_name."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
-
-            $sql_expense="select sum(amount) as total_expense from income_expense where income_expense='Expense' and account_name='".$account_name."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
-        }
+    }
 		else if(!empty($_GET['source_towards']))
-        {
-            $source_towards=$_GET["source_towards"];
-			$sql_amount="select * from income_expense where source_towards='".$source_towards."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+    {
+      $source_towards=$_GET["source_towards"];
+			$sql_amount="select * from income_expense where academic_year='".$academic_year."' and source_towards='".$source_towards."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
 		   
 		   
-		   $sql_tot="select sum(amount) as total_amount from income_expense where source_towards='".$source_towards."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+		   $sql_tot="select sum(amount) as total_amount from income_expense where academic_year='".$academic_year."' and source_towards='".$source_towards."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
 			//var_dump($sql_tot);
 
-            $sql_income="select sum(amount) as total_income from income_expense where income_expense='Income' and source_towards='".$source_towards."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+			$sql_income="select sum(amount) as total_income from income_expense where academic_year='".$academic_year."' and income_expense='Income' and source_towards='".$source_towards."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
 
-            $sql_expense="select sum(amount) as total_expense from income_expense where income_expense='Expense' and source_towards='".$source_towards."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
-        }
+			$sql_expense="select sum(amount) as total_expense from income_expense where academic_year='".$academic_year."' and income_expense='Expense' and source_towards='".$source_towards."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+    }
 		
 		else
 		{
 			
-			$sql_amount="select * from income_expense  ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+
+			$sql_staff_salary = "select sum(salary_given) as tot_salary_given from staff_salary where academic_year='".$academic_year."' ORDER BY salary_date desc LIMIT $offset, $no_of_records_per_page";
+			//var_dump($sql_staff_salary);
+
+			$sql_student_fee = "select sum(tot_paid) as tot_student_fee_amount from student_fee where academic_year='".$academic_year."'  ORDER BY rec_date desc LIMIT $offset, $no_of_records_per_page";
+			//var_dump($sql_student_fee);
+
+			$sql_amount="select * from income_expense where academic_year='".$academic_year."'   ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
 			
-			$sql_tot="select sum(amount) as total_amount from income_expense ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+			$sql_tot="select sum(amount) as total_amount from income_expense where academic_year='".$academic_year."' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
 
-            $sql_income="select sum(amount) as total_income from income_expense where income_expense='Income' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+      $sql_income="select sum(amount) as total_income from income_expense where academic_year='".$academic_year."' and income_expense='Income' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
 
-            $sql_expense="select sum(amount) as total_expense from income_expense where income_expense='Expense' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
+      $sql_expense="select sum(amount) as total_expense from income_expense where academic_year='".$academic_year."' and income_expense='Expense' ORDER BY rec_exp_date desc LIMIT $offset, $no_of_records_per_page";
 		   
 			//var_dump($sql_amount);
 		}
+
+		$result_student_fee = mysqli_query($conn, $sql_student_fee);
+		if($row_student_fee=mysqli_fetch_array($result_student_fee,MYSQLI_ASSOC))
+		{
+		$tot_student_fee_amount= $row_student_fee["tot_student_fee_amount"];
+		}
+
+		$result_staff_salary = mysqli_query($conn, $sql_staff_salary);
+		if($row_staff_salary=mysqli_fetch_array($result_staff_salary,MYSQLI_ASSOC))
+		{
+		$tot_salary_given= $row_staff_salary["tot_salary_given"];
+		}
+
 	
 		$result_tot=mysqli_query($conn,$sql_tot);
 		if($row_tot=mysqli_fetch_array($result_tot,MYSQLI_ASSOC))
@@ -227,21 +254,26 @@ function printIncome(print_income) {
 		$result_amount=mysqli_query($conn,$sql_amount);
 		
 		
-		$row_count =1;
+		$row_count =4;
 
-        $result_income=mysqli_query($conn,$sql_income);
+
+    $result_income=mysqli_query($conn,$sql_income);
 		if($row_income=mysqli_fetch_array($result_income,MYSQLI_ASSOC))
 		{
 		$total_income= $row_income["total_income"];
 		}
 
-        $result_expense=mysqli_query($conn,$sql_expense);
+    $result_expense=mysqli_query($conn,$sql_expense);
 		if($row_expense=mysqli_fetch_array($result_expense,MYSQLI_ASSOC))
 		{
-		$total_expense = $row_expense["total_expense"];
+		$total_expense1 = $row_expense["total_expense"];
 		}
 
-        $balance = $total_income - $total_expense;
+		$total_expense = $total_expense1+$tot_salary_given;
+
+		$total_fee_income = $total_income + $total_member_fee + $total_family_fee + $total_donation+$tot_student_fee_amount;
+
+    $balance = $total_fee_income - $total_expense;
 
      
 	
@@ -335,7 +367,41 @@ function printIncome(print_income) {
 		<th style="text-align:right;">Expense</th>
         <th style="text-align:right;">Income</th>
 		</tr>
+		<?php 
+		
+		if($tot_salary_given>0)
+		{
+		?>
+
+		<tr>
+			<td>3</td>
+			<td style="font-weight:bold;color:blue;">Staff Salary</td>
+			<td style="font-weight:bold;color:blue;">salary</td>
+			<td>Nil</td>
+			<td style="text-align:right;background-color:#f8d7da !important;font-weight:bold;text-align:right;">&#x20B9; <?php echo $tot_salary_given;?></td>
+			<td style="text-align:right;">Nil</td>
+		</tr>
+		<?php 
+		}
+		if($tot_student_fee_amount>0)
+		{
+		?>
+
+		<tr>
+			<td>3</td>
+			<td style="font-weight:bold;color:blue;">Student Fee</td>
+			<td style="font-weight:bold;color:blue;">Student Fee</td>
+			<td>Nil</td>
+			<td style="text-align:right;">Nil</td>
+			<td style="text-align:right;background-color:#d4edda !important;font-weight:bold;text-align:right;">&#x20B9; <?php echo $tot_student_fee_amount;?></td>
+		</tr>
+		<?php 
+		}
+		
+		?>
+
 	<?php
+	
 	foreach($result_amount as $row)
 	{
 		$account_name = $row["account_name"];
@@ -400,7 +466,7 @@ function printIncome(print_income) {
                 <tr style="font-weight:bold;">
                 <td colspan="4" style="text-align:right;">Total</td>
                 <td style="color:red !important;text-align:right;">&#x20B9;<?php echo $total_expense;?></td>
-                <td style="color:green !important;text-align:right;">&#x20B9;<?php echo $total_income;?></td>
+                <td style="color:green !important;text-align:right;">&#x20B9;<?php echo $total_fee_income;?></td>
                 </tr>
 
                 <tr style="background-color:#d1ecf1 !important;">
@@ -410,7 +476,7 @@ function printIncome(print_income) {
                 </tr>
                 
                 <tr>
-				<h4><span style="background-color:#2dce14 !important;color:white !important;padding:5px;">Total Income: &#x20B9;<?php echo $total_income;?></span> <span style="background-color:red !important;color:white !important;padding:5px;">Total Expense: &#x20B9;<?php echo $total_expense;?></span> <span style="background-color:#006cfb !important;color:white !important;padding:5px;">Total Balance &#x20B9;<?php echo $balance;?></span></h4></tr>
+				<h4><span style="background-color:#2dce14 !important;color:white !important;padding:5px;">Total Income: &#x20B9;<?php echo $total_fee_income;?></span> <span style="background-color:red !important;color:white !important;padding:5px;">Total Expense: &#x20B9;<?php echo $total_expense;?></span> <span style="background-color:#006cfb !important;color:white !important;padding:5px;">Total Balance &#x20B9;<?php echo $balance;?></span></h4></tr>
 	</tbody>
 	</table>
 	</div>

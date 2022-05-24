@@ -22,14 +22,12 @@ if(isset($_POST["assignment"]))
 	
 	if ($conn->query($sql) === TRUE) 
 	{
-	//header("Location:sms_assign.php?class=".$class."&assign_title=".$assign_title."&assign_date=".$assign_date);
-	header("Location:index.php?success=success");
-
+	header("Location:assignments.php?success=success");
 	} 
 	else 
 	{
 				
-	header("Location:add_holiday.php?failed=.'failed'");	
+	header("Location:send_assign.php?failed=.'failed'");	
 		
 	}
     }

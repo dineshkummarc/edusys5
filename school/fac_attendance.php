@@ -76,7 +76,7 @@ require("connection.php");
 		<div class="form-group">
 		<input type="text" name="first_name[]" value="<?php echo $row["fac_fname"];?>" class="form-control" readonly><br>
 		<input type="text" name="roll_no[]" value="<?php echo $row["parent_contact"];?>" class="form-control" readonly>
-		<input type="hidden" name="academic_year[]" value="<?php echo $cur_academic_year;?>" class="form-control">
+		<input type="hidden" name="fac_id[]" value="<?php echo $row["fac_id"];?>" class="form-control">
 		</div>
 		</td>
 		

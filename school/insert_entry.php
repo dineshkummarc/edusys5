@@ -1,7 +1,8 @@
 <?php
 session_start();
-if(isset($_SESSION['lkg_uname'])&&!empty($_SESSION['lkg_pass'])&&!empty($_SESSION['academic_year'])){
-$academic_year = $_SESSION['academic_year'];
+if(isset($_SESSION['lkg_uname'])&&!empty($_SESSION['lkg_pass'])&&!empty($_SESSION['academic_year']))
+{
+$cur_academic_year = $_SESSION['academic_year'];
 
 require("connection.php");
 if(isset($_POST["entry"]))
@@ -22,7 +23,7 @@ if(isset($_POST["entry"]))
 	move_uploaded_file($filetmp,$filepath);
 
 
-	$sql="insert into income_expense (income_expense,amount,account_name,source_towards,rec_ref_no,rec_exp_date,updated_by,bill_name,bill_type,bill_path,note) values('$income_expense','$amount','$account_name','$source_towards','$rec_ref_no','$rec_exp_date','$updated_by','$filename','$filetype','$filepath','$note')";
+	$sql="insert into income_expense (income_expense,amount,account_name,source_towards,rec_ref_no,rec_exp_date,updated_by,bill_name,bill_type,bill_path,note,academic_year) values('$income_expense','$amount','$account_name','$source_towards','$rec_ref_no','$rec_exp_date','$updated_by','$filename','$filetype','$filepath','$note','$cur_academic_year')";
 
 
 

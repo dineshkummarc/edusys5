@@ -37,10 +37,22 @@ require("connection.php");
 					 <input type="date" name="join_date" placeholder="Join Date"  class="form-control" id="usr">
 					</div>
 					
-						<div class="form-group">
-					 <label for="usr"><span style="color:red;font-size:18px;">*</span>Select Class:</label>
-					  <select class="form-control" name="class_join" id="sel1">
-					<?php require("selectclass.php");?>
+					<div class="form-group">
+					<label for="sel1">Select Class</label>
+					<select class="form-control" name="class_join">
+					<?php
+						require("connection.php");
+						$sql_class="select class_name from class_name where academic_year='".$cur_academic_year."'";
+						$result_class=mysqli_query($conn,$sql_class);
+						foreach($result_class as $value_class)
+						{
+						?>
+						<option value='<?php echo $value_class["class_name"];?>'><?php echo $value_class["class_name"];?></option>
+						<?php
+						}
+						echo '</select>';
+						?>
+						</div>
 		
 
 					<div class="form-group">

@@ -1,14 +1,14 @@
 <?php
 session_start();
-
-if(isset($_SESSION['parents_uname'])&&!empty($_SESSION['parents_pass'])&&!empty($_SESSION['academic_year'])&&!empty($_SESSION['parents_class']))
+if (isset($_SESSION['parents_uname']) && !empty($_SESSION['parents_pass']) && !empty($_SESSION['parents_class']) && !empty($_SESSION['student_id']) && !empty($_SESSION['academic_year'])) 
 {
+$student_id=$_SESSION['student_id'];
+$cur_academic_year = $_SESSION['academic_year'];
 	error_reporting("0");
 	require("header.php");
 	require("connection.php");
 	$first_name = $_SESSION['parents_uname'];
 	$roll_no = $_SESSION['parents_pass'];
-	$cur_academic_year = $_SESSION['academic_year'];
 	?>
 	<head>
 <script>
@@ -70,14 +70,13 @@ function printDiv(income) {
 		<table class="table table-bordered">
 			<tbody>
 			<tr class="w3-blue">
-				<th>Name & Roll No</th>
 				<th>Leave date</th>
 				<th>Leave Status</th>
 				<th>Note</th>
 			</tr>
 	<?php
 	$today_date = date("Y-m-d");
-	$sql_status="select * from leave_appli where academic_year='".$cur_academic_year."' and first_name='".$first_name."' and admission_no='".$roll_no."' order by id desc";
+	$sql_status="select * from leave_appli where academic_year='".$cur_academic_year."' and student_id='".$student_id."' order by id desc";
 	$result_status=mysqli_query($conn,$sql_status);
 	$row_count=1;
 	foreach($result_status as $row_tot)
@@ -96,7 +95,6 @@ function printDiv(income) {
 	}
 	?>
 	<tr>
-	<td><?php echo $row_tot["first_name"];?><br><?php echo $row_tot["admission_no"];?></td>
 	<td>From: <?php echo $from_date;?><br>To: <?php echo $to_date;?></td>
 	<td><?php echo $badge;?></td>
 	<td><?php echo $row_tot["reason"];?></td>
@@ -119,7 +117,7 @@ function printDiv(income) {
 
 
 	<?php
-	
+	require("footer.php");
 	}
 
 	else

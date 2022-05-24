@@ -5,13 +5,18 @@ if(isset($_SESSION['lkg_uname'])&&!empty($_SESSION['lkg_pass'])&&!empty($_SESSIO
 $cur_academic_year = $_SESSION['academic_year'];
 require("connection.php");
 //error_reporting("0");
-$today_date=date("Y-m-d");
-$first_name=$_GET["first_name"];
-$roll_no=$_GET["roll_no"];
-$gate_reason=$_GET["gate_reason"];
-$gate_with=$_GET["gate_with"];
-$gate_permit_go=$_GET["gate_permit_go"];
-$mob_number=$_GET["parent_contact"];
+$id=$_GET["id"];
+$sql="select * from gate_pass where id ='".$id."'";
+//var_dump($sql);
+$result=mysqli_query($conn,$sql);
+if($value=mysqli_fetch_array($result,MYSQLI_ASSOC))
+{
+	$student_id = $value["student_id"];
+	$gate_reason = $value["gate_reason"];
+	$gate_permit_go = $value["gate_permit_go"];
+	$gate_with = $value["gate_with"];
+	$gate_reason = $value["gate_reason"];
+}
 
 	$sql_sch = "SELECT * FROM school_det ORDER BY ID DESC LIMIT 1";
 	$result_sch=mysqli_query($conn,$sql_sch);
@@ -22,11 +27,14 @@ $mob_number=$_GET["parent_contact"];
 		$approved_senderid=$row_sch["sender_id"];
 		$sch_detail=$row_sch['sch_name']." ".$row_sch['location'];
 	}
+	//echo $student_id;
+
 	$message_detail="Gate pass: reason-".$gate_reason.", Permitted to go-".$gate_permit_go.", with-".$gate_with.".Call for more info ".$phone;
+	echo $message_detail;
 	////////// END SCHOOL DETAILS 
 	$sms = urlencode(htmlspecialchars("Dear parents, ".$message_detail."-".$sch_name));
 	require("sms_gateway.php");
-header("Location:gate_pass.php?success=.'success'");
+	header("Location:description.php?id=".$student_id);
 
 }
 ?>

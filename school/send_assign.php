@@ -18,51 +18,53 @@ $cur_academic_year = $_SESSION['academic_year'];
      <div class="panel-heading"><h4>Send Assignments and Homeworks</h4></div>
       <div class="panel-body">
 		<?php
-		
-			if(isset($_GET["success"]))
+		if(isset($_GET["success"]))
+		{
+		$success=$_GET["success"];
 
-				{
-
-					$success=$_GET["success"];
-
-					echo '<p style="text-align: center;"><span style="color: green; font-size: 16px; font-weight: bold; text-align: center;">Congrajulation.Assignments has been sent successfully</span><br></p>';
-
-				}
+		echo '<p style="text-align: center;"><span style="color: green; font-size: 16px; font-weight: bold; text-align: center;">Congrajulation.Assignments has been sent successfully</span><br></p>';
+		}
 		if(isset($_GET["failed"]))
-
-				{
-
-					$failed=$_GET["failed"];
-
-					echo '<p style="text-align: center;"><span style="color: red; font-size: 16px; font-weight: bold; text-align: center;">Sorry. Something went wrong. try again.or contact your webmaster.</span><br></p>';
-
-				}
-								
-								
-								?>
+		{
+		$failed=$_GET["failed"];
+		echo '<p style="text-align: center;"><span style="color: red; font-size: 16px; font-weight: bold; text-align: center;">Sorry. Something went wrong. try again.or contact your webmaster.</span><br></p>';
+		}
+		?>
 								
 							
 <form action="insert_assign.php" method="post">
  
-	  <div class="form-group">
-	  <label for="sel1">Select Class</label>
-	  <select class="form-control" name="class">
-		<?php require("selectclass.php");?>
-
+<div class="form-group">
+	<label for="sel1">Select Class</label>
+	<select class="form-control" name="class">
+	<option value="">Select Class</option>
+	<?php
+	$sql="select distinct present_class from attendance where academic_year='".$cur_academic_year."'";
+	$result=mysqli_query($conn,$sql);
+	foreach($result as $value)
+	{
+	?>
+	<option value='<?php echo $value["present_class"];?>'><?php echo $value["present_class"];?></option>
+	<?php
+	}
+	?>
+	</select>
+	</div>
 
 		<div class="form-group">
-    <?php echo '<select class="form-control" name="section">';
-    echo '<option value="">Select Section</option>';
+    <select class="form-control" name="section">
+    <option value="">Select Section</option>
+		<?php
     $sql="select distinct section from students where academic_year='".$cur_academic_year."'";
     $result=mysqli_query($conn,$sql);
-        foreach($result as $value)
+    foreach($result as $value)
     {
     ?>
     <option value='<?php echo $value["section"];?>'><?php echo $value["section"];?></option>
     <?php
     }
-    echo '</select>';
     ?>
+		</select>
     </div>
 		
 		
@@ -82,30 +84,15 @@ $cur_academic_year = $_SESSION['academic_year'];
     </div>
     </div>
     </div>
-	
-	
-	
-
 	<div class="col-sm-3" >
         
     </div>
     </div>
 </div>
 
-
-
-
-
-
 <?php 
-
 require("footer.php");
-
-	}else{
+}else{
 		header("Location:login.php");
 	}
-	
-
-
-
 ?>

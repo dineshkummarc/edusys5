@@ -41,8 +41,8 @@ $id = $_GET["id"];
 	?>
 	<head>
 	<script>
-function printDiv(income) {
-     var printContents = document.getElementById('income').innerHTML;
+function printEnr(enrolled) {
+     var printContents = document.getElementById('enrolled').innerHTML;
      var originalContents = document.body.innerHTML;
 
      document.body.innerHTML = printContents;
@@ -54,9 +54,10 @@ function printDiv(income) {
 </script>
 	</head>
 	
-	 <button type="button"  class="btn btn-success btn-md w3-card-4" onclick="printDiv('income')">Print</button> 
+	 <button type="button"  class="btn btn-default" onclick="printEnr('enrolled')">Print</button> 
+	 <button class="btn btn-default" onclick="goBack()">Go Back</button><br><br>
 	 
-	 <div class="panel panel-default" id="income" style="width:100%;">
+	 <div class="panel panel-default" id="enrolled" style="width:100%;">
 	
       <div class="panel-heading">
 	   <center><h1 style="color:red;"><?php echo $sch_name;?></h1>

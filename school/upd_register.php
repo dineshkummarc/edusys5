@@ -40,16 +40,26 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 					  <input type="text" placeholder="Student Name" name="first_name" value="<?php echo $row["first_name"]; ?>" required class="form-control" id="usr">
 					</div>
 					
-					<div class="form-group">
-					   <label for="sel1"><span style="color:red;font-size:18px;">*</span>Last Name:</label>
-					  <input type="text" placeholder="Last Name" name="last_name" value="<?php echo $row["last_name"]; ?>"  class="form-control" id="usr">
-					</div>
-					
-			<div class="form-group">
-		 <label for="usr"><span style="color:red;font-size:18px;">*</span>Select Class:</label>
-		  <select class="form-control" name="class_join" id="sel1">
-		  <option value="<?php echo $row["present_class"]; ?>"><?php echo $row["present_class"]; ?></option>
-		  <?php require("selectclass.php");?>
+			
+	
+
+		  <div class="form-group">
+					<label for="sel1">Select Class</label>
+					<select class="form-control" name="class_join">
+					<option value="<?php echo $row['present_class']; ?>"><?php echo $row["present_class"]; ?></option>
+					<?php
+						require("connection.php");
+						$sql_class="select class_name from class_name where academic_year='".$cur_academic_year."'";
+						$result_class=mysqli_query($conn,$sql_class);
+						foreach($result_class as $value_class)
+						{
+						?>
+						<option value='<?php echo $value_class["class_name"];?>'><?php echo $value_class["class_name"];?></option>
+						<?php
+						}
+						echo '</select>';
+						?>
+						</div>
 		
 
 					<div class="form-group">

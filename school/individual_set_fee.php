@@ -18,9 +18,19 @@ $cur_academic_year = $_SESSION['academic_year'];
         <div class="panel-heading"><h4>Add Individual Fee</h4></div>
         <div class="panel-body">
 <?php 
- $first_name = $_GET["first_name"];
- $roll_no = $_GET["roll_no"];
- $class = $_GET["class"];
+ $id = $_GET["id"];
+ $sql="select * from students where id='".$id."'";
+	$result=mysqli_query($conn,$sql);
+	//var_dump($sql);
+	
+	if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
+	{
+	$class=$row["present_class"];
+	$section=$row["section"];
+	$first_name=$row["first_name"];
+	$roll_no=$row["roll_no"];
+
+	}
  
 	if(isset($_GET["failed"])){
 	?>
@@ -30,23 +40,21 @@ $cur_academic_year = $_SESSION['academic_year'];
 	<?php
 	}
 	?>
-	<h4>Name: <?php echo $first_name;?>, Roll No: <?php echo $roll_no;?> <br> Class : <?php echo $class;?></h4>							
+	<p style="color:red;font-weight:bold;">Name: <?php echo $first_name;?>, Roll No: <?php echo $roll_no;?>  Class : <?php echo $class;?></p>							
 							
 <form action="individual_insert_set_fee.php" method="post">
  
 	 
 	  <div class="form-group">
 	    <label for="usr">Individual Fee:</label>
-		<input type="number" name="adm_fee" class="form-control">
+		<input type="number" name="individual_fee" class="form-control">
 	  </div>
 	  
 	  <div class="form-group">
 	    <label for="usr">Fee Towards:</label>
 		<input type="text" name="fee_towards" class="form-control">
 	  </div>
-	  <input type="hidden" name="first_name" value="<?php echo $first_name;?>">
-	  <input type="hidden" name="roll_no" value="<?php echo $roll_no;?>">
-	  <input type="hidden" name="class" value="<?php echo $class;?>">
+	  <input type="hidden" name="id" value="<?php echo $id;?>">
 		
 	  <input type="submit" name="set_fee" class="btn btn-success" value="Add Individual Fee">
 	</form>

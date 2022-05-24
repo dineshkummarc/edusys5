@@ -7,22 +7,16 @@ require("connection.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$class = test_input($_POST["class"]);
-	if($_POST["section"]){
-	$section = test_input($_POST["section"]);	
-		}else{
-		$section="";
-		}
 	
 	$adm_fee = test_input($_POST["adm_fee"]);
+	$fee_towards = test_input($_POST["fee_towards"]);
 	
 	$tot_fee = $adm_fee;
 	
 
-  $sql="insert into set_fee (academic_year,class,section,adm_fee,tot_fee) values('$cur_academic_year','$class','$section','$adm_fee','$tot_fee')";
+  $sql="insert into set_fee (academic_year,class,adm_fee,tot_fee,fee_towards) values('$cur_academic_year','$class','$adm_fee','$tot_fee','$fee_towards')";
+  var_dump($sql);
 		  if ($conn->query($sql) === TRUE) {
-		  $sql_upd="update students set tot_fee='".$tot_fee."' where academic_year='".$cur_academic_year."' and present_class='".$class."'";
-			  $conn->query($sql_upd);
-			  var_dump($sql_upd);
 			header("Location:set_fee.php?success='success'");
 			} else {
 			header("Location:set_fee.php?failed='failed'");

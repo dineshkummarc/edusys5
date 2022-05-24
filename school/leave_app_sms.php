@@ -10,17 +10,16 @@ $today_date=date("Y-m-d");
 $action=$_GET["status"];
 $rej_reason=$_GET["rej_reason"];
 
-$read_status=$_GET["read_status"];
+$read_status='viewed';
 $id=$_GET["id"];
-$first_name=$_GET["first_name"];
-$admission_no=$_GET["admission_no"];
+$student_id=$_GET["student_id"];
+
+
 
 $sql_status = "UPDATE leave_appli SET status='".$read_status."', leave_status='".$action."' where id='".$id."'";
 $conn->query($sql_status);
 
-
-
-$sql="select distinct parent_contact,admission_no,section from students where academic_year='".$cur_academic_year."' and first_name='".$first_name."' and  admission_no='".$admission_no."'";	
+$sql="select distinct parent_contact from students where academic_year='".$cur_academic_year."' and student_id='".$student_id."'";	
 $result=mysqli_query($conn,$sql);
 
 	$sql_sch = "SELECT * FROM school_det ORDER BY ID DESC LIMIT 1";
@@ -41,7 +40,7 @@ $result=mysqli_query($conn,$sql);
 	$message = "Dear parents, ".$message_detail."-".$sch_name;
 	require("sms_gateway.php");
 	}
-header("Location:send_leave.php?success=success");
+header("Location:leave_applications.php?success=success");
 
 }
 ?>

@@ -89,21 +89,30 @@ require("connection.php");
 			$total_books=mysqli_num_rows($result);
 		foreach($result as $value)
 		{
-		
+		$student_id=$value["student_id"];	
 		$recie_date=$value["recie_date"];	
 		$iss_date= date('d-m-Y', strtotime( $value['iss_date'] ));
 		$rec_date= date('d-m-Y', strtotime( $value['recie_date'] ));
-			
-			
-		?>
+
+		$sql="select * from students where id='".$student_id."'";
+	$result=mysqli_query($conn,$sql);
+	//var_dump($sql);
+	
+	if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
+	{
+	$first_name=$row["first_name"];
+	$roll_no=$row["roll_no"];
+	}
+	
+	?>
 		<tr>
 		
 		
 		
 		<td style="width: 10%; "><span style="color: #207FA2; "><?php echo $row_count;?></span></td>
-		<td style="width: 15%; "><span style="color: #207FA2; "><?php echo $value["bor_name"];?></span></td>
+		<td style="width: 15%; "><span style="color: #207FA2; "><?php echo $first_name;?></span></td>
 		
-		<td style="width: 14%; "><span style="color: #207FA2; "><?php echo $value["bor_id"];?></span></td>
+		<td style="width: 14%; "><span style="color: #207FA2; "><?php echo $roll_no;?></span></td>
 		
 		<td style="width: 19%; "><span style="color: #207FA2; "><?php echo $value["book_name"];?></span></td>
 		

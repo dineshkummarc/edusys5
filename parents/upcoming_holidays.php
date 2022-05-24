@@ -1,60 +1,63 @@
 <?php
 session_start();
-if(isset($_SESSION['parents_uname'])&&isset($_SESSION['parents_pass'])&&isset($_SESSION['parents_class']))
+if (isset($_SESSION['parents_uname']) && !empty($_SESSION['parents_pass']) && !empty($_SESSION['parents_class']) && !empty($_SESSION['student_id'])) 
 {
-$academic_year=$_SESSION['academic_year'];
+$student_id=$_SESSION['student_id'];
 require("header.php");
 require("connection.php");
 ?>
 
         <div id="page-wrapper">
 <br>
-        <div class="container-fluid">
-        <div class="row">
-        <button onclick="goBack()" class="btn btn-primary">Go Back</button><br><br>
-        <div class="col-sm-12">
-        <h2>Upcoming Holidays</h2>
-        <table class="table table-bordered">
+            <div class="container-fluid">
+            <div class="row">
+            <button onclick="goBack()" class="btn btn-primary">Go Back</button><br><br>
+            <div class="col-sm-12">
+			<h2>All Holidays</h2>
+			 <table class="table table-bordered">
 		<tr>
-		<th style="width:5%;">SL No</th>
-		<th style="width:40%;">Holiday</th>
-		<th style="width:10%;">Date</th>
-		<th>Details</th>
+		<td>SL No</td>
+		<td>Holiday</td>
+		<td>Details</td>
+		<td>Date</td>
+		
 		</tr>
-	<?php
+			<?php
+			$today_date = strtotime(date("d-m-Y"));
 			
-	$sql_holi="select * from holiday where ho_date > now() ORDER BY id DESC LIMIT 3";	
+	$sql="select * from holiday  where ho_date>='".$today_date."' ORDER BY id DESC";	
 	
-	$result_holi=mysqli_query($conn,$sql_holi);
+	$result=mysqli_query($conn,$sql);
 	$row_count =1;
-	$total_holi=mysqli_num_rows($result_holi);
-     $rowcount_ho=mysqli_num_rows($result_holi);
-	 if($rowcount_ho>=1)
-	 {
-	foreach($result_holi as $row_holi)
+	$total_events=mysqli_num_rows($result);
+    
+	foreach($result as $row)
 	{
-        $ho_date= date('d-m-Y', strtotime( $row_holi['ho_date'] ));
-	 ?>
-    <tr>
+		$ho_date = strtotime($row['ho_date']);
+	
+	if($ho_date >= $today_date){
+		$badge = '<span class="badge badge-success" style="background-color:#28a745;"> Active</span>';
+	}else{
+		$badge = '<span class="badge badge-danger" style="background-color:#dc3545;"> Completed</span>';
+	}
+	$updated_date= date('d-m-Y', strtotime( $row['updated_at'] ));	
+			
+		
+	?>
+       
+		<tr>
 		<td><?php echo $row_count;?></td>
-		<td><?php echo $row_holi["ho_name"];?> <span class="badge badge-success" style="background-color:orange;"> Upcoming</span></td>
-		
-		<td><?php echo $ho_date;?></td>
-		
-		<td><?php echo $row_holi["ho_details"];?></td>
-		
+		<td><?php echo $row["ho_name"];?><?php echo "  ".$badge;?><br><small>Updated on: <?php echo $updated_date;?></small></td>
+		<td><?php echo $row["ho_details"];?></td>
+		<td><?php echo $row["ho_date"];?></td>
 		
 		</tr>
-		
 		
 		<?php $row_count++; 
-		}
-		}else{
-			echo "<tr><td colspan='4'><p style='color:red;'>There are no Holidays to display</p></td></tr>";
-		}
 	
-	?>
-	</table>
+	}
+			?>
+			</table>
 			</div>
 			</div>
 			</div>

@@ -5,6 +5,10 @@ if(isset($_SESSION['lkg_uname'])&&!empty($_SESSION['lkg_pass'])&&!empty($_SESSIO
 $cur_academic_year = $_SESSION['academic_year'];
 require("header.php");
 require("connection.php");
+require("student_charts.php");
+require("attendance_charts.php");
+//stackedcolumnchart_values
+require("gender_charts.php");
 date_default_timezone_set('Asia/Kolkata');
 $today=date('Y-m-d');
 $today_md=date('m-d');
@@ -115,18 +119,78 @@ $today_md=date('m-d');
 	           $result_book=mysqli_query($conn,$sql_book);
 	           $total_book=mysqli_num_rows($result_book);
 			   
-			   $sql_abs="select first_name,roll_no,section,parent_contact,present_class,attendance,att_date from attendance where att_date='".$today."' and academic_year='".$cur_academic_year."' and attendance='Absent'";
+			   $sql_abs="select present_class,attendance,att_date from attendance where att_date='".$today."' and academic_year='".$cur_academic_year."' and attendance='Absent'";
 			   $result_abs=mysqli_query($conn,$sql_abs);
 			   $total_abs=mysqli_num_rows($result_abs);
-			   
-			    $sql_stf_abs="select first_fname,roll_no,attendance,att_date from fac_attendance where att_date='".$today."' and academic_year='".$cur_academic_year."' and attendance='Absent'";
+
+				 $sql_leave="select id from leave_appli where status <> 'viewed'";
+			   $result_leave=mysqli_query($conn,$sql_leave);
+			   $total_leave=mysqli_num_rows($result_leave);
+				 //echo $total_leave;
+			   //var_dump($sql_leave);
+			    $sql_stf_abs="select attendance,att_date from fac_attendance where att_date='".$today."' and academic_year='".$cur_academic_year."' and attendance='Absent'";
 			   $result_stf_abs=mysqli_query($conn,$sql_stf_abs);
 			   $total_stf_abs=mysqli_num_rows($result_stf_abs);
+
+				 $sql_evt = "select * from events where evt_date > now()  ORDER BY id DESC LIMIT 5";
+
+					$result_evt = mysqli_query($conn, $sql_evt);
+					$row_count = 1;
+					$total_events = mysqli_num_rows($result_evt);
+					$rowcount_evt = mysqli_num_rows($result_evt);
+
+					$sql_holi="select * from holiday where ho_date > now() and academic_year='".$cur_academic_year."' ORDER BY id DESC LIMIT 3";
+					$result_holi=mysqli_query($conn,$sql_holi);
+					$rowcount_holiday = mysqli_num_rows($result_holi);
 	
 			   ?>
 
-	<!------------------------------------------End of Search Form------------------------------------------------------->
-	
+	<!------------------------------End of Search Form------------------------->
+
+	<?php if(mysqli_num_rows($result_holi)>0){?>
+	<div class="row">
+		<div class="col-md-12">
+		<p id="blink">
+		<span style="font-weight:bold;">Holidays: </span>
+		
+			<?php
+			foreach ($result_holi as $holiday) {
+				$holiday_date = date('d-m-Y', strtotime($holiday['ho_date']));
+			?>
+			<a href="<?php echo 'holiday_description.php?id=' . $holiday['id']; ?>"><span
+							style="font-size:16px;color:red;"><?php echo $holiday["ho_name"]; ?>
+							<?php echo $holiday_date; ?> </span></a> ---
+			<?php
+}
+?>
+</p>
+		</div>
+</div>
+
+<?php
+ } 
+
+if(mysqli_num_rows($result_evt)>0){?>
+	<div class="row" style="background-color:#3172c5;padding: 10px;">
+		<div class="col-md-12">
+		<marquee behavior="scroll" direction="left" onmouseover="this.stop();"
+						onmouseout="this.start();">
+			<?php
+			foreach ($result_evt as $evt) {
+				$evt_date = date('d-m-Y', strtotime($evt['evt_date']));
+			?>
+			<a href="<?php echo 'evt_description.php?id=' . $evt['id']; ?>"><span
+							style="font-size:16px;color:white;"><?php echo $evt["evt_name"]; ?>
+							<?php echo $evt_date; ?> </span></a>&nbsp;<span class="badge badge-success"
+					style="background-color:#fee00c;color:#000;"> Upcoming
+					Events</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<?php
+}
+?>
+				</marquee>
+		</div>
+</div><br>
+<?php } ?>
 	 
 	 <div class="row">
 	<div class="col-lg-3 col-md-6">
@@ -149,9 +213,10 @@ $today_md=date('m-d');
 				<form action="description.php" id="search_student"  method="get">
 
 				<div class="form-group">
-				<input type="text" name="typeahead" class="form-control typeahead "  autocomplete="off" spellcheck="false" placeholder="Search Students">
+				<input type="text" name="typeahead" class="form-control typeahead"  autocomplete="off" spellcheck="false" placeholder="Search Students">
 				</div>
-				<button type="submit" name="search_student" class="btn btn-sm btn-success">Get Details</button>
+				<input type="submit" name="search_student" class="btn btn-sm btn-success" value="Get Details">
+				<a href="register_students.php" class="btn btn-primary btn-sm">Add New Student</a>
 				</form>
 				</div>
 		  
@@ -356,6 +421,14 @@ $today_md=date('m-d');
 	
 </div>
 
+<div class="row" style="background-color:#eeeeee;padding:10px;">
+		<div class="col-sm-12">
+				<h3>Classwise Students</h3>
+				<div id="columnchart_values" style="height:400px;"></div>
+		</div>
+</div>
+
+
 <!-- /.row -->
 <div class="row">
 	<div class="col-lg-3 col-md-6">
@@ -455,7 +528,17 @@ $today_md=date('m-d');
 </div>
 <!-- /.row ////////////////////////////////////////////////////////////////////-->
 
-	 <!-- /.row -->
+
+<div class="row" style="background-color:#eeeeee;padding:10px;">
+		<div class="col-sm-12">
+				<h3>Classwise Student Attendance Absents</h3>
+				<div id="columnchart_values_attendance" style="height:400px;"></div>
+		</div>
+</div>
+
+
+
+	 <!-- /.row  stackedcolumnchart_values-->
 <div class="row">
 
 <?php 
@@ -619,6 +702,15 @@ $balance_account=($tot_est_fee+$total_income)-$total_expense;
 	</div>
 </div>
 <!-- /.row -->
+
+<div class="row" style="background-color:#eeeeee;padding:10px;">
+		<div class="col-sm-12">
+				<h3>Genderwise Details</h3>
+				<div id="stackedcolumnchart_values" style="height:400px;"></div>
+		</div>
+</div>
+
+	 <!-- /.row  stackedcolumnchart_values-->
 
 <!-- //////////////////////.row /////////////////////////////////////////////-->
 <div class="row">

@@ -32,27 +32,23 @@ function printDiv(income) {
 					$to=$_GET['to'];
 					?>	
 					 
-						<form class="form-inline" action="all_attendance.php" method="get">
-					  <div class="form-group">
-					  <label for="sel1">Select Class</label>
-					  <?php echo '<select class="form-control" name="present_class">';
-						echo '<option value="">Select Class</option>';
-							
-
-							$sql="select distinct present_class from attendance where academic_year='".$cur_academic_year."'";
-
-							 $result=mysqli_query($conn,$sql);
-
-							foreach($result as $value)
-							{
-							?>
-							<option value='<?php echo $value["present_class"];?>'><?php echo $value["present_class"];?></option>
-							<?php
-							}
-							echo '</select><br>';
-
-							?>
-					</div>
+			<form class="form-inline" action="all_attendance.php" method="get">
+			<div class="form-group">
+			<label for="sel1">Select Class</label>
+			<select class="form-control" name="present_class">
+			<option value="">Select Class</option>
+			<?php
+			$sql="select distinct present_class from attendance where academic_year='".$cur_academic_year."'";
+			$result=mysqli_query($conn,$sql);
+			foreach($result as $value)
+			{
+			?>
+			<option value='<?php echo $value["present_class"];?>'><?php echo $value["present_class"];?></option>
+			<?php
+			}
+			?>
+			</select><br>
+			</div>
 					  <div class="form-group">
 					 <?php echo '<select class="form-control" name="section">';
 						echo '<option value="">Select Section</option>';
@@ -107,9 +103,9 @@ function printDiv(income) {
 			$from=$_GET['from'];
 			$to=$_GET['to'];
 			
-			$sql_tot="select att_date,first_name,roll_no,present_class,section,sum(att_count) as tot_att_count,present_class from attendance where academic_year='".$cur_academic_year."' and present_class='".$present_class."' and section='".$section."' and (att_date BETWEEN '$from' and '$to') group by roll_no";
+			$sql_tot="select att_date,student_id,sum(att_count) as tot_att_count,present_class from attendance where academic_year='".$cur_academic_year."' and present_class='".$present_class."' and section='".$section."' and (att_date BETWEEN '$from' and '$to') group by student_id";
 			
-			$sql_tot_att="select distinct att_date,present_class,section,tot_class from attendance where academic_year='".$cur_academic_year."' and present_class='".$present_class."' and section='".$section."' and (att_date BETWEEN '$from' and '$to') group by roll_no order by total_class desc";
+			$sql_tot_att="select distinct att_date from attendance where academic_year='".$cur_academic_year."' and present_class='".$present_class."' and section='".$section."' and (att_date BETWEEN '$from' and '$to') group by roll_no order by total_class desc";
 			
 		}
 	 else if(!empty($_GET["present_class"])&&!empty($_GET["section"]))
@@ -117,10 +113,10 @@ function printDiv(income) {
 			$present_class=$_GET['present_class'];
 			$section=$_GET['section'];
 			
-			$sql_tot="select distinct att_date,first_name,roll_no,present_class,section,sum(att_count) as tot_att_count,present_class from attendance where academic_year='".$cur_academic_year."' and present_class='".$present_class."' and section='".$section."' group by roll_no";
+			$sql_tot="select distinct att_date,student_id,present_class,section,sum(att_count) as tot_att_count,present_class from attendance where academic_year='".$cur_academic_year."' and present_class='".$present_class."' and section='".$section."' group by student_id";
 			//var_dump($sql_tot);
 			
-			$sql_tot_att="select distinct att_date,present_class,section,tot_class from attendance where academic_year='".$cur_academic_year."' and present_class='".$present_class."' and section='".$section."'";
+			$sql_tot_att="select distinct att_date from attendance where academic_year='".$cur_academic_year."' and present_class='".$present_class."' and section='".$section."'";
 			//var_dump($sql_tot_att);
 		}
 	  else if(!empty($_GET["present_class"])&&!empty($_GET["from"])&&!empty($_GET["to"]))
@@ -129,26 +125,27 @@ function printDiv(income) {
 			$from=$_GET['from'];
 			$to=$_GET['to'];
 			
-			$sql_tot="select att_date,first_name,roll_no,present_class,section,sum(att_count) as tot_att_count,present_class from attendance where academic_year='".$cur_academic_year."' and present_class='".$present_class."' and (att_date BETWEEN '$from' and '$to') group by roll_no";
+			$sql_tot="select att_date,student_id,present_class,section,sum(att_count) as tot_att_count,present_class from attendance where academic_year='".$cur_academic_year."' and present_class='".$present_class."' and (att_date BETWEEN '$from' and '$to') group by student_id";
 			
-			$sql_tot_att="select distinct att_date,present_class,section,tot_class from attendance where academic_year='".$cur_academic_year."' and present_class='".$present_class."' and (att_date BETWEEN '$from' and '$to')";
+			$sql_tot_att="select distinct att_date from attendance where academic_year='".$cur_academic_year."' and present_class='".$present_class."' and (att_date BETWEEN '$from' and '$to')";
 		}
 	  else if(!empty($_GET["present_class"]))
 		{
 			$present_class=$_GET['present_class'];
 			
 			
-			$sql_tot="select att_date,first_name,roll_no,present_class,section,sum(att_count) as tot_att_count,present_class from attendance where academic_year='".$cur_academic_year."' and present_class='".$present_class."' group by roll_no";
+			$sql_tot="select att_date,student_id,present_class,section,sum(att_count) as tot_att_count,present_class from attendance where academic_year='".$cur_academic_year."' and present_class='".$present_class."' group by student_id";
+			//var_dump($sql_tot);
 			
-			$sql_tot_att="select distinct att_date,present_class,section,tot_class from attendance where academic_year='".$cur_academic_year."' and present_class='".$present_class."'";
+			$sql_tot_att="select distinct att_date from attendance where academic_year='".$cur_academic_year."' and present_class='".$present_class."'";
 		}
 	 
 		$result_tot=mysqli_query($conn,$sql_tot);		
 		if($row_tot=mysqli_fetch_array($result_tot,MYSQLI_ASSOC))
 	    {
 			$tot_att_count=$row_tot["tot_att_count"];
-			$first_name=$row_tot["first_name"];
-			$roll_no=$row_tot["roll_no"];
+			$student_id=$row_tot["student_id"];
+			
 			$present_class=$row_tot["present_class"];
 		}
 
@@ -191,21 +188,33 @@ function printDiv(income) {
 	{
 	$att_date= date('d-m-Y', strtotime( $row['att_date'] ));
 	$per_tot_class=($row_tot["tot_att_count"]/$tot_class)*100;
+
+	$student_id=$row_tot["student_id"];
+	$sql="select * from students where id='".$student_id."'";
+	$result=mysqli_query($conn,$sql);
+	//var_dump($sql);
+	
+	if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
+	{
+	$first_name=$row["first_name"];
+	$roll_no=$row["roll_no"];
+
+	}
 	
 	?>
 				<tr>
-				<td style="text-align:center;"><?php echo $row_count;?></td>
-				<td style="text-align:center;"><a href="<?php echo 'attendance_desc.php?name='.$row_tot["first_name"].'&roll_no='.$row_tot["roll_no"].'&present_class='.$row_tot["present_class"];?>"><?php echo $row_tot["first_name"];?></a></td>
-				<td style="text-align:center;"><?php echo $row_tot["roll_no"];?></td>
-				<td style="text-align:center;"><?php echo $row_tot["tot_att_count"];?></td>
-				<td style="text-align:center;"><?php echo $tot_class;?></td>
-				<td style="text-align:center;"><?php echo $per_tot_class;?></td>
+				<td><?php echo $row_count;?></td>
+				<td><a href="<?php echo 'attendance_desc.php?student_id='.$student_id;?>"><?php echo $first_name;?></a></td>
+				<td><?php echo $roll_no;?></td>
+				<td><?php echo $row_tot["tot_att_count"];?></td>
+				<td><?php echo $tot_class;?></td>
+				<td><?php echo $per_tot_class;?></td>
 				<?php
 				
 				if(isset($_GET['delete']))
 					{
 				?>
-                <td style="text-align:center;"><a href="<?php echo 'delete_income.php?id='.$id;?>"><button type="button" class="btn btn-sm btn-danger w3-card-4">Delete</button></a></td>
+                <td><a href="<?php echo 'delete_income.php?id='.$id;?>"><button type="button" class="btn btn-sm btn-danger w3-card-4">Delete</button></a></td>
 			
 				<?php 
 					}

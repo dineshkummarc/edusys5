@@ -78,11 +78,7 @@ function CheckSpecialCat(val){
 		
 		<div class="form-group">
 		  <label for="sel1"><span style="color:red;font-size:18px;">*</span>Academic Year</label>
-		  <select class="form-control" name="academic_year"  id="sel1">
-			<option value="">Select Academic Year</option>
-			<option value="2018-2019">2018-2019</option>
-			<option value="2019-2020">2019-2020</option>
-			<option value="2020-2021">2020-2021</option>
+		  <select class="form-control" name="academic_year">
 			<option value="2021-2022">2021-2022</option>
 		</select>
 		</div>
@@ -94,28 +90,28 @@ function CheckSpecialCat(val){
 			<option value="PREKG">PreKG</option>
 			<option value="LKG">LKG</option>
 			<option value="UKG">UKG</option>
-			 <option value="I STANDARD">I Standard</option>
-			<option value="II STANDARD">II Standard</option>
-			  <option value="III STANDARD">III Standard</option>
-			  <option value="IV STANDARD">IV Standard</option>
-			  <option value="V STANDARD">V Standard</option>
-			  <option value="VI STANDARD">VI Standard</option>
-			  <option value="VII STANDARD">VII Standard</option>
-			  <option value="VIII STANDARD">VIII Standard</option>
-			   <option value="IX STANDARD">IX Standard</option>
-			  <option value="X STANDARD">X Standard</option>
-			  <option value="I PUC ARTS">I PUC Arts</option>
-			  <option value="I PUC COMMERCE">I PUC Commerce</option>
-			  <option value="I PUC SCIENCE">I PUC Science</option>
-			  <option value="II PUC ARTS">II PUC Arts</option>
-			  <option value="II PUC COMMERCE">II PUC Commerce</option>
-			  <option value="II PUC SCIENCE">II PUC Science</option>
+			 <option value="1st STANDARD">I Standard</option>
+			<option value="2nd STANDARD">II Standard</option>
+			  <option value="3rd STANDARD">III Standard</option>
+			  <option value="4th STANDARD">IV Standard</option>
+			  <option value="5th STANDARD">V Standard</option>
+			  <option value="6th STANDARD">VI Standard</option>
+			  <option value="7th STANDARD">VII Standard</option>
+			  <option value="8th STANDARD">VIII Standard</option>
+			   <option value="9th STANDARD">IX Standard</option>
+			  <option value="10th STANDARD">X Standard</option>
+			  <option value="1st PUC ARTS">I PUC Arts</option>
+			  <option value="2nd PUC COMMERCE">I PUC Commerce</option>
+			  <option value="1st PUC SCIENCE">I PUC Science</option>
+			  <option value="2nd PUC ARTS">II PUC Arts</option>
+			  <option value="2nd PUC COMMERCE">II PUC Commerce</option>
+			  <option value="2nd PUC SCIENCE">II PUC Science</option>
 		 </select>
 		</div>
 		
 		
 		
-		<div class="form-group">
+		<!-- <div class="form-group">
 		  <label for="sel1"><span style="color:red;font-size:18px;">*</span>2.Select Semester:</label>
 		  <select class="form-control" name="semister"  id="sel1">
 			<option value="">Select Semester</option>
@@ -134,7 +130,7 @@ function CheckSpecialCat(val){
 			<option value="SCIENCE">Science</option>
 			<option value="ARTS">Arts</option>
 		</select>
-		</div>
+		</div> -->
 		
 							<div class="form-group">
 							  <label for="sel1"><span style="color:red;font-size:18px;">*</span>4.Medium of Instructions</label>
@@ -197,7 +193,7 @@ function CheckSpecialCat(val){
 		
 		<div class="form-group">
 		<label>8.TC Date</label>
-		  <input type="date" placeholder="Transfer Certificate Date" name="tc_date"  class="form-control">
+		  <input type="text" placeholder="Transfer Certificate Date" name="tc_date"  class="form-control">
 		</div>
 		
 		<div class="form-group">
@@ -320,22 +316,22 @@ function CheckSpecialCat(val){
 	<div class="panel panel-primary">
 	<div class="panel-body">
 	
-									<div class="form-group">
-									<label for="sel1"><span style="color:red;font-size:18px;">*</span>25.Religion</label>
-									  <select class="form-control" name="religion" onchange='CheckReligion(this.value);'>
-										<option value="HINDU">Hindu</option>
-										<option value="MUSLIM">Muslim</option>
-										<option value="CHRISTIAN">Christian</option>
-										<option value="SIKH">Sikh</option>
-										<option value="BUDHA">Budha</option>
-										<option value="PARSI">Parsi</option>
-										<option value="JAIN">Jain</option>
-										<option value="OTHER RELIGION">Others</option>
-									 </select>
-									</div>
-									<div class="form-group">
-									 <input type="text" class="form-control" placeholder="Enter Religion here" name="other_religion" id="other_religion" style='display:none;'/>
-									</div>
+	<div class="form-group">
+	<label for="sel1"><span style="color:red;font-size:18px;">*</span>25.Religion</label>
+		<select class="form-control" name="religion" onchange='CheckReligion(this.value);'>
+		<option value="HINDU">Hindu</option>
+		<option value="MUSLIM">Muslim</option>
+		<option value="CHRISTIAN">Christian</option>
+		<option value="SIKH">Sikh</option>
+		<option value="BUDHA">Budha</option>
+		<option value="PARSI">Parsi</option>
+		<option value="JAIN">Jain</option>
+		<option value="OTHER RELIGION">Others</option>
+		</select>
+	</div>
+	<div class="form-group">
+		<input type="text" class="form-control" placeholder="Enter Religion here" name="other_religion" id="other_religion" style='display:none;'/>
+	</div>
 	
 	
 	<div class="form-group">
@@ -408,19 +404,19 @@ function CheckSpecialCat(val){
 	</select>
 	</div>
 	
-									<div class="form-group">
-									  <label for="sel1"><span style="color:red;font-size:18px;">*</span>33.Special Category</label>
-									  <select class="form-control" name="spec_cat"  onchange='CheckSpecialCat(this.value);'>
-										<option value="NONE">None</option>
-										<option value="DESTITUTE">Destitute</option>
-										<option value="HIV CASE">HIV Case</option>
-										<option value="ORPHANS">Orphans</option>
-										<option value="OTHER SPECIAL CATEGORY">Others</option>
-									</select>
-									</div>
-									<div class="form-group">
-									 <input type="text" class="form-control" placeholder="Enter Other Special Category" name="other_spec_cat" id="other_spec_cat" style='display:none;'/>
-									</div>
+	<div class="form-group">
+		<label for="sel1"><span style="color:red;font-size:18px;">*</span>33.Special Category</label>
+		<select class="form-control" name="spec_cat"  onchange='CheckSpecialCat(this.value);'>
+		<option value="NONE">None</option>
+		<option value="DESTITUTE">Destitute</option>
+		<option value="HIV CASE">HIV Case</option>
+		<option value="ORPHANS">Orphans</option>
+		<option value="OTHER SPECIAL CATEGORY">Others</option>
+	</select>
+	</div>
+	<div class="form-group">
+		<input type="text" class="form-control" placeholder="Enter Other Special Category" name="other_spec_cat" id="other_spec_cat" style='display:none;'/>
+	</div>
 	
 	<h3 style="color:blue;text-decoration:underline;">Student Contact details</h3>
 	
@@ -531,10 +527,6 @@ function CheckSpecialCat(val){
   </div>
 
 </div>
-
-
-
-
 <?php
 require("footer.php");			
 }

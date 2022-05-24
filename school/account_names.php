@@ -1,7 +1,8 @@
 <?php
 session_start();
-if(isset($_SESSION['lkg_uname'])&&!empty($_SESSION['lkg_pass'])&&!empty($_SESSION['academic_year'])){
-$academic_year = $_SESSION['academic_year'];
+if(isset($_SESSION['lkg_uname'])&&!empty($_SESSION['lkg_pass'])&&!empty($_SESSION['academic_year']))
+{
+$cur_academic_year = $_SESSION['academic_year'];
 
 require("header.php");
 require("connection.php");

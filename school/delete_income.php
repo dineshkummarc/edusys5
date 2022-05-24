@@ -8,12 +8,12 @@ if(isset($_GET['id'])){
 	$id=$_GET['id'];
 	
 }
-$sql = "DELETE FROM income WHERE id='".$id."'";
+$sql = "DELETE FROM income  WHERE id='".$id."'";
 
 if ($conn->query($sql) === TRUE)  {
-	header("Location:all_incomes.php?deleted=.'success'");
-	} else {
-	echo "Error: " . $sql . "<br>" . $conn->error;
-	}
+			header("Location:all_incomes.php?deleted=.'success'");
+			} else {
+			echo "Error: " . $sql . "<br>" . $conn->error;
+			}
 }
 ?>

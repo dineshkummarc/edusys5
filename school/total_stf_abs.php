@@ -41,7 +41,7 @@ require("header.php");
     $today=date('Y-m-d');
     $today_md=date('m-d');
 		
-	 $sql_stf_abs="select first_fname,roll_no,attendance,att_date from fac_attendance where att_date='".$today."' and academic_year='".$cur_academic_year."' and attendance='Absent'";
+	 $sql_stf_abs="select id,first_fname,roll_no,attendance,att_date from fac_attendance where att_date='".$today."' and academic_year='".$cur_academic_year."' and attendance='Absent'";
      $result_stf_abs=mysqli_query($conn,$sql_stf_abs);
 	
 	$row_count =1;
@@ -60,7 +60,7 @@ require("header.php");
 		
 		
 		<td><span style="color: #207FA2; "><?php echo $row_count;?></span></td>
-		<td><span style="color: #207FA2; "><a href="<?php echo 'description.php?first_name='.$row['first_fname'].'&roll_no='.$row['roll_no'];?>" ><?php echo $row["first_fname"];?></a></span></td>
+		<td><span style="color: #207FA2; "><a href="<?php echo 'fac_description.php?fac_id='.$row['id'];?>" ><?php echo $row["first_fname"];?></a></span></td>
 		
 		<td><span style="color: #207FA2; "><?php echo $row["roll_no"];?></span></td>
 		

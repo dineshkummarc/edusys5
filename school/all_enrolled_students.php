@@ -70,30 +70,38 @@ require("header.php");
 <div class="row">
     <div class="col-md-6">
 	<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" class="form-inline" method="get" role="form">
-	  <div class="form-group">
-		<select class="form-control" name="filt_class" id="sel1">
-			<?php require("selectclass.php");?>
-		
-			  <div class="form-group">
-					 
-					  <?php echo '<select class="form-control" name="section">';
-						echo '<option value="">Select Section</option>';
-							
 
-							$sql="select distinct section from enrolled_students where academic_year='".$cur_academic_year."'";
 
-							 $result=mysqli_query($conn,$sql);
+	<div class="form-group">					 
+	<?php echo '<select class="form-control" name="filt_class">';
+	echo '<option value="">Select Class</option>';
+	$sql="select distinct admit_to_class from enrolled_students where academic_year='".$cur_academic_year."'";
+	$result=mysqli_query($conn,$sql);
+	foreach($result as $value)
+	{
+	?>
+	<option value='<?php echo $value["admit_to_class"];?>'><?php echo $value["admit_to_class"];?></option>
+	<?php
+	}
+	echo '</select><br>';
+?>
+</div>
 
-							foreach($result as $value)
-							{
-							?>
-							<option value='<?php echo $value["section"];?>'><?php echo $value["section"];?></option>
-							<?php
-							}
-							echo '</select><br>';
 
-							?>
-					</div>
+	<div class="form-group">					 
+	<?php echo '<select class="form-control" name="section">';
+	echo '<option value="">Select Section</option>';
+	$sql="select distinct section from enrolled_students where academic_year='".$cur_academic_year."'";
+	$result=mysqli_query($conn,$sql);
+	foreach($result as $value)
+	{
+	?>
+	<option value='<?php echo $value["section"];?>'><?php echo $value["section"];?></option>
+	<?php
+	}
+	echo '</select><br>';
+?>
+</div>
 	<button type="submit" name="filt_submit" class="btn btn-primary">Filter</button>
 	</form>
 	</div>
@@ -127,28 +135,15 @@ require("header.php");
 	<div class="table-responsive">
 	<center><table class="table table-bordered">
 		<tbody>
-		<tr>
-	
-		
-		<td><span style="font-weight: bold;">SL No</span></td>
-		
-		<td><span style="font-weight: bold;">Name</span></td>
-		
-		<td><span style="font-weight: bold;">Enrollment No</span></td>
-		
-		<td><span style="font-weight: bold;">Admission to Class</span></td>
-	
-		
-		<td><span style="font-weight: bold;">Mobile No</span></td>
-		
-		
-		
-		<td><span style="font-weight: bold;">Address</span></td>
-		
-		<td><span style="font-weight: bold;">Paid Fee</span></td>
-		
-		<td><span style="font-weight: bold;">Print Application</span></td>
-		
+		<tr>		
+		<td><span style="font-weight: bold;">SL No</span></td>		
+		<td><span style="font-weight: bold;">Name</span></td>		
+		<td><span style="font-weight: bold;">Enrollment No</span></td>		
+		<td><span style="font-weight: bold;">Admission to Class</span></td>		
+		<td><span style="font-weight: bold;">Mobile No</span></td>		
+		<td><span style="font-weight: bold;">Address</span></td>		
+		<td><span style="font-weight: bold;">Paid Fee</span></td>		
+		<td><span style="font-weight: bold;">Print Application</span></td>		
 		<td style="width:10%"><span style="font-weight: bold;">Action</span></td>
 		</tr>
 								
@@ -164,11 +159,11 @@ require("header.php");
 		{
 		$filt_class=$_GET["filt_class"];
 		
-		$sql="select * from enrolled_students where admit_to_class='".$filt_class."' ORDER BY first_name  LIMIT $start_from, $num_rec_per_page";
+		$sql="select * from enrolled_students where admit_to_class='".$filt_class."' and academic_year='".$cur_academic_year."' ORDER BY first_name  LIMIT $start_from, $num_rec_per_page";
 		}
 		else
 		{
-		$sql="select * from enrolled_students ORDER BY first_name  LIMIT $start_from, $num_rec_per_page";
+		$sql="select * from enrolled_students where academic_year='".$cur_academic_year."' ORDER BY first_name  LIMIT $start_from, $num_rec_per_page";
 		}
 		
 	
@@ -176,7 +171,7 @@ require("header.php");
 	else
 	{
 		
-	$sql="select * from enrolled_students ORDER BY first_name  LIMIT $start_from, $num_rec_per_page";	
+	$sql="select * from enrolled_students where academic_year='".$cur_academic_year."' ORDER BY first_name  LIMIT $start_from, $num_rec_per_page";	
 	}
 	$result=mysqli_query($conn,$sql);
 	$row_count =1;
@@ -186,6 +181,7 @@ require("header.php");
 	foreach($result as $row)
 	{
 		$dob= date('d-m-Y', strtotime( $row['dob'] ));
+		$id = $row["id"];
 		//$join_date= date('d-m-Y', strtotime( $row['join_date'] ));
 	
 	
@@ -196,7 +192,7 @@ require("header.php");
 		
 		
 		<td><span style="color: #207FA2; "><?php echo $row_count;?></span></td>
-		<td><span style="color: #207FA2; "><?php echo $row["first_name"];?>
+		<td><span style="color: #207FA2; "><a href="<?php echo 'enrolled_description.php?id='.$id;?>"><?php echo $row["first_name"];?><?php echo $row["last_name"];?></a>
 		<!--
 		<a href="<?php echo 'enrolled_description.php?id='.$row['id'];?>" ><?php echo $row["first_name"];?></a>
 		-->
@@ -214,7 +210,7 @@ require("header.php");
 		<td><span style="color: #207FA2; "><?php echo $row["fee_paid_amount"];?></span></td>
 		
 		<td><span style="color: #207FA2; "><?php 
-		if($row["fee_paid_amount"]>=8000){
+		if($row["fee_paid_amount"]>=5000){
 			
 			?>
 			<span style='color:green;'><a href="<?php echo 'enrolled_description.php?id='.$row['id'];?>" >Print Application</a></span>

@@ -1,9 +1,11 @@
 <?php
 session_start();
-if(isset($_SESSION['parents_uname'])&&isset($_SESSION['parents_pass'])&&isset($_SESSION['parents_class']))
+if (isset($_SESSION['parents_uname']) && !empty($_SESSION['parents_pass']) && !empty($_SESSION['parents_class']) && !empty($_SESSION['student_id'])) 
 {
+$student_id=$_SESSION['student_id'];
 $cur_academic_year=$_SESSION['academic_year'];
 $present_class=$_SESSION['parents_class'];
+$today_date = date("Y-m-d");
 $first_name=$_SESSION['parents_uname'];
 $roll_no=$_SESSION['parents_pass'];
 require("header.php");
@@ -13,7 +15,7 @@ $today=date('Y-m-d');
 $today_md=date('m-d');
 error_reporting("0");
 
-$sql_section="select section,academic_year from students where first_name='".$first_name."' and present_class='".$present_class."'  and roll_no='".$roll_no."'";
+$sql_section="select section,academic_year from students where id='".$student_id."'";
 $result_section = mysqli_query($conn, $sql_section);
 if($row_section=mysqli_fetch_array($result_section,MYSQLI_ASSOC))
 {
@@ -22,53 +24,97 @@ if($row_section=mysqli_fetch_array($result_section,MYSQLI_ASSOC))
 }
 
 
-$sqltest = "SELECT  id FROM notifications WHERE  NOT EXISTS (SELECT notification_id,member_name,roll_no FROM opened_notifications WHERE notifications.id = opened_notifications.notification_id and opened_notifications.member_name='".$first_name."' and opened_notifications.roll_no = '" . $roll_no . "') and (present_class='".$present_class."' or present_class='all') and section='".$section."'";
+$sqltest = "SELECT  id FROM notifications WHERE  NOT EXISTS (SELECT notification_id FROM opened_notifications WHERE notifications.id = opened_notifications.notification_id and opened_notifications.student_id='".$student_id."') and (present_class='".$present_class."' or present_class='all') and section='".$section."'";
 
-
-//$sqltest = "SELECT * FROM notifications where notifi_date>DATE_SUB(notifi_date, INTERVAL 3 DAY) and (present_class='".$present_class."' or present_class='all') and section='".$section."' and academic_year='".$academic_year."'";
-
-//var_dump($sqltest);
 $resulttest = mysqli_query($conn, $sqltest);
 $notification_count = mysqli_num_rows($resulttest);
 
 
+$sqlassign = "SELECT  id FROM assign WHERE  NOT EXISTS (SELECT homework_id FROM opened_homework WHERE assign.id = opened_homework.homework_id and opened_homework.student_id='".$student_id."') and (class='".$present_class."' or class='all') and section='".$section."'";
+
+$resultassign = mysqli_query($conn, $sqlassign);
+$assign_count = mysqli_num_rows($resultassign);
 
 
 
+
+/*
 $sql_assign="select * from assign where academic_year='".$cur_academic_year."' and class='".$present_class."' and section='".$section."'  and date_posted <= DATE_ADD(date_posted, INTERVAL 7 DAY)";
              
 $result_assign=mysqli_query($conn,$sql_assign);
 $assign_count = mysqli_num_rows($result_assign);
+*/
 
-
-$sql_contact="select * from reply_messages where academic_year='".$cur_academic_year."' and first_name='".$first_name."' and admission_no='".$roll_no."'  and rep_viewed=''";
+$sql_contact="select * from reply_messages where academic_year='".$cur_academic_year."' and student_id='".$student_id."'  and rep_viewed=''";
              
 $result_contact=mysqli_query($conn,$sql_contact);
 $contact_count = mysqli_num_rows($result_contact);
+
+$sql_evt = "select * from events where evt_date > now()  ORDER BY id DESC LIMIT 5";
+
+$result_evt = mysqli_query($conn, $sql_evt);
+$row_count = 1;
+$total_events = mysqli_num_rows($result_evt);
+$rowcount_evt = mysqli_num_rows($result_evt);
+
+$sql_holi="select * from holiday where ho_date >= '".$today_date."' ORDER BY id DESC LIMIT 3";
+$result_holi=mysqli_query($conn,$sql_holi);
+$rowcount_holiday = mysqli_num_rows($result_holi);
 
 ?>
 
 <div id="page-wrapper"><br>
 <div class="container-fluid">
+    <?php
+    if($rowcount_holiday>0){ 
+?>
+<div class="row">
+		<div class="col-md-12">
+		<p id="blink_parents">
+		<span style="font-weight:bold;">Holidays: </span>
+		
+			<?php
+			foreach ($result_holi as $holiday) {
+				$holiday_date = date('d-m-Y', strtotime($holiday['ho_date']));
+			?>
+			<a href="<?php echo 'holiday_description.php?id=' . $holiday['id']; ?>"><span
+							style="font-size:16px;color:red;"><?php echo $holiday["ho_name"]; ?>
+							<?php echo $holiday_date; ?> </span></a> ---
+			<?php
+}
+?>
+</p>
+		</div>
+</div>
 
+<?php 
+}
+if($total_events>0){ 
 
-                <div class="row">
-                <div class="col-md-12"><br>
-                    <marquee behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
-                        <?php
-                        $sql="select * from events where evt_date > now() ORDER BY id DESC LIMIT 5";	
-	
-                        $result_evt=mysqli_query($conn,$sql);
-                        foreach ($result_evt as $evt) {
-                            $evt_date = date('d-m-Y', strtotime($evt['evt_date']));
-                        ?>
-                            <a href="<?php echo 'upcoming_events.php?id=' . $evt['id']; ?>"><span style="font-size:16px;color:red;"><?php echo $evt["evt_name"]; ?> <?php echo $evt_date; ?> </span></a>&nbsp;<span class="badge badge-success" style="background-color:#28a745;"> Upcoming Events</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <?php
-                        }
-                        ?>
-                    </marquee>
-                </div>
-                </div>
+?>
+
+    <div class="row" style="background-color:#3172c5;padding: 10px;">
+		<div class="col-md-12">
+		<marquee behavior="scroll" direction="left" onmouseover="this.stop();"
+						onmouseout="this.start();">
+			<?php
+			foreach ($result_evt as $evt) {
+				$evt_date = date('d-m-Y', strtotime($evt['evt_date']));
+			?>
+			<a href="<?php echo 'evt_description.php?id=' . $evt['id']; ?>"><span
+							style="font-size:16px;color:white;"><?php echo $evt["evt_name"]; ?>
+							<?php echo $evt_date; ?> </span></a>&nbsp;<span class="badge badge-success"
+					style="background-color:#fee00c;color:#000;"> Upcoming
+					Events</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<?php
+            }
+            ?>
+            </marquee>
+            </div>
+            </div><br>
+        <?php 
+        } 
+      ?>
 
 				<!-- //////////////////////.row /////////////////////////////////////////////-->
                 <div class="row">
@@ -189,8 +235,8 @@ $contact_count = mysqli_num_rows($result_contact);
 
 
                 <?php
-                    $today_date = date("Y-m-d");
-                    $sql_status="select * from leave_appli where academic_year='".$cur_academic_year."' and first_name='".$first_name."' and admission_no='".$roll_no."'  and from_date > '".$today_date."' order by id desc limit 1";
+                    
+                    $sql_status="select * from leave_appli where academic_year='".$cur_academic_year."' and student_id='".$student_id."'  and from_date > '".$today_date."' order by id desc limit 1";
                     
                     $result_status=mysqli_query($conn,$sql_status);
                     $leave_pending = mysqli_num_rows($result_status);
@@ -289,12 +335,12 @@ $contact_count = mysqli_num_rows($result_contact);
 	                $total_students=mysqli_num_rows($result_count);
 					
 					
-					$sql_status="select * from request_study where academic_year='".$cur_academic_year."' and first_name='".$first_name."' and admission_no='".$roll_no."' and status='approved' and ready_date>='".$today_date."'";
+					$sql_status="select * from request_study where academic_year='".$cur_academic_year."' and student_id='".$student_id."' and status='approved' and ready_date>='".$today_date."'";
 					$result_status=mysqli_query($conn,$sql_status);
 					$req_study = mysqli_num_rows($result_status);	
 					
 					
-					$sql_leave="select * from leave_reply where academic_year='".$cur_academic_year."' and first_name='".$first_name."' and roll_no='".$roll_no."'";
+					$sql_leave="select * from leave_reply where academic_year='".$cur_academic_year."' and student_id='".$student_id."'";
 					$result_leave=mysqli_query($conn,$sql_leave);
 					$leave_reply = mysqli_num_rows($result_leave);	
 					
@@ -383,7 +429,7 @@ $contact_count = mysqli_num_rows($result_contact);
                     </div>                
     
 	<?php 
-	$sql="select student_type from students where first_name='".$first_name."' and  roll_no='".$roll_no."'  and academic_year='".$cur_academic_year."'";
+	$sql="select student_type from students where id='".$student_id."'";
 	//var_dump($sql);
 	$result=mysqli_query($conn,$sql);
 
@@ -566,7 +612,7 @@ $contact_count = mysqli_num_rows($result_contact);
 		</tr>
 	<?php
 			
-	$sql_holi="select * from holiday where ho_date > now() ORDER BY id DESC LIMIT 3";	
+	$sql_holi="select * from holiday where ho_date >= '".$today_date."' ORDER BY id DESC LIMIT 3";	
 	
 	$result_holi=mysqli_query($conn,$sql_holi);
 	$row_count =1;
@@ -580,7 +626,7 @@ $contact_count = mysqli_num_rows($result_contact);
 	 ?>
     <tr>
 		<td><?php echo $row_count;?></td>
-		<td><a href="upcoming_holidays.php"><?php echo $row_holi["ho_name"];?> <span class="badge badge-success" style="background-color:orange;"> Upcoming</span></a></td>
+		<td><a href="upcoming_holidays.php"><?php echo $row_holi["ho_name"];?> <span class="badge badge-success" style="background-color:orange;"> Active</span></a></td>
 		
 		<td><?php echo $ho_date;?></td>
 		
@@ -606,7 +652,7 @@ $first_name=$_SESSION["parents_uname"];
 $admission_no=$_SESSION["parents_pass"];
 date_default_timezone_set("Asia/Kolkata");
 $today_date=date("Y-m-d");
-$sql_fee="select sum(adm_fee) as admission_fee from student_fee where name='".$first_name."' and roll_no='".$admission_no."' and academic_year='".$cur_academic_year."'";
+$sql_fee="select sum(adm_fee) as admission_fee from student_fee where student_id='".$student_id."' and academic_year='".$cur_academic_year."'";
 $result_fee=mysqli_query($conn,$sql_fee);
 if(mysqli_num_rows($result_fee)>0){
 if($row_fee=mysqli_fetch_array($result_fee,MYSQLI_ASSOC))
@@ -617,30 +663,26 @@ if($row_fee=mysqli_fetch_array($result_fee,MYSQLI_ASSOC))
 	}else{
 		$admission_fee="";
 	}
-$sql_adm_fee="select sum(adm_fee) as admission_fee from student_adm_fee where name='".$first_name."' and roll_no='".$admission_no."' and academic_year='".$cur_academic_year."'";
-$result_adm_fee=mysqli_query($conn,$sql_adm_fee);
-if($row_adm_fee=mysqli_fetch_array($result_adm_fee,MYSQLI_ASSOC))
-	{
-		
-		$admission_adm_fee=$row_adm_fee["admission_fee"];
-	}
-$sql_cca_fee="select sum(adm_fee) as admission_fee from student_cca_fee where name='".$first_name."' and roll_no='".$admission_no."' and academic_year='".$cur_academic_year."'";
-$result_cca_fee=mysqli_query($conn,$sql_cca_fee);
-if($row_cca_fee=mysqli_fetch_array($result_cca_fee,MYSQLI_ASSOC))
-	{
-		
-		$admission_cca_fee=$row_cca_fee["admission_fee"];
-	}
 ?>
 
     </div>
 
 </div>
 </div>
+<script type="text/javascript">
+        var blink_parents = 
+            document.getElementById('blink_parents');
+  
+        setInterval(function () {
+            blink_parents.style.opacity = 
+            (blink_parents.style.opacity == 0 ? 1 : 0);
+        }, 800); 
+    </script>
 
 <?php
-
 require("footer.php");
+
+
 }
 else
 {

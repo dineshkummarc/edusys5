@@ -6,15 +6,21 @@ $cur_academic_year = $_SESSION['academic_year'];
 require("connection.php");
 if(isset($_GET['id'])){
 	$id=$_GET['id'];
-	$first_name=$_GET['first_name'];
-	$roll_no=$_GET['roll_no'];
 	
 }
+
+$sql="select * from remarks where id ='".$id."'";
+$result=mysqli_query($conn,$sql);
+if($value=mysqli_fetch_array($result,MYSQLI_ASSOC))
+{
+	$student_id = $value["student_id"];
+}
+
 $sql = "DELETE FROM remarks WHERE id='".$id."'";
+//var_dump($sql);
 
 if ($conn->query($sql) === TRUE)  {
-			//header("Location:des.php?deleted=.'success'");
-	header("Location:description.php?deleted=success&first_name=".$first_name."&roll_no=".$roll_no);
+	header("Location:description.php?id=".$student_id);
 	} else {
 	echo "Error: " . $sql . "<br>" . $conn->error;
 	}

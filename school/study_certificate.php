@@ -9,24 +9,10 @@ error_reporting("0");
 require("connection.php");
 
 
-$first_name=$_POST["first_name"];
-$roll_no=$_POST["roll_no"];
-$leaving=$_POST["leaving"];
-
-$from=$_POST["from"];
-$to=$_POST["to"];
-$class_from=$_POST["class_from"];
-$class_to=$_POST["class_to"];
-$character=$_POST["character"];
-$passed_class=$_POST["passed_class"];
-$passed_year=$_POST["passed_year"];
-
-
-if((isset($_GET["first_name"]))&&(isset($_GET["roll_no"]))){
-	$first_name=$_GET["first_name"];
-	$roll_no=$_GET["roll_no"];
+if(isset($_GET["id"])){
+	$id=$_GET["id"];
 }
-$sql_student = "SELECT * FROM students where academic_year='".$cur_academic_year."' and first_name='".$first_name."' and roll_no='".$roll_no."'";
+$sql_student = "SELECT * FROM students where id='".$id."'";
 $result_student=mysqli_query($conn,$sql_student);
 	if($row_student=mysqli_fetch_array($result_student,MYSQLI_ASSOC))
 	{
@@ -151,11 +137,7 @@ $today_date=date("d-m-Y");
 				<img class="img-responsive img-thumbnail" src="<?php echo $row_student['photo_path'];?>"  width="130" height="130"><?php }else{};?><br>
 	</div>
 	 </center>
-	  <?php 
-		if(isset($_POST["studying"]))
-		{
-		?>
-		
+	  
 		<p style="font-size:14px;line-height:25px;text-align:justify;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This is to certify that Master / kumari.<span style="font-weight:bold"><?php echo $first_name;?></span> S/o or D/o <span style="font-weight:bold"><?php echo $father_name;?></span> belongs to  <?php echo $address;?> is a student of this Institution during the academic year <?php echo $cur_academic_year;?> and studying in <?php echo $present_class;?>.
 	
 	 and admission no is <span style="font-weight:bold"><?php echo $admission_no;?></span> and he / she belongs to <span style="font-weight:bold"><?php echo $caste;?></span> caste,Mother tongue <?php echo $mother_tongue;?>, STS No <?php echo $sts;?> and D.O.B <?php echo $dob;?> of the candidate as per the admission register of the institution.</p>
@@ -166,40 +148,7 @@ $today_date=date("d-m-Y");
 		<br><br><br><br><br><br>
 		<p style="text-align:right;">Signature of head of the institution</p>
 		
-		  <?php 
-		}if(isset($_POST["studied"])){
-		?>
-		 <center><h3 class="print-color" style="text-decoration:underline;">Study Certificate</h3></center><br>  
-		<p style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This is to certify that Sri/Smt/Kum.<span style="font-weight:bold"><?php echo $first_name;?></span> S/o , D/o,W/o <span style="font-weight:bold"><?php echo $father_name;?></span> belongs to <span style="font-weight:bold"><?php echo $caste;?>. He / She has studied in <span style="font-weight:bold"><?php echo $sch_name;?></span> school from <span style="font-weight:bold"><?php echo $from;?></span> to <span style="font-weight:bold"><?php echo $to;?></span> and <span style="font-weight:bold"><?php echo $class_from;?></span> to <span style="font-weight:bold"><?php echo $class_to;?></span> and has passed <span style="font-weight:bold"><?php echo $passed_class;?></span> in the year <span style="font-weight:bold"><?php echo $passed_year;?></span>.</span></p>
-		<br>
-		<br>
-	
-		<p style="text-align:left;">His /Her Date of birth : <span style="font-weight:bold"><?php echo $dob;?></span></p>
-		<p style="text-align:left;">His /Her Record No & Date : <span style="font-weight:bold"><?php echo $record_no." , ".$passed_year;?></span></p>
-		<p style="text-align:left;">Date of Leaving school : <span style="font-weight:bold"><?php echo $leaving;?></span></p>
-		<br>
-		<br>
-	
-		
-		<p style="text-align:center;">This Certificate is issued as per the records of our School.</p>
-		<br>
-		<p style="text-align:left;">Date : <span style="font-weight:bold"><?php echo $today_date;?></span></p>
-		<p style="text-align:left;">Place : <span style="font-weight:bold"><?php echo $city;?></span></p>
-		<br>
-		<p style="text-align:center;font-weight:bold;">Signature of AEO / D.D.P.I with seal</p><br><br><br>
-		<p style="text-align:left;"><span style="font-weight:bold">Note: </span>If the Candidate has studied in more than one School he / she has to produce separate certificates.</p>
-		
-		
-		<?php
-		}if(isset($_POST["conduct"])){
-		?>
-		 <center><h3 class="print-color" style="text-decoration:underline;">Conduct Certificate</h3></center><br>  
-		<p style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This is to certify that kumar / kumari.<span style="font-weight:bold"><?php echo $first_name;?></span> S/o or D/o <span style="font-weight:bold"><?php echo $father_name;?></span> was a bonafide student of this school from <span style="font-weight:bold"><?php echo $from;?></span> to <span style="font-weight:bold"><?php echo $to;?></span> studying in standand <span style="font-weight:bold"><?php echo $class_from;?></span> to <span style="font-weight:bold"><?php echo $class_to;?>.</span>His / Her Character and Conduct were <span style="font-weight:bold"><?php echo $character;?></span> during his / her stay in this school.</p>
-		<br>
-		<?php
-		}
-		?>
-		
+		 
 		<p style="text-align:right;font-size:16px;font-weight:bold;">Principal / Head Master / Head Mistress</p>
 		
 <br><br><br>

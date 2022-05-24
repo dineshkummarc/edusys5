@@ -26,17 +26,11 @@ function printDiv(income) {
                 <div class="col-sm-12"><br>
 				<?php
 				
-				$first_name=$_GET['name'];
-				$roll_no=$_GET['roll_no'];
-				
-				if(isset($_GET['filter'])){
-					
-					$from=$_GET['from'];
-					$to=$_GET['to'];
-				}
+				$staff_id=$_GET['id'];
+			
 					?>	
 					 
-						<form class="form-inline" action="attendance_desc.php" method="get">
+						<form class="form-inline" action="fac_attendance_desc.php" method="get">
 					 
 					  <div class="form-group">
 						<label for="pwd">From</label>
@@ -47,13 +41,7 @@ function printDiv(income) {
 						<input type="date" class="form-control" name="to" >
 					  </div>
 					  
-					  <div class="form-group">
-						<input type="hidden" class="form-control" name="name" value="<?php echo $first_name;?>" >
-					  </div>
-					  
-					  <div class="form-group">
-						<input type="hidden" class="form-control" name="roll_no" value="<?php echo $roll_no;?>" >
-					  </div>
+					
 					  
 					  <input type="submit" class="btn btn-primary w3-card-4" name="filter" value="Filter">
 					   <button type="button"  class="btn btn-success btn-md w3-card-4" onclick="printDiv('study')">Print</button> 
@@ -67,27 +55,20 @@ function printDiv(income) {
 		
 		
 		<?php
-        $first_name=$_GET['name'];
-		$roll_no=$_GET['roll_no'];
 		if((isset($_GET['from']))&&(isset($_GET['to'])))
 		{
 		
 		$from=$_GET['from'];
 		$to=$_GET['to'];
-		$first_name=$_GET['name'];
-		$roll_no=$_GET['roll_no'];
-		
-		
-		$sql="select * from fac_attendance where academic_year='".$cur_academic_year."' and (att_date BETWEEN '$from' and '$to') and first_fname='".$first_name."' and roll_no='".$roll_no."'";
+	
+		$sql="select * from fac_attendance where academic_year='".$cur_academic_year."' and (att_date BETWEEN '$from' and '$to') and staff_id='".$staff_id."'";
        		
 		}
 		else
 		{
-			
-		$first_name=$_GET['name'];
-		$roll_no=$_GET['roll_no'];
 		
-		$sql="select * from fac_attendance where academic_year='".$cur_academic_year."' and first_fname='".$first_name."' and roll_no='".$roll_no."'";
+		$sql="select * from fac_attendance where academic_year='".$cur_academic_year."' and staff_id='".$staff_id."'";
+		//var_dump($sql);
         
 	    }
 		 $result=mysqli_query($conn,$sql);
@@ -121,14 +102,20 @@ function printDiv(income) {
 	{
 	$id=$row_tot["id"];
 	$att_date= date('d-m-Y', strtotime( $row_tot['att_date'] ));
-	//$join_date= date('d-m-Y', strtotime( $row['join_date'] ));
+	$sql_staff="select * from faculty where fac_id='".$staff_id."'";
+	$result_staff=mysqli_query($conn,$sql_staff);
 	
+	while($row_staff=mysqli_fetch_array($result_staff,MYSQLI_ASSOC))
+	{
+		$fac_fname=  $row_staff['fac_fname'];
+		$adhaar_no=  $row_staff['adhaar_no'];
+	}
 
 	?>
 				<tr>
 				<td style="text-align:center;"><?php echo $row_count;?></td>
-				<td style="text-align:center;"><?php echo $row_tot["first_fname"];?></td>
-				<td style="text-align:center;"><?php echo $row_tot["roll_no"];?></td>
+				<td style="text-align:center;"><?php echo $fac_fname;?></td>
+				<td style="text-align:center;"><?php echo $adhaar_no;?></td>
 				<td style="text-align:center;"><?php echo $att_date;?></td>
 				<td style="text-align:center;"><?php echo $row_tot["attendance"];?></td>
 				<td style="text-align:center;"><?php echo $row_tot["taken_by"];?></td>

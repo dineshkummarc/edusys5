@@ -10,15 +10,24 @@ if(isset($_GET["id"])){
 	$id = $_GET["id"];
 }
 
-if($_GET["edit"]=="yes"){
-	$present_class=$_GET["class_edit"];
-	$first_name=$_GET["name_edit"];
-	$roll_no=$_GET["roll_no_edit"];
-	}	
+
 $sql="select * from student_fee where id ='".$id."'";
 $result=mysqli_query($conn,$sql);
 if($value=mysqli_fetch_array($result,MYSQLI_ASSOC))
+{
+	$student_id = $value["student_id"];
+
+	$sql="select * from students where id='".$student_id."'";
+	$result=mysqli_query($conn,$sql);
+	//var_dump($sql);
+	
+	if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 	{
+	$present_class=$row["present_class"];
+	$first_name=$row["first_name"];
+	$roll_no=$row["roll_no"];
+
+	}
 	
 ?>
        <div class="container-fluid">
@@ -39,21 +48,11 @@ if($value=mysqli_fetch_array($result,MYSQLI_ASSOC))
 			  }
 	
 		?>
-Name : <?php echo $value["name"];?> , Roll No : <?php echo $value["roll_no"];?> , Class : <?php echo $value["class"];?>			
+Name : <?php echo $first_name;?> , Roll No : <?php echo $roll_no;?> , Class : <?php echo $present_class;?>			
 							
 <form action="update_student_fee.php" method="post">
-      
-	  <input type="hidden" name="name" value="<?php echo $value["name"];?>" class="form-control">
-
-	   <input type="hidden" name="roll_no" value="<?php echo $value["roll_no"];?>" class="form-control">
-	   <input type="hidden" name="id" value="<?php echo $value["id"];?>" class="form-control">
+ <input type="hidden" name="id" value="<?php echo $id;?>">
 	
-	  
-
-	 
-  <div class="form-group">
-	   <input type="hidden" name="present_class" value="<?php echo $value["class"];?>" class="form-control">
-	  </div>
  <div class="form-group">
 	    <label for="usr">School Fee:</label>
 		<input type="number" name="adm_fee" value="<?php echo $value["tot_paid"];?>" class="form-control">

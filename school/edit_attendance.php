@@ -8,14 +8,12 @@ require("header.php");
 if(isset($_GET["id"])){
 $id=$_GET["id"];
 }
-$sql="select * from attendance where id ='".$id."'  and academic_year='".$cur_academic_year."'";
+$sql="select * from attendance where id ='".$id."'";
 $result=mysqli_query($conn,$sql);
 if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
-	{
-	
-	$id=$row["id"];
-	
-	}
+{
+	$student_id= $row["student_id"];
+
 ?>     <div class="container-fluid">
 		<div class="row">
 		
@@ -42,11 +40,9 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 		<input type="date"  name="att_date" value="<?php echo $row["att_date"];?>"  class="form-control">
 	  </div>
 	  
-	 <input type="hidden" name="id" value="<?php echo $row["id"];?>"> 
-	 <input type="hidden" name="first_name" value="<?php echo $row["first_name"];?>"> 
-	 <input type="hidden" name="roll_no" value="<?php echo $row["roll_no"];?>"> 
-	 <input type="hidden" name="present_class" value="<?php echo $row["present_class"];?>"> 
-	 <input type="hidden" name="section" value="<?php echo $row["section"];?>"> 
+	 <input type="hidden" name="id" value="<?php echo $id;?>"> 
+	 <input type="hidden" name="student_id" value="<?php echo $student_id;?>"> 
+	
 	 <input type="submit" class="btn btn-primary" value="Update"> 
 	 <button class="btn btn-success" onclick="goBack()">Go Back</button>
 	</form>
@@ -64,6 +60,7 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 
 
 <?php 
+}
 require("footer.php");
 	}else{
 		header("Location:login.php");

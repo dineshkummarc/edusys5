@@ -53,16 +53,16 @@ if(isset($_POST["faculty"]))
 	move_uploaded_file($filetmp2,$filepath2);
 	
 	$sql="insert into faculty (fac_fname,fac_dob,parent_contact,fac_desig,class_teach,fac_dep,fac_quali,fac_add,fac_sex,fac_photo_name,fac_photo_path,fac_photo_type,adhaar_no,staff_type) values('$fac_fname','$fac_dob','$parent_contact','$fac_desig','$class_teach','$fac_dep','$fac_quali','$fac_add','$fac_sex','$filename','$filepath','$filetype','$adhaar_no','$staff_type')";
-	
+	var_dump($sql);
 	
 	if ($conn->query($sql) === TRUE) 
 	{
 	echo "success";
-	header("Location:register_faculty.php?success=.'success'");
+	//header("Location:register_faculty.php?success=.'success'");
 	} 
 	else 
 	{
-	header("Location:register_faculty.php?failed=.'failed'");	
+	//header("Location:register_faculty.php?failed=.'failed'");	
 	}
 }
 

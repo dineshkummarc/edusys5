@@ -7,27 +7,20 @@ $cur_academic_year = $_SESSION['academic_year'];
 require("connection.php");
 if(isset($_POST["remarks"]))
 {
-	
-	$first_name=$_POST["first_name"];
-	$roll_no=$_POST["roll_no"];
+	$student_id=$_POST["id"];
 
 	$remarks_title=mysqli_real_escape_string($conn, $_POST["remark_title"]);
 	$remarks_desc=mysqli_real_escape_string($conn, $_POST["remark_desc"]);
-
-
-
-	$remarks_date=$_POST["remark_date"];
-	$present_class=$_POST["present_class"];
-	$section=$_POST["section"];
 	
-	$sql="insert into remarks (first_name,roll_no,present_class,section,remarks_title,remarks_desc,remarks_date,academic_year) values('$first_name','$roll_no','$present_class','$section','$remarks_title','$remarks_desc','$remarks_date','$cur_academic_year')";
 	
+	$sql="insert into remarks (student_id,remarks_title,remarks_desc,academic_year) values('$student_id','$remarks_title','$remarks_desc','$cur_academic_year')";
+	var_dump($sql);
 	
 	if ($conn->query($sql) === TRUE) 
 	{
 		
 	
-	header("Location:description.php?first_name=".$first_name."&roll_no=".$roll_no);
+	header("Location:description.php?id=".$student_id);
 
 
 	} 
