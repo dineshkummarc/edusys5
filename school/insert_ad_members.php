@@ -19,6 +19,7 @@ if(isset($_POST["admin"]))
 
 	
 	$sql="insert into ad_members (username,log_pas,user_access,academic_year) values('$user_name','$secure','$user_access','$academic_year')";
+	//var_dump($sql);
 	
 	if ($conn->query($sql) === TRUE) 
 	{

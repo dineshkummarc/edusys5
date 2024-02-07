@@ -77,7 +77,7 @@ $roll_no=$_SESSION['parents_pass'];
 
 
 <?php 
-
+require("footer.php");
 	}else{
 		header("Location:login.php");
 	}

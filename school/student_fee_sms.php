@@ -15,11 +15,10 @@ $id=$_GET['id'];
 	$result_sch=mysqli_query($conn,$sql_sch);
 	if($row_sch=mysqli_fetch_array($result_sch,MYSQLI_ASSOC))
 	{
-		$sch_name=$row_sch["sch_name"];
-		$location=$row_sch["location"];
-		$city=$row_sch["city"];
-		$approved_senderid=$row_sch["sender_id"];		
-		$sch_detail=$row_sch['sch_name']." ".$row_sch['location'];
+		$approved_senderid=$row_sch["sender_id"];
+		$username=$row_sch["username"];
+		$password=$row_sch["user_id"];
+		$sms_school_name=$row_sch["sms_school_name"];
 	}
 	////////// END SCHOOL DETAILS //////////////////
 	
@@ -50,30 +49,7 @@ $id=$_GET['id'];
 	}
 
 
-	
-	/*
-	$sql_indi_fee_tot="select adm_fee  from class_fee where class_id='".$present_class."'  and academic_year='".$cur_academic_year."' order by id desc limit 1";
-	$result_indi_fee_tot=mysqli_query($conn,$sql_indi_fee_tot);
-	if($row_indi_fee_tot=mysqli_fetch_array($result_indi_fee_tot,MYSQLI_ASSOC))
-	{
-		$paid_indi_fee_total=$row_indi_fee_tot["adm_fee"];
-	}
-
-
-		$sql_fee_tot="select adm_fee  from set_fee where class='".$present_class."'  and academic_year='".$cur_academic_year."' order by id desc limit 1";
-		$result_fee_tot=mysqli_query($conn,$sql_fee_tot);
-		if($row_fee_tot=mysqli_fetch_array($result_fee_tot,MYSQLI_ASSOC))
-		{
-			$paid_fee_total=$row_fee_tot["adm_fee"];
-		}
-		else
-		{
-			$paid_fee_total=0;
-		}
-		$balance=$paid_fee_total+$paid_indi_fee_total-$f2;
-		*/
-
-		$sql_fee_set = "select * from set_fee where class='".$present_class."' and academic_year='".$cur_academic_year."'";
+	$sql_fee_set = "select * from set_fee where class='".$present_class."' and academic_year='".$cur_academic_year."'";
 	$result_fee_set=mysqli_query($conn,$sql_fee_set);
 	if(mysqli_num_rows($result_fee_set)>0){
 		foreach($result_fee_set as $row_fee_set){
@@ -81,19 +57,7 @@ $id=$_GET['id'];
 		}
 	}
 
-	
-/*
-	$sql_class_fee = "select adm_fee,fee_towards,class from set_fee where class='".$class."' and academic_year='".$cur_academic_year."'";
-	$result_class_fee=mysqli_query($conn,$sql_class_fee);
-	if(mysqli_num_rows($result_class_fee)>0){
-	if($row_class_fee=mysqli_fetch_array($result_class_fee,MYSQLI_ASSOC)){
-		$class_fee = $row_class_fee["adm_fee"];
-	}
-}
-*/
 
-
-	
 	$sql_individ_fee_set = "select * from set_individual_fee where student_id= '".$id."'";
 	$result_indi_fee_set=mysqli_query($conn,$sql_individ_fee_set);
 	if(mysqli_num_rows($result_indi_fee_set)>0){
@@ -103,7 +67,6 @@ $id=$_GET['id'];
 }
 
 
-	
 	$sql_fee_paid = "select * from student_fee where student_id='".$student_id."'";
 	$result_fee_paid=mysqli_query($conn,$sql_fee_paid);
 	if(mysqli_num_rows($result_fee_paid)>0){
@@ -115,9 +78,15 @@ $id=$_GET['id'];
 	//$fee_blance=($fee_set + $individual_fee_set)-$fee_set_paid;
 	$fee_blance=($individual_fee_set+$class_fee)-$fee_set_paid;
 
-		$message_details = "Thank you ".$first_name.". Your fee amount Rs.".$f2." has been received.Receipt no is ".$f3." and receipt date is ".$f4.". Remaining fee is Rs.".$fee_blance;
+		$message="Thank you ".$first_name.". Your fee amount Rs.".$f2." has been received.Receipt no is ".$f3." and receipt date is ".$f4.". Remaining fee is Rs.".$fee_blance.". ".$sms_school_name;
+		//echo $message;
 
-		$message = "Dear parents, ".$message_details."-".$sch_detail;
+
+	$subject = "Student Fee Received SMS";
+	$sql_message="insert into individual_notifications (title,details,student_id,academic_year,indi_viewed) values('$subject','$message','$student_id','$cur_academic_year','False')";
+  $conn->query($sql_message);
+
+
 		require("sms_gateway.php");
 
 			
@@ -192,7 +161,7 @@ function printFeeCollected(fee_collected) {
 </div>
 <?php
 require("footer.php");
-//header("Location:description.php?first_name=".$f1."&roll_no=".$roll_no."&class=".$present_class."&suceess=success");
+header("Location:description.php?id=".$id);
 
 }
 

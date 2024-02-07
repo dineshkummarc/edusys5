@@ -20,6 +20,17 @@ $(document).ready(function() {
 });
 </script>
 
+<script src="typeahead.min.js"></script>
+	<script>
+		$(document).ready(function(){
+		$('input.typeahead').typeahead({
+			name: 'typeahead',
+			remote:'search_students.php?key=%QUERY',
+			limit : 20
+		});
+	});
+	</script> 
+
 </body>
 
 </html>

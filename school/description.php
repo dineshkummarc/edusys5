@@ -26,7 +26,8 @@ $sql="select * from students where id='".$id."'";
 	
 	if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 	{
-	$dob= date('d-m-Y', strtotime( $row['dob'] ));
+		//$dob= date('d-m-Y', strtotime( $row['dob'] ));
+	$dob= $row['dob'];
 	$join_date= date('d-m-Y', strtotime( $row['join_date'] ));
 	$class=$row["present_class"];
 	$section=$row["section"];
@@ -70,10 +71,12 @@ if($row_van_fee=mysqli_fetch_array($result_van_fee,MYSQLI_ASSOC))
 
 	
 $sql_student_van_fee="select * from student_van_fee where student_id='".$id."' and academic_year='".$cur_academic_year."'";
+
+//var_dump($sql_student_van_fee);
 	$result_student_van_fee=mysqli_query($conn,$sql_student_van_fee);
 	foreach($result_student_van_fee as $row_student_van_fee)
 	{
-	$total_van_fee_paid+=$row_student_van_fee["van_fee"];
+	$total_van_fee_paid+=$row_student_van_fee["tot_paid"];
 	}
 	$van_fee_balance=$total_van_fee-$total_van_fee_paid;
 	
@@ -120,7 +123,7 @@ $sql_student_van_fee="select * from student_van_fee where student_id='".$id."' a
 	}
 }
 
-$sql_ind_fee="select id,rec_no,rec_date,tot_paid,updated_on from student_fee where student_id='".$id."' and academic_year='".$cur_academic_year."'  UNION ALL select id,rec_no,rec_date,tot_paid,updated_on from student_adm_fee where student_id='".$id."' and academic_year='".$cur_academic_year."' UNION ALL select id,rec_no,rec_date,tot_paid,updated_on from student_books_fee where student_id='".$id."' and academic_year='".$cur_academic_year."' UNION ALL select id,rec_no,rec_date,tot_paid,updated_on from student_software_fee where student_id='".$id."' and academic_year='".$cur_academic_year."' UNION ALL select id,rec_no,rec_date,tot_paid,updated_on from student_shoe_fee where student_id='".$id."' and academic_year='".$cur_academic_year."' UNION ALL select id,rec_no,rec_date,tot_paid,updated_on from student_uniform_fee where student_id='".$id."' and academic_year='".$cur_academic_year."' UNION ALL select id,rec_no,rec_date,tot_paid,updated_on from student_van_fee where student_id='".$id."' and academic_year='".$cur_academic_year."' UNION ALL select id,rec_no,rec_date,tot_paid,updated_on from student_cca_fee where student_id='".$id."' and academic_year='".$cur_academic_year."' ORDER BY id desc";
+$sql_ind_fee="select id,rec_no,rec_date,tot_paid,updated_on from student_fee where student_id='".$id."' and academic_year='".$cur_academic_year."'";
 		   
 
 
@@ -156,6 +159,14 @@ function printProfile(profile) {
 	</head>
 	<br>
 	
+	<?php 
+	if(isset($_GET["success"])=="success"){ ?>
+	<center>
+	<div class="alert alert-success" role="alert">
+  ID Card Generated Successfully.Check Below to view your ID Card.
+</div>
+	</center>
+	<?php } ?>
 	
 	 <center><div class="panel panel-primary" style="width:80%;">
       <div class="panel-heading"><center>Student Details , Name: <?php echo $row["first_name"];?> <a href="<?php echo 'upd_register.php?id='.$row['id']; ?>" title="Edit">  <span style="color:yellow;">  Edit info <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i> </a></span></center>
@@ -165,21 +176,9 @@ function printProfile(profile) {
 	<td><button onclick="goBack()" class="btn btn-default">Go Back</button> </td>
 	<td> 
 	
-	<?php 
-	if($student_type==""){
-	?>
+
 	<a href="<?php echo 'student_fee.php?id='.$id;?>"><span style="color:#fff;"><i class="fa fa-money" aria-hidden="true"></i> Collect School Fee</span></a>
-	<?php	
-	}else if($student_type=="rte"){
-	?>
-	<a href="<?php echo 'student_adm_fee.php?id='.$id;?>"><span style="color:#fff;"><i class="fa fa-money" aria-hidden="true"></i> Collect RTE fee</span></a>
-	<?php	
-	}else if($student_type=="staff children"){
-	?>
-	<a href="<?php echo 'student_cca_fee.php?id='.$id;?>"><span style="color:#fff;"><i class="fa fa-money" aria-hidden="true"></i> Collect Teacher Children Fee</span></a>
-	<?php	
-	}
-	?>
+	
 	
 	
 	</td>
@@ -190,8 +189,8 @@ function printProfile(profile) {
 	</tr>
 	<td> <a href="<?php echo 'study_certificate.php?id='.$id;?>"><span style="color:#fff;"><i class="fa fa-print" aria-hidden="true"></i> Print Study Certificate</span></a></td>
 	<td> <a href="<?php echo 'conduct_certificate.php?id='.$id;?>"><span style="color:#fff;"><i class="fa fa-print" aria-hidden="true"></i> Print Conduct Certificate</span></a></td>
-	<td></td>
-	<td></td>
+	<td><a href="<?php echo 'upload_photo.php?id='.$id;?>"><span style="color:#fff;"><i class="fa fa-print" aria-hidden="true"></i> Upload Student Photo</span></a></td>
+	<td><a href="<?php echo 'idcard.php?id='.$id;?>"><span style="color:#fff;"><i class="fa fa-print" aria-hidden="true"></i> Generate Student ID Card</span></a></td>
 	<td></td>
 	<tr>
 
@@ -202,7 +201,13 @@ function printProfile(profile) {
 	<td> <a href="<?php echo 'marks_card.php?id='.$id;?>" ><span style="color:#fff;"><i class="fa fa-print" aria-hidden="true"></i> Print Marks Card</span></a> </td>
 	<td>  <a href="" onclick="printProfile('profile')"><span style="color:#fff;"><i class="fa fa-print" aria-hidden="true"></i> Print</span></a> </td>
 	<td> <a href="<?php echo 'individual_set_fee.php?id='.$id;?>"><span style="color:#fff;"><i class="fa fa-check" aria-hidden="true"></i> Add Individual Fee</span></a></td>
-	<td></td>
+
+	</tr>
+
+	<tr>
+	<td><a href="<?php echo 'certificate_register.php?id='.$id;?>"><span style="color:#fff;"><i class="fa fa-certificate" aria-hidden="true"></i> Generate Certificate</span></a></td>
+	<td><a href="<?php echo 'send_individual_noti.php?id='.$id;?>"><span style="color:#fff;"><i class="fa fa-certificate" aria-hidden="true"></i> Send Individual Notifications</span></a></td>
+
 	</tr>
 	
 
@@ -216,21 +221,11 @@ function printProfile(profile) {
 				 
 				 <div class="table-responsive"> 
 				<table class="table table-bordered table-hover table-striped" style="width:90%;">
-					<?php 
-					if(($row['student_type'])!="")
-					{ 
-						$student_type=$row['student_type'];
-					}
-					else
-					{
-						$student_type="Normal";
-					}
 					
-					?>
 					<tbody>
 					  <tr>
-						<td style="width:15%;">Student Name<br>Student Type</td>
-						<td style="color:blue;width:25%;"><span style="color:red;font-weight:bold;"><?php echo strtoupper($row['first_name'])."</span><br>".strtoupper($student_type);?></td>
+						<td style="width:15%;">Student Name</td>
+						<td style="color:blue;width:25%;"><span style="color:red;font-weight:bold;"><?php echo strtoupper($row['first_name']);?></td>
 						<td style="width:15%;">Enrollment No</td>
 						<td style="color:blue;width:25%;"><?php echo $row['roll_no'];?>
 						
@@ -238,13 +233,7 @@ function printProfile(profile) {
 						</td>
 					   
 					  </tr>
-					  <tr>
-						<td style="width:15%;">Joined Date</td>
-						<td style="color:blue;width:25%;"><?php echo $join_date;?></td>
-						<td style="width:15%;">Blood Group</td>
-						<td style="color:blue;width:25%;"><?php echo $row['blood'];?></td>
-						
-					  </tr>
+				
 					  <tr>
 						<td style="width:15%;">Gender</td>
 						<td style="color:blue;width:25%;"><?php echo $row['sex'];?></td>
@@ -284,10 +273,7 @@ function printProfile(profile) {
 						
 					  </tr>
 					  
-	<?php 
-	//echo $student_type;
-	  if(($row['student_type'])==""){
-	?>
+
 	<tr>
 	<td style="width:15%;">School Fee<br> Other Individual Fee</td>
 	<td style="color:blue;width:25%;">&#8377;<?php echo $class_fee;?><br>&#8377;<?php echo $individual_fee_set;?></td>
@@ -301,39 +287,15 @@ function printProfile(profile) {
 	<td style="width:15%;">School Fee Balance</td>
 	<td style="color:blue;width:25%;color:red;font-weight:bold;">&#8377;<?php echo $fee_balance;?></td>
 	<td style="width:15%;">Total Van Fee<br><span style="color:green;">Van Fee Paid</span><br><span style="color:red;">Van Fee Balance</span></td>
-	<td style="color:blue;width:25%;"><?php echo $total_van_fee;?><br><span style="color:green;"><?php echo $total_van_fee_paid;?></span><br><span style="color:red;"><?php echo $van_fee_balance;?></span></td>
+	<td style="color:blue;width:25%;">&#8377;<?php echo $total_van_fee;?><br><span style="color:green;">&#8377;<?php echo $total_van_fee_paid;?></span><br><span style="color:red;">&#8377;<?php echo $van_fee_balance;?></span></td>
 	</tr>
-<?php						
-  }else if($student_type=="rte"){
-	
-?>
-<tr>
-		<td style="width:15%;">RTE Fee Balance</td>
-		<td style="color:blue;width:25%;"><?php echo $adm_fee_blance;?></td>
-		<td style="width:15%;">Total Van Fee<br><span style="color:green;">Van Fee Paid</span><br><span style="color:red;">Van Fee Balance</span></td>
-	<td style="color:blue;width:25%;"><?php echo $total_van_fee;?><br><span style="color:green;"><?php echo $total_van_fee_paid;?></span><br><span style="color:red;"><?php echo $van_fee_balance;?></span></td>
-	</tr>
-	
-	<?php
-	  }					
-	  if($student_type=="staff children"){
-	?>
+
 	<tr>
-		<td style="width:15%;">Staff Children Fee Balance</td>
-		<td style="color:blue;width:25%;"><?php echo $cca_fee_blance;?></td>
-		<td style="width:15%;">Total Van Fee<br><span style="color:green;">Van Fee Paid</span><br><span style="color:red;">Van Fee Balance</span></td>
-	<td style="color:blue;width:25%;"><?php echo $total_van_fee;?><br><span style="color:green;"><?php echo $total_van_fee_paid;?></span><br><span style="color:red;"><?php echo $van_fee_balance;?></span></td>
-	</tr>
+	<td style="width:15%;">Blood Group</td>
+		<td style="color:blue;width:25%;"><?php echo $row['blood'];?></td>
+		<td style="width:15%;">Route & Stage Name</td>
+		<td style="color:blue;width:25%;"><?php echo $route_name;?><br><?php echo $stage_name;?></td>
 	
-	<?php						
-	  }
-		
-	?>
-	<tr>
-		<td style="width:15%;">Route Name</td>
-		<td style="color:blue;width:25%;"><?php echo $route_name;?></td>
-		<td style="width:15%;">Stage Name</td>
-		<td style="width:15%;color:blue;"><?php echo $stage_name;?></td>
 	 </tr>
 	 
 	</tbody>
@@ -341,6 +303,122 @@ function printProfile(profile) {
   </div>
   
   </center>
+
+
+	<div class="row">
+        <div class="col-sm-12" id="gatepass"><br>
+				<h3>Student ID Card Generated</h3>
+				<center><table class="table table-bordered">
+				<tbody>
+				<tr class="w3-blue">
+				<th>SL No</th>
+				<th>Name</th>
+				<th>ID Card</th>
+				<th>Generated on</th>
+				<th>Actions</th>
+				
+			
+				
+				</tr>
+	<?php
+	$sql_id_cards="select * from student_id_cards where  student_id='".$id."' ORDER BY id desc";
+	$result_id_cards=mysqli_query($conn,$sql_id_cards);
+	$row_count_id_card =1;
+	foreach($result_id_cards as $row_id_cards)
+	{
+	$idcard_id=$row_id_cards["id"];
+	$created_at= date('d-m-Y', strtotime( $row_id_cards['created_at'] ));
+	
+	
+ ?>
+				<tr>
+				<td><?php echo $row_count_id_card;?></td>
+				<td><?php echo $first_name;?></td>
+				<td><a href="<?php echo $row_id_cards['photo_path'];?>" class="btn btn-sm btn-success">View ID Card</a></td>
+				<td><?php echo $created_at;?></td>
+				<td>
+				 <a href="#" onclick="deleteStudentIdCard(<?php echo $idcard_id;?>)">   <i class="fa fa-trash-o fa-lg" style="color:red;" aria-hidden="true"></i></a>
+       </td>
+				</tr>
+			<script>
+		  function deleteStudentIdCard(id){
+			  if(confirm("Do you want to delete?")){
+				  window.location.href='delete_student_id_card.php?id='+id+'';
+			  }
+		  }
+		  
+		  </script>
+				    
+	<?php
+				
+	$row_count_id_card++; 
+	}
+	
+	?>
+	
+				</tbody>
+				</table></center>
+				
+				</div>
+				</div>
+
+
+				<div class="row">
+        <div class="col-sm-12" id="gatepass"><br>
+				<h3>Received Certificates</h3>
+				<center><table class="table table-bordered">
+				<tbody>
+				<tr class="w3-blue">
+				<th>SL No</th>
+				<th>Name</th>
+				<th>Certificate</th>
+				<th>Generated on</th>
+				<th>Actions</th>
+				
+			
+				
+				</tr>
+	<?php
+	$sql_certificates="select * from certificates where  student_id='".$id."' ORDER BY id desc";
+	$result_certificates=mysqli_query($conn,$sql_certificates);
+	$row_certificates_count =1;
+	foreach($result_certificates as $row_certificates)
+	{
+	$certificate_id=$row_certificates["id"];
+	$created_at= date('d-m-Y', strtotime( $row_certificates['created_at'] ));
+	
+	
+ ?>
+				<tr>
+				<td><?php echo $row_certificates_count;?></td>
+				<td><?php echo $first_name;?></td>
+				<td><a href="<?php echo $row_certificates['certificate_path'];?>" class="btn btn-sm btn-success">View Certificate</a></td>
+				<td><?php echo $created_at;?></td>
+				<td>
+				 <a href="#" onclick="deleteCertificateCard(<?php echo $certificate_id;?>)">   <i class="fa fa-trash-o fa-lg" style="color:red;" aria-hidden="true"></i></a>
+       </td>
+				</tr>
+			<script>
+		  function deleteCertificateCard(id){
+			  if(confirm("Do you want to delete?")){
+				  window.location.href='delete_certficate_card.php?id='+id+'';
+			  }
+		  }
+		  
+		  </script>
+				    
+	<?php
+				
+	$row_count_id_card++; 
+	}
+	
+	?>
+	
+				</tbody>
+				</table></center>
+				
+				</div>
+				</div>
   
    
 <!-------------------Start Attendance details------------------->
@@ -384,6 +462,7 @@ $sql_tot="select att_date,present_class,sum(att_count) as tot_att_count from att
 	foreach($result_fee_set as $row_fee_set)
 	{
 	$class_fee_list = $row_fee_set["adm_fee"];
+	$total_student_fee += $row_fee_set["adm_fee"];
 	?>
 				<tr>
 				<td><?php echo $class_fee_row_count;?></td>
@@ -398,6 +477,7 @@ $sql_tot="select att_date,present_class,sum(att_count) as tot_att_count from att
 	}
 	
 	?>
+		<tr><span style="font-weight:bold;color:red;">Total School Fee &#8377;<?php echo $total_student_fee;?></span></tr>
 	
 				</tbody>
 				</table></center>
@@ -424,6 +504,7 @@ $sql_tot="select att_date,present_class,sum(att_count) as tot_att_count from att
 	foreach($result_indi_fee_set as $row_indi_fee_set)
 	{
 	$indi_fee_id = $row_indi_fee_set["id"];
+	$total_individual_fee += $row_indi_fee_set["individual_fee"];
 	?>
 				<tr>
 				<td><?php echo $indi_row_count_att;?></td>
@@ -454,6 +535,7 @@ $sql_tot="select att_date,present_class,sum(att_count) as tot_att_count from att
 	}
 	
 	?>
+	<tr><span style="font-weight:bold;color:red;">Total Individual Fee &#8377;<?php echo $total_individual_fee;?></span></tr>
 	
 				</tbody>
 				</table></center>
@@ -599,7 +681,7 @@ $sql_tot="select att_date,present_class,sum(att_count) as tot_att_count from att
 	<!----------------Start of student Remarks-------->
 		  <?php
 		
-					$sql_remarks="select * from remarks where student_id='".$id."' and academic_year='".$cur_academic_year."' order by id desc";
+					$sql_remarks="select * from remarks where student_id='".$id."' order by id desc";
 					$result_remarks=mysqli_query($conn,$sql_remarks);
 					//var_dump($sql_remarks);
 					  ?>
@@ -669,12 +751,11 @@ $sql_tot="select att_date,present_class,sum(att_count) as tot_att_count from att
 			
 	<?php 
 		$row_count_fee =1;
-		$sql_tot="select sum(tot_paid) as paid_fee_tot from student_fee where student_id='".$id."'";
+		$sql_tot="select * from student_fee where student_id='".$id."'";
 		$result_tot=mysqli_query($conn,$sql_tot);
-		if($row=mysqli_fetch_array($result_tot,MYSQLI_ASSOC))
-		{
-			$paid_fee_tot=$row["paid_fee_tot"];
-		}
+	
+
+		//var_dump($sql_tot);
 
 		$sql_fee_tot="select adm_fee  from set_fee where class='".$class."'  and academic_year='".$cur_academic_year."' order by id desc limit 1";
 		//var_dump($sql_fee_tot);
@@ -690,12 +771,9 @@ $sql_tot="select att_date,present_class,sum(att_count) as tot_att_count from att
 		   ?>
 		   <div class="row">
         <div class="col-sm-12">
-		<!--
-		<p style="color:blue;font-size:16px;">Total Fee : Rs <?php if($paid_fee_total==""){echo "0";}else{echo $paid_fee_total;}?>  ,<span style="color:green;font-size:16px;">Total Fee Paid : Rs <?php if($paid_fee_tot==""){echo "0";}else{echo $paid_fee_tot;}?></span>, <span style="color:red;font-size:16px;">Balance Fee : Rs <?php echo $balance;?></span></p>
-		
-		-->
+	
 		<?php 
-			if(mysqli_num_rows($result_ind_fee)==0){
+			if(mysqli_num_rows($result_tot)==0){
 			echo "<tr>No Fee paid details to display</tr>"; 
 			}else{
 			?>
@@ -711,8 +789,9 @@ $sql_tot="select att_date,present_class,sum(att_count) as tot_att_count from att
 			</tr>
 	<?php
 	
-	foreach($result_ind_fee as $row_tot_ind_fee)
+	foreach($result_tot as $row_tot_ind_fee)
 	{
+		$total_paid_fee += $row_tot_ind_fee["tot_paid"];
 	$rec_date= date('d-m-Y', strtotime( $row_tot_ind_fee['rec_date'] ));
 	$updated_on= date('d-m-Y', strtotime( $row_tot_ind_fee['updated_on'] ));
 	?>
@@ -722,19 +801,30 @@ $sql_tot="select att_date,present_class,sum(att_count) as tot_att_count from att
 	<td><?php echo $row_tot_ind_fee["rec_no"];?></td>
 	<td>&#8377;<?php echo $row_tot_ind_fee["tot_paid"];?></td>
 	<td>
-	 <div class="btn-group">
+	<div class="btn-group">
 	<a href="<?php echo 'edit_student_fee.php?id='.$row_tot_ind_fee['id']; ?>" title="Edit">  <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>	
-	<a href="<?php echo 'delete_student_fee.php?id='.$row_tot_ind_fee['id'].'&first_name='.$first_name.'&roll_no='.$roll_no.'&class='.$class; ?>" title="Delete">  <i class="fa fa-trash-o fa-lg" aria-hidden="true" style="color:red;"></i></a>
+	<a href="#" onclick="deleteStudentFeePaid(<?php echo $row_tot_ind_fee['id'];?>)">   <i class="fa fa-trash-o fa-lg" style="color:red;" aria-hidden="true"></i></a>
 	
    </div>
-	</td>
+       </td>
+				</tr>
+			<script>
+		  function deleteStudentFeePaid(id){
+			  if(confirm("Do you want to delete?")){
+				  window.location.href='delete_student_fee.php?id='+id+'';
+			  }
+		  }
+		  
+		  </script>
 	
-	</tr>
 				
 	<?php
 				
 	$row_count_fee++; 
-	}
+	} ?>
+<tr><span style="font-weight:bold;color:green;">Total Paid Fee &#8377;<?php echo $total_paid_fee;?></span></tr>
+	<?php
+
 	}
 	
 	?>
@@ -742,9 +832,101 @@ $sql_tot="select att_date,present_class,sum(att_count) as tot_att_count from att
 	</tbody>
 	</table></center>
 	
-	</div>
-	</div>
-	</div>
+	
+
+
+
+		<!----------Start Fee paid details--->
+		<hr><h3>SCHOOL VAN FEE Paid details</h3>
+			
+			<?php 
+				$row_van_count_fee =1;
+				$sql_van_paid="select * from student_van_fee where student_id='".$id."' and academic_year='".$cur_academic_year."'";
+				$result_van_paid = mysqli_query($conn,$sql_van_paid);
+			
+		
+				//var_dump($sql_tot);
+		
+				$sql_van_set_fee="select van_fee  from set_van_fee where route_name='".$route_name."'  and stage_name='".$stage_name."'  and academic_year='".$cur_academic_year."'";
+				//var_dump($sql_fee_tot);
+					$result_van_set_fee=mysqli_query($conn,$sql_van_set_fee);
+					if($row_van_set_fee=mysqli_fetch_array($result_van_set_fee,MYSQLI_ASSOC))
+					{
+						$total_van_fee=$row_van_set_fee["van_fee"];
+					}
+
+
+					
+				
+					 ?>
+						<div class="col-sm-12">
+				
+				<?php 
+					if(mysqli_num_rows($result_tot)==0){
+					echo "<tr>No Fee paid details to display</tr>"; 
+					}else{
+					?>
+					<div class="table-responsive"> 
+						<center><table class="table table-bordered">
+						<tbody>
+						<tr class="w3-blue">
+						<th>SL No</th>
+						<th>Receipt Date</th>
+						<th>Receipt NO</th>
+						<th>Amount</th>
+						<th></th>
+					</tr>
+			<?php
+			
+			foreach($result_van_paid as $row_van_fee)
+			{
+				$total_van_paid_fee += $row_van_fee["tot_paid"];
+				$van_fee_paid = $row_van_fee["tot_paid"];
+			$rec_date_van= date('d-m-Y', strtotime( $row_van_fee['rec_date'] ));
+			$updated_on_van= date('d-m-Y', strtotime( $row_van_fee['updated_on'] ));
+
+			$van_balance=$total_van_fee-$van_fee_paid;
+			?>
+			<tr>
+			<td><?php echo $row_van_count_fee;?></td>
+			<td><?php echo $rec_date;?><br><small>Updated on: <?php echo $updated_on;?></small></td>
+			<td><?php echo $row_van_fee["rec_no"];?></td>
+			<td>&#8377;<?php echo $row_van_fee["tot_paid"];?></td>
+			<td>
+			<div class="btn-group">
+			<a href="<?php echo 'edit_van_fee.php?id='.$row_van_fee['id']; ?>" title="Edit">  <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>	
+			<a href="#" onclick="deleteVanFeePaid(<?php echo $row_van_fee['id'];?>)">   <i class="fa fa-trash-o fa-lg" style="color:red;" aria-hidden="true"></i></a>
+			
+			 </div>
+					 </td>
+						</tr>
+					<script>
+					function deleteVanFeePaid(id){
+						if(confirm("Do you want to delete?")){
+							window.location.href='delete_van_fee.php?id='+id+'';
+						}
+					}
+					
+					</script>
+			
+						
+			<?php
+						
+			$row_van_count_fee++; 
+			} ?>
+		<tr><span style="font-weight:bold;color:green;">Total Paid Fee &#8377;<?php echo $total_van_paid_fee;?></span></tr>
+			<?php
+		
+			}
+			
+			?>
+			
+			</tbody>
+			</table></center>
+			
+			</div>
+			</div>
+			</div>
 	</div>
 	</div>
 	</center>

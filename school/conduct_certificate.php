@@ -136,15 +136,14 @@ if($row_attend=mysqli_fetch_array($result_att,MYSQLI_ASSOC))
 	?>
 	 
 	 <span style="text-align:left;">DISE Code : <?php echo $sch_dise;?></span></p>
-	  <br>
-	   <center><h3 class="print-color" style="text-decoration:underline;">Study Certificate</h3></center><br>  
-	  <center><div>
+	 <div style="text-align:right;">
 	 <?php if(($row_student["photo_path"])!="photo/"){?>
 				<img class="img-responsive img-thumbnail" src="<?php echo $row_student['photo_path'];?>"  width="130" height="130"><?php }else{};?><br>
 	</div>
-	 </center>
-	  
-   <center><h3 class="print-color" style="text-decoration:underline;">Conduct Certificate</h3></center><br>  
+
+	  <br>
+	   <center><h3 class="print-color" style="text-decoration:underline;font-weight:bold;">CONDUCT CERTIFICATE</h3></center><br>  
+	
 		<p style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This is to certify that kumar / kumari.<span style="font-weight:bold"><?php echo $first_name;?></span> S/o or D/o <span style="font-weight:bold"><?php echo $father_name;?></span> was a bonafide student of this school from <span style="font-weight:bold"><?php echo $join_date;?></span> to <span style="font-weight:bold"><?php echo $last_date;?></span> studying in standand <span style="font-weight:bold"><?php echo $class_join;?></span> to <span style="font-weight:bold"><?php echo $present_class;?>.</span>His / Her Character and Conduct were <span style="font-weight:bold"><?php echo $character;?></span> during his / her stay in this school.</p>
 		<br>
 	

@@ -7,13 +7,24 @@ require("connection.php");
 if(isset($_GET['id'])){
 	$id=$_GET['id'];
 	
-}
-$sql = "DELETE FROM student_van_fee WHERE id='".$id."'";
-
-if ($conn->query($sql) === TRUE)  {
-header("Location:collected_van_fee.php?deleted=.'success'");
-} else {
-echo "Error: " . $sql . "<br>" . $conn->error;
-}
-}
+	}
+	$sql_id = "select student_id from student_van_fee where id='".$id."'";
+	$result= mysqli_query($conn,$sql_id);
+	if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
+	{
+		$student_id = $row["student_id"];
+	}
+	
+	
+	
+	$sql = "DELETE FROM student_van_fee WHERE id='".$id."'";
+	if ($conn->query($sql) === TRUE)
+	{
+	header("Location:description.php?id=".$student_id."&suceess=success");
+	}
+	else 
+	{
+	echo "Error: " . $sql . "<br>" . $conn->error;
+	}
+		}
 ?>

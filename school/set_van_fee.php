@@ -40,17 +40,15 @@ $cur_academic_year = $_SESSION['academic_year'];
 	  <label for="sel1">Academic Year</label>
 	  <select class="form-control" name="academic_year" required>
 		<option value="">-----------</option>
-		<option value="2016-2017">2016-17</option>
-		<option value="2017-2018">2017-18</option>
-		<option value="2018-2019">2018-19</option>
-		<option value="2019-2020">2019-20</option>
+		<option value="2022-2023">2022-23</option>
+	
 		</select>
 		</div>
 	  <div class="form-group">
 	  <label for="sel1">Select Route</label>
 	   <?php echo '<select class="form-control" name="route_name">';
 		echo '<option value="">------</option>';
-		$sql_route="select distinct route_name from routes where academic_year='".$cur_academic_year."'";
+		$sql_route="select distinct route_name from routes";
         $result_route=mysqli_query($conn,$sql_route);
          foreach($result_route as $value_route)
 		{
@@ -66,7 +64,7 @@ $cur_academic_year = $_SESSION['academic_year'];
 	  <label for="sel1">Select Stage</label>
 	   <?php echo '<select class="form-control" name="stage_name">';
 		echo '<option value="">------</option>';
-		$sql_stage="select distinct stage_name from stages where academic_year='".$cur_academic_year."'";
+		$sql_stage="select distinct stage_name from stages";
         $result_stage=mysqli_query($conn,$sql_stage);
          foreach($result_stage as $value_stage)
 		{

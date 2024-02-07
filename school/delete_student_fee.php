@@ -6,9 +6,13 @@ $cur_academic_year = $_SESSION['academic_year'];
 require("connection.php");
 if(isset($_GET['id'])){
 	$id=$_GET['id'];
-	$first_name=$_GET['first_name'];
-	$roll_no=$_GET['roll_no'];
-	$class=$_GET['class'];
+	
+	}
+	$sql_id = "select student_id from student_fee where id='".$id."'";
+	$result= mysqli_query($conn,$sql_id);
+	if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
+	{
+		$student_id = $row["student_id"];
 	}
 	
 	
@@ -16,7 +20,7 @@ if(isset($_GET['id'])){
 	$sql = "DELETE FROM student_fee WHERE id='".$id."'";
 	if ($conn->query($sql) === TRUE)
 	{
-	header("Location:description.php?first_name=".$first_name."&roll_no=".$roll_no."&class=".$class."&suceess=success");
+	header("Location:description.php?id=".$student_id."&suceess=success");
 	}
 	else 
 	{

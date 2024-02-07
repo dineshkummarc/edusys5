@@ -49,23 +49,23 @@ function printGatePass(gatepass) {
 		
 		
 		<?php
-	   if((isset($_GET['from']))&&(isset($_GET['to'])))
+		
+	$num_rec_per_page=150;
+	if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
+	$start_from = ($page-1) * $num_rec_per_page; 
+
+	if((isset($_GET['from']))&&(isset($_GET['to'])))
 		{
 		
 		$from=$_GET['from'];
 		$to=$_GET['to'];
-		$num_rec_per_page=150;
-		if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
-		$start_from = ($page-1) * $num_rec_per_page; 
+
 		
-		$sql="select * from gate_pass where (created_at BETWEEN '$from' and '$to') and academic_year='".$cur_academic_year."' ORDER BY id desc LIMIT $start_from, $num_rec_per_page";
+		$sql="select * from gate_pass where (DATE(created_at) BETWEEN '$from' and '$to') and academic_year='".$cur_academic_year."' ORDER BY id desc LIMIT $start_from, $num_rec_per_page";
        		
 		}
 		else
 		{
-	$num_rec_per_page=150;
-		if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
-		$start_from = ($page-1) * $num_rec_per_page; 
 		$sql="select * from gate_pass where academic_year='".$cur_academic_year."' ORDER BY id desc LIMIT $start_from, $num_rec_per_page";}
 		 $result=mysqli_query($conn,$sql);
 		 $row_count =1;

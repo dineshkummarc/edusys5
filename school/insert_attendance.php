@@ -24,10 +24,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$att_count=0;
 	}
 	
-	
-
-
-	
 	$sql_contact="select parent_contact from students where id='".$id."'";
 	$result_contact=mysqli_query($conn,$sql_contact);
 	if($row_contact=mysqli_fetch_array($result_contact,MYSQLI_ASSOC))
@@ -42,10 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	
 	}
 	
-
-	$sql="insert into attendance (student_id,present_class,section,academic_year,taken_by,attendance,att_date,att_count,tot_class) values('$id','$present_class','$section','$cur_academic_year','$taken_by','$attendance',now(),'$att_count','$tot_class')";
-   
-	 $conn->query($sql);
+$sql="insert into attendance (student_id,present_class,section,academic_year,taken_by,attendance,att_date,att_count,tot_class) values('$id','$present_class','$section','$cur_academic_year','$taken_by','$attendance',now(),'$att_count','$tot_class')";
+   $conn->query($sql);
 	 
 }
 header("Location:att_sms.php?academic_year=".$cur_academic_year."&present_class=".$present_class."&student_id=".$id);

@@ -97,7 +97,7 @@ $today_md=date('m-d');
 	           $result=mysqli_query($conn,$sql);
 	           $total_students=mysqli_num_rows($result);
 			  
-			   $sql_leave="select * from leave_appli where academic_year='".$cur_academic_year."' and status=''";
+			   $sql_leave="select * from leave_appli where academic_year='".$cur_academic_year."' and status='Pending'";
 	           $result_leave=mysqli_query($conn,$sql_leave);
 	           $total_leave=mysqli_num_rows($result_leave);
 			   
@@ -421,12 +421,7 @@ if(mysqli_num_rows($result_evt)>0){?>
 	
 </div>
 
-<div class="row" style="background-color:#eeeeee;padding:10px;">
-		<div class="col-sm-12">
-				<h3>Classwise Students</h3>
-				<div id="columnchart_values" style="height:400px;"></div>
-		</div>
-</div>
+
 
 
 <!-- /.row -->
@@ -525,6 +520,14 @@ if(mysqli_num_rows($result_evt)>0){?>
 				</div>
 			</div>
 
+</div>
+
+
+<div class="row" style="background-color:#eeeeee;padding:10px;">
+		<div class="col-sm-12">
+				<h3>Classwise Students</h3>
+				<div id="columnchart_values" style="height:400px;"></div>
+		</div>
 </div>
 <!-- /.row ////////////////////////////////////////////////////////////////////-->
 

@@ -27,16 +27,27 @@ if(isset($_POST["add_school"]))
 	$web=$_POST["web"];
 	$sender_id=$_POST["sender_id"];
 	$sch_dise=$_POST["sch_dise"];
-	
-	
-	$sql="insert into school_det (sch_name,sch_dise1,sch_dise2,sch_dise3,sch_dise4,location,city,district,state,pin,phone,mob,email,web,sender_id,academic_year) values('$sch_name','$sch_dise1','$sch_dise2','$sch_dise3','$sch_dise4','$location','$city','$district','$state','$pin','$phone','$mob','$email','$web','$sender_id','$cur_academic_year')";
-	var_dump($sql);
+
+	$username=$_POST["username"];
+	$user_id=$_POST["user_id"];
+	$sms_school_name=$_POST["sms_school_name"];
+
+
+	if(isset($_FILES['photo'])&&$_FILES['photo']['type']=='image/png')
+	{
+		$filetmp = $_FILES["photo"]["tmp_name"];
+		$filename = time()."-".$_FILES["photo"]["name"];
+		$filetype = $_FILES["photo"]["type"];
+		$filepath = "images/".$filename;
+		move_uploaded_file($filetmp,$filepath);
+	}
+
+	$sql="insert into school_det (sch_name,sch_dise1,sch_dise2,sch_dise3,sch_dise4,location,city,district,state,pin,phone,mob,email,web,sender_id,academic_year,username,user_id,sms_school_name,photo_name,photo_path,photo_type) values('$sch_name','$sch_dise1','$sch_dise2','$sch_dise3','$sch_dise4','$location','$city','$district','$state','$pin','$phone','$mob','$email','$web','$sender_id','$cur_academic_year','$username','$user_id','$sms_school_name','$filename','$filepath','$filetype')";
+
+	//var_dump($sql);
 	if ($conn->query($sql) === TRUE) 
 	{
-	
 	header("Location:index.php?success=.'success'");
-
-
 	} 
 	else 
 	{

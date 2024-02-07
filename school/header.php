@@ -39,6 +39,7 @@ error_reporting("0");
     <link href="css/plugins/morris.css" rel="stylesheet">
 	
 	<link rel="stylesheet" href="smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 	<!------wysiwyg------------------------------>
 	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
@@ -72,54 +73,34 @@ error_reporting("0");
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand" href="index.php"><?php echo $school_name;?></a>
+		<a class="navbar-brand" href="index.php"><?php echo substr($school_name,0,17);?></a>
 	</div>
 	<!-- Top Menu Items -->
 	
 	<!-- Top Menu Items -->
 
-	<ul class="nav navbar-right top-nav">
-	 
-	 <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $_SESSION['lkg_uname']." : Academic Year ".$_SESSION['academic_year'];?> <b class="caret"></b></a>
-			<ul class="dropdown-menu">
-				<li>
-					<a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
-				</li>
-				<li>
-					<a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
-				</li>
-				<li>
-					<a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
-				</li>
-				<li class="divider"></li>
-				<li>
-					<a href="logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
-				</li>
-			</ul>
-		</li>
-	</ul>
+	
 	<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
 	<div class="collapse navbar-collapse navbar-ex1-collapse">
 		<ul class="nav navbar-nav side-nav">
-		<li>
-				<a href="#"><i class="fa fa-question-circle" aria-hidden="true"></i> Help <i class="fa fa-phone-square" aria-hidden="true"></i> 8277021524</a>
-			</li>
-			<li>
-				<a href="index.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
-			</li>
+        <li><a href="#"> <?php echo $_SESSION['lkg_uname']." : ".$_SESSION['academic_year'];?></a></li>
+		<li><a href="#"><i class="fa fa-question-circle" aria-hidden="true"></i> Help <i class="fa fa-phone-square" aria-hidden="true"></i> 8277021524</a></li>
+            
+
+			<li><a href="index.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>
             <li>
                         <a href="#" data-toggle="collapse" data-target="#student"><i class="glyphicon glyphicon-education "></i></i> Students <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="student" class="collapse">
                             <li>
                                 <a href="all_students.php">All Students</a>
                             </li>
-							<li>
-                                <a href="register_students.php">Add Student</a>
-                            </li>
+							<li> <a href="register_students.php">Add Student</a></li>
+							<li> <a href="import_student_form.php">Import Students(CSV/Excel)</a></li>
+                            <!--
 							<li>
                                 <a href="import.php">Import Students (CSV)</a>
                             </li>
+                            --->
                             
                         </ul>
                     </li>
@@ -133,30 +114,56 @@ error_reporting("0");
 							<li>
                                 <a href="register_faculty.php">Add Staff</a>
                             </li>
+                            <!--
 							<li>
                                 <a href="import_faculty.php">Import Staff (CSV)</a>
                             </li>
+                            -->
                            
                         </ul>
                     </li> 
 
-            <li>
-            <a href="#" data-toggle="collapse" data-target="#online"><i class="fa fa-fw fa-video-camera"></i> Online Class <i class="fa fa-fw fa-caret-down"></i></a>
-            <ul id="online" class="collapse">
-                <li><a href="add_online_class.php">Add Online Class</a></li>
-                <li><a href="all_online_classes.php">All Online Class</a> </li>
-            </ul>
-            </li>
-			
-			<li>
-				<a href="all_alumni.php"><i class="fa fa-fw fa-dashboard"></i> Alumni's</a>
-			</li>
+           
 			<li>
 				<a href="mes_report.php"><i class="fa fa-fw fa-dashboard"></i> SMS Delivery Report</a>
 			</li>
 			<li>
 				<a href="all_gate_pass.php"><i class="fa fa-fw fa-dashboard"></i> Issued Gate Passes</a>
 			</li>
+
+            <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#att"><i class="fa fa-fw fa-edit"></i> Attendance <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="att" class="collapse">
+                            <li>
+                                <a href="all_attendance.php">All Attendance</a>
+                                
+                            </li>
+							<li>
+                                <a href="attendance.php">Take Attendance</a>
+                                
+                            </li>
+							<!--
+                            <li>
+                               <a href="exit_attendance.php">Exit Class</a>
+                            </li>
+							-->
+                        </ul>
+                    </li>  
+					
+					<li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#staff_att"><i class="fa fa-fw fa-edit"></i> Staff Attendance <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="staff_att" class="collapse">
+                            <li>
+                                <a href="all_fac_attendance.php">All Attendance</a>
+                                
+                            </li>
+							<li>
+                                <a href="fac_attendance.php">Take Attendance</a>
+                                
+                            </li>
+                            
+                        </ul>
+                    </li>  
 					
  <li>
 	<a href="#" data-toggle="collapse" data-target="#confi"><i class="glyphicon glyphicon-education "></i></i> Configure School <i class="fa fa-fw fa-caret-down"></i></a>
@@ -235,10 +242,6 @@ error_reporting("0");
 </li>
 
 
-
-
-
-
 <li>
 <a href="#" data-toggle="collapse" data-target="#bank"><i class="fa fa-fw fa-commenting"></i> Notice Board <i class="fa fa-fw fa-caret-down"></i></a>
 <ul id="bank" class="collapse">
@@ -247,8 +250,7 @@ error_reporting("0");
 </ul>
 </li>
 
-
-
+<li><a href="individual_notifications.php">Individual Notifications</a> </li>
 
 
 <li>
@@ -259,44 +261,18 @@ error_reporting("0");
 </ul>
 </li>
 
+<li>
+            <a href="#" data-toggle="collapse" data-target="#online"><i class="fa fa-fw fa-video-camera"></i> Online Class <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="online" class="collapse">
+                <li><a href="add_online_class.php">Add Online Class</a></li>
+                <li><a href="all_online_classes.php">All Online Class</a> </li>
+            </ul>
+            </li>
+			
+			<li>
+				<a href="all_alumni.php"><i class="fa fa-fw fa-dashboard"></i> Alumni's</a>
+			</li>
 
-
-					
-					
-					<li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#att"><i class="fa fa-fw fa-edit"></i> Attendance <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="att" class="collapse">
-                            <li>
-                                <a href="all_attendance.php">All Attendance</a>
-                                
-                            </li>
-							<li>
-                                <a href="attendance.php">Take Attendance</a>
-                                
-                            </li>
-							<!--
-                            <li>
-                               <a href="exit_attendance.php">Exit Class</a>
-                            </li>
-							-->
-                        </ul>
-                    </li>  
-					
-					<li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#staff_att"><i class="fa fa-fw fa-edit"></i> Staff Attendance <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="staff_att" class="collapse">
-                            <li>
-                                <a href="all_fac_attendance.php">All Attendance</a>
-                                
-                            </li>
-							<li>
-                                <a href="fac_attendance.php">Take Attendance</a>
-                                
-                            </li>
-                            
-                        </ul>
-                    </li>  
-				
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#lib"><i class="fa fa-fw fa-table"></i> Library <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="lib" class="collapse">
@@ -423,18 +399,18 @@ error_reporting("0");
 							<li>
                                 <a href="set_fee_det.php">Setup School Fee Details</a>
                             </li>
+                            <!--
                             <li>
                                 <a href="bulk_fee_update.php">Bulk School Fee Update</a>
                             </li>
 							<li>
                                 <a href="all_students.php">Collect Individual School Fee</a>
                             </li>
+                            --->
 							<li>
                                 <a href="paid_fee_details.php">Paid School Fee Details</a>
                             </li>
-							<li>
-                                <a href="fee_remind.php">Remind School Fee</a>
-                            </li>
+							
                         </ul>
                     </li> 
 
@@ -457,6 +433,9 @@ error_reporting("0");
 							<li>
                                 <a href="collected_van_fee.php">Collected Van Fee</a>
                             </li>
+
+                            <li><a href="add_transport_student.php">Add Students to Routes</a></li>
+                            <li><a href="route_students.php">Routes Students</a></li>
                         </ul>
                     </li>  
 					 <li>
@@ -512,6 +491,7 @@ error_reporting("0");
                         </ul>
                     </li> 
 					<li><a href="print_student_details.php">Print Student Details</a></li> 
+                    <li><a href="logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a></li>
                    
                 </ul>
             </div>

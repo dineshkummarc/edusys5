@@ -28,11 +28,9 @@
     <link href="css/custom.css" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
-    <link href="css/plugins/morris.css" rel="stylesheet">
-	
+    
 	<link rel="stylesheet" href="smoothness/jquery-ui.css">
-     <script src="jquery.js"></script>
-     <script src="jquery-ui.js"></script>
+ 
 	
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -52,78 +50,7 @@
 		}
 </style>
 
-    
-	<script>
-function printDiv(timetable) {
-     var printContents = document.getElementById('timetable').innerHTML;
-     var originalContents = document.body.innerHTML;
-
-     document.body.innerHTML = printContents;
-
-     window.print();
-
-     document.body.innerHTML = originalContents;
-}
-</script>
-<script src="file.js"></script>
-<script>
-function showUser(str) {
-    if (str == "") {
-        document.getElementById("txtHint").innerHTML = "";
-        return;
-    } else { 
-        if (window.XMLHttpRequest) {
-            // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            // code for IE6, IE5
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("txtHint").innerHTML = this.responseText;
-            }
-        };
-        xmlhttp.open("GET","get_timetable.php?class="+str,true);
-        xmlhttp.send();
-    }
-}
-
-$(function() {
-    $( "#name" ).autocomplete({
-        source: 'search_students.php'
-    });
-});
-
-$(function() {
-    $( "#book_name" ).autocomplete({
-        source: 'search_books.php'
-    });
-});
-
-$(function() {
-    $( "#roll_no" ).autocomplete({
-        source: 'searchid.php'
-    });
-});
-</script>
-<script>
-function printDiv(income) {
-     var printContents = document.getElementById('income').innerHTML;
-     var originalContents = document.body.innerHTML;
-
-     document.body.innerHTML = printContents;
-
-     window.print();
-
-     document.body.innerHTML = originalContents;
-}
-</script>
-<script>
-function goBack() {
-    window.history.back();
-}
-</script>
+ 
 </head>
 
 <body class="body">
@@ -142,35 +69,26 @@ function goBack() {
                 <a class="navbar-brand" href="index.php"><?php echo $school_name;?></a>
             </div>
             <!-- Top Menu Items -->
-<ul class="nav navbar-right top-nav">
-	<li class="dropdown">
-		<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $_SESSION['parents_uname'];?><b class="caret"></b></a>
-		<ul class="dropdown-menu">
-			<li><a href="description.php"><i class="fa fa-fw fa-user"></i> Profile</a></li>
-			<li><a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a></li>
-			<li><a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a></li>
-			<li><a href="logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a></li>
-		</ul>
-	</li>
-</ul>
-			
+	
 <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
 <div class="collapse navbar-collapse navbar-ex1-collapse">
 <ul class="nav navbar-nav side-nav">
-<li><a href="all_online_class.php"><i class="fa fa-fw fa-video-camera"></i> Online Class</a></li>
+<li><a href="#">Hello, <?php echo $_SESSION['parents_uname'];?></a></li>
+
     <li><a href="description.php"><i class="fa fa-fw fa-dashboard"></i> Profile</a></li>
     <li><a href="index.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>
     <li><a href="notifications.php"><i class="fa fa-fw fa-dashboard"></i> Notice Board</a></li>
+    <li><a href="individual_notifications.php"><i class="fa fa-fw fa-dashboard"></i> Messages</a></li>
     <li><a href="assignments.php"><i class="fa fa-fw fa-dashboard"></i> Home Work</a></li>
-    <li><a href=""><i class="fa fa-fw fa-dashboard"></i> Study Materials</a></li>
     <li><a href="upcoming_events.php"><i class="fa fa-fw fa-dashboard"></i> Upcoming Events</a></li>
     <li><a href="upcoming_holidays.php"><i class="fa fa-fw fa-dashboard"></i> Upcoming Holidays</a></li>
     <li><a href="student_remarks.php"><i class="fa fa-fw fa-dashboard"></i> Student Remarks</a></li>
     <li><a href="shw_timetable.php"><i class="fa fa-calendar" aria-hidden="true"></i> Show Timetable</a></li>
     <li><a href="shw_exam_timetable.php"><i class="fa fa-fw fa-dashboard"></i> Exam Time Table</a></li>
     <li><a href="attendance_desc.php"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> All Attendance</a></li>
+    <li><a href="all_online_class.php"><i class="fa fa-fw fa-video-camera"></i> Online Class</a></li>
     <li><a href="select_exam.php"><i class="fa fa-fw fa-dashboard"></i> Hall Ticket</a></li>
-    <li><a href="request_study.php"><i class="fa fa-fw fa-dashboard"></i> Certificates</a></li>
+    <li><a href="request_study.php"><i class="fa fa-fw fa-dashboard"></i>Request Certificates</a></li>
     <li><a href="books_issued.php"><i class="fa fa-fw fa-dashboard"></i> Books Issued</a></li>
     <li><a href="all_gate_pass.php"><i class="fa fa-fw fa-dashboard"></i> Gate Pass Issued</a></li>
     <li><a href="apply_leave.php"><i class="fa fa-fw fa-dashboard"></i> Leave Applications</a></li>

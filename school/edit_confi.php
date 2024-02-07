@@ -112,9 +112,31 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 					   <label for="sel1">Website:</label>
 					  <input type="text"  name="web" value="<?php echo $row["web"];?>"  class="form-control">
 					</div>
-					 <input type="hidden"  name="id" value="<?php echo $row["id"];?>"  class="form-control">
+
+					<div class="form-group">
+		   <label>SMS Username</label>
+		  <input type="text"  name="username" value='<?php echo $row["username"];?>'  class="form-control">
+		</div>
+
+		<div class="form-group">
+		   <label>SMS Password</label>
+		  <input type="text"  name="user_id" value='<?php echo $row["user_id"];?>'  class="form-control">
+		</div>
+
+		<div class="form-group">
+		   <label>SMS School Name</label>
+		  <input type="text"  name="sms_school_name" value='<?php echo $row["sms_school_name"];?>'  class="form-control">
+		</div>
+
+
+		<div class="form-group">
+	    <label for="usr">Upload School Logo:</label>
+		<input type="file" name="photo">
+		</div>
+
+	<input type="hidden"  name="id" value="<?php echo $row["id"];?>"  class="form-control">
 					
-			        <input type="submit" class="form-control btn btn-primary" name="add_school" value="Update" >
+	 <input type="submit" class="form-control btn btn-primary" name="add_school" value="Update" >
 					
 										
 			  </div>

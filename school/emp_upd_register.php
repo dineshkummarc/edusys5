@@ -13,13 +13,11 @@ require("connection.php");
 		
 		$fac_id=$_GET["fac_id"];
 		
-		$sql="select * from faculty where fac_id='".$fac_id."' and academic_year='".$cur_academic_year."'";
+		$sql="select * from faculty where fac_id='".$fac_id."'";
 		$result=mysqli_query($conn,$sql);
 		if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 		{
-			
-		}
-		
+	
 		?>
 
 
@@ -68,12 +66,9 @@ require("connection.php");
 		<input type="text" name="fac_fname" value="<?php echo $row['fac_fname'];?>" class="form-control" required>
 	  </div>
 	 
-	  <div class="form-group">
-	    <label for="usr">Last Name:</label>
-		<input type="text" name="fac_lname" value="<?php echo $row['fac_lname'];?>" class="form-control" >
-	  </div>
+	
 	 
-	  <input type="hidden" name="fac_id" value="<?php echo $row['fac_id'];?>" class="form-control" required>
+	  <input type="hidden" name="fac_id" value="<?php echo $row['fac_id'];?>">
 	 
 	   <div class="form-group">
 	    <label for="usr">DOB:</label>
@@ -105,14 +100,14 @@ require("connection.php");
 	  
 	  <div class="form-group">
 	   <label>Class Teacher for : </label>
-		<select class="form-control" name="class_teach" id="sel1">
+		<select class="form-control" name="class_teach">
 		<option value="<?php echo $row['class_teach'];?>"><?php echo $row['class_teach'];?></option>
 		<?php require("selectclass.php");?>
 	  
 	  
 	  <div class="form-group">
 	    <label for="usr">Class Section:</label>
-		<select name="section" class="form-control" required>
+		<select name="section" class="form-control">
 			<option value="<?php echo $row['section'];?>"><?php echo $row['section'];?></option>
 			<option value="Section A">Section A</option>
 			<option value="Section B">Section B</option>
@@ -158,8 +153,8 @@ require("connection.php");
 		</div>
 		
 		<div class="form-group">
-	    <label for="usr">Upload profile Photo:</label>
-		<input type="file" name="fac_photo">
+	    <label for="usr">Upload profile Photo:(Only jpeg/jpg images)</label>
+		<input type="file" name="photo">
 		</div>
 		
 		
@@ -181,6 +176,7 @@ require("connection.php");
 
 
 <?php 
+		}
 }
 require("footer.php");
 	}

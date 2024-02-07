@@ -130,15 +130,17 @@ $today_date=date("d-m-Y");
 	?>
 	 
 	 <span style="text-align:left;">DISE Code : <?php echo $sch_dise;?></span></p>
-	  <br>
-	   <center><h3 class="print-color" style="text-decoration:underline;">Study Certificate</h3></center><br>  
-	  <center><div>
+	 <div style="text-align:right;">
 	 <?php if(($row_student["photo_path"])!="photo/"){?>
 				<img class="img-responsive img-thumbnail" src="<?php echo $row_student['photo_path'];?>"  width="130" height="130"><?php }else{};?><br>
 	</div>
-	 </center>
+
+	  <br>
+	   <center><h3 class="print-color" style="text-decoration:underline;font-weight:bold;">STUDY CERTIFICATE</h3></center><br>  
+	 
+	
 	  
-		<p style="font-size:14px;line-height:25px;text-align:justify;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This is to certify that Master / kumari.<span style="font-weight:bold"><?php echo $first_name;?></span> S/o or D/o <span style="font-weight:bold"><?php echo $father_name;?></span> belongs to  <?php echo $address;?> is a student of this Institution during the academic year <?php echo $cur_academic_year;?> and studying in <?php echo $present_class;?>.
+		<p style="font-size:16px;line-height:25px;text-align:justify;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This is to certify that Master / kumari.<span style="font-weight:bold"><?php echo $first_name;?></span> S/o or D/o <span style="font-weight:bold"><?php echo $father_name;?></span> belongs to  <?php echo $address;?> is a student of this Institution during the academic year <?php echo $cur_academic_year;?> and studying in <?php echo $present_class;?>.
 	
 	 and admission no is <span style="font-weight:bold"><?php echo $admission_no;?></span> and he / she belongs to <span style="font-weight:bold"><?php echo $caste;?></span> caste,Mother tongue <?php echo $mother_tongue;?>, STS No <?php echo $sts;?> and D.O.B <?php echo $dob;?> of the candidate as per the admission register of the institution.</p>
 		<br>

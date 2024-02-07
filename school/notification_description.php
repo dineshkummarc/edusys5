@@ -45,7 +45,7 @@ $result=mysqli_query($conn,$sql);
          { 
         ?>
        <h4> Uploaded File: <a href="<?php echo $filepath;?>" target="_blank" style="color:blue;"><?php echo $filename; ?></a></h4>
-       <img src="<?php echo $filepath;?>">
+       <img src="<?php echo $filepath;?>" class="img img-thumbnail">
         <?php
          }
         ?>

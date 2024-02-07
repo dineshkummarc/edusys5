@@ -2,13 +2,14 @@
 session_start();
 if (isset($_SESSION['parents_uname']) && !empty($_SESSION['parents_pass']) && !empty($_SESSION['parents_class']) && !empty($_SESSION['student_id'])) 
 {
+require("header.php");
 $student_id=$_SESSION['student_id'];
-$cur_academic_year=$_SESSION['academic_year'];
 $present_class=$_SESSION['parents_class'];
+$cur_academic_year = $_SESSION['academic_year'];
 $today_date = date("Y-m-d");
 $first_name=$_SESSION['parents_uname'];
 $roll_no=$_SESSION['parents_pass'];
-require("header.php");
+
 require("connection.php");
 date_default_timezone_set('Asia/Kolkata');
 $today=date('Y-m-d');
@@ -61,9 +62,13 @@ $sql_holi="select * from holiday where ho_date >= '".$today_date."' ORDER BY id 
 $result_holi=mysqli_query($conn,$sql_holi);
 $rowcount_holiday = mysqli_num_rows($result_holi);
 
+$sql_indi_noti="select * from individual_notifications where academic_year='".$cur_academic_year."' and student_id='".$student_id."'  and indi_viewed='False'";
+$result_indi_noti=mysqli_query($conn,$sql_indi_noti);
+$rowcount_indi_noti = mysqli_num_rows($result_indi_noti);
+
 ?>
 
-<div id="page-wrapper"><br>
+
 <div class="container-fluid">
     <?php
     if($rowcount_holiday>0){ 
@@ -104,7 +109,7 @@ if($total_events>0){
 			<a href="<?php echo 'evt_description.php?id=' . $evt['id']; ?>"><span
 							style="font-size:16px;color:white;"><?php echo $evt["evt_name"]; ?>
 							<?php echo $evt_date; ?> </span></a>&nbsp;<span class="badge badge-success"
-					style="background-color:#fee00c;color:#000;"> Upcoming
+					style="background-color:#fee00c;color:red;"> Upcoming
 					Events</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<?php
             }
@@ -114,34 +119,32 @@ if($total_events>0){
             </div><br>
         <?php 
         } 
+        $sql_id_cards="select * from student_id_cards where  student_id='".$student_id."'";
+        $result_id_cards=mysqli_query($conn,$sql_id_cards);
+        if($row_id_cards=mysqli_fetch_array($result_id_cards,MYSQLI_ASSOC))
+	    {
+            $student_id_path = $row_id_cards["photo_path"];
+        }
+        
+      
       ?>
+
+<div class="row">
+	<div class="col-md-12">
+	<a href="individual_notifications.php"><button type="button" class="btn btn-primary">
+    Messages <span class="badge badge-danger" style="background-color:yellow;color:red;font-size:14px;"><?php echo $rowcount_indi_noti;?></span></button></a>
+
+    <a href="../school/<?php echo $student_id_path;?>" class="btn btn-success" ><i class="fa fa-user" title="My ID Card" aria-hidden="true"></i> My ID Card</a>
+                  
+    <a href="logout.php" class="btn btn-danger" ><i class="fa fa-power-off" aria-hidden="true" title="Logout"></i> </a>
+	</div>
+</div>
+<br>
 
 				<!-- //////////////////////.row /////////////////////////////////////////////-->
                 <div class="row">
                 
-                <div class="col-md-3">
-				<div class="panel panel-blue">
-					<div class="panel-heading">
-						<div class="row">
-							<div class="col-xs-3">
-								<i class="fa fa-video-camera fa-3x"></i>
-							</div>
-							<div class="col-xs-9 text-right">
-								<div>Live Online Class</div>
-
-
-							</div>
-						</div>
-					</div>
-					<a href="all_online_class.php">
-						<div class="panel-footer">
-							<span class="pull-left">Watch Online Class</span>
-							<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-							<div class="clearfix"></div>
-						</div>
-					</a>
-				</div>
-			</div>
+                
 
                 <div class="col-md-3">
 				<div class="panel panel-blue">
@@ -151,8 +154,8 @@ if($total_events>0){
 								<i class="fa fa-comments fa-3x"></i>
 							</div>
 							<div class="col-xs-9 text-right">
-								<div> <?php if ($notification_count > 0) { ?><span class="w3-badge w3-yellow">New</span><?php } ?> Notice Board </div>
-								<div class="huge"><span class="w3-badge w3-red"><?php if ($notification_count > 0) {
+								<div> <?php if ($notification_count > 0) { ?><span class="w3-badge w3-yellow" >New</span><?php } ?> Notice Board </div>
+								<div class="huge"><span class="w3-badge w3-red" ><?php if ($notification_count > 0) {
                                     echo $notification_count;
                                 } ?></span></div>
 							</div>
@@ -177,7 +180,7 @@ if($total_events>0){
                                         <i class="fa fa-file-text fa-3x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-								<div> <?php if ($assign_count > 0) { ?><span class="badge badge-success" style="background-color:yellow;color:#000;">Latest</span><?php } ?> Home Work </div>
+								<div> <?php if ($assign_count > 0) { ?><span class="badge badge-success" style="background-color:yellow;color:red;">Latest</span><?php } ?> Home Work </div>
 								<div class="huge"><span class="w3-badge w3-red"><?php if ($assign_count > 0) {
                                     echo $assign_count;
                                 } ?></span></div>
@@ -193,10 +196,32 @@ if($total_events>0){
                             </a>
                         </div>
                     </div>
+
+                    
             
 
                    
-				
+				    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-blue">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-bar-chart fa-3x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+									    <div>Student Attendance</div>
+                                       </div>
+                                </div>
+                            </div>
+                            <a href="attendance_desc.php">
+                                <div class="panel-footer">
+                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
 				
                     <div class="col-lg-3 col-md-6">
                         <div class="panel panel-blue">
@@ -251,7 +276,7 @@ if($total_events>0){
                         }else if($leave_status == "rejected"){
                             $badge = '<span class="badge badge-danger" style="background-color:#dc3545;"> Rejected</span>';
                         }else if($leave_status == ""){
-                            $badge = '<span class="badge badge-default" style="background-color:yellow; color:#000;"> Pending</span>';
+                            $badge = '<span class="badge badge-default" style="background-color:blue; color:#000;"> Pending</span>';
                         }
                     }
                     ?>
@@ -281,31 +306,35 @@ if($total_events>0){
                             </a>
                         </div>
                     </div>
-                <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-blue">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-bar-chart fa-3x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-									    <div>Student Attendance</div>
-                                       </div>
-                                </div>
-                            </div>
-                            <a href="attendance_desc.php">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+            
+
+                    <div class="col-md-3">
+				<div class="panel panel-blue">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-3">
+								<i class="fa fa-video-camera fa-3x"></i>
+							</div>
+							<div class="col-xs-9 text-right">
+								<div>Live Online Class</div>
+
+
+							</div>
+						</div>
+					</div>
+					<a href="all_online_class.php">
+						<div class="panel-footer">
+							<span class="pull-left">Watch Online Class</span>
+							<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+							<div class="clearfix"></div>
+						</div>
+					</a>
+				</div>
+			</div>
 				
 				
                     <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-orange">
+                        <div class="panel panel-blue">
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
@@ -347,7 +376,7 @@ if($total_events>0){
 					?>
                   
                     <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-yellow">
+                        <div class="panel panel-blue">
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
@@ -355,7 +384,7 @@ if($total_events>0){
                                     </div>
                                   
                                        <div class="col-xs-9 text-right">
-								<div> <?php if ($req_study > 0) { ?><span class="w3-badge w3-blue">New</span><?php } ?> Request Certificate</div>
+								<div> <?php if ($req_study > 0) { ?><span class="w3-badge w3-yellow">New</span><?php } ?> Request Certificate</div>
 								<div class="huge"><span class="w3-badge w3-red"><?php if ($req_study > 0) {
                                     echo $req_study;
                                 } ?></span></div>
@@ -428,23 +457,9 @@ if($total_events>0){
                         </div>
                     </div>                
     
-	<?php 
-	$sql="select student_type from students where id='".$student_id."'";
-	//var_dump($sql);
-	$result=mysqli_query($conn,$sql);
 
-	if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
-	{
-		
-		$student_type=$row["student_type"];
-	}
-	
-	
-	
-	if($student_type==""){
-	?>
 	<div class="col-sm-3">
-    <div class="panel panel-orange">
+    <div class="panel panel-blue">
         <div class="panel-heading">
             <div class="row">
                 <div class="col-xs-3">
@@ -467,67 +482,11 @@ if($total_events>0){
         </a>
     </div>
 </div>
-	<?php	
-	}else if($student_type=="rte"){
-	?>
-	<div class="col-lg-3 col-md-6">
-    <div class="panel panel-yellow">
-        <div class="panel-heading">
-            <div class="row">
-                <div class="col-xs-3">
-                
-                    <i class="fa fa-fw fa-money fa-3x"></i>
-                </div>
-                <div class="col-xs-9 text-right">
-                    <div>Admission Fee</div>
-                    <div class="huge"><?php echo $admission_adm_fee;?></div>
-                    
-                </div>
-            </div>
-        </div>
-        <a href="indi_adm_paid_det.php">
-            <div class="panel-footer">
-                <span class="pull-left">View Details</span>
-                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                <div class="clearfix"></div>
-            </div>
-        </a>
-    </div>
-</div>
-	<?php	
-	}else if($student_type=="staff children"){
-	?>
-	<div class="col-lg-3 col-md-6">
-    <div class="panel panel-green">
-        <div class="panel-heading">
-            <div class="row">
-                <div class="col-xs-3">
-                
-                    <i class="fa fa-fw fa-money fa-3x"></i>
-                </div>
-                <div class="col-xs-9 text-right">
-                    <div>Staff Chidren Fee</div>
-                    <div class="huge"><?php echo $admission_cca_fee;?></div>
-                    
-                </div>
-            </div>
-        </div>
-        <a href="indi_cca_paid_det.php">
-            <div class="panel-footer">
-                <span class="pull-left">View Details</span>
-                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                <div class="clearfix"></div>
-            </div>
-        </a>
-    </div>
-</div>
-<?php	
-	}
-    ?>
+	
     
         
     <div class="col-lg-3 col-md-6">
-    <div class="panel panel-yellow">
+    <div class="panel panel-blue">
         <div class="panel-heading">
             <div class="row">
                 <div class="col-xs-3">
@@ -550,8 +509,9 @@ if($total_events>0){
     </div>
 </div>
    </div>
-   <div class="row">
-<div class="col-sm-6">
+  <!----//////////////////////////////////////////////////////////////////////////---->
+  <div class="row">
+<div class="col-md-6">
 	<div class="panel panel-blue">
 		<div class="panel-heading">
 		   <h4>Latest Upcoming Events</h4>
@@ -597,7 +557,7 @@ if($total_events>0){
 		</div>
 		</div>
 			</div>
-			<div class="col-sm-6">
+			<div class="col-md-6">
         <div class="panel panel-blue">
             <div class="panel-heading">
                 <h4>Upcoming Holidays</h4>
@@ -626,7 +586,7 @@ if($total_events>0){
 	 ?>
     <tr>
 		<td><?php echo $row_count;?></td>
-		<td><a href="upcoming_holidays.php"><?php echo $row_holi["ho_name"];?> <span class="badge badge-success" style="background-color:orange;"> Active</span></a></td>
+		<td><a href="upcoming_holidays.php"><?php echo $row_holi["ho_name"];?> <span class="badge badge-success" style="background-color:blue;"> Active</span></a></td>
 		
 		<td><?php echo $ho_date;?></td>
 		
@@ -647,12 +607,7 @@ if($total_events>0){
 </div>
 
 <?php
-ob_start();
-$first_name=$_SESSION["parents_uname"];
-$admission_no=$_SESSION["parents_pass"];
-date_default_timezone_set("Asia/Kolkata");
-$today_date=date("Y-m-d");
-$sql_fee="select sum(adm_fee) as admission_fee from student_fee where student_id='".$student_id."' and academic_year='".$cur_academic_year."'";
+$sql_fee="select sum(tot_paid) as admission_fee from student_fee where student_id='".$student_id."' and academic_year='".$cur_academic_year."'";
 $result_fee=mysqli_query($conn,$sql_fee);
 if(mysqli_num_rows($result_fee)>0){
 if($row_fee=mysqli_fetch_array($result_fee,MYSQLI_ASSOC))
@@ -667,23 +622,16 @@ if($row_fee=mysqli_fetch_array($result_fee,MYSQLI_ASSOC))
 
     </div>
 
+  <!-----/////////////////////////////////////////////////////////////////////////--->
+
 </div>
-</div>
-<script type="text/javascript">
-        var blink_parents = 
-            document.getElementById('blink_parents');
-  
-        setInterval(function () {
-            blink_parents.style.opacity = 
-            (blink_parents.style.opacity == 0 ? 1 : 0);
-        }, 800); 
-    </script>
+
+
 
 <?php
 require("footer.php");
-
-
 }
+
 else
 {
     header("Location:login.php");

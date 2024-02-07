@@ -18,7 +18,7 @@ require("connection.php");
 	  <label for="sel1">Select Route</label>
 	   <?php echo '<select class="form-control" name="route_name">';
 		echo '<option value="">------</option>';
-		$sql_route="select distinct route_name from routes where academic_year='".$cur_academic_year."'";
+		$sql_route="select distinct route_name from route_students";
         $result_route=mysqli_query($conn,$sql_route);
          foreach($result_route as $value_route)
 		{
@@ -34,7 +34,7 @@ require("connection.php");
 	  <label for="sel1">Select Stage</label>
 	   <?php echo '<select class="form-control" name="stage_name">';
 		echo '<option value="">------</option>';
-		$sql_stage="select distinct stage_name from stages where academic_year='".$cur_academic_year."'";
+		$sql_stage="select distinct stage_name from route_students";
         $result_stage=mysqli_query($conn,$sql_stage);
          foreach($result_stage as $value_stage)
 		{
@@ -46,7 +46,7 @@ require("connection.php");
         ?>
 	</div>
 	
-	<button type="submit" name="filt_submit" class="btn btn-primary">Filter</button>
+	<button type="submit" class="btn btn-primary">Filter</button>
 	<button class="btn btn-success" onclick="goBack()">Go Back</button>
 </script><br>
 	</form>
@@ -83,39 +83,28 @@ require("connection.php");
 	$num_rec_per_page=150;
 	if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
 	$start_from = ($page-1) * $num_rec_per_page; 
-	if(isset($_GET["filt_submit"]))
-		{
-	if((isset($_GET["route_name"]))&&(isset($_GET["stage_name"])))
+
+	if((!empty($_GET['route_name']))&&(!empty($_GET['stage_name'])))
 	{
-		$route_name=$_GET["route_name"];
-		$stage_name=$_GET["stage_name"];
-		
-		
-		
-	$sql="select * from route_students where academic_year='".$cur_academic_year."' and route_name='".$route_name."' and stage_name='".$stage_name."' ORDER BY first_name  LIMIT $start_from, $num_rec_per_page";
+	$route_name=$_GET["route_name"];
+	$stage_name=$_GET["stage_name"];
+	$sql="select * from route_students where academic_year='".$cur_academic_year."' and route_name='".$route_name."' and stage_name='".$stage_name."' ORDER BY id  LIMIT $start_from, $num_rec_per_page";
+	var_dump($sql);
 	}
-	
-	if(isset($_GET["route_name"]))
+	else if(!empty($_GET["route_name"]))
 	{
-		
-		$route_name=$_GET["route_name"];
-		
-		
-		
-		
-	$sql="select * from route_students where academic_year='".$cur_academic_year."' and route_name='".$route_name."' ORDER BY first_name  LIMIT $start_from, $num_rec_per_page";
+	$route_name=$_GET["route_name"];
+	$sql="select * from route_students where academic_year='".$cur_academic_year."' and route_name='".$route_name."' ORDER BY id  LIMIT $start_from, $num_rec_per_page";
 	}
-	
+	else if(!empty($_GET["stage_name"]))
+	{
+	$stage_name=$_GET["stage_name"];
+	$sql="select * from route_students where academic_year='".$cur_academic_year."' and stage_name='".$stage_name."' ORDER BY id  LIMIT $start_from, $num_rec_per_page";
+	var_dump($sql);
+	}
 	else
 	{
-		$sql="select * from route_students where academic_year='".$cur_academic_year."' and route_name='".$route_name."' ORDER BY first_name  LIMIT $start_from, $num_rec_per_page";
-	}
-	
-	
-	}
-	else{
-		
-	$sql="select * from route_students where academic_year='".$cur_academic_year."' ORDER BY first_name  LIMIT $start_from, $num_rec_per_page";	
+		$sql="select * from route_students where academic_year='".$cur_academic_year."' ORDER BY id  LIMIT $start_from, $num_rec_per_page";
 	}
 	$result=mysqli_query($conn,$sql);
 	$row_count =1;
@@ -123,25 +112,31 @@ require("connection.php");
 
 	foreach($result as $row)
 	{
+	$student_id=$row["student_id"];
+	$sql_students="select * from students where id='".$student_id."'";
+	$result_students=mysqli_query($conn,$sql_students);
+	//var_dump($sql);
 	
-	
+	if($row_students=mysqli_fetch_array($result_students,MYSQLI_ASSOC))
+	{
+	$present_class=$row_students["present_class"];
+	$first_name=$row_students["first_name"];
+	$roll_no=$row_students["roll_no"];
+
+	}
 	?>
-    
-		<tr>
-		
-		
-		
+    <tr>
 		<td><span style="color: #207FA2; "><?php echo $row_count;?></span></td>
-		<td><span style="color: #207FA2; "><a href="<?php echo 'description.php?first_name='.$row['first_name'].'&roll_no='.$row['roll_no'];?>" ><?php echo $row["first_name"];?></a></span></td>
+		<td><span style="color: #207FA2; "><a href="<?php echo 'description.php?id='.$student_id;?>" ><?php echo $first_name;?></a></span></td>
 		
-		<td><span style="color: #207FA2; "><?php echo $row["roll_no"];?></span></td>
+		<td><span style="color: #207FA2; "><?php echo $roll_no;?></span></td>
 		
 		<td><span style="color: #207FA2; "><?php echo $row["route_name"];?></span></td>
 		<td><span style="color: #207FA2; "><?php echo $row["stage_name"];?></span></td>
 		
 		
 		<td><div class="btn-group">
-		<a href="<?php echo 'description.php?first_name='.$row['first_name'].'&roll_no='.$row['roll_no'];?>" title="View" >  <i class="fa fa-eye fa-lg" style="color:#8ba83e;" aria-hidden="true"></i></a>
+		<a href="<?php echo 'description.php?id='.$student_id;?>" title="View" >  <i class="fa fa-eye fa-lg" style="color:#8ba83e;" aria-hidden="true"></i></a>
 		
         <a href="<?php echo 'edit_route_students.php?id='.$row['id']; ?>" title="Edit">  <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>
 		
@@ -157,30 +152,11 @@ require("connection.php");
 		
 	}
 	
-	
-	if(isset($_GET["filt_submit"]))
-	{
-		
-		if(($_GET["route_name"])!="")
-		{
-			$route_name=$_GET["route_name"];
-			$sql="select * from route_students where academic_year='".$cur_academic_year."' and route_name='".$route_name."' ORDER BY first_name LIMIT $start_from, $num_rec_per_page";
-		$result=mysqli_query($conn,$sql);
-		$total_students=mysqli_num_rows($result);
-		echo "<p style='color:blue;'>Total No of ".$route_name." Students = ".$total_students.'</p>';
-		}
-		}
-	
-	else
-	{
-		
-	$sql="select * from route_students where academic_year='".$cur_academic_year."'";
-	$result=mysqli_query($conn,$sql);
+
 	
 	$total_students=mysqli_num_rows($result);
 	echo "<p style='color:blue;'>All Students = ".$total_students.'</p>';
-	}
-		
+
 		?>
 		
 		</table></center>

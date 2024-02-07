@@ -23,8 +23,6 @@ $message_detail=$_POST["message_detail"];
 
 
 $sql="select distinct parent_contact,present_class,section from students where academic_year='".$cur_academic_year."' and present_class='".$meeting_class."' and  section='".$section."'";	
-
-
 $result=mysqli_query($conn,$sql);
 var_dump($sql);
 /////////////////////////////////START SCHOOL DETAILS ////////////////////////////////////////

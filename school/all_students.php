@@ -131,6 +131,7 @@ require("header.php");
 	<button type="submit" name="search_student" class="btn btn-sm btn-success">Get Details</button>
 	<a href="all_students.php" class="btn btn-primary btn-sm">View All Students</a>
 	<a href="register_students.php" class="btn btn-success">Add New Student</a>
+	<a href="bulk_student_idcard.php" class="btn btn-success">Generate Student ID Card</a>
 	</form>
 	<!------------------------------------------End of Search Form------------------------------------------------------->
 	</div>
@@ -142,7 +143,7 @@ require("header.php");
 	
 	<center><h2>All Students</h2></center>
 	<div class="table-responsive">
-	<center><table class="table table-bordered">
+	<center><table class="table table-bordered" class="datatable">
 	<tbody>
 	<tr>
 		<td><span style="font-weight: bold;">SL No</span></td>

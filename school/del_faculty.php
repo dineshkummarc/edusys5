@@ -4,8 +4,8 @@ if(isset($_SESSION['lkg_uname'])&&!empty($_SESSION['lkg_pass'])&&!empty($_SESSIO
 {
 $cur_academic_year = $_SESSION['academic_year'];
 require("connection.php");
-if(isset($_GET['fac_id'])){
-	$fac_id=$_GET['fac_id'];
+if(isset($_GET['id'])){
+	$fac_id=$_GET['id'];
 	
 }
 $sql = "DELETE FROM faculty WHERE fac_id='".$fac_id."'";

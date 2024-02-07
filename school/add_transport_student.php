@@ -12,10 +12,21 @@ require("connection.php");
     <div class="col-sm-12" style="padding-top:30px;">
 	<h3>Update Students Transport Details</h3>
 	  <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" class="form-inline" method="get" role="form">
-	  <div class="form-group">
-		
-		  <select class="form-control" name="filt_class" id="sel1">
-			<?php require("selectclass.php");?>
+
+		<div class="form-group">
+	   <?php echo '<select class="form-control" name="filt_class">';
+		 echo '<option value="">Select Section</option>';
+		 $sql="select distinct present_class from students where academic_year='".$cur_academic_year."'";
+				 $result=mysqli_query($conn,$sql);
+					foreach($result as $value)
+		 {
+		 ?>
+		 <option value='<?php echo $value["present_class"];?>'><?php echo $value["present_class"];?></option>
+		 <?php
+		 }
+		 echo '</select>';
+				 ?>
+		 </div>
 			
 			
 		<div class="form-group">
@@ -134,6 +145,7 @@ require("connection.php");
 		</tr>
 		<input type="hidden" name="present_class[]" value="<?php echo $row["present_class"];?>">
 		<input type="hidden" name="section[]" value="<?php echo $row["section"];?>">
+		<input type="hidden" name="student_id[]" value="<?php echo $row["id"];?>">
 		<input type="hidden" name="count" value="<?php echo $count;?>">
 		<?php 
 		 }

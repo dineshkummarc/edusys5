@@ -31,6 +31,8 @@ error_reporting("0");
 			</select>
 		</div>
 	<button type="submit" name="filt_submit" class="btn btn-primary">Filter</button>
+	<a href="register_faculty.php" class="btn btn-success">Add New Staff</a>
+	<a href="bulk_staff_id.php" class="btn btn-success">Generate Staff ID Card</a>
 	</form>
 	
 	</div>
@@ -122,37 +124,24 @@ error_reporting("0");
 		<td><?php echo $row["parent_contact"];?></td>
 		<td><div class="btn-group"><a href="<?php echo 'fac_description.php?fac_id='.$row['fac_id'];?>" > <i class="fa fa-eye fa-lg" style="color:#8ba83e;" aria-hidden="true"></i></a>
         <a href="<?php echo 'emp_upd_register.php?fac_id='.$row['fac_id']; ?>"> <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>
-        <a href="<?php echo 'del_confirm_fac.php?fac_id='.$row['fac_id']; ?>"> <i class="fa fa-trash-o fa-lg" style="color:red;" aria-hidden="true"></i></a>
+				<a href="#" onclick="deletestaff(<?php echo $row['fac_id'];?>)">   <i class="fa fa-trash-o fa-lg" style="color:red;" aria-hidden="true"></i></a>
        </div></td>
-		</tr>
+	</tr>
+	<script>
+		  function deletestaff(id){
+			  if(confirm("Do you want to delete?")){
+				  window.location.href='del_faculty.php?id='+id+'';
+			  }
+		  }
+		  
+		  </script>
 		<?php $row_count++; 
 		
 	}
 	
-	
-	if(isset($_GET["filt_submit"]))
-	{
-		
-		if(($_GET["fac_dep"])!="")
-		{
-			$fac_dep=$_GET["fac_dep"];
-			$sql="select * from faculty where fac_dep='".$fac_dep."' ORDER BY fac_id DESC LIMIT $offset, $no_of_records_per_page";
-		$result=mysqli_query($conn,$sql);
-		$total_students=mysqli_num_rows($result);
-		echo "<p style='color:blue;'>Total No of ".$fac_dep." Employees = ".$total_students.'</p>';
-		}
-		}
-	
-	else
-	{
-		
-	$sql="select * from faculty";
-	$result=mysqli_query($conn,$sql);
-	
 	$total_students=mysqli_num_rows($result);
 	echo "<p style='color:blue;'>All Employees = ".$total_students.'</p>';
-	}
-		
+
 		?>
 		
 		</table>

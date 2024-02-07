@@ -7,7 +7,7 @@ const butInstall = document.getElementById('butInstall');
 
 /* Only register a service worker if it's supported */
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/school_latestc/parents/sw.js');
+  navigator.serviceWorker.register('sw.js');
 }
 
 /**

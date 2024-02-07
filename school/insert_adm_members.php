@@ -24,29 +24,20 @@ if(isset($_POST["admini"]))
 	$filepath = "admini/".$filename;
 
 	move_uploaded_file($filetmp,$filepath);
-	
-	
-	
-	
+
 	$sql="insert into administration (adm_name,adm_desig,adm_loc,parent_contact,memb_since,adm_email,adm_photo_name,adm_photo_path,adm_photo_type,academic_year) values('$adm_name','$adm_desig','$adm_loc','$parent_contact','$memb_since','$adm_email','$filename','$filepath','$filetype','$cur_academic_year')";
 	
 	
 	if ($conn->query($sql) === TRUE) 
 	{
-		echo "success";
-	
-	header("Location:add_adm_members.php?success=.'success'");
-
-
-	} 
+header("Location:adm_members.php?success=.'success'");
+} 
 	else 
 	{
 				
 	header("Location:add_adm_members.php?failed=.'failed'");	
 		
 	}
-
-
 }
 
 	}else{

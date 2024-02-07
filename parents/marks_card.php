@@ -4317,7 +4317,7 @@ $sql = "SELECT * FROM school_det ORDER BY ID DESC LIMIT 1";
 
  
 <?php
-			
+require("footer.php");			
 }
 else
 {

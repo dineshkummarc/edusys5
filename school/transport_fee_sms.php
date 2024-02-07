@@ -5,17 +5,17 @@ if(isset($_SESSION['lkg_uname'])&&!empty($_SESSION['lkg_pass'])&&!empty($_SESSIO
 $cur_academic_year = $_SESSION['academic_year'];
 require("connection.php");
 require("header.php");
-$f1=$_GET['name'];
-$f2=$_GET['tot_paid'];
-$f3=$_GET['rec_no'];
-$roll_no=$_GET['roll_no'];
+
+$student_id = $_GET['student_id'];
+$tot_paid=$_GET['tot_paid'];
+$rec_no=$_GET['rec_no'];
 $note="Van Fee";
-$f4= date('d-m-Y', strtotime( $_GET['rec_date'] ));
+$rec_date= date('d-m-Y', strtotime( $_GET['rec_date'] ));
 
 /////////////////////////////////START SCHOOL DETAILS ////////////////////////////////////////
 
 	
-	$sql_sch = "SELECT * FROM school_det ORDER BY ID DESC LIMIT 1";
+	$sql_sch = "SELECT * FROM school_det";
 	$result_sch=mysqli_query($conn,$sql_sch);
 	if($row_sch=mysqli_fetch_array($result_sch,MYSQLI_ASSOC))
 	{
@@ -29,29 +29,29 @@ $f4= date('d-m-Y', strtotime( $_GET['rec_date'] ));
 	////////// END SCHOOL DETAILS //////////////////
 	
 
-$sql="select parent_contact,present_class from students where academic_year='".$cur_academic_year."' and first_name='".$f1."' and roll_no='".$roll_no."'";
+$sql="select first_name,roll_no,parent_contact,present_class from students where id='".$student_id."'";
+//var_dump($sql);
 
 $result=mysqli_query($conn,$sql);
 if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 	{
+		$first_name = $row["first_name"];
+		$roll_no = $row["roll_no"];
 		$mob_number=$row["parent_contact"];
 		$present_class=$row["present_class"];
 	}
 	
 
-		$sql_fee_tot="select adm_fee  from set_fee where class='".$present_class."'  and academic_year='".$cur_academic_year."' order by id desc limit 1";
+		$sql_fee_tot="select van_fee  from set_van_fee where route_name='".$route_name."'  and stage_name='".$stage_name."'";
 		$result_fee_tot=mysqli_query($conn,$sql_fee_tot);
 		if($row_fee_tot=mysqli_fetch_array($result_fee_tot,MYSQLI_ASSOC))
 		{
-			$paid_fee_total=$row_fee_tot["adm_fee"];
+			$van_fee=$row_fee_tot["van_fee"];
 		}
-		else
-		{
-			$paid_fee_total=0;
-		}
-		$balance=$paid_fee_total-$f2;
+		
+		$balance=$van_fee-$tot_paid;
 
-		$message_details = "Thank you ".$f1.". Your Van fee amount Rs.".$f2." has been received.Receipt no is ".$f3." and receipt date is ".$f4;
+		$message_details = "Thank you ".$first_name.". Your Van fee amount Rs.".$tot_paid." has been received.Receipt no is ".$rec_no." and receipt date is ".$rec_date;
 
 		$message = "Dear parents, ".$message_details."-".$sch_detail;
 		require("sms_gateway.php");
@@ -94,7 +94,7 @@ function printDiv(letterhead) {
 	<table class="table table-bordered">
 	<tr>
 	<td>
-	<span style="font-size:18px;">Student Name : <?php echo $f1;?></span>
+	<span style="font-size:18px;">Student Name : <?php echo $first_name;?></span>
 	</td>
 	<td>
 	<span style="font-size:18px;">Roll No : <?php echo $roll_no;?></span>
@@ -103,10 +103,10 @@ function printDiv(letterhead) {
 	
 	<tr>
 	<td>
-	<span style="font-size:18px;">Receipt Date : <?php echo $f4;?></span>
+	<span style="font-size:18px;">Receipt Date : <?php echo $rec_date;?></span>
 	</td>
 	<td>
-	<span style="font-size:18px;">Fee Amount Rs.  <?php echo $f2;?></span>
+	<span style="font-size:18px;">Fee Amount Rs.  &#8377;<?php echo $tot_paid;?></span>
 	</td>
 	</tr>
 	

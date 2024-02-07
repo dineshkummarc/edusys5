@@ -5,8 +5,8 @@ if(isset($_SESSION['lkg_uname'])&&!empty($_SESSION['lkg_pass'])&&!empty($_SESSIO
 $cur_academic_year = $_SESSION['academic_year'];
     $key=$_GET['key'];
     $array = array();
-	//require("connection.php");
-	$conn = mysqli_connect("localhost","root","","school");
+	require("connection.php");
+	//$conn = mysqli_connect("localhost","root","","school");
 	$sql="SELECT id,first_name,roll_no,present_class FROM students where academic_year='".$cur_academic_year."' and first_name LIKE '%".$key."%' order by first_name";
 	$query = mysqli_query($conn,$sql);
 	

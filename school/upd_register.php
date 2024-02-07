@@ -90,15 +90,7 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 					  <input type="text" placeholder="Enrollment No" name="roll_no" value="<?php echo $row["roll_no"]; ?>"  class="form-control">
 					</div>
 					
-					<div class="form-group">
-					  <label for="sel1"><span style="color:red;font-size:18px;">*</span>Student Type:</label>
-					  <select class="form-control" name="student_type"  id="sel1">
-						<option value="<?php echo $row["student_type"]; ?>"><?php echo $row["student_type"]; ?></option>
-						<option value="">Normal</option>
-						<option value="rte">RTE</option>
-						<option value="staff children">Staff Children</option>
-					 </select>
-					</div>
+			
 					
 					<div class="form-group">
 					  <label for="usr"><span style="color:red;font-size:18px;">*</span>Date of Birth:</label>
@@ -144,22 +136,11 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 					  <input type="text" placeholder="Adhaar No" name="adhaar_no" value="<?php echo $row["adhaar_no"]; ?>"  class="form-control" id="usr">
 					</div>
 					
-					<div class="form-group">
-					<label>Joined Date</label>
-					 <input type="date" name="join_date" placeholder="Join Date"  value="<?php echo $row["join_date"]; ?>"  class="form-control" id="usr">
-					</div>
+				
 				
 					<input type="hidden"  name="id" value="<?php echo $id; ?>"  class="form-control" id="usr">
 					
-					<div class="form-group">
-						<label for="usr">Upload Photo:</label>
-						<input type="file" value="Photo" name="photo">
-					</div>
-					
-					
-
-					
-					
+				
 			</div>
 		</div>
 	</div>

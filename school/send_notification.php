@@ -9,9 +9,6 @@ $cur_academic_year = $_SESSION['academic_year'];
 	require("connection.php");
 	?>
 	<head>
-<script>
-var s = document.createElement('script'); s.setAttribute('src','http://developer.quillpad.in/static/js/quill.js?lang=Kannada&key=f397196f96576c1bc0f2a79f807b39b1'); s.setAttribute('id','qpd_script'); document.head.appendChild(s);
-</script>
 
 
 <script>
@@ -47,21 +44,36 @@ function printDiv(income) {
     
     <div class="form-group">
     <select class="form-control" name="present_class">
-    <?php require("selectclass.php");?>
+    <option value="">Select Class</option>
+    <?php
+    $sql="select distinct present_class from students where academic_year='".$cur_academic_year."'";
+    $result=mysqli_query($conn,$sql);
+    foreach($result as $value)
+    {
+    ?>
+    <option value='<?php echo $value["present_class"];?>'><?php echo $value["present_class"];?></option>
+    <?php
+    }
+   
+    ?>
+    </select>
+    </div>
         
     <div class="form-group">
-    <?php echo '<select class="form-control" name="section">';
-    echo '<option value="">Select Section</option>';
+    <select class="form-control" name="section">
+    <option value="">Select Section</option>
+    <?php
     $sql="select distinct section from students where academic_year='".$cur_academic_year."'";
     $result=mysqli_query($conn,$sql);
-        foreach($result as $value)
+    foreach($result as $value)
     {
     ?>
     <option value='<?php echo $value["section"];?>'><?php echo $value["section"];?></option>
     <?php
     }
-    echo '</select>';
+   
     ?>
+    </select>
     </div>
 	
 	<div class="form-group">

@@ -39,7 +39,7 @@ $cur_academic_year = $_SESSION['academic_year'];
 	<select class="form-control" name="class">
 	<option value="">Select Class</option>
 	<?php
-	$sql="select distinct present_class from attendance where academic_year='".$cur_academic_year."'";
+	$sql="select distinct present_class from students where academic_year='".$cur_academic_year."'";
 	$result=mysqli_query($conn,$sql);
 	foreach($result as $value)
 	{

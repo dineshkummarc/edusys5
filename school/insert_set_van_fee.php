@@ -20,8 +20,7 @@ $today=date('Y-m-d');
 
   $sql="insert into set_van_fee (academic_year,route_name,stage_name,van_fee,assign_date) values('$cur_academic_year','$route_name','$stage_name','$van_fee','$today')";
 		  if ($conn->query($sql) === TRUE) {
-		  // $sql_upd="update students set route_name='".$route_name."',stage_name='".$stage_name."' where academic_year='".$cur_academic_year."'";
-		   //var_dump($sql_upd);
+	
 			header("Location:set_van_fee.php?status='submitted'");
 			} else {
 			header("Location:set_van_fee.php?status='failed'");

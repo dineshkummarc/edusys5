@@ -31,11 +31,7 @@ require("connection.php");
 					  <input type="text" placeholder="Student Name" name="first_name" required class="form-control" id="usr">
 					</div>
 					
-					
-					<div class="form-group">
-					<label for="usr">Joined Date:</label>
-					 <input type="date" name="join_date" placeholder="Join Date"  class="form-control" id="usr">
-					</div>
+				
 					
 					<div class="form-group">
 					<label for="sel1">Select Class</label>
@@ -73,17 +69,7 @@ require("connection.php");
 					 </select>
 					</div>
                    
-					
-					<div class="form-group">
-					  <label for="sel1"><span style="color:red;font-size:18px;">*</span>Student Type:</label>
-					  <select class="form-control" name="student_type"  id="sel1">
-						<option value="">Normal</option>
-						<option value="rte">RTE</option>
-						<option value="free education">Free Education</option>
-						<option value="staff children">Staff Children</option>
-						<option value="jamaath student">Jamaath Student</option>
-					 </select>
-					</div>
+			
 					
 					<div class="form-group">
 						<label>Caste</label>
@@ -129,11 +115,7 @@ require("connection.php");
 					  <input type="text" placeholder="Adhaar No" name="adhaar_no"  class="form-control" id="usr">
 					</div>
 	
-					<div class="form-group">
-						<label for="usr">Upload Photo:</label>
-						<input type="file" value="Photo" name="photo">
-					</div>
-
+				
 					<Input type="submit" class="btn btn-primary" name="register" value="Register" >
 				</form>
 				

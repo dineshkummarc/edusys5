@@ -3,77 +3,131 @@ session_start();
 if(isset($_SESSION['lkg_uname'])&&!empty($_SESSION['lkg_pass'])&&!empty($_SESSION['academic_year']))
 {
 $cur_academic_year = $_SESSION['academic_year'];
-///////////////////////////////////////////// Holiday SMS ////////////////////////////////////////////////
-if(isset($_POST["holiday_sms"]))
+require("connection.php");
+require("header.php");
+$sql_sch = "SELECT * FROM school_det ORDER BY ID DESC LIMIT 1";
+$result_sch=mysqli_query($conn,$sql_sch);
+if($row_sch=mysqli_fetch_array($result_sch,MYSQLI_ASSOC))
 {
-	require("connection.php");
-	$meeting_type = test_input($_POST["meeting_type"]);
-	$meeting_class = test_input($_POST["meeting_class"]);
-	$section = test_input($_POST["section"]);
-	$holiday_name = test_input($_POST["holiday_name"]);
-	$holiday_date = test_input($_POST["holiday_date"]);
-	
-	/////////////////////////////////START SCHOOL DETAILS ////////////////////////////////////////
-	
-	$sql_sch = "SELECT * FROM school_det where academic_year='".$cur_academic_year."' ORDER BY ID DESC LIMIT 1";
-	$result_sch=mysqli_query($conn,$sql_sch);
-	if($row_sch=mysqli_fetch_array($result_sch,MYSQLI_ASSOC))
-	{
-		$sch_name=$row_sch["sch_name"];
-		$location=$row_sch["location"];
-		$city=$row_sch["city"];
-		$approved_senderid=$row_sch["sender_id"];
-		
-		$sch_detail=$row_sch['sch_name']." ".$row_sch['location'];
-	}
-	///////////////////////////////// END SCHOOL DETAILS ///////////////////////////////////////////
-	if($_POST["meeting_class"]=="all"){
-	$sql_holiday="select first_name,parent_contact from students where academic_year='".$cur_academic_year."'";	
-	echo "all parents";
-	}else{
-	$sql_holiday="select first_name,parent_contact from students where academic_year='".$cur_academic_year."' and present_class='".$meeting_class."' and section='".$section."'";	
-	echo "particular parents";
-	}
-	
-	
-	$result_holiday=mysqli_query($conn,$sql_holiday);
+  $approved_senderid=$row_sch["sender_id"];
+  $username=$row_sch["username"];
+  $password=$row_sch["user_id"];
+  $sms_school_name=$row_sch["sms_school_name"];
+}
+?>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+    <div class="panel panel-primary">
+      <div class="panel-heading">Holiday SMS</div>
+      <div class="panel-body">
 
-	foreach($result_holiday as $value_holi)
-  {
-	$mob_number=$value_holi["parent_contact"];
-	//API Details
-    $username ="ma.musthafa6@gmail.com";
-     $password ="ajmal524";
-     //$approved_senderid="$sender_id";
-	 //echo $approved_senderid;
-	 
+			<small>Dear Parents <span style="font-weight:bold;color:red;">June 24th to June 26th</span>, there will be a holiday on account of <span style="font-weight:bold;color:red;">Ramzan</span> as per Government notification. <?php echo $sms_school_name;?></small><br><br>
+<form action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>' method="get">
+			<div class="form-group">
+      <label>Select Class</label>
+			<small>(Select All Students to send all class students)</small>
+					<select class="form-control" name="filt_class" required>
+						<option value="">Select Class</option>
+						<option value="All">All Students</option>
+							
+						<?php 
+							$sql_class="select distinct present_class from students where academic_year='".$cur_academic_year."'";
+							$result_class=mysqli_query($conn,$sql_class);
+
+							foreach($result_class as $value_class)
+							{
+							?>
+							<option value='<?php echo $value_class["present_class"];?>'><?php echo $value_class["present_class"];?></option>
+							<?php
+							}
+							?>
+				</select>
+				</div>
+	  
+				<div class="form-group">
+        <label>Select Section</label>
+				<small>(Optional, Select if you need)</small>
+					<select class="form-control" name="section">
+						<option value="">Select Section</option>
+							
+						<?php 
+							$sql_section="select distinct section from students where academic_year='".$cur_academic_year."'";
+							$result_section=mysqli_query($conn,$sql_section);
+
+							foreach($result_section as $value_section)
+							{
+							?>
+							<option value='<?php echo $value_section["section"];?>'><?php echo $value_section["section"];?></option>
+							<?php
+							}
+							?>
+				</select>
+				</div>
+	  
 	
+	  <div class="form-group">
+		<label>Date from - to </label><br>
+			<small>(e.g. June 25th to June 29th or June 25th or June 25th and 26th etc...)</small>
+	  
+    <input type="text" class="form-control"  name="date_from_to" required>
+	  </div>
 
-$message="Dear Parent, ".$holiday_date." will be holiday on occasion of ".$holiday_name." -".$sch_detail;
-$enc_msg= rawurlencode($message); // Encoded message
-//Create API URL
-$fullapiurl="http://smsc.biz/httpapi/send?username=$username&password=$password&sender_id=$approved_senderid&route=T&phonenumber=$mob_number&message=$enc_msg";
-//Call API
-$ch = curl_init($fullapiurl);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$result = curl_exec($ch); 
-curl_close($ch);
-echo "<p>SMS Request Sent - Message id - $result </p>";
+		<div class="form-group">
+	  <label>Reason</label>
+    <input type="text" class="form-control"  name="reason" required>
+	  </div>
+	  
+	  <input type="submit" class="btn btn-primary" name="holiday_sms" value="Send SMS">
+  </form>
 
+    </div>
+  </div>
+</div>
+
+
+<?php
+if(isset($_GET['holiday_sms'])){
+  $filt_class = $_GET["filt_class"];
+  $section = $_GET["section"];
+  $date_from_to = $_GET["date_from_to"];
+	$reason = $_GET["reason"];
+
+
+if($filt_class=="All")
+{
+	$sql_student="select distinct parent_contact,id from students where academic_year='".$cur_academic_year."'";		
+}
+else if(($filt_class!="All")&&($filt_class!=""))
+{
+	$sql_student="select distinct parent_contact,id from students where academic_year='".$cur_academic_year."' and present_class='".$filt_class."' and  section='".$section."'";
+}
+$result_student=mysqli_query($conn,$sql_student);
+foreach($result_student as $row_student){
+
+  $mob_number=$row_student["parent_contact"];
+	//echo $mob_number;
+	$message= "Dear Parents ".$date_from_to.", there will be a holiday on account of ".$reason." as per Government notification. ".$sms_school_name;
+
+	$student_id = $row_student["id"];
+	$subject = "Holiday SMS";
+	$sql="insert into individual_notifications (title,details,student_id,academic_year,indi_viewed) values('$subject','$message','$student_id','$cur_academic_year','False')";
+  $conn->query($sql);
+
+  //echo $message;
+	require("sms_gateway.php");
 }
 
-  
-//header("Location:send_noti.php?success=.'success'");
+?>
+<div class="col-md-6">
+  <div class="alert alert-success">
+  <strong>Success!</strong> SMS Sent Successfully.
+  </div>
+  </div>
+  </div>
+<?php
 }
-	
-///////////////////////////////////////////// Holiday SMS ////////////////////////////////////////////////	
-	
+require("footer.php");
 }
-	
 
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
+?>

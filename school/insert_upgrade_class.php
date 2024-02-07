@@ -170,23 +170,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$academic_year=$row_select["academic_year"];	
 	$father_name=$row_select["father_name"];	
 	$mother_name=$row_select["mother_name"];	
-	$stay_with=$row_select["stay_with"];	
-	$father_add=$row_select["father_add"];	
-	$fa_occu=$row_select["fa_occu"];	
-	$ma_occu=$row_select["ma_occu"];	
 	$nation=$row_select["nation"];	
 	$religion=$row_select["religion"];	
 	$caste=$row_select["caste"];	
 	$sc_st=$row_select["sc_st"];	
 	$back_caste=$row_select["back_caste"];	
 	$mother_tongue=$row_select["mother_tongue"];	
-	$other_lang=$row_select["other_lang"];	
-	$other_lang=$row_select["other_lang"];	
-	$no_bro=$row_select["no_bro"];	
-	$no_sis=$row_select["no_sis"];	
-	$perm_address=$row_select["perm_address"];	
-	$vaccinated=$row_select["vaccinated"];	
-	$illness_sick=$row_select["illness_sick"];
+	$other_lang=$row_select["other_lang"];		
 	$class_join=$row_select["class_join"];
 	$first_name=$row_select["first_name"];
 	$parent_contact=$row_select["parent_contact"];
@@ -198,14 +188,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$filename=$row_select["photo_name"];
 	$filepath=$row_select["photo_path"];
 	$filetype=$row_select["photo_type"];
-	
-	$filename1=$row_select["adhar_name"];
-	$filepath1=$row_select["adhar_path"];
-	$filetype1=$row_select["adhar_type"];
-	
-	$filename2=$row_select["birth_name"];
-	$filepath2=$row_select["birth_path"];
-	$filetype2=$row_select["birth_type"];
 	
 		if($academic_year=="2019-2020")
 		{
@@ -219,9 +201,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		{
 			$upg_academic_year="2022-2023";	
 		}
+		else if($academic_year=="2022-2023")
+		{
+			$upg_academic_year="2023-2024";	
+		}
 	}
 
-	$sql="insert into students (present_class,admission_no,blood,join_date,sex,dob,place_birth,roll_no,village,town,taluk,district,academic_year,father_name,mother_name,stay_with,father_add,fa_occu,ma_occu,nation,religion,caste,sc_st,back_caste,mother_tongue,other_lang,no_bro,no_sis,perm_address,vaccinated,illness_sick,class_join,first_name,parent_contact,rollno,section,address,adhaar_no,photo_name,photo_path,photo_type,adhar_name,adhar_path,adhar_type,birth_name,birth_path,birth_type) values('$upgrade_class','$admission','$blood','$join_date','$sex','$dob','$place_birth','$roll_no','$village','$town','$taluk','$district','$upg_academic_year','$father_name','$mother_name','$stay_with','$father_add','$fa_occu','$ma_occu','$nation','$religion','$caste','$sc_st','$back_caste','$mother_tongue','$other_lang','$no_bro','$no_sis','$perm_address','$vaccinated','$illness_sick','$class_join','$first_name','$parent_contact','$rollno','$section','$address','$adhaar_no','$filename','$filepath','$filetype','$filename1','$filepath1','$filetype1','$filename2','$filepath2','$filetype2')";
+	$sql="insert into students (present_class,admission_no,blood,join_date,sex,dob,place_birth,roll_no,village,town,taluk,district,academic_year,father_name,mother_name,nation,religion,caste,sc_st,back_caste,mother_tongue,class_join,first_name,parent_contact,rollno,section,address,adhaar_no,photo_name,photo_path,photo_type) values('$upgrade_class','$admission','$blood','$join_date','$sex','$dob','$place_birth','$roll_no','$village','$town','$taluk','$district','$upg_academic_year','$father_name','$mother_name','$nation','$religion','$caste','$sc_st','$back_caste','$mother_tongue','$class_join','$first_name','$parent_contact','$rollno','$section','$address','$adhaar_no','$filename','$filepath','$filetype')";
 
 	
   if ($conn->query($sql) === TRUE) {

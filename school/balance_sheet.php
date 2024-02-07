@@ -216,8 +216,6 @@ function printIncome(print_income) {
 		{
 			
 
-			$sql_staff_salary = "select sum(salary_given) as tot_salary_given from staff_salary where academic_year='".$academic_year."' ORDER BY salary_date desc LIMIT $offset, $no_of_records_per_page";
-			//var_dump($sql_staff_salary);
 
 			$sql_student_fee = "select sum(tot_paid) as tot_student_fee_amount from student_fee where academic_year='".$academic_year."'  ORDER BY rec_date desc LIMIT $offset, $no_of_records_per_page";
 			//var_dump($sql_student_fee);

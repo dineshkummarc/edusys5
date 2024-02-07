@@ -9,7 +9,7 @@ require("connection.php");
 if(isset($_GET["id"])){
 		$id=$_GET["id"];
 		}
-$sql="select * from route_students where id ='".$id."'  and academic_year='".$cur_academic_year."'";
+$sql="select * from route_students where id ='".$id."'";
 $result=mysqli_query($conn,$sql);
 if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 	{
@@ -30,31 +30,38 @@ if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
       <div class="panel-body">
 	  
 	  <form action="update_route_students.php" method="post">
-	 
-	  <div class="form-group">
-	    <label for="usr">First Name</label>
-		<input type="text"  name="first_name" value="<?php echo $row["first_name"];?>" class="form-control">
-	  </div>
-	<div class="form-group">
-	    <label for="usr">Roll No</label>
-		<input type="text"  name="roll_no" value="<?php echo $row["roll_no"];?>" class="form-control">
-	  </div>
-	<div class="form-group">
-	    <label for="usr">Route Name</label>
-		<input type="text"  name="route_name" value="<?php echo $row["route_name"];?>" class="form-control">
-	  </div>
-	<div class="form-group">
-	    <label for="usr">Stage Name</label>
-		<input type="text"  name="stage_name" value="<?php echo $row["stage_name"];?>" class="form-control">
-	  </div>
-	<div class="form-group">
-	    <label for="usr">Present Class</label>
-		<input type="text"  name="present_class" value="<?php echo $row["present_class"];?>" class="form-control">
-	  </div>
-	<div class="form-group">
-	    <label for="usr">Section</label>
-		<input type="text"  name="section" value="<?php echo $row["section"];?>" class="form-control">
-	  </div>
+	 <div class="form-group">
+	   <select class="form-control" name="route_name">
+		 <option value='<?php echo $row["route_name"];?>'><?php echo $row["route_name"];?></option>
+		 <?php
+		 $sql_route="select distinct route_name from routes";
+			$result_route=mysqli_query($conn,$sql_route);
+			foreach($result_route as $value_route)
+		 {
+		 ?>
+		 <option value='<?php echo $value_route["route_name"];?>'><?php echo $value_route["route_name"];?></option>
+		 <?php
+		 }
+		  ?>
+		</select>
+		 </div>
+
+		 <div class="form-group">
+	   <select class="form-control" name="stage_name">
+		 <option value='<?php echo $row["stage_name"];?>'><?php echo $row["stage_name"];?></option>
+		 <?php
+		 $sql_route="select distinct stage_name from stages";
+			$result_route=mysqli_query($conn,$sql_route);
+			foreach($result_route as $value_route)
+		 {
+		 ?>
+		 <option value='<?php echo $value_route["stage_name"];?>'><?php echo $value_route["stage_name"];?></option>
+		 <?php
+		 }
+		  ?>
+		</select>
+		 </div>
+
 	
 	 <input type="hidden" name="id" value="<?php echo $id;?>"> 
 	 <input type="submit" class="btn btn-primary" value="Update Stage"> 

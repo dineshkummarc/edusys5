@@ -1,10 +1,11 @@
 <?php
 session_start();
-if(isset($_SESSION['staff_uname'])&&!empty($_SESSION['staff_pass'])&&!empty($_SESSION['admin_id']))
+if(isset($_SESSION['staff_uname'])&&!empty($_SESSION['staff_pass'])&&!empty($_SESSION['admin_id'])&&!empty($_SESSION['staff_academic_year']))
 {
+$cur_academic_year = $_SESSION['staff_academic_year'];
+$admin_id=$_SESSION['admin_id'];
 $staff_uname=$_SESSION['staff_uname'];
 $staff_pass=$_SESSION['staff_pass'];
-$admin_id=$_SESSION['admin_id'];
 
 	error_reporting("0");
 	require("header.php");

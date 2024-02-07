@@ -65,7 +65,7 @@ $result_opened=mysqli_query($conn,$sql_opened);
          { 
         ?>
        <h4> Uploaded File: <a href="../mahal/<?php echo $filepath;?>" target="_blank" style="color:blue;"><?php echo $filename; ?></a></h4>
-	   <img src="../school/<?php echo $filepath;?>">
+	   <img src="../school/<?php echo $filepath;?>" class="img img-thumbnail">
         <?php
          }
         ?>

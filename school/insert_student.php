@@ -21,26 +21,10 @@ if(isset($_POST["register"]))
 	$admission=test_input($_POST["rollno"]);
 	$roll_no=test_input($_POST["rollno"]);
 	$blood=test_input($_POST["blood"]);
-	$join_date=test_input($_POST["join_date"]);
 	$parent_contact=test_input($_POST["parent_contact"]);
-	$student_type=test_input($_POST["student_type"]);
-	
 	
 
-	
-	$filetmp = $_FILES["photo"]["tmp_name"];
-
-	$filename = $_FILES["photo"]["name"];
-
-	$filetype = $_FILES["photo"]["type"];
-
-	$filepath = "photo/".$filename;
-
-	move_uploaded_file($filetmp,$filepath);
-	
-
-	
-	$sql="insert into students (present_class,admission_no,blood,join_date,sex,dob,roll_no,academic_year,father_name,mother_name,caste,mother_tongue,class_join,first_name,parent_contact,rollno,section,address,adhaar_no,photo_name,photo_path,photo_type,student_type) values('$class_join','$admission','$blood','$join_date','$sex','$dob','$roll_no','$cur_academic_year','$father_name','$mother_name','$caste','$mother_tongue','$class_join','$first_name','$parent_contact','$rollno','$section','$address','$adhaar_no','$filename','$filepath','$filetype','$student_type')";
+	$sql="insert into students (present_class,admission_no,blood,sex,dob,roll_no,academic_year,father_name,mother_name,caste,mother_tongue,class_join,first_name,parent_contact,rollno,section,address,adhaar_no) values('$class_join','$admission','$blood','$sex','$dob','$roll_no','$cur_academic_year','$father_name','$mother_name','$caste','$mother_tongue','$class_join','$first_name','$parent_contact','$rollno','$section','$address','$adhaar_no')";
 	
 	
 	
@@ -48,7 +32,7 @@ if(isset($_POST["register"]))
 	{
 	
 	header("Location:all_students.php?success=.'success'");
-    } 
+  } 
 	else 
 	{
 	var_dump($sql);

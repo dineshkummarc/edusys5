@@ -142,21 +142,70 @@ function goBack() {
                 </button>
                 <a class="navbar-brand" href="index.php"><?php echo $school_name;?></a>
             </div>
-            <!-- Top Menu Items -->
+            <!-- Top Menu Items
 <ul class="nav navbar-right top-nav">
 	<li class="dropdown">
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Welcome, <?php echo $_SESSION['staff_uname'];?></a>
 	
 	</li>
-</ul>
+</ul> -->
 			
 <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
 <div class="collapse navbar-collapse navbar-ex1-collapse">
 <ul class="nav navbar-nav side-nav">
     <li><a href="tel:8277021524"><i class="fa fa-phone-square" aria-hidden="true"></i> Help:8277021524</a></li>
-    <li><a href="index.php"><i class="fa fa-fw fa-video-camera"></i> Home</a></li>
-    <li><a href="add_online_class.php"><i class="fa fa-fw fa-video-camera"></i> Add Online Class</a></li>
-    <li><a href="logout.php"><i class="fa fa-lock" aria-hidden="true"></i> Logout</a></li>
+    <li><a href="#"><i class="fa fa-user"></i> Welcome, <?php echo $_SESSION['staff_uname'];?></a></li>
+
+    <li><a href="index.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>
+    <li>
+            <a href="javascript:;" data-toggle="collapse" data-target="#att"><i class="fa fa-fw fa-edit"></i> Attendance <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="att" class="collapse">
+                <li>
+                    <a href="all_attendance.php">All Attendance</a>
+                    
+                </li>
+                <li>
+                    <a href="attendance.php">Take Attendance</a>
+                    
+                </li>
+            </ul>
+        </li>  
+
+  
+    
+    
+<li>
+<a href="#" data-toggle="collapse" data-target="#bank"><i class="fa fa-pencil-square" aria-hidden="true"></i> Notice Board <i class="fa fa-fw fa-caret-down"></i></a>
+<ul id="bank" class="collapse">
+    <li><a href="send_notification.php">Send Notice</a></li>
+    <li><a href="notifications.php">All Notifications</a> </li>
+</ul>
+</li>
+
+<li>
+<a href="mes_report.php"><i class="fa fa-fw fa-dashboard"></i> SMS Delivery Report</a>
+</li>
+<li>
+<a href="all_gate_pass.php"><i class="fa fa-fw fa-dashboard"></i> Issued Gate Passes</a>
+</li>
+
+<li><a href="individual_notifications.php"> <i class="fa fa-comment" aria-hidden="true"></i> Individual Notifications</a> </li>
+
+
+<li>
+<a href="#" data-toggle="collapse" data-target="#assignments"><i class="fa fa-pencil-square" aria-hidden="true"></i> Assignments <i class="fa fa-fw fa-caret-down"></i></a>
+<ul id="assignments" class="collapse">
+    <li><a href="send_assign.php">Send Assignments</a></li>
+    <li><a href="assignments.php">All Assignments</a> </li>
+</ul>
+</li>
+
+<li><a href="add_online_class.php"><i class="fa fa-fw fa-video-camera"></i> Add Online Class</a></li>
+<li><a href="all_online_class.php"><i class="fa fa-fw fa-video-camera"></i> All Online Class</a></li>
+<li><a href="logout.php"><i class="fa fa-lock" aria-hidden="true"></i> Logout</a></li>
+
+
+           
 	
 </ul>
 </div>

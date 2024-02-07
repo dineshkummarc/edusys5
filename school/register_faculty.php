@@ -96,7 +96,7 @@ if(isset($_GET["failed"]))
 		
 		<div class="form-group">
 	    <label for="usr">Upload profile Photo:</label>
-		<input type="file" name="fac_photo">
+		<input type="file" name="photo">
 		</div>
 		
 		<input type="submit" name="faculty" class="btn btn-success" value="Register">

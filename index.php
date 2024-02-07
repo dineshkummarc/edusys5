@@ -52,13 +52,30 @@
 
                     </div>
                 </div>
+
+
+            </div>
+<br><br>
+            <div class="row">
+                 <!--Third column-->
+                 <div class="col-lg-4">
+                    <div class="z-depth-4">
+                        <img class="img-fluid" src="images/newfolder/staff.jpg" alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title">Staff Module</h4>
+                            <p class="card-text">Staff Module Login</p>
+                            <a href="staff/login.php" target="blank" class="btn btn-primary z-depth-3">LOGIN</a>
+                        </div>
+
+                    </div>
+                </div>
             </div>
 			<br>
 			<br>
 			<br>
             <!--/.First row-->
 
-            <!--Second row-->
+            <!--
             <div class="row">
 
             <div class="col-lg-4">
@@ -72,38 +89,32 @@
                 </div>
                 </div>
 
-                <!--First column-->
+                
                 <div class="col-lg-4">
                     <div class="z-depth-4">
                         <img class="img-fluid" src="images/newfolder/sms1.jpg" alt="Card image cap">
                         <div class="card-body">
                             <h4 class="card-title">Bulk SMS</h4>
                             <p class="card-text">All type of sms communications</p>
-                            <!--<a href="bulk_sms/login.php" target="blank" class="btn btn-primary z-depth-3">LOGIN</a>-->
+                            <!--<a href="bulk_sms/login.php" target="blank" class="btn btn-primary z-depth-3">LOGIN</a>
                         </div>
 
                     </div>
                 </div>
-                <!--/.First column-->
-
-                <!--Second column-->
-               
-                <!--Second column-->
-
-                <!--Third column-->
+              
                 <div class="col-lg-4">
                     <div class="z-depth-4">
                         <img class="img-fluid" src="images/newfolder/library.jpg" alt="Card image cap">
                         <div class="card-body">
                             <h4 class="card-title">Library Module</h4>
                             <p class="card-text">Manage library books and transactions</p>
-                            <!--<a href="library/login.php" target="blank" class="btn btn-primary z-depth-3">LOGIN</a>-->
+                            <!--<a href="library/login.php" target="blank" class="btn btn-primary z-depth-3">LOGIN</a>
                         </div>
 
                     </div>
 					</div>
             </div>
-            <!--/.Second row-->
+            -->
 			
 			<br>
 			<br>

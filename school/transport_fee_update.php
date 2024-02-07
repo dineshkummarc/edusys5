@@ -33,9 +33,22 @@ function printDiv(income) {
     <div class="col-sm-12"><br>
 				
 	<form class="form-inline" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="get">
+		
+
 		<div class="form-group">
-		<select class="form-control" name="present_class">
-		<?php require("selectclass.php");?>
+	   <?php echo '<select class="form-control" name="present_class">';
+		echo '<option value="">Select Class</option>';
+		$sql="select distinct present_class from students where academic_year='".$cur_academic_year."'";
+        $result=mysqli_query($conn,$sql);
+         foreach($result as $value)
+		{
+		?>
+		<option value='<?php echo $value["present_class"];?>'><?php echo $value["present_class"];?></option>
+		<?php
+		}
+		echo '</select>';
+        ?>
+		</div>
 			
 			
 		<div class="form-group">
@@ -56,7 +69,7 @@ function printDiv(income) {
 		<div class="form-group">
 	   <?php echo '<select class="form-control" name="route_name">';
 		echo '<option value="">Select Routes</option>';
-		$sql_route="select distinct route_name from routes where academic_year='".$cur_academic_year."'";
+		$sql_route="select distinct route_name from routes";
         $result_route=mysqli_query($conn,$sql_route);
          foreach($result_route as $value_route)
 		{
@@ -65,14 +78,14 @@ function printDiv(income) {
 		<?php
 		}
 		echo '</select>';
-        ?>
+    ?>
 	</div>
 	
 	 <div class="form-group">
 	  
 	   <?php echo '<select class="form-control" name="stage_name">';
 		echo '<option value="">Select Stage</option>';
-		$sql_stage="select distinct stage_name from stages where academic_year='".$cur_academic_year."'";
+		$sql_stage="select distinct stage_name from stages";
         $result_stage=mysqli_query($conn,$sql_stage);
          foreach($result_stage as $value_stage)
 		{
@@ -121,7 +134,7 @@ function printDiv(income) {
 		
 	}
 
-	$sql="select * from route_students where academic_year='".$cur_academic_year."' and present_class='".$filt_class."' and section='".$section."' and route_name='".$route_name."' and stage_name='".$stage_name."' ORDER BY first_name";
+	$sql="select * from route_students where academic_year='".$cur_academic_year."' and present_class='".$filt_class."' and section='".$section."' and route_name='".$route_name."' and stage_name='".$stage_name."' ORDER BY route_name";
 	
 	$result=mysqli_query($conn,$sql);
 	$count=mysqli_num_rows($result);
@@ -134,8 +147,15 @@ function printDiv(income) {
 	<?php
 	foreach($result as $row)
 	{
-		//$dob= date('d-m-Y', strtotime( $row['dob'] ));
-		//$join_date= date('d-m-Y', strtotime( $row['join_date'] ));
+		$student_id = $row["student_id"];
+		echo $student_id;
+		$sql_name="select * from students where id='".$student_id."'";
+		$result_name=mysqli_query($conn,$sql_name);
+		if($row_name=mysqli_fetch_array($result_name,MYSQLI_ASSOC))
+		{
+		$first_name = $row_name["first_name"];
+		$roll_no = $row_name["roll_no"];
+		}
 	
 	
 	?>
@@ -143,26 +163,22 @@ function printDiv(income) {
     <tr>
 		
 		<td><?php echo $row_count;?></td>
-		<td width="15%"><input type="text" name="first_name[]" value="<?php echo $row["first_name"];?>" class="form-control" readonly>
-		<input type="text" name="roll_no[]" value="<?php echo $row["roll_no"];?>" class="form-control" readonly>
+		<td width="15%"><input type="text" name="first_name[]" value="<?php echo $first_name;?>" class="form-control" readonly>
+		<input type="text" name="roll_no[]" value="<?php echo $roll_no;?>" class="form-control" readonly>
 		</td>
 	
 		<td><input type="number" name="van_fee[]" class="form-control"></td>
 		<td><input type="date" name="rec_date[]" class="form-control"></td>
 		<td><input type="text" name="rec_no[]" class="form-control"></td>
-	
-	
+	</tr>
 
-		
-		</tr>
 		<input type="hidden" name="academic_year[]" value="<?php echo $cur_academic_year;?>">
-		<input type="hidden" name="present_class[]" value="<?php echo $row["present_class"];?>">
-		<input type="hidden" name="section[]" value="<?php echo $row["section"];?>">
+		<input type="hidden" name="student_id[]" value="<?php echo $student_id;?>">
 		<input type="hidden" name="route_name[]" value="<?php echo $route_name;?>">
 		<input type="hidden" name="stage_name[]" value="<?php echo $stage_name;?>">
 		
-		<?php 
-		$row_count++; 
+	<?php 
+	$row_count++; 
 	}
 		
 	?>

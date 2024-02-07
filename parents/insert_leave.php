@@ -19,7 +19,7 @@ if(isset($_POST["leave"]))
 	$cur_academic_year=$_SESSION["academic_year"];
 	
 	
-	$sql="insert into leave_appli (student_id,reason,from_date,to_date,details,academic_year) values('$student_id','$reason','$from_date','$to_date','$details','$cur_academic_year')";
+	$sql="insert into leave_appli (student_id,reason,from_date,to_date,details,academic_year,status) values('$student_id','$reason','$from_date','$to_date','$details','$cur_academic_year','Pending')";
 	//var_dump($sql);
 	
 	if ($conn->query($sql) === TRUE) 

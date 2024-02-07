@@ -32,7 +32,7 @@ if(isset($_POST["online"]))
 } 
 	else 
 	{		
-	header("Location:add_online_class.php?failed=.'failed'");	
+	//header("Location:add_online_class.php?failed=.'failed'");	
 		
 	}
 

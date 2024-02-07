@@ -71,10 +71,7 @@ require("connection.php");
 		  <input type="text"  name="phone"  class="form-control">
 		</div>
 		
-		<div class="form-group">
-		   <label for="sel1">SMS Sender ID (only in Capital letters):</label>
-		  <input type="text"  name="sender_id"  class="form-control">
-		</div>
+		
 		
 		<div class="form-group">
 		   <label for="sel1">Mobile:</label>
@@ -90,8 +87,34 @@ require("connection.php");
 		   <label for="sel1">Website:</label>
 		  <input type="text"  name="web"  class="form-control">
 		</div>
+
+		<div class="form-group">
+		   <label for="sel1">SMS Sender ID (only in Capital letters):</label>
+		  <input type="text"  name="sender_id"  class="form-control">
+		</div>
+
+		<div class="form-group">
+		   <label>SMS Username</label>
+		  <input type="text"  name="username"  class="form-control">
+		</div>
+
+		<div class="form-group">
+		   <label>SMS Password</label>
+		  <input type="text"  name="user_id"  class="form-control">
+		</div>
+
+		<div class="form-group">
+		   <label>SMS School Name</label>
+		  <input type="text"  name="sms_school_name"  class="form-control">
+		</div>
+
+		<div class="form-group">
+	    <label for="usr">Upload School Logo:</label>
+		<input type="file" name="photo">
+		</div>
+
 		
-		
+
 		<input type="submit" class="form-control btn btn-primary" name="add_school" value="Update" >
 		
 							

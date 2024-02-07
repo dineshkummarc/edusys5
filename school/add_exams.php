@@ -37,10 +37,7 @@ $cur_academic_year = $_SESSION['academic_year'];
 	   <label>Select Academic Year</label>
 		<select class="form-control" name="academic_year" required>
 		<option value="">Select Academic Year</option>
-			<option value="2016-2017">2016-2017</option>
-			<option value="2017-2018">2017-2018</option>
-			<option value="2018-2019">2018-2019</option>
-			<option value="2019-2020">2019-2020</option>
+			<option value="2022-2023">2022-2023</option>
 			</select>
 			</div>
 			

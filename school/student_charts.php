@@ -1,55 +1,55 @@
 <?php
 //require("connection.php");
-  $sql_prekg="select id from students where present_class='prekg'";
+  $sql_prekg="select id from students where present_class='prekg' and academic_year='".$cur_academic_year."'";
 	$result_prekg=mysqli_query($conn,$sql_prekg);
 	$total_prekg=mysqli_num_rows($result_prekg);
 
-  $sql_lkg="select id from students where present_class='lkg'";
+  $sql_lkg="select id from students where present_class='lkg' and academic_year='".$cur_academic_year."'";
 	$result_lkg=mysqli_query($conn,$sql_lkg);
 	$total_lkg=mysqli_num_rows($result_lkg);
 
-  $sql_ukg="select id from students where present_class='ukg'";
+  $sql_ukg="select id from students where present_class='ukg' and academic_year='".$cur_academic_year."'";
 	$result_ukg=mysqli_query($conn,$sql_ukg);
 	$total_ukg=mysqli_num_rows($result_ukg);
 
-$sql_1st="select id from students where present_class='first standard'";
+$sql_1st="select id from students where present_class='first standard' and academic_year='".$cur_academic_year."'";
 	$result_1st=mysqli_query($conn,$sql_1st);
 	$total_1st=mysqli_num_rows($result_1st);
   
 
-  $sql_2nd="select id from students where present_class='second standard'";
+  $sql_2nd="select id from students where present_class='second standard' and academic_year='".$cur_academic_year."'";
 	$result_2nd=mysqli_query($conn,$sql_2nd);
 	$total_2nd=mysqli_num_rows($result_2nd);
 
-  $sql_3rd="select id from students where present_class='third standard'";
+  $sql_3rd="select id from students where present_class='third standard' and academic_year='".$cur_academic_year."'";
 	$result_3rd=mysqli_query($conn,$sql_3rd);
 	$total_3rd=mysqli_num_rows($result_3rd);
 
-  $sql_4th="select id from students where present_class='fourth standard'";
+  $sql_4th="select id from students where present_class='fourth standard' and academic_year='".$cur_academic_year."'";
 	$result_4th=mysqli_query($conn,$sql_4th);
 	$total_4th=mysqli_num_rows($result_4th);
 
-  $sql_5th="select id from students where present_class='fifth standard'";
+  $sql_5th="select id from students where present_class='fifth standard' and academic_year='".$cur_academic_year."'";
 	$result_5th=mysqli_query($conn,$sql_5th);
 	$total_5th=mysqli_num_rows($result_5th);
 
-  $sql_6th="select id from students where present_class='sixth standard'";
+  $sql_6th="select id from students where present_class='sixth standard' and academic_year='".$cur_academic_year."'";
 	$result_6th=mysqli_query($conn,$sql_6th);
 	$total_6th=mysqli_num_rows($result_6th);
 
-  $sql_7th="select id from students where present_class='seventh standard'";
+  $sql_7th="select id from students where present_class='seventh standard' and academic_year='".$cur_academic_year."'";
 	$result_7th=mysqli_query($conn,$sql_7th);
 	$total_7th=mysqli_num_rows($result_7th);
 
-  $sql_8th="select id from students where present_class='eighth standard'";
+  $sql_8th="select id from students where present_class='eighth standard' and academic_year='".$cur_academic_year."'";
 	$result_8th=mysqli_query($conn,$sql_8th);
 	$total_8th=mysqli_num_rows($result_8th);
 
-  $sql_9th="select id from students where present_class='ninth standard'";
+  $sql_9th="select id from students where present_class='ninth standard' and academic_year='".$cur_academic_year."'";
 	$result_9th=mysqli_query($conn,$sql_9th);
 	$total_9th=mysqli_num_rows($result_9th);
 
-  $sql_10th="select id from students where present_class='tenth standard'";
+  $sql_10th="select id from students where present_class='tenth standard' and academic_year='".$cur_academic_year."'";
 	$result_10th=mysqli_query($conn,$sql_10th);
 	$total_10th=mysqli_num_rows($result_10th);
 

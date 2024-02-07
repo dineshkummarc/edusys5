@@ -1,1 +1,0 @@
-[26-May-2018 05:25:05 Etc/GMT] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'digitvci_kaveris'@'localhost' (using password: YES) in /home/digitvci/public_html/kaveryschoolvirajpet.com/kavery/connection.php on line 22

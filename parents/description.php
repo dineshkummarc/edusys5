@@ -277,6 +277,98 @@ function printDiv(income) {
 				<?php
 	}
 				?>
+
+
+<div class="row">
+        <div class="col-sm-12" id="gatepass"><br>
+				<h3>Student ID Card Generated</h3>
+				<center><table class="table table-bordered">
+				<tbody>
+				<tr class="w3-blue">
+				<th>SL No</th>
+				<th>Name</th>
+				<th>ID Card</th>
+				<th>Generated on</th>
+			
+				</tr>
+	<?php
+	$sql_id_cards="select * from student_id_cards where  student_id='".$student_id."' ORDER BY id desc";
+	$result_id_cards=mysqli_query($conn,$sql_id_cards);
+	$row_count_id_card =1;
+	foreach($result_id_cards as $row_id_cards)
+	{
+	$idcard_id=$row_id_cards["id"];
+	$created_at= date('d-m-Y', strtotime( $row_id_cards['created_at'] ));
+	
+	
+ ?>
+				<tr>
+				<td><?php echo $row_count_id_card;?></td>
+				<td><?php echo $first_name;?></td>
+				<td><a href="../school/<?php echo $row_id_cards['photo_path'];?>" class="btn btn-sm btn-success">View ID Card</a></td>
+				<td><?php echo $created_at;?></td>
+			
+				</tr>
+	
+				    
+	<?php
+				
+	$row_count_id_card++; 
+	}
+	
+	?>
+	
+				</tbody>
+				</table></center>
+				
+				</div>
+				</div>
+
+
+				<div class="row">
+        <div class="col-sm-12" id="gatepass"><br>
+				<h3>Received Certificates</h3>
+				<center><table class="table table-bordered">
+				<tbody>
+				<tr class="w3-blue">
+				<th>SL No</th>
+				<th>Name</th>
+				<th>Certificate</th>
+				<th>Generated on</th>
+				</tr>
+	<?php
+	$sql_certificates="select * from certificates where  student_id='".$student_id."' ORDER BY id desc";
+	$result_certificates=mysqli_query($conn,$sql_certificates);
+	$row_certificates_count =1;
+	foreach($result_certificates as $row_certificates)
+	{
+	$certificate_id=$row_certificates["id"];
+	$created_at= date('d-m-Y', strtotime( $row_certificates['created_at'] ));
+	
+	
+ ?>
+				<tr>
+				<td><?php echo $row_certificates_count;?></td>
+				<td><?php echo $first_name;?></td>
+				<td><a href="../school/<?php echo $row_certificates['certificate_path'];?>" class="btn btn-sm btn-success">View Certificate</a></td>
+				<td><?php echo $created_at;?></td>
+			
+				</tr>
+
+				    
+	<?php
+				
+	$row_count_id_card++; 
+	}
+	
+	?>
+	
+				</tbody>
+				</table></center>
+				
+				</div>
+				</div>
+  
 			
 
 <!---------------------------End of Attendance details-------------------------------------------------->
@@ -381,7 +473,7 @@ function printDiv(income) {
 		<tr>
 		<td><?php echo $row_ind_count_fee;?></td>
 		
-		<td><?php echo $row_all_ind_fee["adm_fee"];?></td>
+		<td>&#8377;<?php echo $row_all_ind_fee["adm_fee"];?></td>
 		<td><?php echo $row_all_ind_fee["fee_towards"];?></td>
 		<td><?php echo $updated_ind_date;?></td>
 		
@@ -453,7 +545,7 @@ function printDiv(income) {
 				<td><?php echo $row_count_fee;?></td>
 				<td><?php echo $rec_date;?></td>
 				<td><?php echo $row_tot_ind_fee["rec_no"];?></td>
-				<td><?php echo $row_tot_ind_fee["tot_paid"];?></td>
+				<td>&#8377;<?php echo $row_tot_ind_fee["tot_paid"];?></td>
 				
 				</tr>
 				
@@ -477,7 +569,8 @@ function printDiv(income) {
 	</center>
 
 <?php
-	}			
+	}	
+	require("footer.php");		
 }
 else
 {
