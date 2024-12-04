@@ -1,0 +1,604 @@
+<?php
+session_start();
+if(isset($_SESSION['staff_uname'])&&!empty($_SESSION['staff_pass'])&&!empty($_SESSION['admin_id'])&&!empty($_SESSION['staff_academic_year']))
+{
+$cur_academic_year = $_SESSION['staff_academic_year'];
+$admin_id=$_SESSION['admin_id'];
+$staff_uname=$_SESSION['staff_uname'];
+$staff_pass=$_SESSION['staff_pass'];
+
+require("header.php");
+// require("connection.php");
+// require("student_charts.php");
+// require("attendance_charts.php");
+// //stackedcolumnchart_values
+// require("gender_charts.php");
+date_default_timezone_set('Asia/Kolkata');
+$today=date('Y-m-d');
+$today_md=date('m-d');
+
+?>
+ <head>
+ <link rel="stylesheet" href="bootstrap-theme.min.css">
+<script src="typeahead.min.js"></script>
+<style type="text/css">
+	
+.bs-example{
+	font-family: sans-serif;
+	position: relative;
+	margin: 50px;
+}
+.typeahead, .tt-query, .tt-hint {
+	border: 1px solid #CCCCCC;
+	
+	font-size: 14px;
+	height: 30px;
+	line-height: 30px;
+	outline: medium none;
+	padding: 8px 12px;
+	width: 100%;
+	
+}
+.typeahead {
+	background-color: #FFFFFF;
+}
+.typeahead:focus {
+	border: 2px solid #0097CF;
+}
+.tt-query {
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
+.tt-hint {
+	color: #999999;
+}
+.tt-dropdown-menu {
+	background-color: #FFFFFF;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-radius: 8px;
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	margin-top: 12px;
+	padding: 8px 0;
+	width: 150%;
+}
+.tt-suggestion {
+	font-size: 14px;
+	line-height: 24px;
+	padding: 3px 20px;
+}
+.tt-suggestion.tt-is-under-cursor {
+	background-color: #0097CF;
+	color: #FFFFFF;
+}
+.tt-suggestion p {
+	margin: 0;
+}
+
+</style>
+</head>
+
+<div id="page-wrapper">
+<div class="container-fluid">
+<br>
+
+
+
+
+<div class="row">
+    
+  <div class="col-md-12">
+ 
+
+
+          <?php
+			   require("connection.php");
+			   date_default_timezone_set('Asia/Kolkata');
+				$today=date('Y-m-d');
+				$today_md=date('m-d');
+				
+				
+			   $sql="select * from students where academic_year='".$cur_academic_year."'";
+			  // var_dump($sql);
+	           $result=mysqli_query($conn,$sql);
+	           $total_students=mysqli_num_rows($result);
+			  
+			   $sql_leave="select * from leave_appli where academic_year='".$cur_academic_year."' and status='Pending'";
+	           $result_leave=mysqli_query($conn,$sql_leave);
+	           $total_leave=mysqli_num_rows($result_leave);
+			   
+			   $sql_certi="select * from request_study where academic_year='".$cur_academic_year."' and read_status=''";
+	           $result_certi=mysqli_query($conn,$sql_certi);
+			   $total_certi=mysqli_num_rows($result_certi);
+			   
+
+			   $sql_contact="select * from contact_school where academic_year='".$cur_academic_year."' and contact_status=''";
+	           $result_contact=mysqli_query($conn,$sql_contact);
+	           $total_contact=mysqli_num_rows($result_contact);
+			   
+			   $sql_fac="select * from faculty";
+	           $result_fac=mysqli_query($conn,$sql_fac);
+	           $total_fac=mysqli_num_rows($result_fac);
+			   
+			   
+			   $sql_book="select * from books";
+	           $result_book=mysqli_query($conn,$sql_book);
+	           $total_book=mysqli_num_rows($result_book);
+			   
+			   $sql_abs="select present_class,attendance,att_date from attendance where att_date='".$today."' and academic_year='".$cur_academic_year."' and attendance='Absent'";
+			   $result_abs=mysqli_query($conn,$sql_abs);
+			   $total_abs=mysqli_num_rows($result_abs);
+
+				 $sql_leave="select id from leave_appli where status <> 'viewed'";
+			   $result_leave=mysqli_query($conn,$sql_leave);
+			   $total_leave=mysqli_num_rows($result_leave);
+				 //echo $total_leave;
+			   //var_dump($sql_leave);
+			    $sql_stf_abs="select attendance,att_date from fac_attendance where att_date='".$today."' and academic_year='".$cur_academic_year."' and attendance='Absent'";
+			   $result_stf_abs=mysqli_query($conn,$sql_stf_abs);
+			   $total_stf_abs=mysqli_num_rows($result_stf_abs);
+
+				 $sql_evt = "select * from events where evt_date > now()  ORDER BY id DESC LIMIT 5";
+
+					$result_evt = mysqli_query($conn, $sql_evt);
+					$row_count = 1;
+					$total_events = mysqli_num_rows($result_evt);
+					$rowcount_evt = mysqli_num_rows($result_evt);
+
+					$sql_holi="select * from holiday where ho_date > now() and academic_year='".$cur_academic_year."' ORDER BY id DESC LIMIT 3";
+					$result_holi=mysqli_query($conn,$sql_holi);
+					$rowcount_holiday = mysqli_num_rows($result_holi);
+	
+			   ?>
+
+	<!------------------------------End of Search Form------------------------->
+
+	<?php if(mysqli_num_rows($result_holi)>0){?>
+	<div class="row">
+		<div class="col-md-12">
+		<p id="blink">
+		<span style="font-weight:bold;">Holidays: </span>
+		
+			<?php
+			foreach ($result_holi as $holiday) {
+				$holiday_date = date('d-m-Y', strtotime($holiday['ho_date']));
+			?>
+			<a href="<?php echo 'holiday_description.php?id=' . $holiday['id']; ?>"><span
+							style="font-size:16px;color:red;"><?php echo $holiday["ho_name"]; ?>
+							<?php echo $holiday_date; ?> </span></a> ---
+			<?php
+}
+?>
+</p>
+		</div>
+</div>
+
+<?php
+ } 
+
+if(mysqli_num_rows($result_evt)>0){?>
+	<div class="row" style="background-color:#3172c5;padding: 10px;">
+		<div class="col-md-12">
+		<marquee behavior="scroll" direction="left" onmouseover="this.stop();"
+						onmouseout="this.start();">
+			<?php
+			foreach ($result_evt as $evt) {
+				$evt_date = date('d-m-Y', strtotime($evt['evt_date']));
+			?>
+			<a href="<?php echo 'evt_description.php?id=' . $evt['id']; ?>"><span
+							style="font-size:16px;color:white;"><?php echo $evt["evt_name"]; ?>
+							<?php echo $evt_date; ?> </span></a>&nbsp;<span class="badge badge-success"
+					style="background-color:#fee00c;color:#000;"> Upcoming
+					Events</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<?php
+}
+?>
+				</marquee>
+		</div>
+</div><br>
+<?php } ?>
+	 
+	 <div class="row">
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-blue">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+					
+						<i class="glyphicon glyphicon-search"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+					
+					   
+					   
+					</div>
+				</div>
+			</div>
+			
+				<div class="panel-footer">
+				<form action="description.php" id="search_student"  method="get">
+
+				<div class="form-group">
+				<input type="text" name="typeahead" class="form-control typeahead"  autocomplete="off" spellcheck="false" placeholder="Search Students">
+				</div>
+				<input type="submit" name="search_student" class="btn btn-sm btn-success" value="Get Details">
+				
+				</form>
+				</div>
+		  
+			
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-blue">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+					
+						<i  class="fa fa-file-text fa-3x" aria-hidden="true"></i>
+					</div>
+					
+					<div class="col-xs-9 text-right">
+					<div><?php if ($total_leave > 0) { ?><span class="w3-badge w3-yellow">New</span><?php } ?> Leave Application </div>
+					<div class="huge"><span class="w3-badge w3-red">
+					<?php if ($total_leave > 0) 
+					{
+						echo $total_leave;
+					} else
+					?>
+					</span>
+					
+					</div>
+				</div>
+			</div>
+			</div>
+			<a href="leave_applications.php">
+				<div class="panel-footer">
+					<span class="pull-left"><a href="leave_applications.php">View Details</a></span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+	
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-blue">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+					
+						<i class="glyphicon glyphicon-certificate fa-3x"></i>
+					</div>
+					
+					<div class="col-xs-9 text-right">
+					<div><?php if ($total_certi > 0) { ?><span class="w3-badge w3-yellow">New</span><?php } ?> Certificate Request </div>
+					<div class="huge"><span class="w3-badge w3-red">
+					<?php if ($total_certi > 0) 
+					{
+						echo $total_certi;
+					} else
+					?>
+					</span>
+					
+					</div>
+				</div>
+			</div>
+			</div>
+			<a href="req_certificates.php">
+				<div class="panel-footer">
+					<span class="pull-left"><a href="req_certificates.php">View Details</a></span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-blue">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+					
+						<i class="fa fa-envelope-o fa-3x"></i>
+					</div>
+					
+					<div class="col-xs-9 text-right">
+					<div><?php if ($total_contact > 0) { ?><span class="w3-badge w3-yellow">New</span><?php } ?> Contact School </div>
+					<div class="huge"><span class="w3-badge w3-red">
+					<?php if ($total_contact > 0) 
+					{
+						echo $total_contact;
+					} else
+					?>
+					</span>
+					
+					</div>
+				</div>
+			</div>
+			</div>
+			<a href="contact_school.php">
+				<div class="panel-footer">
+					<span class="pull-left"><a href="contact_school.php">View Details</a></span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+
+</div>
+<!------------------------------------------End of Search Form------------------------------------------------------->
+	 <div class="row">
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-blue">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+					
+						<i class="glyphicon glyphicon-education fa-3x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+					 <div>Total Students</div>
+						<div class="huge"><?php echo $total_students;?></div>
+					   
+					</div>
+				</div>
+			</div>
+			<a href="all_students.php">
+				<div class="panel-footer">
+					<span class="pull-left"><a href="all_students.php">View Details</a></span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-yellow">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+					   
+						<i class="fa fa-list-alt fa-3x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+					 <div> Students absent today</div>
+					   <div class="huge"><?php echo $total_abs;?></div>   
+					   
+					</div>
+				</div>
+			</div>
+			<a href="student_todays_absent.php">
+				<div class="panel-footer">
+					<span class="pull-left">View Details</span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+	
+	
+
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-blue">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+						<i class="fa fa-comments fa-3x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+					 <div>Send Bulk SMS</div>
+						
+					   
+					</div>
+				</div>
+			</div>
+			<a href="send_noti.php">
+				<div class="panel-footer">
+					<span class="pull-left">View Details</span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+	
+
+	
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-yellow">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+						<i class="fa fa-bar-chart fa-3x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+						<div>Student Attendance</div>
+					</div>
+				</div>
+			</div>
+			<a href="all_attendance.php">
+				<div class="panel-footer">
+					<span class="pull-left">View Details</span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+  </div>
+<div class="row">
+	<div class="col-lg-3 col-md-6">
+				<div class="panel panel-blue">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-3">
+								<i class="fa fa-video-camera fa-3x"></i>
+							</div>
+							<div class="col-xs-9 text-right">
+								<div>Online Class</div>
+
+
+							</div>
+						</div>
+					</div>
+					<a href="all_online_class.php">
+						<div class="panel-footer">
+							<span class="pull-left">Watch Online Class</span>
+							<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+							<div class="clearfix"></div>
+						</div>
+					</a>
+				</div>
+		</div>
+
+
+
+<?php 
+	$sql_count="select id,first_name,roll_no,present_class,class_stream,class_join,village,dob,join_date,photo_name,photo_path,photo_type from students where DATE_FORMAT(dob,'%m-%d')='".$today_md."' and academic_year='".$cur_academic_year."'";
+	$result_count=mysqli_query($conn,$sql_count);
+	$total_students=mysqli_num_rows($result_count);
+	?>
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-blue">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+						<i class="fa fa-birthday-cake fa-3x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+					 <div>Todays Birthday's</div>
+					   
+					   <div class="huge"><?php echo $total_students;?></div>  
+					</div>
+				</div>
+			</div>
+			<a href="birthday_details.php">
+				<div class="panel-footer">
+					<span class="pull-left">View Details</span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+
+
+
+	
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-red">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+						<i class="fa fa-calendar fa-3x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+						<div>Timetable</div>
+						
+						
+					</div>
+				</div>
+			</div>
+			<a href="shw_timetable.php">
+				<div class="panel-footer">
+					<span class="pull-left">View Details</span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-yellow">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+						<i class="fa fa-calendar fa-3x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+						<div>Exam Timetable</div>
+						
+						
+					</div>
+				</div>
+			</div>
+			<a href="shw_exam_timetable.php">
+				<div class="panel-footer">
+					<span class="pull-left">View Details</span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+	
+</div>
+<!-- /.row -->
+
+
+
+ </div>
+
+</div>
+</div>
+</div>
+
+
+  
+
+<?php
+ 
+///--------------------------------Starts of Birthday SMS ------------------------------------------------------/////
+$sql_sch = "SELECT * FROM school_det ORDER BY ID DESC LIMIT 1";
+	$result_sch=mysqli_query($conn,$sql_sch);
+	if($row_sch=mysqli_fetch_array($result_sch,MYSQLI_ASSOC))
+	{
+		$sch_name=$row_sch["sch_name"];
+	}
+$sql_status="select dob_date,status from birthday_status where academic_year='".$cur_academic_year."' ORDER BY ID DESC LIMIT 1";
+$result_status=mysqli_query($conn,$sql_status);
+if($row_status=mysqli_fetch_array($result_status,MYSQLI_ASSOC))
+	{
+		$dob_date=$row_status["dob_date"];
+		$status=$row_status["status"];
+	}
+	
+	$today=date('Y-m-d');
+	if(($dob_date != $today)||($status != 'sent'))
+	{
+	$today_md=date('m-d');
+	$sql_dob="select first_name,parent_contact,dob from students where DATE_FORMAT(dob,'%m-%d')='".$today_md."' and academic_year='".$cur_academic_year."'";
+	
+	$result_dob=mysqli_query($conn,$sql_dob);
+	foreach($result_dob as $row_dob){
+	$dob_name=$row_dob["first_name"];
+	$dob=$row_dob["dob"];
+	$mob_number=$row_dob["parent_contact"];
+	$username ="ma.musthafa6@gmail.com";
+	$password ="ajmal524";
+	$approved_senderid="PROMOTIONAL";
+	$message="Dear ".$dob_name.", Wish you a many many happy returns of the day. May God bless you with health, wealth and prosperity in your life-".$sch_name;
+	
+	$enc_msg= rawurlencode($message); // Encoded message
+	$fullapiurl="http://smsc.biz/httpapi/send?username=$username&password=$password&sender_id=$approved_senderid&route=P&phonenumber=$mob_number&message=$enc_msg";
+	$ch = curl_init($fullapiurl);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	$result = curl_exec($ch); 
+	curl_close($ch);
+}
+		
+	$sql_insert="insert into birthday_status (dob_date,status,academic_year) values('$today','sent','$cur_academic_year')";
+	$conn->query($sql_insert); 	 
+	}
+///--------------------------------End of Birthday SMS ------------------------------------------------------/////
+	require("footer.php");
+	}
+	else
+	{
+	header("Location:login.php");
+	}
+	
+
+?>
